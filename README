@@ -1,0 +1,3 @@
+Running the render script requires:
+1) a python environment with dependencies listed in requirements.txt
+2) a pdflatex compiler with ucs, extsizes, and Polish localization support

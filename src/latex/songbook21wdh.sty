@@ -1,0 +1,174 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{songbook21wdh}[2003/10/11 v0.92 Songbook style]
+\typeout{Document Subclass: songbook21wdh 2003/10/11 v0.92 Songbook style}
+
+\RequirePackage{conditionals}
+\RequirePackage{ifthen}
+
+\newcommand{\theSongTitle}{}
+\newcommand{\theSongLyricist}{}
+\newcommand{\theSongComposer}{}
+\newcommand{\theSongArtist}{}
+
+\newcounter{VerseCnt}
+\newcounter{SongCnt}
+
+\newboolean{PrintChordsOn}
+\newboolean{PrintChordsBehind}
+
+\newcommand{\ChBassFont}{\normalsize\bf\sf}     % = cmss12 at 12.0pt
+\newcommand{\SBChordRaise}       {2.25ex}
+\newcommand{\ChFontOn}{\scriptsize\fontfamily{\sfdefault}
+  \fontseries{sbc}\fontshape{n}\selectfont}     %=cmssbc12 at 14.4pt
+\newcommand{\ChFontBh}{\fontfamily{\sfdefault}
+  \fontseries{sbc}\fontshape{n}\selectfont}     %=cmssbc12 at 14.4pt
+\newcommand{\ChBkFont}{\ChFont\fontseries{m}
+  \selectfont}                                  % =cmssm12 at 14.4pt
+
+\newcommand{\bis}{\vrule}
+\newcommand{\bisl}[1]{\vrule\ x#1}
+
+\def\sbChord#1{%
+  \ifx#1\relax%
+    \let\next=\relax%
+  \else%
+    \ifx#1##% double sharp because we're inside a \def
+      $\sharp$%
+    \else%
+      \ifx#1b%
+        $\flat$%
+      \else%
+        \ifx#1/%
+          \ChBassFont /%
+        \else%
+          \ifx#1[%
+            \bgroup\ChBkFont [\egroup%
+          \else%
+            \ifx#1]%
+              \bgroup\ChBkFont ]\egroup%
+            \else%
+              #1%
+            \fi%
+          \fi%
+        \fi%
+      \fi%
+    \fi%
+    \let\next=\sbChord%
+  \fi%
+  \next%
+}
+
+\newcommand{\ChI}[1]{%
+ \ChFontBh #1\ %
+}
+
+\newcommand{\Ch}[2]{%
+   \ifthenelse{\boolean{PrintChordsOn}}{%
+    \setbox1=\hbox{\ChFontOn\sbChord{#1}\relax\strut}%
+    \setbox0=\hbox{#2}%
+    \ifdim\wd1<\wd0%
+      \strut\raise\SBChordRaise\copy1\kern-\wd1\copy0%
+    \else%
+      \strut\copy0\kern-\wd0\strut\raise\SBChordRaise\copy1%
+    \fi%
+  }{#2}%
+ }%
+
+\newcommand{\ChordsBehind}[1]{
+   \ifthenelse{\boolean{PrintChordsBehind}}{
+     \if\blank{#1}{}\else{%\hskip 0.1cm 
+     \ChFontBh #1}\fi
+   }{
+   }
+}
+
+
+\newcommand{\AAndCAndA}[3]{%
+   \vbox{%
+   \begin{flushleft}%
+   \small%
+       \if\blank{#1}{}\else{\textbf{Słowa:}\ #1 \\}\fi%
+       \if\blank{#2}{}\else{\textbf{Muzyka:}\ #2 \\}\fi%
+       \if\blank{#3}{}\else{\textbf{Wykonawca:}\ #3 \\}\fi%
+   \end{flushleft}%\\
+   }%
+}
+
+\newcommand{\STitle}[1]{%
+   \vbox{%
+   \begin{center}%
+    {\LARGE{\theSongCnt{}.\ {\bf #1}}\\}%
+   \end{center}    %
+  }%
+  }
+
+\newenvironment{song}[4]{
+  \clearpage 
+  \fancyhead[LE]{#1}
+  \fancyhead[RO]{#1}
+  \setcounter{VerseCnt}{0}
+  \renewcommand{\theSongTitle}{#1}
+  \renewcommand{\theSongLyricist}{#2}
+  \renewcommand{\theSongComposer}{#3}
+  \renewcommand{\theSongArtist}{#4}
+
+  \addtocounter{SongCnt}{1}
+  \addcontentsline{toc}{section}{\hspace{-1.5em}#1}
+  \STitle{\theSongTitle}
+  \AAndCAndA{#2}{#3}{#4}
+  }{\vfill}
+
+\newcommand{\row}[5][M]{
+% #1:
+%     "F"  <=> (first line of verse (or chorus))
+%     "FS" <=> (first special)number and indent the verse or "Ch:" the chorus
+%     "L"  <=> (last line) don't try to nobreakline.
+%     "M"  <=> middleline
+%     "S"  <=> singleline   
+% #2: "C"  <=> chorus
+%     "V"  <=> verse
+%     "I"  <=> instrumental 
+% #3: row_text
+% #4: bis_text
+% #5: chords
+%----------------------------------------------------------
+      \ifthenelse{\equal{#1}{L}}{\vspace{3 ex}}{}%
+      \ifthenelse{\equal{#1}{S}}{\vspace{3 ex}}{}%
+%      
+      \ifthenelse{\equal{#1}{FS}}%
+        { \ifthenelse{\equal{#2}{C}}%
+           {Ref.:}%
+           {\ifthenelse{\equal{#2}{V}}{%
+            \addtocounter{VerseCnt}{1}%
+            \theVerseCnt{}.%
+        }{}%
+           }%
+        }{}%
+%
+    \ifthenelse{\equal{#1}{S}}%
+        { \ifthenelse{\equal{#2}{C}}%
+           {Ref:}%
+           {\ifthenelse{\equal{#2}{V}}{%
+            \addtocounter{VerseCnt}{1}%
+            \theVerseCnt{}.%
+        }{}%
+           }%
+        }{} %
+        & %--------------------------------------------
+        \ifthenelse{\equal{#2}{C}}%
+           {\hskip 0.75 cm}%
+           {}%
+        #3 & %-----------------------------------------
+        \if\blank{#4}{}\else{% \hskip{1cm}
+          #4}\fi%
+        & %-----------------------------------------
+         \ChordsBehind{#5}%
+        %---------------------------------------
+        \ifthenelse{\equal{#1}{L}}%
+           {\\}%
+           {        \ifthenelse{\equal{#1}{S}}%
+           {\\}%
+           {\\*}}%
+
+}{}
+
