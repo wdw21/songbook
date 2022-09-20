@@ -13,11 +13,11 @@
 				<ch a="F"/><ch a="C"/><ch a="F"/><ch a="C"/><ch a="G"/><ch a="C"/><ch a="G"/></row>
 		</block>
 		<block type="verse">
-			<row important_over="true"> D<ch a="C"/>o mnie tu przyjdź i<ch a="e"/> słuchaj pieśni</row>
-			<row important_over="true"> Złoż<ch a="a"/>onej z tęsknot, marzeń w<ch a="F"/>yobr<ch a="G"/>aźni</row>
+			<row important_over="true">D<ch a="C"/>o mnie tu przyjdź i<ch a="e"/> słuchaj pieśni</row>
+			<row important_over="true">Złoż<ch a="a"/>onej z tęsknot, marzeń w<ch a="F"/>yobr<ch a="G"/>aźni</row>
 			<row important_over="true">
 				<ch a="C"/>A jeśli chcesz t<ch a="e"/>o zabrzmi głośniej</row>
-			<row important_over="true"> T<ch a="F"/>y dodasz do niej miłość sw<ch a="G"/>ą</row>
+			<row important_over="true">T<ch a="F"/>y dodasz do niej miłość sw<ch a="G"/>ą</row>
 		</block>
 		<block type="chorus">
 			<row important_over="true"><ch a="C"/> Miły mój w d<ch a="d"/>eszczu do mnie biegł</row>
@@ -34,11 +34,11 @@
 				<ch a="F"/><ch a="C"/><ch a="F"/><ch a="C"/><ch a="G"/><ch a="C"/><ch a="G"/></row>
 		</block>
 		<block type="verse">
-			<row important_over="false"> T<ch a="C"/>a wielka noc gd<ch a="e"/>y pierwszy strach</row>
+			<row important_over="false">T<ch a="C"/>a wielka noc gd<ch a="e"/>y pierwszy strach</row>
 			<row important_over="false">
 				<ch a="a"/>Trzymał ciała nasze n<ch a="F"/>a odległość r<ch a="G"/>amion</row>
-			<row important_over="false"> D<ch a="C"/>awno już dziś zsz<ch a="e"/>arzała zbladła</row>
-			<row important_over="false"> Wc<ch a="F"/>hodzimy razem w jasny dzi<ch a="G"/>eń</row>
+			<row important_over="false">D<ch a="C"/>awno już dziś zsz<ch a="e"/>arzała zbladła</row>
+			<row important_over="false">Wc<ch a="F"/>hodzimy razem w jasny dzi<ch a="G"/>eń</row>
 		</block>
 		<blocklink blocknb="3"/>
 		<block type="other">
@@ -46,10 +46,10 @@
 				<ch a="F"/><ch a="C"/><ch a="F"/><ch a="C"/><ch a="G"/><ch a="C"/><ch a="G"/></row>
 		</block>
 		<block type="verse">
-			<row important_over="false"> G<ch a="C"/>dy miły mój z<ch a="e"/>gubi drogę</row>
+			<row important_over="false">G<ch a="C"/>dy miły mój z<ch a="e"/>gubi drogę</row>
 			<row important_over="false"><ch a="a"/> I mówi do mnie -- daj mi r<ch a="F"/>ękę m<ch a="G"/>iła</row>
 			<row important_over="false"><ch a="C"/> Nie trzeba już n<ch a="e"/>ic więcej mówić</row>
-			<row important_over="false"> Dzi<ch a="F"/>elimy każdy śmiech i łz<ch a="G"/>y</row>
+			<row important_over="false">Dzi<ch a="F"/>elimy każdy śmiech i łz<ch a="G"/>y</row>
 		</block>
 		<blocklink blocknb="3"/>
 		<block type="verse">

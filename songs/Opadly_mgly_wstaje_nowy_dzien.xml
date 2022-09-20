@@ -9,16 +9,16 @@
 	<original_title></original_title>
 	<lyric xmlns="http://21wdh.staszic.waw.pl">
 		<block type="verse">
-			<row important_over="false"> Opadły mgł<ch a="G"/>y i miasto ze sn<ch a="C"/>u się budzi</row>
-			<row important_over="false"> G<ch a="G"/>órą czmycha już n<ch a="D"/>oc</row>
-			<row important_over="false"> Ktoś tam <ch a="G"/>cicho czeka by kt<ch a="C"/>oś powrócił</row>
-			<row important_over="false"> Do gw<ch a="G"/>iazd jest bliżej ni<ch a="D"/>ż k<ch a="D7"/>rok</row>
-			<row important_over="false"> Pies się w<ch a="G"/>łóczy popod m<ch a="C"/>urami bezdomny</row>
-			<row important_over="false"> Niesie <ch a="G"/>się tęsknota <ch a="D"/>czyjaś na świata cztery <ch a="G"/>strony</row>
+			<row important_over="false">Opadły mgł<ch a="G"/>y i miasto ze sn<ch a="C"/>u się budzi</row>
+			<row important_over="false">G<ch a="G"/>órą czmycha już n<ch a="D"/>oc</row>
+			<row important_over="false">Ktoś tam <ch a="G"/>cicho czeka by kt<ch a="C"/>oś powrócił</row>
+			<row important_over="false">Do gw<ch a="G"/>iazd jest bliżej ni<ch a="D"/>ż k<ch a="D7"/>rok</row>
+			<row important_over="false">Pies się w<ch a="G"/>łóczy popod m<ch a="C"/>urami bezdomny</row>
+			<row important_over="false">Niesie <ch a="G"/>się tęsknota <ch a="D"/>czyjaś na świata cztery <ch a="G"/>strony</row>
 		</block>
 		<block type="chorus">
 			<bis times="2">
-				<row important_over="false"> A Ziemia t<ch a="G"/>oczy toczy swój <ch a="C"/>garb uroczy</row>
+				<row important_over="false">A Ziemia t<ch a="G"/>oczy toczy swój <ch a="C"/>garb uroczy</row>
 				<row important_over="false"><ch a="G"/>Toczy toczy się l<ch a="D"/>os</row>
 			</bis>
 			<row important_over="false"><ch a="G"/>Ty co płaczesz ażeby śmiać mógł się ktoś<ch a="C"/></row>

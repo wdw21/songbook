@@ -9,17 +9,17 @@
 	<original_title></original_title>
 	<lyric xmlns="http://21wdh.staszic.waw.pl">
 		<block type="verse">
-			<row important_over="false"> W osypanych śnieżnym puchem<ch a="h"/><ch a="cis"/><ch a="fis"/></row>
-			<row important_over="false"> Koleinach leśnych dróg<ch a="D7+"/><ch a="E"/><ch a="A7+"/></row>
-			<row important_over="false"> Wznieca wiatr nagłym podmuchem<ch a="D7+"/><ch a="cis"/></row>
-			<row important_over="false"> Burze lśniących bielą smug.<ch a="D7+"/><ch a="cis"/><ch a="fis"/></row>
+			<row important_over="false">W osypanych śnieżnym puchem<ch a="h"/><ch a="cis"/><ch a="fis"/></row>
+			<row important_over="false">Koleinach leśnych dróg<ch a="D7+"/><ch a="E"/><ch a="A7+"/></row>
+			<row important_over="false">Wznieca wiatr nagłym podmuchem<ch a="D7+"/><ch a="cis"/></row>
+			<row important_over="false">Burze lśniących bielą smug.<ch a="D7+"/><ch a="cis"/><ch a="fis"/></row>
 		</block>
 		<block type="verse">
-			<row important_over="false"> Świt przejrzysty, wklęty w ciszę,<ch a="h"/><ch a="cis"/><ch a="fis"/></row>
-			<row important_over="false"> Zatopiony w śnieżną jaśń,<ch a="D7+"/><ch a="E"/><ch a="A7+"/></row>
-			<row important_over="false"> Blaskiem słońca w brzozach pisze<ch a="D7+"/><ch a="cis"/></row>
+			<row important_over="false">Świt przejrzysty, wklęty w ciszę,<ch a="h"/><ch a="cis"/><ch a="fis"/></row>
+			<row important_over="false">Zatopiony w śnieżną jaśń,<ch a="D7+"/><ch a="E"/><ch a="A7+"/></row>
+			<row important_over="false">Blaskiem słońca w brzozach pisze<ch a="D7+"/><ch a="cis"/></row>
 			<bis times="2">
-				<row important_over="false"> Oszronioną, mroźną baśń.<ch a="D7+"/><ch a="cis"/><ch a="E"/><ch a="fis"/><ch a="Fis"/></row>
+				<row important_over="false">Oszronioną, mroźną baśń.<ch a="D7+"/><ch a="cis"/><ch a="E"/><ch a="fis"/><ch a="Fis"/></row>
 			</bis>
 		</block>
 		<block type="verse">

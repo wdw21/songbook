@@ -3,7 +3,7 @@
   <artist>Wolna Grupa Bukowina</artist>
   <comment/>
   <lyric>
-    <block type="other">    <bis>  <row style="instr">   <ch a="E"/>        <ch a="A2"/>        <ch a="E"/>        <ch a="A2"/>        <ch a="E"/>        <ch a="A2"/>        <ch a="E"/>        <ch a="A2"/>      </row>    </bis></block>
+    <block type="other">    <bis>  <row style="instr">  <ch a="E"/>        <ch a="A2"/>        <ch a="E"/>        <ch a="A2"/>        <ch a="E"/>        <ch a="A2"/>        <ch a="E"/>        <ch a="A2"/>      </row>    </bis></block>
     <block type="verse">
       <row>Wsłuchany w twą cichą piosenkę<ch a="E"/><ch a="A2"/><ch a="E"/><ch a="A2"/></row>
       <row>Wyszedłem na brzeg pierwszy raz<ch a="E"/><ch a="A2"/><ch a="gis"/><ch a="gis7"/></row>
@@ -15,7 +15,7 @@
       <row>Wiedziałaś gdzie stopy znużone prowadzić<ch a="A"/><ch a="gis"/><ch a="cis"/></row>
       <row>Gdy sił już było brak. Brak...<ch a="A"/><ch a="gis"/><ch a="fis7"/><ch a="H7"/></row>
     </block>
-    <block type="other">      <row style="instr">   <ch a="E"/>        <ch a="A2"/>        <ch a="E"/>        <ch a="A2"/>        <ch a="E"/>        <ch a="A2"/>        <ch a="E"/>        <ch a="A2"/>      </row>    </block>
+    <block type="other">      <row style="instr">  <ch a="E"/>        <ch a="A2"/>        <ch a="E"/>        <ch a="A2"/>        <ch a="E"/>        <ch a="A2"/>        <ch a="E"/>        <ch a="A2"/>      </row>    </block>
     <block type="verse">
       <row>Wieże miast, łuny świateł</row>
       <row>Ich oczy zszarzałe nie raz</row>

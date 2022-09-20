@@ -9,14 +9,14 @@
 	<original_title></original_title>
 	<lyric xmlns="http://21wdh.staszic.waw.pl">
 		<block type="verse">
-			<row important_over="false"> Gdziekolwiek będziesz, cokolwiek się stanie<ch a="e"/></row>
-			<row important_over="false"> Będą miejsca w książkach i miejsca przy stole<ch a="D"/></row>
-			<row important_over="false"> Kasztan kiedy kwitnie lub owoc otwiera<ch a="C"/></row>
-			<row important_over="false"> Będą drzewa, ulice, ktoś nagle zawoła<ch a="h"/></row>
-			<row important_over="false"> Ktoś do drzwi zapuka, pamięć przyniesie</row>
-			<row important_over="false"> Z kwiatem, z godziną, z kolorem</row>
-			<row important_over="false"> Gdziekolwiek będziesz, cokolwiek się stanie</row>
-			<row important_over="false"> Gdziekolwiek będziesz</row>
+			<row important_over="false">Gdziekolwiek będziesz, cokolwiek się stanie<ch a="e"/></row>
+			<row important_over="false">Będą miejsca w książkach i miejsca przy stole<ch a="D"/></row>
+			<row important_over="false">Kasztan kiedy kwitnie lub owoc otwiera<ch a="C"/></row>
+			<row important_over="false">Będą drzewa, ulice, ktoś nagle zawoła<ch a="h"/></row>
+			<row important_over="false">Ktoś do drzwi zapuka, pamięć przyniesie</row>
+			<row important_over="false">Z kwiatem, z godziną, z kolorem</row>
+			<row important_over="false">Gdziekolwiek będziesz, cokolwiek się stanie</row>
+			<row important_over="false">Gdziekolwiek będziesz</row>
 		</block>
 		<block type="verse">
 			<row important_over="false">Gdziekolwiek będziesz, cokolwiek się stanie</row>

@@ -3,7 +3,7 @@
   <artist>Wolna Grupa Bukowina</artist>
   <lyric>
     <block type="other">
-      <row style="instr">        <ch a="G"/>   <ch a="D"/>        <ch a="A"/>        <ch a="G"/>        <ch a="D"/>      </row>
+      <row style="instr">       <ch a="G"/>   <ch a="D"/>        <ch a="A"/>        <ch a="G"/>        <ch a="D"/>      </row>
     </block>
     <block type="verse">
       <row><ch a="D"/>Chleba takiego jak t<ch a="A"/>en od Cześka</row>
@@ -16,11 +16,11 @@
       <row>M<ch a="D"/>ówił: nad chleby ten ch<ch a="A"/>leb od Cz<ch a="D"/>eśka</row>
     </block>
     <block type="chorus">
-      <row> ch<ch a="C"/>leb się chl<ch a="G"/>ebie chl<ch a="e"/>eb się chl<ch a="a"/>ebie</row>
+      <row>ch<ch a="C"/>leb się chl<ch a="G"/>ebie chl<ch a="e"/>eb się chl<ch a="a"/>ebie</row>
       <row><ch a="C"/>bo nad chl<ch a="h"/>eb być może <ch a="e"/>co!</row>
-      <row> ch<ch a="C"/>leb się chl<ch a="G"/>ebie chl<ch a="e"/>eb się chl<ch a="a"/>ebie</row>
-      <row> n<ch a="C"/>iech ci nigdy nie zabraknie</row>
-      <row> d<ch a="D"/>rożdży w<ch a="A"/>ody r<ch a="e"/>ąk i zi<ch a="h"/>arna (m<ch a="G"/>ruc<ch a="D"/>zał C<ch a="A"/>zesiek <ch a="G"/>tak noc w<ch a="D"/> noc)</row>
+      <row>ch<ch a="C"/>leb się chl<ch a="G"/>ebie chl<ch a="e"/>eb się chl<ch a="a"/>ebie</row>
+      <row>n<ch a="C"/>iech ci nigdy nie zabraknie</row>
+      <row>d<ch a="D"/>rożdży w<ch a="A"/>ody r<ch a="e"/>ąk i zi<ch a="h"/>arna (m<ch a="G"/>ruc<ch a="D"/>zał C<ch a="A"/>zesiek <ch a="G"/>tak noc w<ch a="D"/> noc)</row>
     </block>
     <block type="verse">
       <row>A o porankach chlebem pachnących</row>
