@@ -19,7 +19,7 @@
         <ch a="D"/>
         <ch a="C"/>
         <ch a="D"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="true"><ch a="e"/> Dawno już w mieście drw<ch a="a"/>ił z niego każdy</row>
@@ -50,7 +50,7 @@
         <ch a="D"/>
         <ch a="C"/>
         <ch a="D"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="e"/> Gdy malował świat m<ch a="a"/>ilkł jak zaklęty</row>
@@ -74,7 +74,7 @@
         <ch a="D"/>
         <ch a="C"/>
         <ch a="D"/>
-      </row>
+     </row>
     </block>
   </lyric>
   <music metre="">

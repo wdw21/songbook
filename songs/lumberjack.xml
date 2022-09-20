@@ -9,13 +9,13 @@
 	<original_title></original_title>
 	<lyric xmlns="http://21wdh.staszic.waw.pl">
 		<block type="other">
-			<row important_over="false">Lumberjack: </row>
-			<row important_over="false">I never wanted to be in such a shambledy sketch. </row>
-			<row important_over="false">I always wanted to be...a lumberjack! </row>
+			<row important_over="false">Lumberjack:</row>
+			<row important_over="false">I never wanted to be in such a shambledy sketch.</row>
+			<row important_over="false">I always wanted to be...a lumberjack!</row>
 			<row important_over="false">Leaping from tree to tree...</row>
-			<row important_over="false">as they float down the mighty rivers of British Columbia! </row>
+			<row important_over="false">as they float down the mighty rivers of British Columbia!</row>
 			<row important_over="false">The larch...the redwood...the mighty sequioa...</row>
-			<row important_over="false">with my best girl by my side! </row>
+			<row important_over="false">with my best girl by my side!</row>
 			<row important_over="false">The giant deadwood, the spruce...</row>
 			<row important_over="false">the little Californian root tree! We'd sing, sing, sing!</row>
 		</block>
@@ -26,7 +26,7 @@
 		</block>
 		<block type="chorus">
 			<row important_over="false">Choir and Girl :</row>
-			<row important_over="false">He's a lumberjack and he's OK, </row>
+			<row important_over="false">He's a lumberjack and he's OK,</row>
 			<row important_over="false">he sleeps all night and he works all day.</row>
 		</block>
 		<block type="verse">
@@ -62,7 +62,7 @@
 			<row important_over="false">I sleep all night and I work all day .</row>
 			<row important_over="false"></row>
 			<row important_over="false">Choir and Girl :</row>
-			<row important_over="false">He's a lumberjack and he's OK, </row>
+			<row important_over="false">He's a lumberjack and he's OK,</row>
 			<row important_over="false">he sleeps all night and he works all day.</row>
 		</block>
 		<block type="verse">

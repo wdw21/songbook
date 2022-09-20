@@ -22,7 +22,7 @@
         <ch a="a"/>
         <ch a="E"/>
         <ch a="E7"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false">Asfalt p<ch a="a"/>achnie świeżym deszczem</row>
@@ -38,7 +38,7 @@
         <ch a="a"/>
         <ch a="E"/>
         <ch a="E7"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false">Pani l<ch a="a"/>ekkich obyczajów</row>
@@ -54,7 +54,7 @@
         <ch a="a"/>
         <ch a="E"/>
         <ch a="E7"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false">Docent z chł<ch a="a"/>opskim pochodzeniem</row>
@@ -70,7 +70,7 @@
         <ch a="a"/>
         <ch a="E"/>
         <ch a="E7"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false">Dyplom<ch a="a"/>atę sen rozbudził</row>
@@ -86,7 +86,7 @@
         <ch a="a"/>
         <ch a="E"/>
         <ch a="E7"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false">A chłopak<ch a="a"/>i z braku zdarzeń</row>
@@ -102,7 +102,7 @@
         <ch a="a"/>
         <ch a="E"/>
         <ch a="E7"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false">A po dr<ch a="a"/>odze mkną górnicy</row>
@@ -118,7 +118,7 @@
         <ch a="a"/>
         <ch a="E"/>
         <ch a="E7"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false">A na st<ch a="a"/>acji benzynowej</row>
@@ -134,7 +134,7 @@
         <ch a="a"/>
         <ch a="E"/>
         <ch a="E7"/>
-      </row>
+     </row>
     </block>
   </lyric>
   <music metre="">

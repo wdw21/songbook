@@ -61,7 +61,7 @@
           <ch a="F"/>
           <ch a="d"/>
           <ch a="e7"/>
-        </row>
+       </row>
       </block>    
     <block type="verse">
       <row important_over="false">Cóż m<ch a="a7"/>am ci powiedzieć</row>
@@ -98,7 +98,7 @@
         <ch a="a7"/>
         <ch a="h7"/>
         <ch a="G"/>
-      </row>
+     </row>
     </block>
     <block type="chorus">
       <row important_over="true">Z poważ<ch a="F"/>aniem</row>

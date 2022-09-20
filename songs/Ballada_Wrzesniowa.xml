@@ -9,23 +9,23 @@
 	<original_title></original_title>
 	<lyric xmlns="http://21wdh.staszic.waw.pl">
 		<block type="verse">
-			<row important_over="true">Dł<ch a="e"/>ugośmy na ten dzień czekali </row>
-			<row important_over="true"><ch a="a"/> Z nadzieją niecierpliwą w duszy, </row>
-			<row important_over="true">Ki<ch a="Fis7"/>edy bez stów Towarzysz Stalin </row>
-			<row important_over="true"><ch a="H"/> Na mapie fajką strz<ch a="H7"/>ałki ruszy. </row>
+			<row important_over="true">Dł<ch a="e"/>ugośmy na ten dzień czekali</row>
+			<row important_over="true"><ch a="a"/> Z nadzieją niecierpliwą w duszy,</row>
+			<row important_over="true">Ki<ch a="Fis7"/>edy bez stów Towarzysz Stalin</row>
+			<row important_over="true"><ch a="H"/> Na mapie fajką strz<ch a="H7"/>ałki ruszy.</row>
 		</block>
 		<block type="verse">
-			<row important_over="false">Krz<ch a="e"/>yk jeden pomknął wzdłuż granicy, </row>
-			<row important_over="false"><ch a="a"/> I zanim zmilkł zagrzmiały działa. </row>
-			<row important_over="false"><ch a="Fis7"/> To w bój z szybkością nawałnicy </row>
+			<row important_over="false">Krz<ch a="e"/>yk jeden pomknął wzdłuż granicy,</row>
+			<row important_over="false"><ch a="a"/> I zanim zmilkł zagrzmiały działa.</row>
+			<row important_over="false"><ch a="Fis7"/> To w bój z szybkością nawałnicy</row>
 			<row important_over="false"><ch a="H"/> Armia Czerwona w<ch a="H7"/>yruszała.</row>
 		</block>
 		<block type="verse">
 			<row important_over="true">
-				<ch a="e"/>A cóż to za historia nowa? </row>
-			<row important_over="true"><ch a="G"/> Zdumiona spyta Europa, </row>
+				<ch a="e"/>A cóż to za historia nowa?</row>
+			<row important_over="true"><ch a="G"/> Zdumiona spyta Europa,</row>
 			<bis times="2">
-				<row important_over="true">J<ch a="a"/>ak to? To chłopcy M<ch a="e"/>ołotowa </row>
+				<row important_over="true">J<ch a="a"/>ak to? To chłopcy M<ch a="e"/>ołotowa</row>
 				<row important_over="true"><ch a="H" p="1"/> I sojuszn<ch a="H7"/>icy R<ch a="e"/>ibbentr<ch a="E7"/>oppa.</row>
 			</bis>
 		</block>

@@ -11,7 +11,7 @@
 	<lyric xmlns="http://21wdh.staszic.waw.pl">
 		<block type="verse">
 			<bis times="2">
-				<row important_over="true"><ch a="a"/> Lalalala l<ch a="G"/>alalalala,<ch a="e"/> lalalala l<ch a="a"/>alalala,<ch a="d"/> lalala,<ch a="C"/> lalala,<ch a="G"/> lalala </row>
+				<row important_over="true"><ch a="a"/> Lalalala l<ch a="G"/>alalalala,<ch a="e"/> lalalala l<ch a="a"/>alalala,<ch a="d"/> lalala,<ch a="C"/> lalala,<ch a="G"/> lalala</row>
 			</bis>
 		</block>
 		<block type="verse">

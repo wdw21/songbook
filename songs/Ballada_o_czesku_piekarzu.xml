@@ -3,7 +3,7 @@
   <artist>Wolna Grupa Bukowina</artist>
   <lyric>
     <block type="other">
-      <row style="instr">       <ch a="G"/>   <ch a="D"/>        <ch a="A"/>        <ch a="G"/>        <ch a="D"/>      </row>
+      <row style="instr">       <ch a="G"/>   <ch a="D"/>        <ch a="A"/>        <ch a="G"/>        <ch a="D"/>     </row>
     </block>
     <block type="verse">
       <row><ch a="D"/>Chleba takiego jak t<ch a="A"/>en od Cześka</row>
