@@ -1,0 +1,162 @@
+'''Tworzy piosenki w htmlu'''
+import os
+from lxml import etree
+import src.html.read_song_xml as rsx
+
+
+def _add_chunk(chunk, parent):
+    """class chunk -> html span chunk"""
+    span_chunk = etree.SubElement(parent, "span", attrib={"class": "chunk"})
+    akord = etree.SubElement(span_chunk, "span", attrib={"class": "akord"})
+    span_ch = etree.SubElement(akord, "span", attrib={"class": "ch"})
+    span_ch.text = chunk.chord
+    span_content = etree.SubElement(span_chunk, "span", attrib={"class": "content"})
+    span_content.text = chunk.content
+
+
+def _add_lyric(row, parent):
+    """class lyric -> html span lyric"""
+    span_lyric = etree.SubElement(parent, "span", attrib={"class": "lyric"})
+    for chunk in row.chunks:
+        _add_chunk(chunk, span_lyric)
+
+
+def _add_chords(row, parent):
+    """class chords -> html span ch"""
+    span_chords = etree.SubElement(parent, "span", attrib={"class": "chords"})
+    for chunk in row.chunks:
+        if len(chunk.chord) > 0:
+            span_ch = etree.SubElement(span_chords, "span", attrib={"class": "ch"})
+            span_ch.text = chunk.chord
+
+
+def _add_row(row, parent):
+    """class row -> html div row with content"""
+    if (row.new_chords == 0) or (row.new_chords is False):
+        chords_over = "over_false"
+    else:
+        chords_over = "over_true"
+    div_row = etree.SubElement(parent, "div", attrib={"class": "row " + chords_over})
+    div_row.text = u'\u200d'
+    _add_lyric(row, div_row)
+    if str(type(row.bis)) == "<class \'bool\'>" and row.bis is True:
+        etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
+    elif str(type(row.bis)) == "<class \'int\'>":
+        span_bis = etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
+        span_bis.text = 'x' + str(row.bis)
+    else:
+        etree.SubElement(div_row, "span", attrib={"class": "bis_inactive"})
+    _add_chords(row, div_row)
+
+
+def _add_verse(block, parent, block_type):
+    """class verse -> html div verse/chorus/other with content"""
+    div_verse = etree.SubElement(parent, "div", attrib={"class": block_type})
+    for ro in block.rows:
+        _add_row(ro, div_verse)
+
+
+def _add_creator(creator, describe, parent):
+    """class creator -> html div creator # metadane piosenki"""
+    div = etree.SubElement(parent, "div", attrib={"class": "creator"})
+    span_label = etree.SubElement(div, "span", attrib={"class": "label"})
+    span_label.text = describe
+    span_content = etree.SubElement(div, "span", attrib={"class": "content_creator"})
+    span_content.text = creator
+
+
+def _add_blocks(song, parent):
+    """class song -> html div body # blok z metadanymi o piosence i piosenką"""
+    body_song = etree.SubElement(parent, "body", attrib={"class": "song"})
+    h1_title = etree.SubElement(body_song, "h1", attrib={"class": "title"})
+    h1_title.text = song.title
+    if song.original_title:
+        _add_creator(song.original_title, "Tytuł oryginalny: ", body_song)
+    if song.alias:
+        _add_creator(song.alias, "Tytuł alternatywny: ", body_song)
+    if song.text_author:
+        _add_creator(song.text_author, "Słowa: ", body_song)
+    if song.translator:
+        _add_creator(song.translator, "Tłumaczenie: ", body_song)
+    if song.composer:
+        _add_creator(song.composer, "Muzyka: ", body_song)
+    if song.music_source:
+        _add_creator(song.music_source, "Melodia oparta na: ", body_song)
+    if song.artist:
+        _add_creator(song.artist, "Wykonawca: ", body_song)
+    if song.album:
+        _add_creator(song.album, "Album: ", body_song)
+    if song.metre:
+        _add_creator(song.metre, "Metrum: ", body_song)
+    if song.barre and int(song.barre) > 0:
+        _add_creator(song.barre, "Kapodaster: ", body_song)
+    for block in song.blocks:
+        if block.block_type.value == 'V':
+            b_type = "verse"
+        elif block.block_type.value == 'C':
+            b_type = "chorus"
+        else:
+            b_type = "other"
+        _add_verse(block, body_song, b_type)
+    if song.comment:
+        div = etree.SubElement(body_song, "div", attrib={"class": "comment"})
+        span_content = etree.SubElement(div, "span", attrib={"class": "comment"})
+        span_content.text = song.comment
+
+
+def xml2html(src_xml_path, path_out):  # tworzy piosenkę w wersji html
+
+    XHTML_NAMESPACE = "http://www.w3.org/1999/xhtml"
+    XHTML = "{%s}" % XHTML_NAMESPACE
+    NSMAP = {None: XHTML_NAMESPACE}
+
+    song = rsx.parse_song_xml(src_xml_path)
+    root_html = etree.Element(XHTML + "html", nsmap=NSMAP)
+    head = etree.SubElement(root_html, "head")
+    etree.SubElement(head, "link",
+                     attrib={"rel": "stylesheet", "type": "text/css", "href": "CSS/song.css", "media": "screen"})
+    _add_blocks(song, root_html)
+    et = etree.ElementTree(root_html)
+    et.write(path_out, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
+
+
+def create_list_of_songs(song_set):
+    """ dostaje jako argument listę piosenek lub ścieżkę do katalogu i zwraca listę piosenek """
+    if str(type(song_set)) == "<class 'list'>":
+        for i in range(len(song_set)):
+            if song_set[i][-4:] == '.xml':
+                song_set[i] = song_set[i][0:-4]
+        return song_set
+    else:
+        songs_list = os.listdir(song_set)
+        for i in range(len(songs_list)):
+            if songs_list[i][-4:] == '.xml':
+                songs_list[i] = songs_list[i][0:-4]
+        return songs_list
+
+
+def create_all_songs_html(list_of_songs, path_in, path_out):
+    """tworzy wszystkie piosenki z listy w formacie html w katalogu path_out"""
+    list_of_songs = create_list_of_songs(list_of_songs)
+    for song in list_of_songs:
+        xml2html(os.path.join(path_in, song + '.xml'), os.path.join(path_out, song + '.html'))
+
+# def main():
+#     path = os.path.join("..", "..", "songs")
+#     path_out = os.path.join("..", "..", "epub", "OEBPS")
+#     path_out1 = os.path.join("..", "..", "songs_html")
+#     create_all_songs_html(create_list_of_songs(path), path, path_out)
+#     create_all_songs_html(create_list_of_songs(path), path, path_out1)
+#
+#
+# if __name__ == "__main__":
+#     main()
+
+
+# to test
+# def main():
+#     xml2html("Amsterdam")
+#
+#
+# if __name__ == "__main__":
+#     main()
