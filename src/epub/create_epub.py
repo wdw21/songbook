@@ -9,7 +9,7 @@ from datetime import datetime
 import src.html.create_songs_html as cash
 
 
-class Song_meta:
+class SongMeta:
     def __init__(self, title='', alias='', plik=''):
         self.title = title if title else ''
         self.alias = alias if alias else ''
@@ -20,19 +20,20 @@ class Song_meta:
 
     @staticmethod
     def parseDOM(root, plik):
-        get_text = lambda elem: elem.text if elem is not None else None
-        return Song_meta(
+        def elementTextOrNone(elem):
+            return elem.text if elem is not None else None
+        return SongMeta(
             title=root.get('title'),
-            alias=get_text(root.find('{*}alias')),
+            alias=elementTextOrNone(root.find('{*}alias')),
             plik=plik
         )
 
 
-def add_song(PATH, list):
-    tree = etree.parse("../../songs/" + PATH + ".xml")
-    plik = PATH + ".xml"
-    song = Song_meta.parseDOM(tree.getroot(), plik)
-    list.append(song)
+def add_song(path, lista):
+    tree = etree.parse("../../songs/" + path + ".xml")
+    plik = path + ".xml"
+    song = SongMeta.parseDOM(tree.getroot(), plik)
+    lista.append(song)
 
 
 def list_of_song(path_out):
@@ -40,8 +41,8 @@ def list_of_song(path_out):
     list_od_meta = []
     for song in songs_list:
         if song[-5:] == '.html':
-            PATH = song[0:-5]
-            add_song(PATH, list_od_meta)
+            path = song[0:-5]
+            add_song(path, list_od_meta)
     list_od_meta.sort(key=lambda x: x.title)
     return list_od_meta
 
@@ -155,7 +156,7 @@ def main():
     src = os.path.join("..", "..", "songs")  # gdzie są wszystkie piosenki
     target_dir = os.path.join("..", "..", "build")  # gdzie ma utworzyć epub
     src_of_songs = os.path.join("..", "..", "songs")
-    # które piosenki chcę zawrzeć w śpiewniku(może być katalogiem z plikami xml lub listą plików)
+    # które piosenki chcę zawrzeć w śpiewniku (może być katalogiem z plikami xml lub listą plików)
     create_full_epub(src_of_songs, src, target_dir)
     package_epub(target_dir)
 

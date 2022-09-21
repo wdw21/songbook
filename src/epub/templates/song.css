@@ -27,30 +27,12 @@ span.lyric span.akord {
   hyphens: none;
 }
 
-span.lyric span.akord span.ch{
+span.lyric span.akord span.ch {
 
   width: 75px;
   overflow-wrap: normal;
   font-weight: bold;
 }
-
-/*span.lyric div.ch {
-  display: inline-block;
-  position: relative;
-  left: 0px;
-  top: -1.3em;
-  font-size: xx-small;
-  width:0px;
-  padding-top:0.9em;
-  font-weight: bolder;
-  overflow-wrap: normal;
-  hyphens: none;
-}
-
-span.lyric div.ch span.ch{
-  font-weight: bolder;
-  overflow-wrap: normal;
-}*/
 
 div.over_false span.lyric span.ch {
   display: none;
@@ -58,9 +40,9 @@ div.over_false span.lyric span.ch {
 
 span.ch {
   font-family: sans-serif;
-
 }
-span.content_creator{
+
+span.content_creator {
   margin-top: 0.2em;
   font-style: italic;
   font-weight: bold;
@@ -74,11 +56,9 @@ div.row > span.lyric > span > span {
     white-space: normal;
 }
 
-
 span.chords > span.ch {
   margin-left: 0.6em;
 }
-
 
 div.verse {
   display: table;
@@ -93,13 +73,13 @@ div.chorus {
   align-items: stretch;
   margin-top: 1.2em;
 }
+
 div.other {
   display: table;
    width: 100%;
   align-items: stretch;
   margin-top: 1.2em;
 }
-
 
 div.row {
   display: table-row;
@@ -109,7 +89,6 @@ div.row > span.lyric {
   display: table-cell;
   padding-right: 2em;
   width: 85%;
-
 }
 
 div.row > span.chords {
@@ -118,7 +97,6 @@ div.row > span.chords {
   padding-left: 1em;
   justify-content: left;
   width: max-content;
-/*   width: 30%; */
 }
 
 div.row > span.bis_inactive {
@@ -128,7 +106,7 @@ div.row > span.bis_inactive {
 
 div.row > span.bis_active {
   display: table-cell;
-  align-items: end; /* vertical */
+  align-items: end;
   padding-left: 0.4em;
   border-left: solid;
   empty-cells: show;
@@ -140,111 +118,3 @@ div.comment {
   margin-top: 1.2em;
   font-style: italic;
 }
-
-
-
-/*span.lyric span.ch {
-  display: inline-block;
-  position: relative;
-  left: 0px;
-  top: -1.3em;
-  font-size: xx-small;
-  width:0px;
-  padding-top:0.9em;
-  font-weight: bolder;
-  overflow-wrap: normal;
-  hyphens: none;
-}
-
-/*span.lyric div.ch {
-  display: inline-block;
-  position: relative;
-  left: 0px;
-  top: -1.3em;
-  font-size: xx-small;
-  width:0px;
-  padding-top:0.9em;
-  font-weight: bolder;
-  overflow-wrap: normal;
-  hyphens: none;
-}
-
-span.lyric div.ch span.ch{
-  font-weight: bolder;
-  overflow-wrap: normal;
-}*/
-/*
-div.over_false span.lyric span.ch {
-  display: none;
-}
-
-span.ch {
-  font-family: sans-serif;
-}
-
-div.row > span.lyric > span {
-    white-space: nowrap;
-}
-
-div.row > span.lyric > span > span {
-    white-space: normal;
-}
-
-
-span.chords > span.ch {
-  margin-left: 0.6em;
-}
-
-
-div.verse {
-  display: table;
-   width: 100%; 
-  align-items: stretch;
-  margin-top: 1.2em;
-}
-
-div.chorus {
-  display: table;
-   width: 100%;
-  align-items: stretch;
-  margin-top: 1.2em;
-}
-
-div.row {
-  display: table-row;
-}
-
-div.row > span.lyric {
-  display: table-cell;
-  padding-right: 2em;
-}
-
-
-div.row > span.chords {
-  display: table-cell;
-  align-items: end;
-  padding-left: 1em;
-  justify-content: left;
-/*   width: 30%; */
-
-/*
-}
-div.row > span.bis_inactive {
-  display: table-cell;
-  empty-cells: show;
-}
-
-div.row > span.bis_active {
-  display: table-cell; 
-  align-items: end; /* vertical */
-/*  padding-left: 0.4em;
-  border-left: solid;
-  empty-cells: show;
-  max-width: 10em; 
-}
-
-div.comment {
-  margin-top: 1.2em;
-  font-style: italic;
-}
-*/
