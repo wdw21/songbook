@@ -30,6 +30,18 @@ def _add_chords(row, parent):
             span_ch.text = chunk.chord
 
 
+def _add_bis(row, div_row):
+    if str(type(row.bis)) == "<class \'bool\'>" and row.bis is True:
+        span_bis = etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
+        span_bis.text = '  '
+    elif str(type(row.bis)) == "<class \'int\'>":
+        span_bis = etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
+        span_bis.text = 'x' + str(row.bis)
+    else:
+        span_unbis =etree.SubElement(div_row, "span", attrib={"class": "bis_inactive"})
+        span_unbis.text = '   '
+
+
 def _add_row(row, parent):
     """class row -> html div row with content"""
     if (row.new_chords == 0) or (row.new_chords is False):
@@ -39,19 +51,23 @@ def _add_row(row, parent):
     div_row = etree.SubElement(parent, "div", attrib={"class": "row " + chords_over})
     div_row.text = u'\u200d'
     _add_lyric(row, div_row)
-    if str(type(row.bis)) == "<class \'bool\'>" and row.bis is True:
-        etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
-    elif str(type(row.bis)) == "<class \'int\'>":
-        span_bis = etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
-        span_bis.text = 'x' + str(row.bis)
-    else:
-        etree.SubElement(div_row, "span", attrib={"class": "bis_inactive"})
+    _add_bis(row, div_row)
     _add_chords(row, div_row)
+    # if str(type(row.bis)) == "<class \'bool\'>" and row.bis is True:
+    #     etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
+    # elif str(type(row.bis)) == "<class \'int\'>":
+    #     span_bis = etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
+    #     span_bis.text = 'x' + str(row.bis)
+    # else:
+    #     etree.SubElement(div_row, "span", attrib={"class": "bis_inactive"})
+
+
 
 def _add_instrumental_row(row, parent):
     """class row instrumental-> html div row with content"""
     div_row = etree.SubElement(parent, "div", attrib={"class": "row"})
     _add_chords(row, div_row)
+
 
 def _add_verse(block, parent, block_type):
     """class verse -> html div verse/chorus/other with content"""

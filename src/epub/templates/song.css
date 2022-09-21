@@ -88,7 +88,7 @@ div.row {
 div.row > span.lyric {
   display: table-cell;
   padding-right: 2em;
-  width: 85%;
+  width: auto;
 }
 
 div.row > span.chords {
@@ -101,7 +101,10 @@ div.row > span.chords {
 
 div.row > span.bis_inactive {
   display: table-cell;
+  align-items: end;
+  padding-left: 0.4em;
   empty-cells: show;
+  max-width: 10em;
 }
 
 div.row > span.bis_active {
@@ -111,7 +114,6 @@ div.row > span.bis_active {
   border-left: solid;
   empty-cells: show;
   max-width: 10em;
-  width: 5%
 }
 
 div.comment {
