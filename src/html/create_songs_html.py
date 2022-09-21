@@ -141,22 +141,12 @@ def create_all_songs_html(list_of_songs, path_in, path_out):
     for song in list_of_songs:
         xml2html(os.path.join(path_in, song + '.xml'), os.path.join(path_out, song + '.html'))
 
-# def main():
-#     path = os.path.join("..", "..", "songs")
-#     path_out = os.path.join("..", "..", "epub", "OEBPS")
-#     path_out1 = os.path.join("..", "..", "songs_html")
-#     create_all_songs_html(create_list_of_songs(path), path, path_out)
-#     create_all_songs_html(create_list_of_songs(path), path, path_out1)
-#
-#
-# if __name__ == "__main__":
-#     main()
-
-
 # to test
 # def main():
 #     xml2html("Amsterdam")
-#
+#     path = os.path.join("..", "..", "songs")
+#     path_out = os.path.join("..", "..", "songs_html")
+#     create_all_songs_html(create_list_of_songs(path), path, path_out)
 #
 # if __name__ == "__main__":
 #     main()
