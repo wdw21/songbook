@@ -6,7 +6,7 @@ span.lyric span.ch {
   display: inline-block;
   position: relative;
   left: 0px;
-  top: -1.3em;
+  top: -1.4em;
   font-size: xx-small;
   width:0px;
   padding-top:0.9em;
@@ -88,7 +88,12 @@ div.row {
 div.row > span.lyric {
   display: table-cell;
   padding-right: 2em;
-  width: auto;
+  width: 85%;
+}
+div.row > span.chords_ins {
+  display: table-cell;
+  padding-right: 2em;
+  width: 85%;
 }
 
 div.row > span.chords {

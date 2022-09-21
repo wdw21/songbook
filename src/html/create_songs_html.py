@@ -21,9 +21,9 @@ def _add_lyric(row, parent):
         _add_chunk(chunk, span_lyric)
 
 
-def _add_chords(row, parent):
+def _add_chords(row, parent, class_name):
     """class chords -> html span ch"""
-    span_chords = etree.SubElement(parent, "span", attrib={"class": "chords"})
+    span_chords = etree.SubElement(parent, "span", attrib={"class": class_name})
     for chunk in row.chunks:
         if len(chunk.chord) > 0:
             span_ch = etree.SubElement(span_chords, "span", attrib={"class": "ch"})
@@ -38,7 +38,7 @@ def _add_bis(row, div_row):
         span_bis = etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
         span_bis.text = 'x' + str(row.bis)
     else:
-        span_unbis =etree.SubElement(div_row, "span", attrib={"class": "bis_inactive"})
+        span_unbis = etree.SubElement(div_row, "span", attrib={"class": "bis_inactive"})
         span_unbis.text = '   '
 
 
@@ -51,22 +51,33 @@ def _add_row(row, parent):
     div_row = etree.SubElement(parent, "div", attrib={"class": "row " + chords_over})
     div_row.text = u'\u200d'
     _add_lyric(row, div_row)
-    _add_bis(row, div_row)
-    _add_chords(row, div_row)
-    # if str(type(row.bis)) == "<class \'bool\'>" and row.bis is True:
-    #     etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
-    # elif str(type(row.bis)) == "<class \'int\'>":
-    #     span_bis = etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
-    #     span_bis.text = 'x' + str(row.bis)
-    # else:
-    #     etree.SubElement(div_row, "span", attrib={"class": "bis_inactive"})
-
+    if str(type(row.bis)) == "<class \'bool\'>" and row.bis is True:
+        span_bis = etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
+        span_bis.text = '  '
+    elif str(type(row.bis)) == "<class \'int\'>":
+        span_bis = etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
+        span_bis.text = 'x' + str(row.bis)
+    else:
+        span_unbis = etree.SubElement(div_row, "span", attrib={"class": "bis_inactive"})
+        span_unbis.text = '   '
+    _add_chords(row, div_row, "chords")
 
 
 def _add_instrumental_row(row, parent):
     """class row instrumental-> html div row with content"""
     div_row = etree.SubElement(parent, "div", attrib={"class": "row"})
-    _add_chords(row, div_row)
+    if str(type(row.bis)) == "<class \'bool\'>" and row.bis is True:
+        _add_chords(row, div_row, "chords_ins")
+        span_bis = etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
+        span_bis.text = '  '
+    elif str(type(row.bis)) == "<class \'int\'>":
+        _add_chords(row, div_row, "chords_ins")
+        span_bis = etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
+        span_bis.text = 'x' + str(row.bis)
+    else:
+        _add_chords(row, div_row, "chords_ins")
+        span_unbis = etree.SubElement(div_row, "span", attrib={"class": "bis_inactive"})
+        span_unbis.text = '   '
 
 
 def _add_verse(block, parent, block_type):
