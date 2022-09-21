@@ -1,3 +1,5 @@
-.idea
 npmtmp/
 ._*
+.DS_Store
+.idea/
+*.epub
