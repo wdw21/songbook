@@ -4,21 +4,26 @@ from lxml import etree
 import src.html.read_song_xml as rsx
 
 
-def _add_chunk(chunk, parent):
+def _add_chunk(chunk, parent, position):
     """class chunk -> html span chunk"""
     span_chunk = etree.SubElement(parent, "span", attrib={"class": "chunk"})
     akord = etree.SubElement(span_chunk, "span", attrib={"class": "akord"})
     span_ch = etree.SubElement(akord, "span", attrib={"class": "ch"})
     span_ch.text = chunk.chord
     span_content = etree.SubElement(span_chunk, "span", attrib={"class": "content"})
-    span_content.text = chunk.content
-
+    if position == 0:
+        if chunk.content.startswith(' '):
+            span_content.text = chunk.content
+        else:
+            span_content.text = ' '+chunk.content
+    else:
+        span_content.text = chunk.content
 
 def _add_lyric(row, parent):
     """class lyric -> html span lyric"""
     span_lyric = etree.SubElement(parent, "span", attrib={"class": "lyric"})
-    for chunk in row.chunks:
-        _add_chunk(chunk, span_lyric)
+    for i, chunk in enumerate(row.chunks):
+        _add_chunk(chunk, span_lyric, i)
 
 
 def _add_chords(row, parent, class_name):
