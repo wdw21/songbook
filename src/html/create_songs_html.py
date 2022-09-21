@@ -48,12 +48,19 @@ def _add_row(row, parent):
         etree.SubElement(div_row, "span", attrib={"class": "bis_inactive"})
     _add_chords(row, div_row)
 
+def _add_instrumental_row(row, parent):
+    """class row instrumental-> html div row with content"""
+    div_row = etree.SubElement(parent, "div", attrib={"class": "row"})
+    _add_chords(row, div_row)
 
 def _add_verse(block, parent, block_type):
     """class verse -> html div verse/chorus/other with content"""
     div_verse = etree.SubElement(parent, "div", attrib={"class": block_type})
     for ro in block.rows:
-        _add_row(ro, div_verse)
+        if block_type == "other":
+            _add_instrumental_row(ro, div_verse)
+        else:
+            _add_row(ro, div_verse)
 
 
 def _add_creator(creator, describe, parent):
