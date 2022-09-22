@@ -32,7 +32,7 @@
         <ch a="--"/>
         <ch a="G"/>
         <ch a="C"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="C"/>Coś srebrnego dzieje się w chmur dali<ch a="e"/><ch a="F"/><ch a="C"/></row>
@@ -70,7 +70,7 @@
         <ch a="--"/>
         <ch a="G"/>
         <ch a="C"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="C"/>Czemóż ono w mroku szuka treści<ch a="e"/><ch a="F"/><ch a="C"/></row>
@@ -102,7 +102,7 @@
         <ch a="--"/>
         <ch a="G"/>
         <ch a="C"/>
-      </row>
+     </row>
     </block>
   </lyric>
   <music metre="">

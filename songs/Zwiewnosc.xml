@@ -18,7 +18,7 @@
         <ch a="G"/>
         <ch a="F"/>
         <ch a="E7"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="a"/>Brzęk muchy w pustym dzbanie, co stoi na półce</row>
@@ -51,7 +51,7 @@
         <ch a="G"/>
         <ch a="F"/>
         <ch a="E7"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="a"/>Chód po ziemi człowieka, co na widnokresie,</row>

@@ -22,7 +22,7 @@
         <ch a="D"/>
         <ch a="C"/>
         <ch a="D"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="G"/>Obróciła się wiosna na pięcie<ch a="D"/><ch a="G"/></row>
@@ -84,7 +84,7 @@
         <ch a="C"/>
         <ch a="e"/>
         <ch a="a"/>
-      </row>
+     </row>
       <row important_over="false"><ch a="G"/>I gryzie kminek czarny przecinek dnia<ch a="D"/><ch a="G"/></row>
       <row important_over="false" style="instr">
         <ch a="G"/>
@@ -93,7 +93,7 @@
         <ch a="C"/>
         <ch a="D"/>
         <ch a="G"/>
-      </row>
+     </row>
     </block>
   </lyric>
   <music metre="">

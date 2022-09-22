@@ -3,19 +3,19 @@
 	<artist type="solo">Monthy Python</artist>
 	<lyric xmlns="http://21wdh.staszic.waw.pl">
 		<block type="verse">
-			<row important_over="false"> Some <ch a="a"/>things in life are <ch a="D"/>bad they can <ch a="G"/>really make you <ch a="e"/>mad</row>
+			<row important_over="false">Some <ch a="a"/>things in life are <ch a="D"/>bad they can <ch a="G"/>really make you <ch a="e"/>mad</row>
 			<row important_over="false">Other things just make you swear and curse</row>
-			<row important_over="false"> When you've chewing a life's gristle Don't grumble give a whistle</row>
+			<row important_over="false">When you've chewing a life's gristle Don't grumble give a whistle</row>
 			<row important_over="false">And this'll help things turn out for the best</row>
 		</block>
 		<block type="chorus">
 			<row important_over="false">And always look on the bright side of life</row>
-			<row important_over="false"> Alw<ch a="G"/>ays <ch a="e"/>look on the <ch a="a"/>light <ch a="D7"/>side of <ch a="G"/>life<ch a="e"/><ch a="a"/><ch a="D7"/></row>
+			<row important_over="false">Alw<ch a="G"/>ays <ch a="e"/>look on the <ch a="a"/>light <ch a="D7"/>side of <ch a="G"/>life<ch a="e"/><ch a="a"/><ch a="D7"/></row>
 		</block>
 		<block type="verse">
 			<row important_over="false">If life seems jolly rotten there's something you've forgotten</row>
 			<row important_over="false">and that's to laugh and smile and dance and sing.</row>
-			<row important_over="false"> When you're feeling in the dumps don't be silly chumps</row>
+			<row important_over="false">When you're feeling in the dumps don't be silly chumps</row>
 			<row important_over="false">Just purse your lips and whistle - that's the thing</row>
 		</block>
 		<block type="chorus">
@@ -33,8 +33,8 @@
 			<row important_over="false">just before you draw your terminal breath</row>
 		</block>
 		<block type="verse">
-			<row important_over="false"> Life's a pice of shit when you look at it</row>
-			<row important_over="false"> Life's a laugh and death's a joke that's true</row>
+			<row important_over="false">Life's a pice of shit when you look at it</row>
+			<row important_over="false">Life's a laugh and death's a joke that's true</row>
 			<row important_over="false">You'll see it's all a show keep'em laughing as you go</row>
 			<row important_over="false">just remember that the last laugh is on you</row>
 		</block>

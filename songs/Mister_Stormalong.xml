@@ -14,7 +14,7 @@
         <ch a="A"/>
         <ch a="d"/>
         <ch a="A7"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="d"/>Nie żyje stary Stormy już<ch a="A7"/><ch a="d"/></row>
@@ -26,7 +26,7 @@
       <row important_over="false">
         <ch a="d"/>
         <ch a="A7"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="d"/>Najlepszy ze wszystkich szyprów był<ch a="A7"/><ch a="d"/></row>
@@ -87,7 +87,7 @@
         <ch a="d"/>
         <ch a="A"/>
         <ch a="d"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="d"/>Hej umarł Stormy dzielny chwat<ch a="A7"/><ch a="d"/></row>
@@ -106,7 +106,7 @@
         <ch a="d"/>
         <ch a="A7"/>
         <ch a="d"/>
-      </row>
+     </row>
     </block>
   </lyric>
   <music metre="">

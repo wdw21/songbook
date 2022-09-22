@@ -13,7 +13,7 @@
 			<row important_over="true"><ch a="C"/> A słowa same jak m<ch a="d"/>otyle<ch a="B7"/> sfruwają z warg i lecą w mr<ch a="E"/>ok.</row>
 			<row important_over="true"><ch a="a"/> Któż namm gorącą piosnkę prz<ch a="d"/>ysłał,<ch a="G7"/> choć ziąb i rzeką płynie kr<ch a="C"/>a?<ch a="E"/></row>
 			<bis times="2">
-				<row important_over="true"> Nadziei <ch a="d"/>amatorski z<ch a="a"/>espół,<ch a="E"/> co pod batutą serca gr<ch a="a"/>a.</row>
+				<row important_over="true">Nadziei <ch a="d"/>amatorski z<ch a="a"/>espół,<ch a="E"/> co pod batutą serca gr<ch a="a"/>a.</row>
 			</bis>
 		</block>
 		<block type="verse">
@@ -21,7 +21,7 @@
 			<row important_over="false"><ch a="C"/> Zacinał ostro w nasze tw<ch a="d"/>arze<ch a="B7"/> i w karki bezlitośnie tł<ch a="E"/>ukł.</row>
 			<row important_over="false"><ch a="a"/> Kiedy ochrypną już dow<ch a="d"/>ódcy,<ch a="G7"/> kto u żołnierzy posłuch m<ch a="C"/>a?<ch a="E"/></row>
 			<bis times="2">
-				<row important_over="false"> Nadziei <ch a="d"/>amatorski z<ch a="a"/>espół,<ch a="E"/> co pod batutą serca gr<ch a="a"/>a!</row>
+				<row important_over="false">Nadziei <ch a="d"/>amatorski z<ch a="a"/>espół,<ch a="E"/> co pod batutą serca gr<ch a="a"/>a!</row>
 			</bis>
 		</block>
 		<block type="verse">
@@ -29,7 +29,7 @@
 			<row important_over="false"><ch a="C"/> Flecista drutem flet obwi<ch a="d"/>ązał,<ch a="B7"/> lecz każdy pręży się jak l<ch a="E"/>ew!</row>
 			<row important_over="false"><ch a="a"/> Łatany strój, instrument ki<ch a="d"/>epski,<ch a="G7"/> ale najwięcej zbiera br<ch a="C"/>aw<ch a="E"/></row>
 			<bis times="2">
-				<row important_over="false"> Nadziei <ch a="d"/>amatorski z<ch a="a"/>espół,<ch a="E"/> co pod batutą serca gr<ch a="a"/>a!</row>
+				<row important_over="false">Nadziei <ch a="d"/>amatorski z<ch a="a"/>espół,<ch a="E"/> co pod batutą serca gr<ch a="a"/>a!</row>
 			</bis>
 		</block>
 	</lyric>

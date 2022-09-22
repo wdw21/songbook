@@ -9,11 +9,11 @@
 	<original_title></original_title>
 	<lyric xmlns="http://21wdh.staszic.waw.pl">
 		<block type="verse">
-			<row important_over="false"> W znoju słońca mozolnie razem z ciszą dzwoni<ch a="G"/><ch a="D"/><ch a="e"/><ch a="C"/><ch a="D"/></row>
-			<row important_over="false"> Rozgrzanych płotów chrust.<ch a="B"/><ch a="F"/><ch a="CD"/></row>
-			<row important_over="false"> Pocałunek sam siebie składa mi na skroni,<ch a="e"/><ch a="D"/></row>
+			<row important_over="false">W znoju słońca mozolnie razem z ciszą dzwoni<ch a="G"/><ch a="D"/><ch a="e"/><ch a="C"/><ch a="D"/></row>
+			<row important_over="false">Rozgrzanych płotów chrust.<ch a="B"/><ch a="F"/><ch a="CD"/></row>
+			<row important_over="false">Pocałunek sam siebie składa mi na skroni,<ch a="e"/><ch a="D"/></row>
 			<bis times="2">
-				<row important_over="false"> Sam - bez pomocy ust...<ch a="G" p="1"/><ch a="D" p="2"/><ch a="C"/><ch a="B"/><ch a="C" p="1"/><ch a="G" p="2"/></row>
+				<row important_over="false">Sam - bez pomocy ust...<ch a="G" p="1"/><ch a="D" p="2"/><ch a="C"/><ch a="B"/><ch a="C" p="1"/><ch a="G" p="2"/></row>
 			</bis>
 		</block>
 		<block type="verse">
