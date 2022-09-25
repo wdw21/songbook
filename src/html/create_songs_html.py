@@ -15,9 +15,10 @@ def _add_chunk(chunk, parent, position):
         if chunk.content.startswith(' '):
             span_content.text = chunk.content
         else:
-            span_content.text = ' '+chunk.content
+            span_content.text = ' ' + chunk.content
     else:
         span_content.text = chunk.content
+
 
 def _add_lyric(row, parent):
     """class lyric -> html span lyric"""
