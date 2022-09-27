@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <link rel="stylesheet" type="text/css" href="song.css" media="screen"/>
+  </head>
+  <body class="song">
+    <h1 class="title">Pejzaże harasymowiczowskie</h1>
+<script>
+  function isEditingChord() {
+    //console.warn(window.getSelection().getRangeAt(0));
+    let r = window.getSelection().getRangeAt(0);
+    console.warn(r);
+    return r.startContainer.parentNode.className == 'ch'
+      //|| ((r.startOffset == r.startContainer.length - 1) && r.startContainer.nextSibling.className == 'akord');
+  }
+
+  function insertChord(x) {
+    if (!isEditingChord()) {
+      akord = document.createElement("span");
+      akord.className = 'akord';
+      ch = document.createElement("span");
+      ch.className = 'ch';
+      ch.innerText = x;
+      ch.contentEditable = 'true';
+      ch.beforeinput = onBeforeInputCh;
+      akord.appendChild(ch);
+
+      if (window.getSelection().rangeCount > 0) {
+        window.getSelection().getRangeAt(0).insertNode(akord);
+        window.getSelection().removeAllRanges()
+        let r=document.createRange();
+        r.setStart(ch.childNodes[0],0);
+        r.setEndAfter(ch.childNodes[0]);
+        window.getSelection().addRange(r);
+        akord.focus();
+      }
+    }
+  }
+
+  function onBeforeInputCh(event) {
+    console.log("ON BEFORE");
+    console.log(event);
+    if (event.inputType=='insertParagraph' || event.inputType=='down') {
+      if(isEditingChord()) {
+        console.log("Enter in chord");
+        let r = window.getSelection().getRangeAt(0);
+        let ch =  r.startContainer.parentNode;
+        event.preventDefault();
+        // If the sibling node is accord as well - it moves us to the accord
+        //window.getSelection().setPosition(window.getSelection().getRangeAt(0).startContainer.parentNode.parentNode);
+
+
+        const range = document.createRange();
+        // console.log("Next sibling");
+        // console.log(window.getSelection().getRangeAt(0).startContainer.parentNode.parentNode.nextSibling);
+        // range.selectNode(window.getSelection().getRangeAt(0).startContainer.parentNode.parentNode.nextSibling);
+        // range.collapse(true)
+        ns=ch.parentNode;
+        console.log("ns");
+        console.log(ns);
+        //range.setStart(ns.nextSibling, 1);
+     //   range.setStartAfter(ns);
+       // range.set(ns);
+        console.log(range);
+
+        while(true) {
+          if (ns.nextSibling == null) {
+            txt = document.createTextNode("_")
+            ns.parentNode.appendChild(txt)
+            range.setStartBefore(txt);
+            range.setEndAfter(txt);
+            console.log(range);
+            break;
+          }
+          ns = ns.nextSibling;
+          if (ns.length > 0) {
+            range.setStart(ns, 1)
+            break;
+          }
+        }
+
+
+        //   range.setStart()
+        // } else if (ns.length > 0) {
+        //   range.setStart(ns, 1)
+        // } else {
+        //   range.setStartAfter(ns)
+        // }
+       // range.setStartBefore(window.getSelection().getRangeAt(0).startContainer.parentNode.parentNode.nextSibling);
+        window.getSelection().removeAllRanges()
+        window.getSelection().addRange(range);
+        //window.getSelection().collapse(null, 1);
+      }
+    }
+  }
+
+  function onKeyDownLyric(event) {
+   if (event.key=='`') {
+     event.preventDefault();
+     insertChord("_");
+   }
+   // event.preventDefault();
+    console.log('down: event');
+    console.log(event)
+  }
+
+  function  onDblclickA(event) {
+    // insertChord();
+    // console.log(window.getSelection().rangeCount)
+
+    //
+    //alert('aaa');
+  }
+
+  function  onMouseDown(event) {
+    // if (event.detail > 1) {
+    //   event.preventDefault();
+    // }
+  }
+
+  function handleDragOver(e) {
+    console.log("Dragging");
+    // e.preventDefault();
+    // console.log(e);
+    //
+    // lyrics = this.parentNode.getElementsByClassName("lyric")[0];
+    // lyrics.setSelectionRange(2, 5);
+    // e.offsetX
+    // e.offsetY
+    //e.dataTransfer.dropEffect= "move";
+  }
+
+  function handleDragStart(e) {
+    console.log(e);
+    console.log(e.target.parentNode.parentNode);
+    e.target.parentNode.style.opacity = '0.8';
+    e.dataTransfer.effectAllowed = "copyMove"
+    window.getSelection().removeAllRanges();
+    r=document.createRange()
+    r.setStartBefore(e.target.parentNode.parentNode);
+    r.setEndAfter(e.target.parentNode.parentNode);
+    window.getSelection().addRange(r);
+    console.log(e.target.parentNode.parentNode.outerHTML)
+    e.dataTransfer.setData("songbook/chord", "abc"/*e.target.parentNode.parentNode.outerHTML*/)
+  //  e.preventDefault()
+  }
+
+  function handleDragEnd(e) {
+    this.style.opacity = '1';
+  }
+
+  function  handleDrop(e) {
+    console.log("Drop", e);
+    console.log("Drop", e.dataTransfer.getData("songbook/chord"));
+    insertChord(e.dataTransfer.getData("songbook/chord"));
+    e.preventDefault();
+    //e.preventDefault();
+  }
+</script>
+
+<!-- inputType : "deleteContentBackward"-->
+<!--    <div class="verse" contenteditable="true" onkeydown="onKeyDown(event)">-->
+<!--      <span class="akord"><span class="ch">G</span></span> Kiedy stałem w przedśw<span class="akord"><span class="ch">D</span></span>icie a Synaj<br/>-->
+<!--      <span class="akord"><span class="ch">B</span></span> Prawdę głosił przez tr<span class="akord"><span class="ch">e</span></span>ąby wiatru<br/>-->
+<!--      <span class="akord"><span class="ch">G</span></span> Zasmerczyły się chmury igl<span class="chunk"><span class="akord"><span class="ch">D</span></span>iwiem</span><br/>-->
+<!--      <span class="akord"><span class="ch">e</span></span> Bure świerki o g<span class="akord"><span class="ch">C</span></span>óry wsp<span class="akord"><span class="ch">D</span></span>arte-->
+<!--    </div>-->
+
+    <h2>
+Or single:
+    </h2>
+
+    <div class="verse">
+      <div contenteditable="true" onkeydown="onKeyDownLyric(event)" ondblclick="onDblclickA(event)" onmousedown="onMouseDown(event)" onbeforeinput="onBeforeInputCh(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)">
+          <span class="akord" draggable="true" style="user-select:none; user-drag:element;" ondragstart="handleDragStart(event)"><span class="ch" draggable="false">Gis</span></span>
+        Kiedy stałem w przedśw<span class="akord"><span class="ch">D</span></span>icie a Synaj</div>
+      <div contenteditable="true" onkeydown="onKeyDown"><span class="akord"><span class="ch">B</span></span> Prawdę głosił przez tr<span class="akord"><span class="ch">e</span></span>ąby wiatru</div>
+      <div contenteditable="true" onkeydown="onKeyDown"><span class="akord"><span class="ch">G</span></span> Zasmerczyły się chmury igl<span class="akord"><span class="ch">D</span></span>iwiem</div>
+      <div contenteditable="true" onkeydown="onKeyDown"><span class="akord"><span class="ch">e</span></span> Bure świerki o g<span class="akord"><span class="ch">C</span></span>óry wsp<span class="akord"><span class="ch">D</span></span>arte</div>
+    </div>
+
+  </body>
+</html>
