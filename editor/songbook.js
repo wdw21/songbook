@@ -103,6 +103,7 @@ function rowOnDrop(e) {
 
 function canInsertChord() {
   //console.warn(window.getSelection().getRangeAt(0));
+  if (window.getSelection().rangeCount < 1) {return false; }
   let r = window.getSelection().getRangeAt(0);
   console.warn(r.startContainer);
   let x =
@@ -112,13 +113,20 @@ function canInsertChord() {
   return x;
 }
 
+function insertChordHere(ch) {
+  if (canInsertChord()) {
+    let chedit = createChordEditor("");
+    window.getSelection().getRangeAt(0).insertNode(chedit);
+    chedit.childNodes[0].focus();
+    return true;
+  }
+  return  false;
+}
+
 function rowOnKeyDown(event) {
   if (event.key == '`' && canInsertChord()) {
-    event.preventDefault();
-    if (window.getSelection().rangeCount > 0) {
-      let chedit = createChordEditor("");
-      window.getSelection().getRangeAt(0).insertNode(chedit);
-      chedit.childNodes[0].focus();
+    if (insertChordHere("")) {
+      event.preventDefault();
     }
   }
 }
@@ -138,6 +146,13 @@ function createRow(row) {
     document.getSelection().addRange(range);
     e.preventDefault();
   }
+  rowp.onmousedown=function (e) {
+    if (e.detail > 1 && canInsertChord()) {
+      if (insertChordHere("")) {
+        e.preventDefault();
+      }
+    }
+  };
   rowp.spellcheck = false;
   rowp.contentEditable = 'true';
 
