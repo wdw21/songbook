@@ -1,4 +1,19 @@
 
+const predefinedChords = ["A","A2","A4","A7","A7+","A7/4","A7/6","Ais","B","C","C0","C7","C7+","C9","C9/5","Cis","Cis0","D","D2","D4","D7","D7+","Dis","E","E0","E5+","E7","E7/4","F","F0","F7","F7+","Fis","Fis0","Fis7","G","G0","G6","G7","GC","Gis","H","H6/7","H7","a","a6","a7","a7+","a7/9","ais","b","c","cis","cis7","d","d2","d6","e","e7","e9","f","fis","fis7","g","gis","gis7","h","h0","h7","h7/5-"];
+
+function predefinedChordsList() {
+  let dl = document.createElement("datalist");
+  dl.id = "predefinedChords";
+  predefinedChords.forEach(
+      (ch) => {
+         opt = document.createElement("option");
+         opt.value = ch;
+         dl.appendChild(opt);
+      }
+  );
+  return dl;
+}
+
 function getChordNode(node) {
   if (node.className=='akord') { return a.getElementsByTagName('ch')[0]; }
   while (node != null && node.className != 'ch') {
@@ -53,7 +68,8 @@ function createChord(chord) {
 
 }
 
-function getRangeForCursor(e) {
+function getRangeForCursor(e)
+{
   if (document.caretRangeFromPoint) {
     // edge, chrome, android
     range = document.caretRangeFromPoint(e.clientX, e.clientY)
@@ -65,6 +81,29 @@ function getRangeForCursor(e) {
     range.setEnd(...pos);
   }
   return range;
+}
+
+function rowOnDrop(e) {
+  d = e.dataTransfer.getData("songbook/chord");
+  if (d != null && d != "") {
+    range = getRangeForCursor(e)
+    if (range.commonAncestorContainer.parentNode.className=='row') {
+      range.insertNode(createChord(d));
+      dropped = true;
+    }
+    e.preventDefault();
+  }
+}
+
+function rowOnKeyDown(event) {
+    if (event.key=='`') {
+      event.preventDefault();
+      if (window.getSelection().rangeCount > 0) {
+        let chedit = createChordEditor("");
+        window.getSelection().getRangeAt(0).insertNode(chedit);
+        chedit.childNodes[0].focus();
+      }
+    }
 }
 
 function createRow(row) {
@@ -82,17 +121,11 @@ function createRow(row) {
     document.getSelection().addRange(range);
     e.preventDefault();
   }
-  rowp.ondrop= function (e) {
-    d = e.dataTransfer.getData("songbook/chord");
-    if (d != null && d != "") {
-      range = getRangeForCursor(e);
-      if (range.commonAncestorContainer.parentNode.className=='row') {
-        range.insertNode(createChord(d));
-        dropped = true;
-      }
-      e.preventDefault();
-    }
-  }
+  rowp.spellcheck=false;
+  rowp.contentEditable='true';
+
+  rowp.ondrop = rowOnDrop;
+  rowp.onkeydown = rowOnKeyDown;
 
   for (let i=0; i<row.childNodes.length; ++i) {
     let node = row.childNodes[i];
@@ -106,71 +139,27 @@ function createRow(row) {
   return rowp;
 }
 
-//   // p = document.createElement('p');
-//   // p.appendChild(document.createTextNode(new XMLSerializer().serializeToString(row)));
-//   // targetDiv.appendChild(p)
-//   let text = '';
-//   let chords = [];
-//   row.childNodes.forEach(function (node) {
-//         if (node.nodeName === '#text') {
-//           text += node.nodeValue;
-//         }
-//         if (node.nodeName === "ch") {
-//           chords.push({'ch': node.attributes['a'].nodeValue, 'pos': text.length})
-//         }
-//       }
-//   );
-//
-//   let chordBox = document.createElement("div")
-//   chordBox.style.height = '20px'
-//   let input = document.createElement("div");
-//   input.contentEditable = true;
-//   input.type = 'text'
-//   input.maxLength = 200;
-//   input.value = text;
-//   input.style.width = 400;
-//   input.oninput = (() => {onInput(input)});
-//   // TODO: These can be lighter ... to just check caret position.
-//   input.onfocus = (() => {onInput(input)});
-//   input.onselect = (() => {onInput(input)});
-//   input.onkeydown = (() => {onInput(input)});
-//   input.onmousedown = (() => {onInput(input)});
-//   input.onpaste = (() => {onInput(input)});
-//   input.oncut = (() => {onInput(input)});
-//   input.onmousemove = (() => {onInput(input)});
-//   input.onselectstart = (() => {onInput(input)});
-//   input.className="lyric"
-//   targetDiv.appendChild(chordBox)
-//   targetDiv.appendChild(input);
-//
-//   chordBox.style.width = input.style.width
-//   chordBox.style.background = "yellow"
-//   chordBox.ondragover = handleDragOver
-//
-//   const rect = input.getBoundingClientRect();
-//   console.log(rect)
-//
-//   for (let i = 0; i < chords.length; i++) {
-//     let p=getCaretCoordinates(input, chords[i].pos);
-//
-//     var ch = document.createElement('div');
-//     ch.id = 'bookingLayer';
-//     ch.style.position = 'absolute';
-//     ch.style.left = (rect.x + window.scrollX + p.left) + 'px';
-//     ch.style.top = (rect.y + window.scrollY + p.top - 15) + 'px';
-//     ch.innerHTML = chords[i].ch;
-//     ch.className = 'ch'
-//     ch.draggable = true;
-//     ch.ondragstart = handleDragStart
-//     ch.ondragend = handleDragEnd
-//     ch.pos = chords[i].pos
-//     targetDiv.appendChild(ch)
-//   }
-//
-//
-// //  console.log(chords);
-// }
-//
+function createChordEditor(v) {
+  akord = document.createElement("span");
+  akord.className = 'akord';
+  chedit = document.createElement("input");
+  chedit.className = "ch";
+  chedit.type = "search";
+  chedit.value = v;
+  chedit.setAttribute("list", "predefinedChords");
+  chedit.onchange = function (e) {
+    console.log(e.target.parentNode);
+    let newChord = createChord(chedit.value);
+    e.target.parentNode.parentNode.replaceChild(newChord, e.target.parentNode);
+    let r = document.createRange();
+    r.setStartAfter(newChord);
+    document.getSelection().removeAllRanges();
+    document.getSelection().addRange(r);
+  }
+  akord.appendChild(chedit);
+  return akord;
+}
+
 
 function onLoad() {
   text = '<?xml version="1.0" encoding="utf-8"?>'
@@ -184,10 +173,14 @@ function onLoad() {
   parser = new DOMParser();
   xmlDoc = parser.parseFromString(text, "text/xml");
 
+  let editor = document.getElementById("editor");
+
+  let pch = predefinedChordsList();
+  editor.appendChild(pch);
+
   let verse = xmlDoc.getRootNode().childNodes[0];
   let rows = verse.getElementsByTagName('row');
-  for (let i=0; i<rows.length; ++i)
-  {
-    document.getElementById("editor").appendChild( createRow(rows[i]));
+  for (let i=0; i<rows.length; ++i) {
+    editor.appendChild( createRow(rows[i]));
   }
 }

@@ -104,58 +104,6 @@
     console.log(event)
   }
 
-  function  onDblclickA(event) {
-    // insertChord();
-    // console.log(window.getSelection().rangeCount)
-
-    //
-    //alert('aaa');
-  }
-
-  function  onMouseDown(event) {
-    // if (event.detail > 1) {
-    //   event.preventDefault();
-    // }
-  }
-
-  function handleDragOver(e) {
-    console.log("Dragging");
-    // e.preventDefault();
-    // console.log(e);
-    //
-    // lyrics = this.parentNode.getElementsByClassName("lyric")[0];
-    // lyrics.setSelectionRange(2, 5);
-    // e.offsetX
-    // e.offsetY
-    //e.dataTransfer.dropEffect= "move";
-  }
-
-  function handleDragStart(e) {
-    console.log(e);
-    console.log(e.target.parentNode.parentNode);
-    e.target.parentNode.style.opacity = '0.8';
-    e.dataTransfer.effectAllowed = "copyMove"
-    window.getSelection().removeAllRanges();
-    r=document.createRange()
-    r.setStartBefore(e.target.parentNode.parentNode);
-    r.setEndAfter(e.target.parentNode.parentNode);
-    window.getSelection().addRange(r);
-    console.log(e.target.parentNode.parentNode.outerHTML)
-    e.dataTransfer.setData("songbook/chord", "abc"/*e.target.parentNode.parentNode.outerHTML*/)
-  //  e.preventDefault()
-  }
-
-  function handleDragEnd(e) {
-    this.style.opacity = '1';
-  }
-
-  function  handleDrop(e) {
-    console.log("Drop", e);
-    console.log("Drop", e.dataTransfer.getData("songbook/chord"));
-    insertChord(e.dataTransfer.getData("songbook/chord"));
-    e.preventDefault();
-    //e.preventDefault();
-  }
 </script>
 
 <!-- inputType : "deleteContentBackward"-->
