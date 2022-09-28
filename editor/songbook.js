@@ -131,24 +131,26 @@ function rowOnKeyDown(event) {
   }
 }
 
+function rowOnDragOver(e) {
+  console.log( e.dataTransfer.types );
+  if (e.dataTransfer.types.includes("songbook/chord")) {
+    if (e.altKey) {
+      e.dataTransfer.dropEffect = 'copy';
+    } else {
+      e.dataTransfer.dropEffect = 'move';
+    }
+    range = getRangeForCursor(e);
+    document.getSelection().removeAllRanges();
+    document.getSelection().addRange(range);
+    e.preventDefault();
+  }
+}
+
 function createRow(row) {
   rowp = document.createElement("div");
   rowp.className = 'row';
   rowp.contentEditable = true;
-  rowp.ondragover = function (e) {
-    console.log( e.dataTransfer.types );
-    if (e.dataTransfer.types.includes("songbook/chord")) {
-      if (e.altKey) {
-        e.dataTransfer.dropEffect = 'copy';
-      } else {
-        e.dataTransfer.dropEffect = 'move';
-      }
-      range = getRangeForCursor(e);
-      document.getSelection().removeAllRanges();
-      document.getSelection().addRange(range);
-      e.preventDefault();
-    }
-  }
+  rowp.ondragover = rowOnDragOver;
   rowp.onmousedown=function (e) {
     if (e.detail > 1 && canInsertChord()) {
       if (insertChordHere("")) {
@@ -183,14 +185,45 @@ function createChordEditor(v) {
   chedit.value = v;
   chedit.setAttribute("list", "predefinedChords");
   chedit.onchange = function (e) {
+    console.log("On change");
     console.log(e.target.parentNode);
-    let newChord = createChord(chedit.value);
+    let newChord = createChord(chedit.value.trim());
     e.target.parentNode.parentNode.replaceChild(newChord, e.target.parentNode);
     let r = document.createRange();
     r.setStartAfter(newChord);
     document.getSelection().removeAllRanges();
     document.getSelection().addRange(r);
   }
+  chedit.onblur = function (e) {
+    if (e.target.value.trim()=='') {
+      if (e.target.parentNode.parentNode != null) {
+        e.target.onblur=null;
+        e.target.parentNode.remove();
+      }
+    }
+  }
+  chedit.onkeydown = function (e) {
+    if (e.key =='Enter' || e.key == 'Escape' || e.key == 'Tab') {
+      if (e.target.value.trim() == '') {
+        if (e.target.parentNode.parentNode != null) {
+          e.target.onblur = null;
+          e.target.parentNode.remove();
+        }
+      }
+    }
+  }
+
+  // }
+
+  //   if (e.key=='Escape') {
+  //     let r = document.createRange();
+  //     r.setStartAfter(e.target.parentNode);
+  //     document.getSelection().removeAllRanges();
+  //     document.getSelection().addRange(r);
+  //     e.target.parentNode.remove();
+  //     e.preventDefault();
+  //   }
+  // }
   akord.appendChild(chedit);
   return akord;
 }
