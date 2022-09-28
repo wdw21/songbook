@@ -143,7 +143,7 @@ function rowOnDragOver(e) {
   }
 }
 
-function createRow(row) {
+function createLyric() {
   rowp = document.createElement("div");
   rowp.className = 'row';
   rowp.contentEditable = true;
@@ -160,15 +160,6 @@ function createRow(row) {
 
   rowp.ondrop = rowOnDrop;
   rowp.onkeydown = rowOnKeyDown;
-
-  for (let i = 0; i < row.childNodes.length; ++i) {
-    let node = row.childNodes[i];
-    if (node.nodeName == '#text') {
-      rowp.appendChild(node.cloneNode());
-    } else {
-      rowp.appendChild(createChord(node.attributes['a'].value));
-    }
-  }
 
   return rowp;
 }
@@ -225,6 +216,19 @@ function createChordEditor(v) {
   return akord;
 }
 
+function  rowToNodes(row) {
+  let nodes=[];
+  for (let i = 0; i < row.childNodes.length; ++i) {
+    let node = row.childNodes[i];
+    if (node.nodeName == '#text') {
+      nodes.push(node.cloneNode());
+    } else {
+      nodes.push(createChord(node.attributes['a'].value));
+    }
+  }
+  return nodes;
+}
+
 function onLoad() {
   text = '<?xml version="1.0" encoding="utf-8"?>'
       + '<song>'
@@ -242,9 +246,15 @@ function onLoad() {
   let pch = predefinedChordsList();
   editor.appendChild(pch);
 
+  let lyric = createLyric();
+  editor.appendChild(lyric);
+
   let verse = xmlDoc.getRootNode().childNodes[0];
   let rows = verse.getElementsByTagName('row');
   for (let i = 0; i < rows.length; ++i) {
-    editor.appendChild(createRow(rows[i]));
+    lyric.append(...rowToNodes(rows[i]));
+    lyric.append(document.createElement("br"))
   }
 }
+
+
