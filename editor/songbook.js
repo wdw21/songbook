@@ -136,15 +136,18 @@ function createRow(row) {
   rowp.className = 'row';
   rowp.contentEditable = true;
   rowp.ondragover = function (e) {
-    if (e.altKey) {
-      e.dataTransfer.dropEffect = 'copy';
-    } else {
-      e.dataTransfer.dropEffect = 'move';
+    console.log( e.dataTransfer.types );
+    if (e.dataTransfer.types.includes("songbook/chord")) {
+      if (e.altKey) {
+        e.dataTransfer.dropEffect = 'copy';
+      } else {
+        e.dataTransfer.dropEffect = 'move';
+      }
+      range = getRangeForCursor(e);
+      document.getSelection().removeAllRanges();
+      document.getSelection().addRange(range);
+      e.preventDefault();
     }
-    range = getRangeForCursor(e);
-    document.getSelection().removeAllRanges();
-    document.getSelection().addRange(range);
-    e.preventDefault();
   }
   rowp.onmousedown=function (e) {
     if (e.detail > 1 && canInsertChord()) {
