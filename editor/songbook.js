@@ -42,16 +42,8 @@ function createChord(chord) {
       a.opacity = "0.2";
       e.dataTransfer.effectAllowed = "copyMove";
       e.dataTransfer.dropEffect = "move";
-      // window.getSelection().removeAllRanges();
-      // r=document.createRange()
-      // r.setStartBefore(e.target.parentNode.parentNode);
-      // r.setEndAfter(e.target.parentNode.parentNode);
-      // window.getSelection().addRange(r);
-      // console.log(e.target.parentNode.parentNode.outerHTML)
-      console.log(e)
       e.dataTransfer.setData("songbook/chord", a.childNodes[0].nodeValue);
       e.dataTransfer.akord = a;
-      console.log(e);
       dropped = false;
     }
   }
@@ -61,10 +53,16 @@ function createChord(chord) {
       this.opacity = '1.0';
     }
     if (dropped && e.dataTransfer.dropEffect == 'move') {
-      console.log("REMOVING");
       a.parentNode.remove();
     }
     console.warn(e);
+  }
+  akord.ondblclick = function (e) {
+    let chEditor = createChordEditor(e.target.innerText);
+    e.target.parentNode.parentNode.replaceChild(
+        chEditor,
+        e.target.parentNode);
+    chEditor.childNodes[0].focus();
   }
   ch = document.createElement("span");
   ch.className = 'ch';
@@ -132,7 +130,6 @@ function rowOnKeyDown(event) {
 }
 
 function rowOnDragOver(e) {
-  console.log( e.dataTransfer.types );
   if (e.dataTransfer.types.includes("songbook/chord")) {
     if (e.altKey) {
       e.dataTransfer.dropEffect = 'copy';
