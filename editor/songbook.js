@@ -18,7 +18,8 @@ function createChord(chord) {
     a = getChordNode(e.target);
     if (a != null) {
       a.opacity = "0.2";
-      e.dataTransfer.effectAllowed = "copyMove"
+      e.dataTransfer.effectAllowed = "copyMove";
+      e.dataTransfer.dropEffect = "move";
       // window.getSelection().removeAllRanges();
       // r=document.createRange()
       // r.setStartBefore(e.target.parentNode.parentNode);
@@ -52,32 +53,42 @@ function createChord(chord) {
 
 }
 
+function getRangeForCursor(e) {
+  if (document.caretRangeFromPoint) {
+    // edge, chrome, android
+    range = document.caretRangeFromPoint(e.clientX, e.clientY)
+  } else {
+    // firefox
+    var pos = [e.rangeParent, e.rangeOffset]
+    range = document.createRange()
+    range.setStart(...pos);
+    range.setEnd(...pos);
+  }
+  return range;
+}
+
 function createRow(row) {
   rowp=document.createElement("div");
   rowp.className='row';
   rowp.contentEditable=true;
+  rowp.ondragover = function (e) {
+    if (e.altKey) {
+      e.dataTransfer.dropEffect='copy';
+    } else {
+      e.dataTransfer.dropEffect='move';
+    }
+    range = getRangeForCursor(e);
+    document.getSelection().removeAllRanges();
+    document.getSelection().addRange(range);
+    e.preventDefault();
+  }
   rowp.ondrop= function (e) {
     d = e.dataTransfer.getData("songbook/chord");
     if (d != null && d != "") {
-      if (document.caretRangeFromPoint) {
-        // edge, chrome, android
-        range = document.caretRangeFromPoint(e.clientX, e.clientY)
-      } else {
-        // firefox
-        var pos = [e.rangeParent, e.rangeOffset]
-        range = document.createRange()
-        range.setStart(...pos);
-        range.setEnd(...pos);
-      }
-      // console.log(e.dataTransfer.dropEffect);
-       console.log("DROP", e);
-
+      range = getRangeForCursor(e);
       if (range.commonAncestorContainer.parentNode.className=='row') {
         range.insertNode(createChord(d));
         dropped = true;
-        //if (!e.ctrlKey) {
-        //  e.dataTransfer.akord.remove();
-        //
       }
       e.preventDefault();
     }
