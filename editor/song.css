@@ -2,6 +2,11 @@ h1 {
   text-align: left
 }
 
+div.row {
+  white-space: pre;
+  padding-left: 0.3em;
+}
+
 span.akord {
   display: inline-block;
   position: relative;
