@@ -155,6 +155,17 @@ function createLyric() {
       }
     }
   };
+  rowp.oninput = function (e) {
+   // sanitize(e.target);
+  }
+  rowp.onbeforeinput = function (e) {
+    if (e.inputType=="insertParagraph") {
+      //document.getSelection().getRangeAt(0).insertNode(document.createElement("br"));
+      document.execCommand("insertHTML",false, '<br/> ')
+      e.preventDefault();
+    }
+    console.log("BEFORE", e);
+  }
   rowp.spellcheck = false;
   rowp.contentEditable = 'true';
 
@@ -229,7 +240,31 @@ function  rowToNodes(row) {
   return nodes;
 }
 
+function sanitize(lyric) {
+  for (let i=0; i < lyric.childNodes.length; ++i) {
+    let node = lyric.childNodes[i]
+    let parent = node.parentNode
+    if (node.nodeName=='DIV') {
+      let next = node.nextSibling;
+      for (let i = node.childNodes.length - 1; i>=0; --i) {
+        if (next) {
+          next = parent.insertBefore( node.childNodes[i], next);
+
+        } else {
+          console.log(node.childNodes[i])
+          next = parent.appendChild(node.childNodes[i]);
+        }
+      }
+      if (next) {
+        parent.insertBefore(document.createElement("br"), next);
+      }
+      node.remove();
+    }
+  }
+}
+
 function onLoad() {
+  //document.execCommand('defaultParagraphSeparator', false, 'br');
   text = '<?xml version="1.0" encoding="utf-8"?>'
       + '<song>'
       + '      <row important_over="false"><ch a="G"/> Kiedy stał<ch a="Gis"/>em w przedśw<ch a="D"/>icie a Synaj</row>'
