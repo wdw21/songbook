@@ -6,6 +6,7 @@ const predefinedChords = ["A", "A2", "A4", "A7", "A7+", "A7/4", "A7/6", "Ais",
   "d6", "e", "e7", "e9", "f", "fis", "fis7", "g", "gis", "gis7", "h", "h0",
   "h7", "h7/5-"];
 
+
 function predefinedChordsList() {
   let dl = document.createElement("datalist");
   dl.id = "predefinedChords";
@@ -159,12 +160,49 @@ function createLyric() {
    // sanitize(e.target);
   }
   rowp.onbeforeinput = function (e) {
-    if (e.inputType=="insertParagraph") {
+    if (e.inputType == "insertParagraph") {
       //document.getSelection().getRangeAt(0).insertNode(document.createElement("br"));
-      document.execCommand("insertHTML",false, '<br/> ')
+      if (document.getSelection().isCollapsed
+          && document.getSelection().rangeCount == 1
+          && document.getSelection().getRangeAt(0).startContainer.nodeName==='#text'
+          && document.getSelection().getRangeAt(0).startContainer.nodeValue[document.getSelection().getRangeAt(0).startOffset]===' ') {
+        // Don't put additional space if we break just ahead of 'space'
+        document.execCommand("insertHTML", false, '<br/>')
+      } else {
+        document.execCommand("insertHTML", false, '<br/> ')
+      }
       e.preventDefault();
     }
-    console.log("BEFORE", e);
+    if (e.inputType == "deleteContentBackward") {
+      if (document.getSelection().rangeCount == 1
+          && document.getSelection().isCollapsed) {
+        let r = document.getSelection().getRangeAt(0);
+        if (r.startOffset == 0 && r.startContainer.nodeName == '#text'
+            && r.startContainer.previousSibling != null && r.startContainer.previousSibling.className==='akord') {
+          // If the previous element is akord, we want to skip and remove the prev letter.
+          console.log("Boom", r.startContainer.previousSibling);
+          if (r.startContainer.previousSibling.previousSibling.nodeName === 'BR') {
+
+            let newr=document.createRange();
+            newr.selectNode(r.startContainer.previousSibling.previousSibling);
+            newr.deleteContents();
+            // document.getSelection().removeAllRanges();
+            // document.getSelection().addRange(newr);
+            //
+            // // document.getSelection().collapse(r.startContainer.previousSibling.previousSibling);
+            // document.execCommand("insertHTML",false,"Foo");
+            e.preventDefault();
+          } else {
+            let newr=document.createRange();
+            newr.setStartBefore(r.startContainer.previousSibling);
+            document.getSelection().removeAllRanges();
+            document.getSelection().addRange(newr);
+          }
+        }
+      }
+    }
+    console.log("BEFORE", e,document.getSelection());
+    console.dir(JSON.stringify(document.getSelection(), null, 4) );
   }
   rowp.spellcheck = false;
   rowp.contentEditable = 'true';
@@ -187,6 +225,7 @@ function createChordEditor(v) {
     console.log("On change");
     console.log(e.target.parentNode);
     let newChord = createChord(chedit.value.trim());
+
     e.target.parentNode.parentNode.replaceChild(newChord, e.target.parentNode);
     let r = document.createRange();
     r.setStartAfter(newChord);
