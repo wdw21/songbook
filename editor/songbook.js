@@ -88,11 +88,16 @@ function getRangeForCursor(e) {
   return range;
 }
 
+function acceptsTextAndChords(element) {
+  return element.nodeName==='SONG-VERSE'
+    || element.nodeName==="SONG-BIS";
+}
+
 function rowOnDrop(e) {
   d = e.dataTransfer.getData("songbook/chord");
   if (d != null && d != "") {
     range = getRangeForCursor(e)
-    if (range.commonAncestorContainer.parentNode.className == 'row') {
+    if (acceptsTextAndChords(range.commonAncestorContainer.parentNode)) {
       range.insertNode(createChord(d));
       dropped = true;
     }
@@ -106,9 +111,9 @@ function canInsertChord() {
   let r = window.getSelection().getRangeAt(0);
   console.warn(r.startContainer);
   let x =
-      (r.startContainer.className == 'row')
+      acceptsTextAndChords(r.startContainer)
       || (r.startContainer.nodeName == '#text'
-          && r.startContainer.parentNode.className == 'row');
+          && acceptsTextAndChords(r.startContainer.parentNode));
   return x;
 }
 
@@ -177,12 +182,11 @@ function createLyric() {
       if (document.getSelection().rangeCount == 1
           && document.getSelection().isCollapsed) {
         let r = document.getSelection().getRangeAt(0);
-        if (r.startOffset == 0 && r.startContainer.nodeName == '#text'
+        // If the previous element is akord, we want to skip and remove the prev letter.
+        if (r.startContainer.nodeName == '#text' && r.startOffset == 0
             && r.startContainer.previousSibling != null && r.startContainer.previousSibling.className==='akord') {
-          // If the previous element is akord, we want to skip and remove the prev letter.
-          console.log("Boom", r.startContainer.previousSibling);
+          // If the letter is BR, we need to remove it in a special way.
           if (r.startContainer.previousSibling.previousSibling.nodeName === 'BR') {
-
             let newr=document.createRange();
             newr.selectNode(r.startContainer.previousSibling.previousSibling);
             newr.deleteContents();
@@ -192,17 +196,38 @@ function createLyric() {
             // // document.getSelection().collapse(r.startContainer.previousSibling.previousSibling);
             // document.execCommand("insertHTML",false,"Foo");
             e.preventDefault();
+            return;
           } else {
             let newr=document.createRange();
             newr.setStartBefore(r.startContainer.previousSibling);
             document.getSelection().removeAllRanges();
             document.getSelection().addRange(newr);
+            e.preventDefault();
+            return;
           }
+        } else if (r.startContainer.nodeName == '#text' && r.startOffset <= 1
+               &&  r.startContainer.previousSibling.nodeName==='BR') {
+          let newr=document.createRange();
+          newr.setStartBefore(r.startContainer.previousSibling);
+          newr.setEnd(r.startContainer, r.startOffset);
+          newr.deleteContents();
+          e.preventDefault();
+        } else if (r.startContainer.nodeName == '#text' && r.startOffset == 0
+            &&  r.startContainer.previousSibling.nodeName==='#text') {
+          let newr=document.createRange();
+          newr.setEndBefore(r.startContainer);
+          newr.setStart(r.startContainer.previousSibling, r.startContainer.previousSibling.length - 1);
+          console.log(newr);
+          newr.deleteContents();
+          e.preventDefault();
         }
+          //   && r.startContainer.previousSibling != null && r.startContainer.previousSibling.className==='akord') {
+          //console.log("START", r.startContainer, r.startOffset, r.startContainer.previousSibling, r.extractContents())
+        //}
       }
     }
-    console.log("BEFORE", e,document.getSelection());
-    console.dir(JSON.stringify(document.getSelection(), null, 4) );
+    //console.log("BEFORE", e,document.getSelection());
+    //console.dir(JSON.stringify(document.getSelection(), null, 4) );
   }
   rowp.spellcheck = false;
   rowp.contentEditable = 'true';
@@ -303,13 +328,18 @@ function sanitize(lyric) {
 }
 
 function onLoad() {
+  SongVerseInit();
+
   //document.execCommand('defaultParagraphSeparator', false, 'br');
   text = '<?xml version="1.0" encoding="utf-8"?>'
       + '<song>'
+      + ' <verse>'
       + '      <row important_over="false"><ch a="G"/> Kiedy stał<ch a="Gis"/>em w przedśw<ch a="D"/>icie a Synaj</row>'
       + '      <row important_over="false"><ch a="C"/> Prawdę głosił przez tr<ch a="e"/>ąby wiatru</row>'
+      + ' </verse><verse>'
       + '      <row important_over="false"><ch a="G"/> Zasmerczyły się chmury igl<ch a="D"/>iwiem</row>'
       + '      <row important_over="false"><ch a="e"/> Bure świerki o g<ch a="C"/>óry wsp<ch a="D"/>arte</row>'
+      + ' </verse>'
       + '</song>';
 
   parser = new DOMParser();
@@ -323,12 +353,28 @@ function onLoad() {
   let lyric = createLyric();
   editor.appendChild(lyric);
 
-  let verse = xmlDoc.getRootNode().childNodes[0];
-  let rows = verse.getElementsByTagName('row');
-  for (let i = 0; i < rows.length; ++i) {
-    lyric.append(...rowToNodes(rows[i]));
-    lyric.append(document.createElement("br"))
+  let verses = xmlDoc.getRootNode().childNodes[0].getElementsByTagName('verse');
+  for (let vi = 0; vi < verses.length; ++vi) {
+    let verse = verses[vi];
+    let songVerse = document.createElement("song-verse");
+    let d= document.createElement("div");
+    lyric.appendChild(songVerse);
+    songVerse.appendChild(d);
+    let rows = verse.getElementsByTagName('row');
+    for (let i = 0; i < rows.length; ++i) {
+      d.append(...rowToNodes(rows[i]));
+      d.append(document.createElement("br"))
+    }
+
+    let san = document.createElement("span");
+    san.innerText = "[sanitize verse]";
+    san.style.color = 'blue';
+    san.onclick = function (e) { sanitize(songVerse); }
+    lyric.appendChild(san);
   }
+
+
+
 }
 
 

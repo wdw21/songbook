@@ -1,0 +1,24 @@
+div.verse {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  white-space: normal;
+}
+
+div.verse_meta {
+  grid-column: 1 / 2;
+  grid-row: 1;
+/*  writing-mode: vertical-rl;
+  text-orientation: mixed;*/
+  width: 3em;
+  margin-top: 0.9em;
+  text-align: center;
+  font-size: small;
+  /*vertical-align: center;
+  margin: auto;*/
+}
+
+div.verse_main {
+  grid-row: 1;
+  grid-column: 2/2;
+  margin-left: 1em;
+}

@@ -3,8 +3,8 @@ h1 {
 }
 
 div.row {
-  white-space: pre;
-  padding-left: 0.3em;
+  white-space: pre; /* consider turning off*/
+   adding-left: 0.3em;
 }
 
 span.akord {
@@ -52,6 +52,9 @@ span.akord span.ch {
   font-weight: bold;
 }
 
+song-verse {
+  top-margin: 10em;
+}
 
 /*div.over_false span.lyric span.ch {*/
 /*  display: none;*/
