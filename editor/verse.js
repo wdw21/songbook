@@ -4,8 +4,8 @@ class SongVerse extends HTMLElement {
 
     const template = document.createElement('template');
     template.innerHTML = `
+<link rel="stylesheet" href="verse.css"/>
 <div class="verse">
-  <link rel="stylesheet" href="verse.css"/>
   <div class="verse_meta">
     <span id="nr"></span>
     <div>

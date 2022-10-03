@@ -1,0 +1,44 @@
+span.cho {
+  display: inline-block;
+  position: relative;
+  left: 0px;
+  width:0px;
+  top: -1.3em;
+  margin-top: 1.5em;
+  overflow-wrap: normal;
+  hyphens: none;
+  font-family: Arial;
+}
+
+span.cho span.ch {
+  display: inline-block;
+  position: absolute;
+  left: 0px;
+  font-size: xx-small;
+  /*//width:30px;*/
+  font-weight: bold;
+  overflow-wrap: normal;
+  hyphens: none;
+  user-select: all;
+}
+
+span.cho input.ch {
+  width: 6em;
+  font-size: xx-small;
+  display: inline-block;
+  position: absolute;
+  left: 0px;
+  top: -0.12em;
+  font-weight: bold;
+  overflow-wrap: normal;
+  hyphens: none;
+  z-index: 5;
+  background-color: rgba(255,255,0,0.5);
+  border-width: 0px;
+}
+
+span.cho span.ch {
+  width: fit-content;
+  overflow-wrap: normal;
+  font-weight: bold;
+}
