@@ -189,7 +189,7 @@ class SongBody extends HTMLElement {
   input(e, songbody) {
     console.log("Oninput", e);
     Sanitize(songbody);
-    // Avoid keeping cursor before the artifical space:
+//    Avoid keeping cursor before the artifical space:
     if (document.getSelection().isCollapsed
         && document.getSelection().rangeCount == 1) {
       let r = document.getSelection().getRangeAt(0);

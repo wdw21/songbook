@@ -35,6 +35,52 @@ class SongVerse extends HTMLElement {
   }
 }
 
-function SongVerseInit() {
+
+
+
+
+
+
+
+class SongBis extends HTMLElement {
+  constructor() {
+    super();
+
+    const template = document.createElement('template');
+    template.innerHTML = `
+<link rel="stylesheet" href="verse.css"/>
+<div class="bis">
+  <div class="bis_main"><slot/></div>
+  <div class="bis_meta"><span id="x">s?</span></div>
+</div>
+  `;
+
+    const shadow = this.attachShadow({ mode: "closed" });
+    shadow.appendChild(template.content.cloneNode(true));
+    this.x=shadow.getElementById("x");
+  }
+
+  connectedCallback() {
+    this.attributeChangedCallback();
+  }
+
+  attributeChangedCallback() {
+    this.x.innerText = this.getAttribute("x");
+  }
+
+  static get observedAttributes() {
+    return ["x"]
+  }
+}
+
+
+
+
+
+
+
+
+function SongVerseBisInit() {
   customElements.define("song-verse", SongVerse);
+  customElements.define("song-bis", SongBis);
 }

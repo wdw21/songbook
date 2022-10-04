@@ -85,9 +85,16 @@ function onLoad() {
   text = '<?xml version="1.0" encoding="utf-8"?>'
       + '<song>'
       + ' <verse>'
+      + '    <row important_over="false"><ch a="G"/> Kiedy stał<ch a="Gis"/>em w przedśw<ch a="D"/>icie a Synaj</row>'
+      + '    <bis times="2">'
+      + '      <row important_over="false"><ch a="C"/> Prawdę głosił przez tr<ch a="e"/>ąby wiatru</row>'
+      + '      <row important_over="false"><ch a="G"/> Zasmerczyły się chmury igl<ch a="D"/>iwiem</row>'
+      + '    </bis>'
+      + '    <row important_over="false"><ch a="e"/> Bure świerki o g<ch a="C"/>óry wsp<ch a="D"/>arte</row>'
+      + ' </verse>'
+      + ' <verse>'
       + '      <row important_over="false"><ch a="G"/> Kiedy stał<ch a="Gis"/>em w przedśw<ch a="D"/>icie a Synaj</row>'
       + '      <row important_over="false"><ch a="C"/> Prawdę głosił przez tr<ch a="e"/>ąby wiatru</row>'
-      + ' </verse><verse>'
       + '      <row important_over="false"><ch a="G"/> Zasmerczyły się chmury igl<ch a="D"/>iwiem</row>'
       + '      <row important_over="false"><ch a="e"/> Bure świerki o g<ch a="C"/>óry wsp<ch a="D"/>arte</row>'
       + ' </verse>'
@@ -98,14 +105,14 @@ function onLoad() {
 
   let editor = document.getElementById("editor");
   SongChInit(editor);
-  SongVerseInit();
+  SongVerseBisInit();
   SongBodyInit();
 
   let body = createSongBody();
   editor.appendChild(body);
 
-  let bodydiv = document.createElement("song-verses");
-  body.appendChild(bodydiv);
+  // let bodydiv = document.createElement("song-verses");
+  // body.appendChild(bodydiv);
 
   let verses = xmlDoc.getRootNode().childNodes[0].getElementsByTagName('verse');
   for (let vi = 0; vi < verses.length; ++vi) {
@@ -113,18 +120,32 @@ function onLoad() {
     let songVerse = document.createElement("song-verse");
     let d= document.createElement("song-rows");
 
-    bodydiv.appendChild(songVerse);
+    body.appendChild(songVerse);
     songVerse.appendChild(d);
-    let rows = verse.getElementsByTagName('row');
-    for (let i = 0; i < rows.length; ++i) {
-      d.append(...rowToNodes(rows[i]));
+    let rowsOrBis = verse.childNodes;
+
+    for (let i = 0; i < rowsOrBis.length; ++i) {
+      if (rowsOrBis[i].nodeName == 'row') {
+        d.append(...rowToNodes(rowsOrBis[i]));
+      }
+
+      if (rowsOrBis[i].nodeName == 'bis') {
+        bis = rowsOrBis[i];
+        b = document.createElement("song-bis");
+        b.setAttribute("x", bis.attributes['times'].value);
+        for (let j=0; j < bis.childNodes.length; ++j) {
+          b.append(...rowToNodes(bis.childNodes[j]));
+        }
+        d.appendChild(b);
+      }
+
     }
 
     let san = document.createElement("span");
     san.innerText = "[sanitize verse]";
     san.style.color = 'blue';
     san.onclick = function (e) { Sanitize(songVerse); }
-    bodydiv.appendChild(san);
+    body.appendChild(san);
   }
 
 }
