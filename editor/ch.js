@@ -13,11 +13,11 @@ class SongCh extends HTMLElement {
 
     const template = document.createElement('template');
     template.innerHTML =
-        `<span class="cho" draggable="false" contenteditable="false">`+
+        `<link rel="stylesheet" href="ch.css"/>` +
+        `<span class="cho" id="cho" draggable="true" contenteditable="false">`+
         `<span class="ch" id="ch" draggable="false" contenteditable="false"></span>` +
         `<input type="search" class="ch" id="che" list="predefinedChords" />` +
-        `</span>` +
-        `<link rel="stylesheet" href="ch.css"/>`;
+        `</span>`;
 
     const shadow = this.attachShadow({ mode: "closed" });
     shadow.appendChild(template.content.cloneNode(true));
@@ -25,6 +25,7 @@ class SongCh extends HTMLElement {
 
     this.ch = shadow.getElementById("ch");
     this.che = shadow.getElementById("che");
+    this.cho = shadow.getElementById("cho");
 
     this.ch.ondblclick = (event) => {
       console.log("CH-double-click");
@@ -46,6 +47,21 @@ class SongCh extends HTMLElement {
       event.stopPropagation();
       event.stopImmediatePropagation();
     }
+    this.cho.ondragstart = (event) => {
+      event.target.opacity = "0.2";
+      event.dataTransfer.effectAllowed = "copyMove";
+      event.dataTransfer.dropEffect = "move";
+      event.dataTransfer.setData("songbook/chord", this.getAttribute("a"));
+      this.getSongBody().dropped = false;
+    }
+
+    this.cho.ondragend = (event) => {
+      event.target.opacity = '1.0';
+      if (this.getSongBody().dropped && event.dataTransfer.dropEffect == 'move') {
+        event.target.remove();
+      }
+    }
+
     this.onkeydown = (e) => {
       if (e.key == 'Enter' || e.key == 'Escape' || e.key == 'Tab') {
         if (this.che.value.trim() == '') {
@@ -59,6 +75,10 @@ class SongCh extends HTMLElement {
       }
     }
     this.updateEditing();
+  }
+
+  getSongBody() {
+    return this.closest('song-body');
   }
 
   isEditing() {
@@ -122,4 +142,10 @@ function predefinedChordsList() {
 
 function SongChInit(parent) {
   customElements.define("song-ch", SongCh);
+}
+
+function createChord(chord) {
+  let ch = document.createElement("song-ch");
+  ch.setAttribute('a', chord);
+  return ch;
 }

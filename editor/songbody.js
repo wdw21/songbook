@@ -12,6 +12,39 @@ function getRangeForCursor(e) {
   return range;
 }
 
+function acceptsTextAndChords(element) {
+  return element.nodeName="SONG-ROW";
+}
+
+function canInsertChord() {
+  if (window.getSelection().rangeCount < 1) {return false; }
+  let r = window.getSelection().getRangeAt(0);
+  let x =
+      //acceptsTextAndChords(r.startContainer);
+      (r.startContainer.nodeName == '#text'
+          && acceptsTextAndChords(r.startContainer.parentNode));
+  return x;
+}
+
+function insertChordHere(ch) {
+  if (canInsertChord()) {
+    let chedit = createChord("");
+    chedit.setAttribute("editing", "true");
+    window.getSelection().getRangeAt(0).insertNode(chedit);
+    chedit.focus();
+    return true;
+  }
+  return  false;
+}
+
+function setCursorBefore(node) {
+  let newr=document.createRange();
+  newr.setStartBefore(node);
+  document.getSelection().removeAllRanges();
+  document.getSelection().addRange(newr);
+}
+
+
 class SongBody extends HTMLElement {
   constructor() {
     super();
@@ -28,7 +61,7 @@ class SongBody extends HTMLElement {
 
     this.body.addEventListener("mousedown", this.mouseDown);
     this.body.addEventListener("dragover", this.dragOver);
-    this.body.addEventListener("drop", this.drop);
+    this.body.addEventListener("drop", (e) => {this.drop(e, this); });
     this.body.addEventListener("keydown", this.keyDown);
   }
 
@@ -79,13 +112,13 @@ class SongBody extends HTMLElement {
     }
   }
 
-  drop(e) {
+  drop(e, songbody) {
     let d = e.dataTransfer.getData("songbook/chord");
     if (d != null && d != "") {
       let range = getRangeForCursor(e)
       if (acceptsTextAndChords(range.commonAncestorContainer.parentNode)) {
         range.insertNode(createChord(d));
-        dropped = true;
+        songbody.dropped = true;
       }
       e.preventDefault();
     }
@@ -166,3 +199,7 @@ class SongBody extends HTMLElement {
 function SongBodyInit() {
   customElements.define("song-body", SongBody);
 };
+
+function createSongBody() {
+  return document.createElement("song-body");
+}
