@@ -12,6 +12,16 @@ function getRangeForCursor(e) {
   return range;
 }
 
+function mergeNodeAfter(target, source) {
+  let first = source.childNodes[0];
+  let documentFragment = document.createDocumentFragment();
+  while (source.childNodes.length > 0) {
+    documentFragment.appendChild(source.childNodes[0]);
+  }
+  target.append(documentFragment);
+  setCursorBefore(first);
+}
+
 function acceptsTextAndChords(element) {
   return element.nodeName="SONG-ROW";
 }
@@ -66,6 +76,7 @@ class SongBody extends HTMLElement {
   }
 
   connectedCallback() {
+    this.parentNodeBackup = this.parentNode;
     this.parentNode.addEventListener("beforeinput", this.beforeInput);
     this.parentNode.addEventListener("input", this.input);
     this.parentNode.addEventListener("keydown", this.keyDown);
@@ -73,9 +84,11 @@ class SongBody extends HTMLElement {
   }
 
   disconnectedCallback() {
-    this.parentNode.removeEventListener("beforeinput", this.beforeInput);
-    this.parentNode.removeEventListener("input", this.input);
-    this.parentNode.removeEventListener("keydown", this.keyDown);
+    if (this.parentNodeBackup) {
+      this.parentNodeBackup.removeEventListener("beforeinput", this.beforeInput);
+      this.parentNodeBackup.removeEventListener("input", this.input);
+      this.parentNodeBackup.removeEventListener("keydown", this.keyDown);
+    }
   }
 
   mouseDown(e) {
@@ -156,6 +169,15 @@ class SongBody extends HTMLElement {
           if (r.startContainer.previousSibling != null
               && r.startContainer.previousSibling.nodeName === 'SONG-ROW') {
             mergeNodeAfter(r.startContainer.previousSibling, r.startContainer);
+            e.preventDefault();
+          }
+        }
+        // When we are at the beginning of the ROW, we merge the rows.
+        if (r.startContainer.nodeName == '#text' && r.startOffset == 0) {
+          if (r.startContainer.previousSibling == null
+              && r.startContainer.parentNode.nodeName === 'SONG-ROW'
+              &&  r.startContainer.parentNode.previousSibling.nodeName === 'SONG-ROW') {
+            mergeNodeAfter(r.startContainer.parentNode.previousSibling, r.startContainer.parentNode);
             e.preventDefault();
           }
         }
