@@ -78,7 +78,8 @@ class SongBody extends HTMLElement {
   connectedCallback() {
     this.parentNodeBackup = this.parentNode;
     this.parentNode.addEventListener("beforeinput", this.beforeInput);
-    this.parentNode.addEventListener("input", this.input);
+    this.inputHandler = (e) => { this.input(e, this); };
+    this.parentNode.addEventListener("input", this.inputHandler);
     this.parentNode.addEventListener("keydown", this.keyDown);
     this.parentNode.addEventListener("paste", this.paste);
   }
@@ -86,7 +87,7 @@ class SongBody extends HTMLElement {
   disconnectedCallback() {
     if (this.parentNodeBackup) {
       this.parentNodeBackup.removeEventListener("beforeinput", this.beforeInput);
-      this.parentNodeBackup.removeEventListener("input", this.input);
+      this.parentNodeBackup.removeEventListener("input", this.inputHandler);
       this.parentNodeBackup.removeEventListener("keydown", this.keyDown);
     }
   }
@@ -185,9 +186,9 @@ class SongBody extends HTMLElement {
     }
   }
 
-  input(e) {
+  input(e, songbody) {
     console.log("Oninput", e);
-  //  Sanitize(e.target);
+    Sanitize(songbody);
     // Avoid keeping cursor before the artifical space:
     if (document.getSelection().isCollapsed
         && document.getSelection().rangeCount == 1) {
