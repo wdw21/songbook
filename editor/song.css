@@ -3,7 +3,7 @@ h1 {
 }
 
 div.row {
-  white-space: pre; /* consider turning off*/
+/*  white-space: pre; /* consider turning off*/*/
    adding-left: 0.3em;
 }
 
@@ -12,6 +12,9 @@ song-verse {
   top-margin: 10em;
 }
 
+song-row {
+  display: block;
+}
 /*song-ch {*/
 /*  user-select: all;*/
 /*}*/
