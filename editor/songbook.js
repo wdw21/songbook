@@ -1,4 +1,8 @@
 
+const nbsp = "\u00a0";
+const spaceRegex = / /g;
+
+
 let dropped = null;
 
 function createChord(chord) {
@@ -24,35 +28,12 @@ function createChord(chord) {
   return ch;
 }
 
-function getRangeForCursor(e) {
-  if (document.caretRangeFromPoint) {
-    // edge, chrome, android
-    range = document.caretRangeFromPoint(e.clientX, e.clientY)
-  } else {
-    // firefox
-    var pos = [e.rangeParent, e.rangeOffset]
-    range = document.createRange()
-    range.setStart(...pos);
-    range.setEnd(...pos);
-  }
-  return range;
+function createSongBody() {
+  return document.createElement("song-body");
 }
 
 function acceptsTextAndChords(element) {
-  return ((element.classList != null) && element.classList.contains("accepts-ch"));
-}
-
-function rowOnDrop(e) {
-  d = e.dataTransfer.getData("songbook/chord");
-  if (d != null && d != "") {
-    range = getRangeForCursor(e)
-    a=acceptsTextAndChords(range.commonAncestorContainer.parentNode);
-    if (a) {
-      range.insertNode(createChord(d));
-      dropped = true;
-    }
-    e.preventDefault();
-  }
+  return element.nodeName="SONG-ROW";
 }
 
 function canInsertChord() {
@@ -78,31 +59,6 @@ function insertChordHere(ch) {
   return  false;
 }
 
-function rowOnKeyDown(event) {
-  if (event.key == '`' && canInsertChord()) {
-    if (insertChordHere("")) {
-      event.preventDefault();
-    }
-  }
-}
-
-function rowOnDragOver(e) {
-  if (e.dataTransfer.types.includes("songbook/chord")) {
-    if (e.altKey) {
-      e.dataTransfer.dropEffect = 'copy';
-    } else {
-      e.dataTransfer.dropEffect = 'move';
-    }
-    range = getRangeForCursor(e);
-    document.getSelection().removeAllRanges();
-    document.getSelection().addRange(range);
-    if (!canInsertChord()) {
-      e.dataTransfer.dropEffect = 'none';
-    }
-    e.preventDefault();
-  }
-}
-
 function setCursorBefore(node) {
   let newr=document.createRange();
   newr.setStartBefore(node);
@@ -110,117 +66,17 @@ function setCursorBefore(node) {
   document.getSelection().addRange(newr);
 }
 
-function createLyric() {
-  rowp = document.createElement("div");
-  rowp.className = 'row';
-  rowp.contentEditable = true;
-  rowp.ondragover = rowOnDragOver;
-  rowp.onmousedown=function (e) {
-    if (e.detail > 1 && canInsertChord()) {
-      console.log("Parent - row - up");
-      if (insertChordHere("")) {
-        e.preventDefault();
-      }
-    }
-  };
-  rowp.oninput = function (e) {
-    console.log("Oninput", e);
-   // sanitize(e.target);
+function mergeNodeAfter(target, source) {
+  let first=source.childNodes[0];
+  let documentFragment = document.createDocumentFragment();
+  while (source.childNodes.length>0) {
+    documentFragment.appendChild(source.childNodes[0]);
   }
-  rowp.onbeforeinput = function (e) {
-    // if (e.inputType == "insertParagraph") {
-    //   //document.getSelection().getRangeAt(0).insertNode(document.createElement("br"));
-    //   if (document.getSelection().isCollapsed
-    //       && document.getSelection().rangeCount == 1
-    //       && document.getSelection().getRangeAt(0).startContainer.nodeName==='#text'
-    //       && document.getSelection().getRangeAt(0).startContainer.nodeValue[document.getSelection().getRangeAt(0).startOffset]===' ') {
-    //     // Don't put additional space if we break just ahead of 'space'
-    //     document.execCommand("insertHTML", false, '<br/>')
-    //   } else {
-    //     document.execCommand("insertHTML", false, '<br/>&nbsp;')
-    //   }
-    //   e.preventDefault();
-    // }
-    if (e.inputType == "deleteContentBackward") {
-      if (document.getSelection().rangeCount == 1
-          && document.getSelection().isCollapsed) {
-        let r = document.getSelection().getRangeAt(0);
-        // If the previous element is chord, we want to skip and remove the prev letter.
-        if (r.startContainer.nodeName == '#text' && r.startOffset == 0
-            && r.startContainer.previousSibling != null && r.startContainer.previousSibling.nodeName==='SONG-CH') {
-          setCursorBefore(r.startContainer.previousSibling);
-          r = document.getSelection().getRangeAt(0);
-          // We want to continue in case we want to merge rows.
-        }
-        if (r.startContainer.nodeName=='SONG-ROW' && r.startOffset==0) {
-          if (r.startContainer.previousSibling != null
-              && r.startContainer.previousSibling.nodeName ==='SONG-ROW') {
-            let first=r.startContainer.childNodes[0];
-            let documentFragment = document.createDocumentFragment();
-            while (r.startContainer.childNodes.length>0) {
-              documentFragment.appendChild(r.startContainer.childNodes[0]);
-            }
-            r.startContainer.previousSibling.appendChild(documentFragment);
-            setCursorBefore(first);
-            e.preventDefault();
-          }
-        }
-
-        //console.log(r, r.startContainer, r.startContainer.nodeName, r.startOffset);
-        //   // If the letter is BR, we need to remove it in a special way.
-        //   if (r.startContainer.previousSibling.previousSibling.nodeName === 'BR') {
-        //     let newr=document.createRange();
-        //     newr.selectNode(r.startContainer.previousSibling.previousSibling);
-        //     newr.deleteContents();
-        //     // document.getSelection().removeAllRanges();
-        //     // document.getSelection().addRange(newr);
-        //     //
-        //     // // document.getSelection().collapse(r.startContainer.previousSibling.previousSibling);
-        //     // document.execCommand("insertHTML",false,"Foo");
-        //     e.preventDefault();
-        //     return;
-        //   } else {
-        //     let newr=document.createRange();
-        //     newr.setStartBefore(r.startContainer.previousSibling);
-        //     document.getSelection().removeAllRanges();
-        //     document.getSelection().addRange(newr);
-        //     e.preventDefault();
-        //     return;
-        //   }
-        // } else if (r.startContainer.nodeName == '#text' && r.startOffset <= 1
-        //        &&  r.startContainer.previousSibling.nodeName==='BR') {
-        //   let newr=document.createRange();
-        //   newr.setStartBefore(r.startContainer.previousSibling);
-        //   newr.setEnd(r.startContainer, r.startOffset);
-        //   newr.deleteContents();
-        //   e.preventDefault();
-        // } else if (r.startContainer.nodeName == '#text' && r.startOffset == 0
-        //     &&  r.startContainer.previousSibling.nodeName==='#text') {
-        //   let newr=document.createRange();
-        //   newr.setEndBefore(r.startContainer);
-        //   newr.setStart(r.startContainer.previousSibling, r.startContainer.previousSibling.length - 1);
-        //   console.log(newr);
-        //   newr.deleteContents();
-        //   e.preventDefault();
-        // }
-          //   && r.startContainer.previousSibling != null && r.startContainer.previousSibling.className==='akord') {
-          //console.log("START", r.startContainer, r.startOffset, r.startContainer.previousSibling, r.extractContents())
-        //}
-      }
-    }
-    let r = document.getSelection().getRangeAt(0);
-    console.log(r, r.startContainer, r.startContainer.nodeName, r.startOffset);
-    //console.log("BEFORE", e,document.getSelection());
-    //console.dir(JSON.stringify(document.getSelection(), null, 4) );
-  }
-  rowp.spellcheck = false;
-  rowp.contentEditable = 'true';
-
-  rowp.ondrop = rowOnDrop;
-  rowp.onkeydown = rowOnKeyDown;
-
-  return rowp;
+  target.appendChild(documentFragment);
+  source.remove();
+  setCursorBefore(first);
 }
+
 
 
 function  rowToNodes(row) {
@@ -232,8 +88,7 @@ function  rowToNodes(row) {
     if (node.nodeName == '#text') {
       let n = node.cloneNode();
       newRow.appendChild(n);
-      let regex = / /g;
-      n.nodeValue = n.nodeValue.replaceAll(regex, "\u00a0");
+      n.nodeValue = n.nodeValue.replaceAll(spaceRegex, nbsp);
     } else {
       newRow.appendChild(createChord(node.attributes['a'].value));
     }
@@ -241,28 +96,64 @@ function  rowToNodes(row) {
   return [newRow];
 }
 
-// function sanitize(lyric) {
-//   for (let i=0; i < lyric.childNodes.length; ++i) {
-//     let node = lyric.childNodes[i]
-//     let parent = node.parentNode
-//     if (node.nodeName=='DIV') {
-//       let next = node.nextSibling;
-//       for (let i = node.childNodes.length - 1; i>=0; --i) {
-//         if (next) {
-//           next = parent.insertBefore( node.childNodes[i], next);
-//
-//         } else {
-//           console.log(node.childNodes[i])
-//           next = parent.appendChild(node.childNodes[i]);
-//         }
+// function sanitizeRow(row) {
+//   for (let i=0; i < row.childNodes.length; ++i) {
+//     let node = row.childNodes[i];
+//     if (node.nodeName === '#text') {
+//       node.nodeValue = node.nodeValue.replaceAll(spaceRegex, nbsp);
+//     } else if (node.nodeName == 'SONG-CH') {
+//       while (node.childNodes.length > 0) {
+//         node.removeChild(node.childNodes[0]);
 //       }
-//       if (next) {
-//         parent.insertBefore(document.createElement("br"), next);
-//       }
-//       node.remove();
+//     } else {
+//       row.replaceChild(document.createTextNode(node.textContent), node);
 //     }
 //   }
+//   if (!row.textContent.startsWith(nbsp)) {
+//     if (row.childNodes.length > 0) {
+//       row.insertBefore(document.createTextNode(nbsp), row.childNodes[0]);
+//     } else {
+//       row.appendChild(document.createTextNode(nbsp));
+//     }
+//   }
+//   row.normalize();
 // }
+//
+// function sanitize(lyric) {
+//   let rows = lyric.getElementsByTagName("song-row");
+//
+//   for (let i=0; i < rows.length; ++i) {
+//     let row = rows[i];
+//     sanitizeRow(row);
+//   }
+
+
+
+
+  // for (let i=0; i < lyric.childNodes.length; ++i) {
+  //
+  //   if ()
+  //
+    // let node = lyric.childNodes[i]
+    // let parent = node.parentNode
+    // if (node.nodeName=='DIV') {
+    //   let next = node.nextSibling;
+    //   for (let i = node.childNodes.length - 1; i>=0; --i) {
+    //     if (next) {
+    //       next = parent.insertBefore( node.childNodes[i], next);
+    //
+    //     } else {
+    //       console.log(node.childNodes[i])
+    //       next = parent.appendChild(node.childNodes[i]);
+    //     }
+    //   }
+    //   if (next) {
+    //     parent.insertBefore(document.createElement("br"), next);
+    //   }
+    //   node.remove();
+    // }
+ // }
+//}
 
 function onLoad() {
 
@@ -284,32 +175,33 @@ function onLoad() {
   let editor = document.getElementById("editor");
   SongChInit(editor);
   SongVerseInit();
+  SongBodyInit();
 
-  let lyric = createLyric();
-  editor.appendChild(lyric);
+  let body = createSongBody();
+  editor.appendChild(body);
+
+  let bodydiv = document.createElement("song-verses");
+  body.appendChild(bodydiv);
 
   let verses = xmlDoc.getRootNode().childNodes[0].getElementsByTagName('verse');
   for (let vi = 0; vi < verses.length; ++vi) {
     let verse = verses[vi];
     let songVerse = document.createElement("song-verse");
-    let d= document.createElement("div");
- //   d.classList.add("accepts-ch")
-    lyric.appendChild(songVerse);
+    let d= document.createElement("song-rows");
+
+    bodydiv.appendChild(songVerse);
     songVerse.appendChild(d);
     let rows = verse.getElementsByTagName('row');
     for (let i = 0; i < rows.length; ++i) {
       d.append(...rowToNodes(rows[i]));
-   //   d.append(document.createElement("br"))
     }
 
     let san = document.createElement("span");
     san.innerText = "[sanitize verse]";
     san.style.color = 'blue';
-    san.onclick = function (e) { sanitize(songVerse); }
-    lyric.appendChild(san);
+    san.onclick = function (e) { Sanitize(songVerse); }
+    bodydiv.appendChild(san);
   }
-
-
 
 }
 

@@ -3,8 +3,8 @@ h1 {
 }
 
 div.row {
-/*  white-space: pre; /* consider turning off*/*/
-   adding-left: 0.3em;
+/*  white-space: pre; /* consider turning off
+   adding-left: 0.3em;*/
 }
 
 
@@ -13,6 +13,18 @@ song-verse {
 }
 
 song-row {
+  display: block;
+}
+
+song-rows {
+  display: contents;
+}
+
+song-verses {
+  display: contents;
+}
+
+songbody {
   display: block;
 }
 /*song-ch {*/

@@ -19,7 +19,7 @@ class SongCh extends HTMLElement {
         `</span>` +
         `<link rel="stylesheet" href="ch.css"/>`;
 
-    const shadow = this.attachShadow({ mode: "open" });
+    const shadow = this.attachShadow({ mode: "closed" });
     shadow.appendChild(template.content.cloneNode(true));
     shadow.appendChild(predefinedChordsList());
 
