@@ -63,6 +63,7 @@ class SongCh extends HTMLElement {
     }
 
     this.onkeydown = (e) => {
+      console.log("CH-keydown", e);
       if (e.key == 'Enter' || e.key == 'Escape' || e.key == 'Tab') {
         if (this.che.value.trim() == '') {
           this.remove();

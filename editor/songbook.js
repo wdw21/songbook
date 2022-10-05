@@ -1,9 +1,9 @@
 
-const nbsp = "\u00a0";
-const spaceRegex = / /g;
-
 
 function  rowToNodes(row) {
+  if (row.nodeName!='row') {
+    return [];
+  }
   let newRow = document.createElement("song-row");
   newRow.classList.add("accepts-ch");
   let nodes=[];
@@ -20,67 +20,8 @@ function  rowToNodes(row) {
   return [newRow];
 }
 
-// function sanitizeRow(row) {
-//   for (let i=0; i < row.childNodes.length; ++i) {
-//     let node = row.childNodes[i];
-//     if (node.nodeName === '#text') {
-//       node.nodeValue = node.nodeValue.replaceAll(spaceRegex, nbsp);
-//     } else if (node.nodeName == 'SONG-CH') {
-//       while (node.childNodes.length > 0) {
-//         node.removeChild(node.childNodes[0]);
-//       }
-//     } else {
-//       row.replaceChild(document.createTextNode(node.textContent), node);
-//     }
-//   }
-//   if (!row.textContent.startsWith(nbsp)) {
-//     if (row.childNodes.length > 0) {
-//       row.insertBefore(document.createTextNode(nbsp), row.childNodes[0]);
-//     } else {
-//       row.appendChild(document.createTextNode(nbsp));
-//     }
-//   }
-//   row.normalize();
-// }
-//
-// function sanitize(lyric) {
-//   let rows = lyric.getElementsByTagName("song-row");
-//
-//   for (let i=0; i < rows.length; ++i) {
-//     let row = rows[i];
-//     sanitizeRow(row);
-//   }
-
-
-
-
-  // for (let i=0; i < lyric.childNodes.length; ++i) {
-  //
-  //   if ()
-  //
-    // let node = lyric.childNodes[i]
-    // let parent = node.parentNode
-    // if (node.nodeName=='DIV') {
-    //   let next = node.nextSibling;
-    //   for (let i = node.childNodes.length - 1; i>=0; --i) {
-    //     if (next) {
-    //       next = parent.insertBefore( node.childNodes[i], next);
-    //
-    //     } else {
-    //       console.log(node.childNodes[i])
-    //       next = parent.appendChild(node.childNodes[i]);
-    //     }
-    //   }
-    //   if (next) {
-    //     parent.insertBefore(document.createElement("br"), next);
-    //   }
-    //   node.remove();
-    // }
- // }
-//}
 
 function onLoad() {
-
   //document.execCommand('defaultParagraphSeparator', false, 'br');
   text = '<?xml version="1.0" encoding="utf-8"?>'
       + '<song>'
@@ -133,19 +74,14 @@ function onLoad() {
         bis = rowsOrBis[i];
         b = document.createElement("song-bis");
         b.setAttribute("x", bis.attributes['times'].value);
+        let bd= document.createElement("song-rows");
+        b.appendChild(bd);
         for (let j=0; j < bis.childNodes.length; ++j) {
-          b.append(...rowToNodes(bis.childNodes[j]));
+          bd.append(...rowToNodes(bis.childNodes[j]));
         }
         d.appendChild(b);
       }
-
     }
-
-    let san = document.createElement("span");
-    san.innerText = "[sanitize verse]";
-    san.style.color = 'blue';
-    san.onclick = function (e) { Sanitize(songVerse); }
-    body.appendChild(san);
   }
 
 }

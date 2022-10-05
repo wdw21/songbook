@@ -19,7 +19,10 @@ function mergeNodeAfter(target, source) {
     documentFragment.appendChild(source.childNodes[0]);
   }
   target.append(documentFragment);
-  setCursorBefore(first);
+  if (first != null) {
+    setCursorBefore(first);
+  }
+  source.remove();
 }
 
 function acceptsTextAndChords(element) {
@@ -81,7 +84,8 @@ class SongBody extends HTMLElement {
     this.inputHandler = (e) => { this.input(e, this); };
     this.parentNode.addEventListener("input", this.inputHandler);
     this.parentNode.addEventListener("keydown", this.keyDown);
-    this.parentNode.addEventListener("paste", this.paste);
+    this.pasteHandler = (e) => { this.paste(e, this); };
+    this.parentNode.addEventListener("paste", this.pasteHandler);
   }
 
   disconnectedCallback() {
@@ -89,6 +93,7 @@ class SongBody extends HTMLElement {
       this.parentNodeBackup.removeEventListener("beforeinput", this.beforeInput);
       this.parentNodeBackup.removeEventListener("input", this.inputHandler);
       this.parentNodeBackup.removeEventListener("keydown", this.keyDown);
+      this.parentNodeBackup.removeEventListener("paste", this.pasteHandler);
     }
   }
 
@@ -101,11 +106,23 @@ class SongBody extends HTMLElement {
   }
 
   keyDown(e) {
-    console.log("keydown...");
+    console.log("keydown...",e, document.getSelection());
     if (e.key == '`' && canInsertChord()) {
       if (insertChordHere("")) {
         e.preventDefault();
       }
+    }
+    if (e.key == 'Backspace'){
+      if (document.getSelection().isCollapsed &&
+          document.getSelection().rangeCount == 1) {
+        let r = document.getSelection().getRangeAt(0);
+        if (r.startOffset < r.startContainer.childNodes.length &&
+            r.startContainer.childNodes[r.startOffset].nodeName=='SONG-CH') {
+          r.startContainer.childNodes[r.startOffset].remove();
+          e.preventDefault();
+        }
+      }
+
     }
   }
 
@@ -144,6 +161,7 @@ class SongBody extends HTMLElement {
       if (document.getSelection().rangeCount == 1
           && document.getSelection().isCollapsed) {
         let r = document.getSelection().getRangeAt(0);
+        console.log(document.getSelection(), r.startContainer.nodeName, r.startContainer, r.startOffset)
         // If the previous element is chord, we want to skip and remove the prev letter.
         if (r.startContainer.nodeName == '#text' && r.startOffset == 0
             && r.startContainer.previousSibling != null
@@ -169,6 +187,16 @@ class SongBody extends HTMLElement {
         if (r.startContainer.nodeName == 'SONG-ROW' && r.startOffset == 0) {
           if (r.startContainer.previousSibling != null
               && r.startContainer.previousSibling.nodeName === 'SONG-ROW') {
+            mergeNodeAfter(r.startContainer.previousSibling, r.startContainer);
+            e.preventDefault();
+          }
+        }
+        if (r.startContainer.nodeName == 'SONG-ROW' && r.startOffset == 1) {
+          if (r.startContainer.previousSibling != null
+              && r.startContainer.previousSibling.nodeName === 'SONG-ROW'
+              && r.startContainer.childNodes[0].nodeName==='#text'
+              && r.startContainer.childNodes[0].nodeValue===nbsp) {
+            r.startContainer.childNodes[0].remove();
             mergeNodeAfter(r.startContainer.previousSibling, r.startContainer);
             e.preventDefault();
           }
@@ -206,12 +234,13 @@ class SongBody extends HTMLElement {
     }
   }
 
-  paste(e) {
+  paste(e, songbody) {
     console.log(e);
     let p = document.createElement("span");
     p.innerHTML  = e.clipboardData.getData("text/html");
     getSelection().getRangeAt(0).insertNode(p);
     e.preventDefault();
+    Sanitize(songbody);
   }
 
   attributeChangedCallback() {
