@@ -41,9 +41,6 @@ span.cho span.ch {
   width: fit-content;
   overflow-wrap: normal;
   font-weight: bold;
-}
-
-span.ch {
-  /* We want to keep pages background color when not selected.*/
   background: white;
+  white-space:nowrap;
 }

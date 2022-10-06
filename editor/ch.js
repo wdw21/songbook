@@ -81,7 +81,13 @@ class SongCh extends HTMLElement {
   selectParent() {
     this.parentNode.focus();
     let r = document.createRange();
-    r.setStartAfter(this);
+    if (this.nextSibling==null) {
+      let t=document.createTextNode(nbsp);
+      this.parentNode.appendChild(t);
+      r.selectNodeContents(t);
+    } else {
+      r.setStartAfter(this);
+    }
     document.getSelection().removeAllRanges();
     document.getSelection().addRange(r);
   }

@@ -164,6 +164,11 @@ function sanitizeRow(row) {
   }
 }
 
+function isEmptyRow(el) {
+  return el != null
+    && el.nodeName==='SONG-ROW'
+    && (el.textContent==='' || el.textContent===nbsp);
+}
 
 function Sanitize(body) {
   if (!lightTraverse(body)) {
@@ -172,11 +177,50 @@ function Sanitize(body) {
     traverse(body, body);
     console.log("after fix: ", body.outerHTML);
   }
+
+  // Let's cleanup rows
   let rows = body.getElementsByTagName("SONG-ROW");
   for (let i=0; i < rows.length; ++i) {
     let row = rows[i];
     sanitizeRow(row);
   }
+
+  // Let's find 2 empty rows side by side... to split the function
+  rows = body.getElementsByTagName("SONG-ROW");
+  for (let i=0; i < rows.length; ++i) {
+    if (isEmptyRow(rows[i]) && isEmptyRow(rows[i].previousSibling)) {
+      if (rows[i].parentNode.parentNode.nodeName == 'SONG-VERSE') {
+        let row=rows[i];
+        let newVerse = rows[i].parentNode.parentNode.cloneNode(false);
+        if (rows[i].parentNode.parentNode.nextSibling) {
+          console.log('NEXT', rows[i].parentNode.parentNode.nextSibling);
+          rows[i].parentNode.parentNode.parentNode.insertBefore(
+              newVerse, rows[i].parentNode.parentNode.nextSibling);
+        } else {
+          console.log('LAST', rows[i].parentNode.parentNode.nextSibling);
+          rows[i].parentNode.parentNode.parentNode.appendChild(newVerse);
+        }
+        let newRows = document.createElement("SONG-ROWS");
+        newVerse.appendChild(newRows);
+        console.log(row, row.nextSibling);
+        let r=row.nextSibling;
+        if (r==null) {
+          row.previousSibling.remove();
+          newRows.append(row);
+        } else {
+          while(r != null) {
+            let nr=r.nextSibling;
+            newRows.appendChild(r);
+            r=nr;
+          }
+          row.previousSibling.remove();
+          row.remove();
+        }
+      }
+    }
+  }
+
+
 }
 
 // Returns whether tree is valid (is. requires deep validation).
@@ -277,6 +321,7 @@ function lightTraverse(node) {
       if (!lightTraverse(ns[i])) return false;
     }
   }
+  // Let's avoid having empty tags.
   if (node.childNodes.length == 0
     && (node.nodeName==='SONG-ROWS'
       || node.nodeName==='SONG-BIS'
