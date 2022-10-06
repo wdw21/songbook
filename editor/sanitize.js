@@ -168,7 +168,9 @@ function sanitizeRow(row) {
 function Sanitize(body) {
   if (!lightTraverse(body)) {
     console.log("Full fix...");
+    console.log("before fix: ", body.outerHTML);
     traverse(body, body);
+    console.log("after fix: ", body.outerHTML);
   }
   let rows = body.getElementsByTagName("SONG-ROW");
   for (let i=0; i < rows.length; ++i) {

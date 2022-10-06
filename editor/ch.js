@@ -6,21 +6,14 @@ const predefinedChords = ["A", "A2", "A4", "A7", "A7+", "A7/4", "A7/6", "Ais",
   "d6", "e", "e7", "e9", "f", "fis", "fis7", "g", "gis", "gis7", "h", "h0",
   "h7", "h7/5-"];
 
+const chtemplate = document.createElement('template');
 
 class SongCh extends HTMLElement {
   constructor() {
     super();
 
-    const template = document.createElement('template');
-    template.innerHTML =
-        `<link rel="stylesheet" href="ch.css"/>` +
-        `<span class="cho" id="cho" draggable="true" contenteditable="false">`+
-        `<span class="ch" id="ch" draggable="false" contenteditable="false"></span>` +
-        `<input type="search" class="ch" id="che" list="predefinedChords" />` +
-        `</span>`;
-
     const shadow = this.attachShadow({ mode: "closed" });
-    shadow.appendChild(template.content.cloneNode(true));
+    shadow.appendChild(chtemplate.content.cloneNode(true));
     shadow.appendChild(predefinedChordsList());
 
     this.ch = shadow.getElementById("ch");
@@ -142,6 +135,13 @@ function predefinedChordsList() {
 }
 
 function SongChInit(parent) {
+  chtemplate.innerHTML =
+      `<link rel="stylesheet" href="ch.css"/>` +
+      `<span class="cho" id="cho" draggable="true" contenteditable="false">`+
+      `<span class="ch" id="ch" draggable="false" contenteditable="false"></span>` +
+      `<input type="search" class="ch" id="che" list="predefinedChords" />` +
+      `</span>`;
+
   customElements.define("song-ch", SongCh);
 }
 

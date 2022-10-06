@@ -73,7 +73,9 @@ class SongBody extends HTMLElement {
     this.body=shadow.getElementById("songbody");
 
     this.body.addEventListener("mousedown", this.mouseDown);
-    this.body.addEventListener("dragover", this.dragOver);
+    this.body.addEventListener("dragover", (e) => {this.dragOver(e, this); });
+    this.body.addEventListener("dragstart", (e) => {this.dragStart(e, this); });
+    this.body.addEventListener("dragend", (e) => {this.dragEnd(e, this); });
     this.body.addEventListener("drop", (e) => {this.drop(e, this); });
     this.body.addEventListener("keydown", this.keyDown);
   }
@@ -96,6 +98,23 @@ class SongBody extends HTMLElement {
       this.parentNodeBackup.removeEventListener("paste", this.pasteHandler);
     }
   }
+
+  dragStart(e, songbook) {
+    songbook.toRemoveWhenDropped = getSelection().getRangeAt(0).cloneRange();
+    e.dataTransfer.effectAllowed="copyMove";
+  }
+  dragEnd(e, songbook) {
+    songbook.toRemoveWhenDropped = null;
+  }
+
+  //
+  // dragEnd(e, songbook) {
+  //   console.log("BODY DRAG End", songbook.dropped, this.nodeName, e);
+  //   if (songbook.dropped && e.dataTransfer.dropEffect==='move') {
+  //     console.log("SELECTION: ", document.getSelection());
+  //     document.getSelection().deleteFromDocument();
+  //   }
+  // }
 
   mouseDown(e) {
     if (e.detail > 1 && canInsertChord()) {
@@ -126,7 +145,7 @@ class SongBody extends HTMLElement {
     }
   }
 
-  dragOver(e) {
+  dragOver(e, songbook) {
     if (e.dataTransfer.types.includes("songbook/chord")) {
       if (e.altKey) {
         e.dataTransfer.dropEffect = 'copy';
@@ -152,7 +171,37 @@ class SongBody extends HTMLElement {
         songbody.dropped = true;
       }
       e.preventDefault();
+      return;
     }
+
+    d = e.dataTransfer.getData("text/html");
+    if (d != null && d != "") {
+      console.log("Special!!!", e.dataTransfer.dropEffect);
+
+      if ((e.dataTransfer.dropEffect === 'move'
+              || !e.altKey) &&
+          songbody.toRemoveWhenDropped != null) {
+        songbody.toRemoveWhenDropped.deleteContents();
+      }
+
+      let range = getRangeForCursor(e)
+      let span = document.createElement("span");
+      span.innerHTML=d;
+      range.insertNode(span);
+      Sanitize(songbody);
+      e.preventDefault();
+
+      //songbody.dropped = true;
+
+      return;
+    }
+    // console.log("On drop: ", e);
+    // e.dataTransfer.types.forEach(
+    //     (t) =>
+    //     {
+    //       console.log(t, e.dataTransfer.getData(t));
+    //     }
+    // );
   }
 
   beforeInput(e) {
