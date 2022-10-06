@@ -20,6 +20,7 @@ function mergeNodeAfter(target, source) {
   }
   target.append(documentFragment);
   if (first != null) {
+    console.log("Setting cursor before:", first);
     setCursorBefore(first);
   }
   source.remove();
@@ -53,9 +54,47 @@ function insertChordHere(ch) {
 function setCursorBefore(node) {
   let newr=document.createRange();
   newr.setStartBefore(node);
+  newr.setEndBefore(node);
   document.getSelection().removeAllRanges();
   document.getSelection().addRange(newr);
+  console.log("New selection:", document.getSelection(), newr);
 }
+
+// anchorNode
+//     :
+//     song-row.accepts-ch
+// anchorOffset
+//     :
+//     0
+// baseNode
+//     :
+//     song-row.accepts-ch
+// baseOffset
+//     :
+//     0
+// extentNode
+//     :
+//     song-row.accepts-ch
+// extentOffset
+//     :
+//     0
+// focusNode
+//     :
+//     song-row.accepts-ch
+// focusOffset
+//     :
+//     0
+// isCollapsed
+//     :
+//     true
+// rangeCount
+//     :
+//     1
+// type
+//     :
+//     "Range"
+
+
 
 
 class SongBody extends HTMLElement {
@@ -82,7 +121,8 @@ class SongBody extends HTMLElement {
 
   connectedCallback() {
     this.parentNodeBackup = this.parentNode;
-    this.parentNode.addEventListener("beforeinput", this.beforeInput);
+    this.beforeInputHandler = (e) => { this.beforeInput(e, this); };
+    this.parentNode.addEventListener("beforeinput", this.beforeInputHandler);
     this.inputHandler = (e) => { this.input(e, this); };
     this.parentNode.addEventListener("input", this.inputHandler);
     this.parentNode.addEventListener("keydown", this.keyDown);
@@ -92,7 +132,7 @@ class SongBody extends HTMLElement {
 
   disconnectedCallback() {
     if (this.parentNodeBackup) {
-      this.parentNodeBackup.removeEventListener("beforeinput", this.beforeInput);
+      this.parentNodeBackup.removeEventListener("beforeinput", this.beforeInputHandler);
       this.parentNodeBackup.removeEventListener("input", this.inputHandler);
       this.parentNodeBackup.removeEventListener("keydown", this.keyDown);
       this.parentNodeBackup.removeEventListener("paste", this.pasteHandler);
@@ -106,15 +146,6 @@ class SongBody extends HTMLElement {
   dragEnd(e, songbook) {
     songbook.toRemoveWhenDropped = null;
   }
-
-  //
-  // dragEnd(e, songbook) {
-  //   console.log("BODY DRAG End", songbook.dropped, this.nodeName, e);
-  //   if (songbook.dropped && e.dataTransfer.dropEffect==='move') {
-  //     console.log("SELECTION: ", document.getSelection());
-  //     document.getSelection().deleteFromDocument();
-  //   }
-  // }
 
   mouseDown(e) {
     if (e.detail > 1 && canInsertChord()) {
@@ -132,8 +163,9 @@ class SongBody extends HTMLElement {
       }
     }
     if (e.key == 'Backspace'){
-      if (document.getSelection().isCollapsed &&
-          document.getSelection().rangeCount == 1) {
+      if (document.getSelection().isCollapsed
+          && document.getSelection().rangeCount == 1
+          && document.getSelection().type === 'Range') {
         let r = document.getSelection().getRangeAt(0);
         if (r.startOffset < r.startContainer.childNodes.length &&
             r.startContainer.childNodes[r.startOffset].nodeName=='SONG-CH') {
@@ -204,7 +236,7 @@ class SongBody extends HTMLElement {
     // );
   }
 
-  beforeInput(e) {
+  beforeInput(e, songbody) {
     console.log("BEFORE");
     if (e.inputType == "deleteContentBackward") {
       if (document.getSelection().rangeCount == 1
@@ -236,7 +268,30 @@ class SongBody extends HTMLElement {
         if (r.startContainer.nodeName == 'SONG-ROW' && r.startOffset == 0) {
           if (r.startContainer.previousSibling != null
               && r.startContainer.previousSibling.nodeName === 'SONG-ROW') {
+            // There is previous line:
             mergeNodeAfter(r.startContainer.previousSibling, r.startContainer);
+            e.preventDefault();
+          } if (r.startContainer.previousSibling != null
+              && r.startContainer.previousSibling.nodeName === 'SONG-BIS') {
+            // Previous line is within bis.
+            mergeNodeAfter(r.startContainer.previousSibling.childNodes[0].lastChild, r.startContainer);
+            e.preventDefault();
+          } else if (r.startContainer.previousSibling == null
+              && r.startContainer.parentNode.parentNode != null
+              && r.startContainer.parentNode.parentNode.nodeName === 'SONG-BIS'
+              && r.startContainer.parentNode.parentNode.previousSibling != null
+              && r.startContainer.parentNode.parentNode.previousSibling.nodeName == 'SONG-ROW' ) {
+            // Previous line is outside of bis.
+            mergeNodeAfter(r.startContainer.parentNode.parentNode.previousSibling,
+                r.startContainer);
+            e.preventDefault();
+          } else if (r.startContainer.previousSibling == null
+              && r.startContainer.parentNode.parentNode.previousSibling != null
+              && r.startContainer.parentNode.parentNode.previousSibling.nodeName === 'SONG-VERSE') {
+            // Previous line is in another verse.
+            mergeNodeAfter(r.startContainer.parentNode.parentNode.previousSibling.childNodes[0],
+                r.startContainer.parentNode);
+            r.startContainer.remove();
             e.preventDefault();
           }
         }
@@ -259,7 +314,22 @@ class SongBody extends HTMLElement {
             e.preventDefault();
           }
         }
+
+        r= document.getSelection().getRangeAt(0);
+        if (r.startContainer.nodeName === 'SONG-ROWS'
+            || r.startContainer.nodeName === 'SONG-VERSE'
+            || r.startContainer.nodeName === 'SONG-BIS'
+            || r.startContainer.nodeName === 'SONG-BODY') {
+          console.log("Preventing deletion of whole: ", r);
+          if (r.startContainer.childNodes[r.startOffset] != null
+            && r.startContainer.childNodes[r.startOffset].firstChild != null) {
+            setCursorBefore(
+                r.startContainer.childNodes[r.startOffset].firstChild);
+          }
+          e.preventDefault();
+        }
       }
+      Sanitize(songbody);
     }
   }
 

@@ -198,6 +198,10 @@ function lightTraverse(node) {
         console.log("Misplaced", node);
         return false;
       }
+      if (node.getAttribute("editor") === "false"
+          && node.getAttribute("a").trim().length == 0) {
+        node.remove();
+      }
       break;
     }
     case 'SONG-ROW': {
@@ -213,6 +217,9 @@ function lightTraverse(node) {
         console.log("Misplaced", node);
         return false;
       }
+      if (node.childNodes.length == 0) {
+        node.remove();
+      }
       break;
     }
     case 'SONG-BIS': {
@@ -220,12 +227,20 @@ function lightTraverse(node) {
         console.log("Misplaced", node);
         return false;
       }
+      if (node.childNodes.length == 0
+        || node.childNodes[0].nodeName != 'SONG-ROWS') {
+        node.remove();
+      }
       break;
     }
     case 'SONG-VERSE': {
       if (node.parentNode.nodeName!='SONG-BODY') {
         console.log("Misplaced", node);
         return false;
+      }
+      if (node.childNodes.length == 0
+          || node.childNodes[0].nodeName != 'SONG-ROWS') {
+        node.remove();
       }
       break;
     }
@@ -261,6 +276,12 @@ function lightTraverse(node) {
     for (let i=0; i < ns.length; ++i) {
       if (!lightTraverse(ns[i])) return false;
     }
+  }
+  if (node.childNodes.length == 0
+    && (node.nodeName==='SONG-ROWS'
+      || node.nodeName==='SONG-BIS'
+      || node.nodeName==='SONG-VERSE')) {
+    node.remove();
   }
   return true;
 }
