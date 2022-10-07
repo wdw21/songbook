@@ -13,13 +13,26 @@ class SongVerse extends HTMLElement {
       <label for="ref">ref</label>
     </div>
   </div>
-  <div class="verse_main"><slot/></div>
+  <div id="verse_main" class="verse_main"><slot/></div>
 </div>
   `;
 
     const shadow = this.attachShadow({ mode: "closed" });
     shadow.appendChild(template.content.cloneNode(true));
     this.nr=shadow.getElementById("nr");
+    this.ref=shadow.getElementById("ref");
+    this.main=shadow.getElementById("verse_main");
+    this.ref.addEventListener("input", (e) => this.refoninput(e, this));
+  }
+
+  refoninput(e, verse) {
+    if (verse.ref.checked) {
+      verse.setAttribute("type", "chorus");
+      verse.main.classList.add("chorus");
+    } else {
+      verse.setAttribute("type", "verse");
+      verse.main.classList.remove("chorus");
+    }
   }
 
   connectedCallback() {
@@ -36,8 +49,20 @@ class SongVerse extends HTMLElement {
     }
   }
 
+  static get observedAttributes() {
+    return ["blocknb", "type"]
+  }
+
   attributeChangedCallback() {
-    console.log("onChange", this);
+
+  }
+
+  refreshAttributes() {
+    if (this.getAttribute('type')==='chorus') {
+      this.ref.value="true"
+    } else {
+      this.ref.value="false"
+    }
   }
 }
 

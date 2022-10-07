@@ -23,7 +23,9 @@ div.verse_main {
   margin-left: 1em;
 }
 
-
+div#verse_main.chorus {
+  padding-left: 2em;
+}
 
 
 div.bis {
