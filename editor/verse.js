@@ -23,9 +23,15 @@ class SongVerse extends HTMLElement {
   }
 
   connectedCallback() {
-    for (let i=0; i < this.parentNode.childNodes.length; ++i) {
-      if (this.parentNode.childNodes[i] == this) {
-        this.nr.innerText = (i+1)+".";
+    this.refreshPosition(this)
+    this.observer = new MutationObserver(() => this.refreshPosition(this));
+    this.observer.observe(this.parentNode, { attributes: false, childList: true, subtree: false });
+  }
+
+  refreshPosition(verse) {
+    for (let i=0; i < verse.parentNode.childNodes.length; ++i) {
+      if (verse.parentNode.childNodes[i] == this) {
+        verse.nr.innerText = (i+1)+".";
       }
     }
   }

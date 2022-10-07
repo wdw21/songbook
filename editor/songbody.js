@@ -102,7 +102,8 @@ class SongBody extends HTMLElement {
     console.log("focusout", e);
     if (e.target.nodeName==='SONG-BIS'
         && (e.target.getAttribute("x").trim()==="1"
-            || e.target.getAttribute("x").trim()==="")) {
+            || e.target.getAttribute("x").trim()===""
+            || e.target.getAttribute("x").trim()==="0")) {
       flattenBis(e.target);
     }
   }
@@ -188,7 +189,8 @@ class SongBody extends HTMLElement {
   }
 
   mouseDown(e) {
-    if (e.detail > 1 && canInsertChord()) {
+    console.log("mouseDown", e);
+    if (e.detail > 1 && canInsertChord() && e.target.nodeName==='SONG-ROW') {
       if (insertChordHere("")) {
         e.preventDefault();
       }
