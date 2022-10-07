@@ -92,7 +92,7 @@ class SongBody extends HTMLElement {
     this.body.addEventListener("dragstart", (e) => {this.dragStart(e, this); });
     this.body.addEventListener("dragend", (e) => {this.dragEnd(e, this); });
     this.body.addEventListener("drop", (e) => {this.drop(e, this); });
-    this.body.addEventListener("keydown", this.keyDown);
+  //  this.body.addEventListener("keydown", (e) => { this.keyDown(e, this); });
     this.body.addEventListener("focusout", (e) => {this.focusout(e, this); });
 
     this.buttonBis.addEventListener("click", (e) => this.wrapBis());
@@ -111,7 +111,8 @@ class SongBody extends HTMLElement {
     this.parentNode.addEventListener("beforeinput", this.beforeInputHandler);
     this.inputHandler = (e) => { this.input(e, this); };
     this.parentNode.addEventListener("input", this.inputHandler);
-    this.parentNode.addEventListener("keydown", this.keyDown);
+    this.keyDownHandler = (e) => this.keyDown(e, this);
+    this.parentNode.addEventListener("keydown", this.keyDownHandler);
     this.pasteHandler = (e) => { this.paste(e, this); };
     this.parentNode.addEventListener("paste", this.pasteHandler);
   }
@@ -120,7 +121,7 @@ class SongBody extends HTMLElement {
     if (this.parentNodeBackup) {
       this.parentNodeBackup.removeEventListener("beforeinput", this.beforeInputHandler);
       this.parentNodeBackup.removeEventListener("input", this.inputHandler);
-      this.parentNodeBackup.removeEventListener("keydown", this.keyDown);
+      this.parentNodeBackup.removeEventListener("keydown", this.keyDownHandler);
       this.parentNodeBackup.removeEventListener("paste", this.pasteHandler);
     }
   }
@@ -192,7 +193,7 @@ class SongBody extends HTMLElement {
     }
   }
 
-  keyDown(e) {
+  keyDown(e,songBook) {
     console.log("keydown...",e, document.getSelection());
     if (e.key == '`' && canInsertChord()) {
       if (insertChordHere("")) {
@@ -210,7 +211,10 @@ class SongBody extends HTMLElement {
           e.preventDefault();
         }
       }
-
+    }
+    if (e.key == 'b'  && e.metaKey) {
+      songBook.wrapBis();
+      e.preventDefault();
     }
   }
 
@@ -274,8 +278,9 @@ class SongBody extends HTMLElement {
   }
 
   beforeInput(e, songbody) {
-    console.log("BEFORE");
-    if (e.inputType == "deleteContentBackward") {
+    console.log("BEFORE", e);
+    if (e.inputType == "deleteContentBackward"
+       && e.target == songbody.parentNode) {
       if (document.getSelection().rangeCount == 1
           && document.getSelection().isCollapsed) {
         let r = document.getSelection().getRangeAt(0);
@@ -297,8 +302,6 @@ class SongBody extends HTMLElement {
             mergeNodeAfter(r.startContainer.parentNode.previousSibling,
                 r.startContainer.parentNode);
             e.preventDefault();
-          } else {
-            alert("not yet coded1");
           }
         }
         // When we are at the beginning of the ROW, we merge the rows.
@@ -346,10 +349,32 @@ class SongBody extends HTMLElement {
         if (r.startContainer.nodeName == '#text' && r.startOffset == 0) {
           if (r.startContainer.previousSibling == null
               && r.startContainer.parentNode.nodeName === 'SONG-ROW'
+              &&  r.startContainer.parentNode.previousSibling != null
               &&  r.startContainer.parentNode.previousSibling.nodeName === 'SONG-ROW') {
             mergeNodeAfter(r.startContainer.parentNode.previousSibling, r.startContainer.parentNode);
             e.preventDefault();
           }
+          if (r.startContainer.previousSibling == null
+              && r.startContainer.parentNode.nodeName === 'SONG-ROW'
+              &&  r.startContainer.parentNode.previousSibling == null
+              &&  r.startContainer.parentNode.parentNode.parentNode.nodeName === 'SONG-VERSE'
+              &&  r.startContainer.parentNode.parentNode.parentNode.previousSibling
+              &&  r.startContainer.parentNode.parentNode.parentNode.previousSibling.nodeName === 'SONG-VERSE') {
+            mergeNodeAfter(r.startContainer.parentNode.parentNode.parentNode.previousSibling.childNodes[0], r.startContainer.parentNode.parentNode);
+            e.preventDefault();
+          }
+          if (r.startContainer.previousSibling == null
+              && r.startContainer.parentNode.nodeName === 'SONG-ROW'
+              &&  r.startContainer.parentNode.previousSibling == null
+              &&  r.startContainer.parentNode.parentNode.parentNode.nodeName === 'SONG-BIS'
+              &&  !r.startContainer.parentNode.parentNode.parentNode.previousSibling
+              &&  r.startContainer.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName === 'SONG-VERSE'
+              &&  r.startContainer.parentNode.parentNode.parentNode.parentNode.parentNode.previousSibling
+              &&  r.startContainer.parentNode.parentNode.parentNode.parentNode.parentNode.previousSibling.nodeName === 'SONG-VERSE') {
+            mergeNodeAfter(r.startContainer.parentNode.parentNode.parentNode.parentNode.parentNode.previousSibling.childNodes[0], r.startContainer.parentNode.parentNode.parentNode.parentNode);
+            e.preventDefault();
+          }
+
         }
 
         r= document.getSelection().getRangeAt(0);

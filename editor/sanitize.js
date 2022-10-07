@@ -189,17 +189,12 @@ function Sanitize(body) {
   rows = body.getElementsByTagName("SONG-ROW");
   for (let i=0; i < rows.length; ++i) {
     if (isEmptyRow(rows[i]) && isEmptyRow(rows[i].previousSibling)) {
-      if (rows[i].parentNode.parentNode.nodeName == 'SONG-VERSE') {
+      songVerse = findAncestor(rows[i], "SONG-VERSE");
+      if (songVerse) {
         let row=rows[i];
-        let newVerse = rows[i].parentNode.parentNode.cloneNode(false);
-        if (rows[i].parentNode.parentNode.nextSibling) {
-          console.log('NEXT', rows[i].parentNode.parentNode.nextSibling);
-          rows[i].parentNode.parentNode.parentNode.insertBefore(
-              newVerse, rows[i].parentNode.parentNode.nextSibling);
-        } else {
-          console.log('LAST', rows[i].parentNode.parentNode.nextSibling);
-          rows[i].parentNode.parentNode.parentNode.appendChild(newVerse);
-        }
+        let newVerse = songVerse.cloneNode(false);
+        songVerse.parentNode.insertBefore(
+              newVerse, songVerse.nextSibling);
         let newRows = document.createElement("SONG-ROWS");
         newVerse.appendChild(newRows);
         console.log(row, row.nextSibling);
