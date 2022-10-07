@@ -29,6 +29,8 @@ div.verse_main {
 div.bis {
   display: grid;
   align-items: stretch;
+  grid-template-columns: 1fr fit-content(2em);
+  margin-top: 0.2em;
 }
 
 div.bis_meta {
@@ -42,16 +44,15 @@ div.bis_meta {
   border-left: 1px solid black;
 }
 
-div.bis_meta span#x {
+div.bis_meta input#x {
   display: block;
   margin-top: auto;
-  margin-left: 0.5em;
+  margin-left: 0.2em;
 }
 
-span#x:before {
-  content: 'x';
-  display: inline-block;
-  margin-right: 0.3em;
+label#xl {
+  margin-left: 0.5em;
+  margin-top: auto;
 }
 
 div.bis_main {

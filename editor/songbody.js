@@ -60,42 +60,16 @@ function setCursorBefore(node) {
   console.log("New selection:", document.getSelection(), newr);
 }
 
-// anchorNode
-//     :
-//     song-row.accepts-ch
-// anchorOffset
-//     :
-//     0
-// baseNode
-//     :
-//     song-row.accepts-ch
-// baseOffset
-//     :
-//     0
-// extentNode
-//     :
-//     song-row.accepts-ch
-// extentOffset
-//     :
-//     0
-// focusNode
-//     :
-//     song-row.accepts-ch
-// focusOffset
-//     :
-//     0
-// isCollapsed
-//     :
-//     true
-// rangeCount
-//     :
-//     1
-// type
-//     :
-//     "Range"
-
-
-
+function flattenBis(node) {
+  if (!node) {
+    return;
+  }
+  rows = node.childNodes[0].childNodes;
+  while (rows.length > 0) {
+    node.parentNode.insertBefore(rows[0], node);
+  }
+  node.remove();
+}
 
 class SongBody extends HTMLElement {
   constructor() {
@@ -104,12 +78,14 @@ class SongBody extends HTMLElement {
     const template = document.createElement('template');
     template.innerHTML = `
 <link rel="stylesheet" href="song.css"/>
+<div class="toolbar"><button id="buttonBis">BIS</button></div>
 <div class="songbody" id="songbody" contenteditable="true"><slot/></div>
   `;
 
     const shadow = this.attachShadow({ mode: "closed" });
     shadow.appendChild(template.content.cloneNode(true));
     this.body=shadow.getElementById("songbody");
+    this.buttonBis=shadow.getElementById("buttonBis");
 
     this.body.addEventListener("mousedown", this.mouseDown);
     this.body.addEventListener("dragover", (e) => {this.dragOver(e, this); });
@@ -117,6 +93,16 @@ class SongBody extends HTMLElement {
     this.body.addEventListener("dragend", (e) => {this.dragEnd(e, this); });
     this.body.addEventListener("drop", (e) => {this.drop(e, this); });
     this.body.addEventListener("keydown", this.keyDown);
+    this.body.addEventListener("focusout", (e) => {this.focusout(e, this); });
+
+    this.buttonBis.addEventListener("click", (e) => this.wrapBis());
+  }
+
+  focusout(e, songbook) {
+    console.log("focusout", e);
+    if (e.target.nodeName==='SONG-BIS' && e.target.getAttribute("x")==="1") {
+      flattenBis(e.target);
+    }
   }
 
   connectedCallback() {
@@ -136,6 +122,57 @@ class SongBody extends HTMLElement {
       this.parentNodeBackup.removeEventListener("input", this.inputHandler);
       this.parentNodeBackup.removeEventListener("keydown", this.keyDown);
       this.parentNodeBackup.removeEventListener("paste", this.pasteHandler);
+    }
+  }
+
+  selectedRows() {
+    let r = document.getSelection().getRangeAt(0);
+    let result=[];
+
+    let songRowsParent = findAncestor(r.commonAncestorContainer,"SONG-ROWS");
+    if (songRowsParent) {
+      let rows = songRowsParent.getElementsByTagName("SONG-ROW");
+    //  let parentRow = findAncestor(r.commonAncestorContainer, "SONG-ROW");
+      for (let i = 0; i < rows.length; ++i) {
+        let row = rows[i];
+        if (r.intersectsNode(row)) {
+          result.push(row);
+        }
+      }
+    }
+    return result;
+  }
+
+  wrapBis() {
+    let r = document.getSelection().getRangeAt(0);
+
+    console.log(r.commonAncestorContainer);
+    let songRowsParent = findAncestor(r.commonAncestorContainer,"SONG-ROWS");
+
+    if (songRowsParent) {
+      let selRows = this.selectedRows();
+
+      flattenBis(findAncestor(r.startContainer, "SONG-BIS"));
+      flattenBis(findAncestor(r.endContainer, "SONG-BIS"));
+
+      let biss = songRowsParent.getElementsByTagName("SONG-BIS");
+      for (let i = 0; i < biss.length; ++i) {
+        console.log("Considering", biss[i]);
+        if (r.intersectsNode(biss[i])) {
+          flattenBis(biss[i]);
+        }
+      }
+
+      if (selRows.length > 0) {
+        songRowsParent = selRows[0].parentNode;
+        let bis = document.createElement("song-bis");
+        bis.setAttribute("x", "2");
+        let bisRows = document.createElement("song-rows");
+        bis.appendChild(bisRows);
+        songRowsParent.insertBefore(bis, selRows[0]);
+        bisRows.append(...selRows);
+        bis.focus();
+      }
     }
   }
 

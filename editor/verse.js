@@ -51,13 +51,18 @@ class SongBis extends HTMLElement {
 <link rel="stylesheet" href="verse.css"/>
 <div class="bis">
   <div class="bis_main"><slot/></div>
-  <div class="bis_meta"><span id="x">s?</span></div>
+  <div class="bis_meta"><label id='xl' for="x">x</label><input type="number" id="x" min="1" max="99"/></div>
 </div>
   `;
 
     const shadow = this.attachShadow({ mode: "closed" });
     shadow.appendChild(template.content.cloneNode(true));
     this.x=shadow.getElementById("x");
+    this.x.addEventListener("input", (e) => {this.input(e, this)});
+  }
+
+  input(e, songbis) {
+    songbis.setAttribute("x", e.target.value);
   }
 
   connectedCallback() {
@@ -65,11 +70,15 @@ class SongBis extends HTMLElement {
   }
 
   attributeChangedCallback() {
-    this.x.innerText = this.getAttribute("x");
+    this.x.value = this.getAttribute("x");
   }
 
   static get observedAttributes() {
     return ["x"]
+  }
+
+  focus() {
+    this.x.focus();
   }
 }
 
