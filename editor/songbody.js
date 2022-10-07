@@ -100,7 +100,9 @@ class SongBody extends HTMLElement {
 
   focusout(e, songbook) {
     console.log("focusout", e);
-    if (e.target.nodeName==='SONG-BIS' && e.target.getAttribute("x")==="1") {
+    if (e.target.nodeName==='SONG-BIS'
+        && (e.target.getAttribute("x").trim()==="1"
+            || e.target.getAttribute("x").trim()==="")) {
       flattenBis(e.target);
     }
   }
