@@ -1,45 +1,38 @@
 
-
-function  rowToNodes(row) {
-  if (row.nodeName!='row') {
-    return [];
-  }
-  let newRow = document.createElement("song-row");
-  newRow.classList.add("accepts-ch");
-  let nodes=[];
-  for (let i = 0; i < row.childNodes.length; ++i) {
-    let node = row.childNodes[i];
-    if (node.nodeName == '#text') {
-      let n = node.cloneNode();
-      newRow.appendChild(n);
-      n.nodeValue = n.nodeValue.replaceAll(spaceRegex, nbsp);
-    } else {
-      newRow.appendChild(createChord(node.attributes['a'].value));
-    }
-  }
-  return [newRow];
-}
-
-
 function onLoad() {
   //document.execCommand('defaultParagraphSeparator', false, 'br');
   text = '<?xml version="1.0" encoding="utf-8"?>'
-      + '<song>'
-      + ' <verse>'
-      + '    <row important_over="false"><ch a="G"/> Kiedy stał<ch a="Gis"/>em w przedśw<ch a="D"/>icie a Synaj</row>'
-      + '    <bis times="2">'
-      + '      <row important_over="false"><ch a="C"/> Prawdę głosił przez tr<ch a="e"/>ąby wiatru</row>'
-      + '      <row important_over="false"><ch a="G"/> Zasmerczyły się chmury igl<ch a="D"/>iwiem</row>'
-      + '    </bis>'
-      + '    <row important_over="false"><ch a="e"/> Bure świerki o g<ch a="C"/>óry wsp<ch a="D"/>arte</row>'
-      + ' </verse>'
-      + ' <verse>'
-      + '      <row important_over="false"><ch a="G"/> Kiedy stał<ch a="Gis"/>em w przedśw<ch a="D"/>icie a Synaj</row>'
-      + '      <row important_over="false"><ch a="C"/> Prawdę głosił przez tr<ch a="e"/>ąby wiatru</row>'
-      + '      <row important_over="false"><ch a="G"/> Zasmerczyły się chmury igl<ch a="D"/>iwiem</row>'
-      + '      <row important_over="false"><ch a="e"/> Bure świerki o g<ch a="C"/>óry wsp<ch a="D"/>arte</row>'
-      + ' </verse>'
-      + '</song>';
+      + `<lyric>
+    <block type="verse">
+      <row important_over="false"><ch a="G"/> Kiedy stałem w przedśw<ch a="D"/>icie a Synaj</row>
+      <row important_over="false"><ch a="C"/> Prawdę głosił przez tr<ch a="e"/>ąby wiatru</row>
+      <row important_over="false"><ch a="G"/> Zasmerczyły się chmury igl<ch a="D"/>iwiem</row>
+      <bis times="3">
+        <row important_over="false"><ch a="e"/> Bure świerki o g<ch a="C"/>óry wsp<ch a="D"/>arte</row>
+        <row important_over="false"><ch a="G"/> I na niebie byłem ja j<ch a="D"/>eden</row>
+        <row important_over="false"><ch a="C"/> Plotąc pieśni w wark<ch a="e"/>ocze bukowe</row>
+      </bis>
+      <row important_over="false"><ch a="G"/> I schodziłem na zi<ch a="D"/>emię za kwestą</row>
+      <row important_over="false"><ch a="e"/> Przez skrzydlącą się br<ch a="C"/>amę Lack<ch a="D"/>owej</row>
+    </block>
+    <block type="chorus">
+      <row important_over="false"><ch a="G"/> I był Beskid i b<ch a="C"/>yły sł<ch a="G"/>owa</row>
+      <row important_over="false"><ch a="G"/> Zanurzone po p<ch a="C"/>ępki w cerkwi b<ch a="D"/>aniach</row>
+      <row important_over="false">Rozłoż<ch a="D"/>yście złotych</row>
+      <row important_over="false"><ch a="C"/> Smagających się wi<ch a="D"/>atrem do krw<ch a="G"/>i</row>
+    </block>
+    <block type="verse">
+      <row important_over="false"><ch a="G"/> Moje myśli biegały k<ch a="D"/>ońmi</row>
+      <row important_over="false"><ch a="C"/> Po niebieskich m<ch a="e"/>okrych połon<ch a="G"/>inach</row>
+      <row important_over="false"><ch a="G"/> I modliłem si<ch a="D"/>ę złożywszy dłonie</row>
+      <row important_over="false">Do g<ch a="e"/>ór do madonny brun<ch a="C"/>atnol<ch a="D"/>icej</row>
+      <row important_over="false"><ch a="G"/> A gdy serce kropl<ch a="D"/>ami tęsknoty</row>
+      <row important_over="false"><ch a="C"/> Jęło spadać na g<ch a="e"/>óry sine</row>
+      <row important_over="false"><ch a="G"/> Czarodziejskim kwi<ch a="D"/>atem paproci</row>
+      <row important_over="false"><ch a="e"/> Rozgwieździła si<ch a="C"/>ę bukow<ch a="D"/>ina</row>
+    </block>
+    <blocklink blocknb="2"/>
+  </lyric>`;
 
   parser = new DOMParser();
   xmlDoc = parser.parseFromString(text, "text/xml");
@@ -52,37 +45,8 @@ function onLoad() {
   let body = createSongBody();
   editor.appendChild(body);
 
-  // let bodydiv = document.createElement("song-verses");
-  // body.appendChild(bodydiv);
-
-  let verses = xmlDoc.getRootNode().childNodes[0].getElementsByTagName('verse');
-  for (let vi = 0; vi < verses.length; ++vi) {
-    let verse = verses[vi];
-    let songVerse = document.createElement("song-verse");
-    let d= document.createElement("song-rows");
-
-    body.appendChild(songVerse);
-    songVerse.appendChild(d);
-    let rowsOrBis = verse.childNodes;
-
-    for (let i = 0; i < rowsOrBis.length; ++i) {
-      if (rowsOrBis[i].nodeName == 'row') {
-        d.append(...rowToNodes(rowsOrBis[i]));
-      }
-
-      if (rowsOrBis[i].nodeName == 'bis') {
-        bis = rowsOrBis[i];
-        b = document.createElement("song-bis");
-        b.setAttribute("x", bis.attributes['times'].value);
-        let bd= document.createElement("song-rows");
-        b.appendChild(bd);
-        for (let j=0; j < bis.childNodes.length; ++j) {
-          bd.append(...rowToNodes(bis.childNodes[j]));
-        }
-        d.appendChild(b);
-      }
-    }
-  }
+  body.appendChild(xmlDoc.getRootNode().childNodes[0]);
+  Sanitize(body);
 
 }
 

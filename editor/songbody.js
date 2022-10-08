@@ -421,8 +421,11 @@ class SongBody extends HTMLElement {
 
   paste(e, songbody) {
     console.log(e);
+    console.log("types", e.clipboardData.types);
     let p = document.createElement("span");
-    p.innerHTML  = e.clipboardData.getData("text/html");
+    let data = e.clipboardData.getData("text/html");
+    console.log(data);
+    p.innerHTML  = data;
     getSelection().getRangeAt(0).insertNode(p);
     e.preventDefault();
     Sanitize(songbody);

@@ -78,11 +78,18 @@ function traverseChilds(parent, childNodes) {
 // // parent - is sanitized parent of tag (song, song-verse(div), song-bis(div), song-row(div))
 // // the call responsibility is to process the node and put it into parent.
 function traverse(parent, node) {
+  console.log("Traversing...", node.nodeName, node);
   node.style=null;
-  switch (node.nodeName) {
+  switch (node.nodeName.toUpperCase()) {
 
     // BASIC
-    case '#text' : {
+    case '#TEXT' : {
+      console.log("Sanitizing text:", node);
+      if (node.parentNode.nodeName!='SONG-ROW' && node.nodeValue.trim().replace(/[\n\t\r]/g,"")==='') {
+        node.remove();
+        return parent;
+      }
+      node.nodeValue=node.nodeValue.replaceAll(" ", nbsp);
       let newParent = nestToRow(parent);
       newParent.appendChild(node);
       return newParent;
@@ -113,7 +120,7 @@ function traverse(parent, node) {
     }
     case 'SONG-VERSE': {
       let newParent = nestToBody(parent);
-        newParent.appendChild(node);
+      newParent.appendChild(node);
       traverseChilds(node, node.childNodes);
       return newParent;
     }
@@ -132,6 +139,7 @@ function traverse(parent, node) {
         newParent.appendChild(ch);
         return newParent;
       }
+      break;
     }
 
     case 'SPAN': {
@@ -142,6 +150,45 @@ function traverse(parent, node) {
         node.remove();
         return newParent;
       }
+      break;
+    }
+
+    case 'CH': {
+      console.log("Sanitizing CH", node);
+      removeAllChildren(node);
+      let newParent = nestToRow(parent);
+      newParent.appendChild(createChord(node.getAttribute("a")));
+      return newParent;
+    }
+    case 'BIS': {
+      let newParent = nestToRows(parent);
+      let newBis = document.createElement("song-bis");
+      newBis.setAttribute("x", node.getAttribute("times"));
+      newParent.appendChild(newBis);
+      let newRows = document.createElement("song-rows");
+      newBis.appendChild(newRows);
+      traverseChilds(newRows, node.childNodes);
+      return newParent;
+    }
+    case 'BLOCK': {
+      console.log("SanitizingBLOCKH", node);
+      let newParent = nestToBody(parent);
+      let newVerse = document.createElement("song-verse");
+      newParent.appendChild(newVerse);
+      let newRows = document.createElement("song-rows");
+      newVerse.appendChild(newRows);
+      traverseChilds(newRows, node.childNodes);
+      node.remove();
+      return newParent;
+    }
+    case 'ROW': {
+      console.log("Sanitizing row", node);
+      let newParent = nestToRows(parent);
+      let newRow = document.createElement("song-row");
+      newParent.appendChild(newRow);
+      traverseChilds(newRow, node.childNodes);
+      node.remove();
+      return newParent;
     }
   }
   while (node.childNodes.length > 0) {
@@ -229,6 +276,7 @@ function lightTraverse(node) {
         console.log("Misplaced", node);
         return false;
       }
+      node.nodeValue=node.nodeValue.replaceAll(" ", nbsp);
       break;
     }
     case 'SONG-CH': {
