@@ -38,14 +38,24 @@ class SongVerse extends HTMLElement {
   connectedCallback() {
     this.refreshPosition(this)
     this.observer = new MutationObserver(() => this.refreshPosition(this));
-    this.observer.observe(this.parentNode, { attributes: false, childList: true, subtree: false });
+    this.observer.observe(this.parentNode, { attributes: true, childList: true, subtree: true });
+    this.refoninput(null, this);
   }
 
   refreshPosition(verse) {
-    for (let i=0; i < verse.parentNode.childNodes.length; ++i) {
-      if (verse.parentNode.childNodes[i] == this) {
-        verse.nr.innerText = (i+1)+".";
+    if (verse.getAttribute('type')==='verse') {
+      let j=0;
+      for (let i=0; i < verse.parentNode.childNodes.length; ++i) {
+        if (verse.parentNode.childNodes[i].getAttribute('type')==='verse') {
+          j=j+1;
+        }
+        if (verse.parentNode.childNodes[i]===this) {
+          verse.nr.innerText = j+".";
+          return;
+        }
       }
+    } else {
+      verse.nr.innerText='';
     }
   }
 
