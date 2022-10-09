@@ -248,7 +248,8 @@ function Sanitize(body) {
         newVerse.appendChild(newRows);
         console.log(row, row.nextSibling);
         let r=row.nextSibling;
-        if (r==null) {
+        if (r==null
+           && row.parentNode.parentNode.nodeName!='SONG-BIS') {
           row.previousSibling.remove();
           newRows.append(row);
         } else {
@@ -256,6 +257,16 @@ function Sanitize(body) {
             let nr=r.nextSibling;
             newRows.appendChild(r);
             r=nr;
+          }
+          // If we are within BIS within middle of the verse,
+          // we need to move verse-level rows as well.
+          if (row.parentNode.parentNode.nodeName=='SONG-BIS') {
+            r = row.parentNode.parentNode.nextSibling;
+            while(r != null) {
+              let nr=r.nextSibling;
+              newRows.appendChild(r);
+              r=nr;
+            }
           }
           row.previousSibling.remove();
           row.remove();
