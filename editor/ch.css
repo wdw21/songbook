@@ -20,6 +20,7 @@ span.cho span.ch {
   overflow-wrap: normal;
   hyphens: none;
   user-select: all;
+  cursor: grab;
 }
 
 span.cho input.ch {
