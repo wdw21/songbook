@@ -78,13 +78,12 @@ function traverseChilds(parent, childNodes) {
 // // parent - is sanitized parent of tag (song, song-verse(div), song-bis(div), song-row(div))
 // // the call responsibility is to process the node and put it into parent.
 function traverse(parent, node) {
-  console.log("Traversing...", node.nodeName, node);
+  //console.log("Traversing...", node.nodeName, node);
   node.style=null;
   switch (node.nodeName.toUpperCase()) {
 
     // BASIC
     case '#TEXT' : {
-      console.log("Sanitizing text:", node);
       if (node.parentNode.nodeName!='SONG-ROW' && node.nodeValue.trim().replace(/[\n\t\r]/g,"")==='') {
         node.remove();
         return parent;
@@ -154,7 +153,6 @@ function traverse(parent, node) {
     }
 
     case 'CH': {
-      console.log("Sanitizing CH", node);
       removeAllChildren(node);
       let newParent = nestToRow(parent);
       newParent.appendChild(createChord(node.getAttribute("a")));
@@ -171,18 +169,17 @@ function traverse(parent, node) {
       return newParent;
     }
     case 'BLOCK': {
-      console.log("SanitizingBLOCKH", node);
       let newParent = nestToBody(parent);
       let newVerse = document.createElement("song-verse");
       newParent.appendChild(newVerse);
       let newRows = document.createElement("song-rows");
       newVerse.appendChild(newRows);
+      newVerse.setAttribute("type", node.getAttribute("type", "verse"))
       traverseChilds(newRows, node.childNodes);
       node.remove();
       return newParent;
     }
     case 'ROW': {
-      console.log("Sanitizing row", node);
       let newParent = nestToRows(parent);
       let newRow = document.createElement("song-row");
       newParent.appendChild(newRow);
@@ -218,6 +215,11 @@ function isEmptyRow(el) {
 }
 
 function Sanitize(body) {
+  let r=document.getSelection().rangeCount>0 ? document.getSelection().getRangeAt(0).cloneRange() : null;
+  // As sanitization modifies the text (e.g replace all ' ' -> nbsp), we
+  // need to persist where is the selection, to be able to restore it.
+  let rso=r?r.startOffset:0;
+  console.log("Stored", r);
   if (!lightTraverse(body)) {
     console.log("Full fix...");
     console.log("before fix: ", body.outerHTML);
@@ -262,14 +264,18 @@ function Sanitize(body) {
     }
   }
 
-
+  if (r) {
+    r.setStart(r.startContainer, rso);
+    document.getSelection().removeAllRanges();
+    document.getSelection().addRange(r);
+  }
 }
 
 // Returns whether tree is valid (is. requires deep validation).
 function lightTraverse(node) {
   if (node instanceof Element) {
     node.removeAttribute("style");
-  }
+  }``
   switch (node.nodeName) {
     case '#text' : {
       if (node.parentNode.nodeName!='SONG-ROW') {

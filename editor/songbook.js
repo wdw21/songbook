@@ -47,7 +47,9 @@ function onLoad() {
 
   body.appendChild(xmlDoc.getRootNode().childNodes[0]);
   Sanitize(body);
-
+  //
+  // let observer = new MutationObserver(() => { console.log("Foo"); });
+  // observer.observe(body, {childList: true, subtree:true});
 }
 
 

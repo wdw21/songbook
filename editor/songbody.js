@@ -400,23 +400,23 @@ class SongBody extends HTMLElement {
   }
 
   input(e, songbody) {
-    console.log("Oninput", e);
-    Sanitize(songbody);
-//    Avoid keeping cursor before the artifical space:
-    if (document.getSelection().isCollapsed
-        && document.getSelection().rangeCount == 1) {
-      let r = document.getSelection().getRangeAt(0);
-      //console.log("ON INPUT", document.getSelection(), r.startContainer.nodeName, r.startOffset, r.startContainer);
-      if (r.startContainer.nodeName === "#text"
-          && r.startOffset == 0
-          && r.startContainer.nodeValue.startsWith(nbsp)
-          && r.startContainer.previousSibling == null) {
-        let newr = document.createRange();
-        newr.setStart(r.startContainer, 1);
-        document.getSelection().removeAllRanges();
-        document.getSelection().addRange(newr);
-      }
-    }
+//    console.log("Oninput", e);
+     Sanitize(songbody);
+// //    Avoid keeping cursor before the artifical space:
+//     if (document.getSelection().isCollapsed
+//         && document.getSelection().rangeCount == 1) {
+//       let r = document.getSelection().getRangeAt(0);
+//       //console.log("ON INPUT", document.getSelection(), r.startContainer.nodeName, r.startOffset, r.startContainer);
+//       if (r.startContainer.nodeName === "#text"
+//           && r.startOffset == 0
+//           && r.startContainer.nodeValue.startsWith(nbsp)
+//           && r.startContainer.previousSibling == null) {
+//         let newr = document.createRange();
+//         newr.setStart(r.startContainer, 1);
+//         document.getSelection().removeAllRanges();
+//         document.getSelection().addRange(newr);
+//       }
+//     }
   }
 
   paste(e, songbody) {

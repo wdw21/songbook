@@ -28,21 +28,37 @@ class SongVerse extends HTMLElement {
   refoninput(e, verse) {
     if (verse.ref.checked) {
       verse.setAttribute("type", "chorus");
-      verse.main.classList.add("chorus");
     } else {
       verse.setAttribute("type", "verse");
-      verse.main.classList.remove("chorus");
+    }
+    verse.updateClass()
+  }
+
+  updateClass() {
+    if (this.getAttribute("type")!=="verse") {
+      this.main.classList.add("chorus");
+    } else {
+      this.main.classList.remove("chorus");
     }
   }
 
   connectedCallback() {
+    this.observer = new MutationObserver((mutations) => {
+      console.log("CALLBACK");
+      this.refreshPosition(this, mutations);
+    } );
+    console.log("Observing:", this.parentNode);
     this.refreshPosition(this)
-    this.observer = new MutationObserver(() => this.refreshPosition(this));
-    this.observer.observe(this.parentNode, { attributes: true, childList: true, subtree: true });
-    this.refoninput(null, this);
+    this.observer.observe(this.parentNode, { attributes: false, childList: true, subtree: false });
   }
 
-  refreshPosition(verse) {
+  disconnectCallback() {
+    console.log("DISCONNECTED");
+    this.observer.disconnect();
+  }
+
+  refreshPosition(verse, mutations) {
+    console.log("Refreshing... ", verse, mutations);
     if (verse.getAttribute('type')==='verse') {
       let j=0;
       for (let i=0; i < verse.parentNode.childNodes.length; ++i) {
@@ -50,7 +66,7 @@ class SongVerse extends HTMLElement {
           j=j+1;
         }
         if (verse.parentNode.childNodes[i]===this) {
-          verse.nr.innerText = j+".";
+          verse.nr.innerText = j+".X";
           return;
         }
       }
@@ -64,7 +80,9 @@ class SongVerse extends HTMLElement {
   }
 
   attributeChangedCallback() {
-
+    console.log("Attribute changed...")
+    this.ref.checked=this.getAttribute("type") !== "verse";
+    this.updateClass();
   }
 
   refreshAttributes() {
