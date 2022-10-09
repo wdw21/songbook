@@ -9,8 +9,7 @@ class SongVerse extends HTMLElement {
   <div class="verse_meta">
     <span id="nr"></span>
     <div>
-      <input type="checkbox" id="ref" value="ref" name="refren"/>
-      <label for="ref">ref</label>
+      <label for="ref"><input type="checkbox" id="ref" value="ref" name="refren"/>ref</label>
     </div>
   </div>
   <div id="verse_main" class="verse_main"><slot/></div>
@@ -49,7 +48,7 @@ class SongVerse extends HTMLElement {
     } );
     console.log("Observing:", this.parentNode);
     this.refreshPosition(this)
-    this.observer.observe(this.parentNode, { attributes: false, childList: true, subtree: false });
+    this.observer.observe(this.parentNode, { attributes: true, childList: true, subtree: true });
   }
 
   disconnectCallback() {
@@ -66,12 +65,12 @@ class SongVerse extends HTMLElement {
           j=j+1;
         }
         if (verse.parentNode.childNodes[i]===this) {
-          verse.nr.innerText = j+".X";
+          verse.nr.innerText = j+".";
           return;
         }
       }
     } else {
-      verse.nr.innerText='';
+      verse.nr.innerText='Ref:';
     }
   }
 

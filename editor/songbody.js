@@ -79,7 +79,7 @@ class SongBody extends HTMLElement {
     template.innerHTML = `
 <link rel="stylesheet" href="song.css"/>
 <div class="toolbar"><button id="buttonBis">BIS</button></div>
-<div class="songbody" id="songbody" contenteditable="true"><slot/></div>
+<div class="songbody" id="songbody"><slot/></div>
   `;
 
     const shadow = this.attachShadow({ mode: "closed" });
@@ -400,23 +400,23 @@ class SongBody extends HTMLElement {
   }
 
   input(e, songbody) {
-//    console.log("Oninput", e);
+     console.log("Oninput", e);
      Sanitize(songbody);
-// //    Avoid keeping cursor before the artifical space:
-//     if (document.getSelection().isCollapsed
-//         && document.getSelection().rangeCount == 1) {
-//       let r = document.getSelection().getRangeAt(0);
-//       //console.log("ON INPUT", document.getSelection(), r.startContainer.nodeName, r.startOffset, r.startContainer);
-//       if (r.startContainer.nodeName === "#text"
-//           && r.startOffset == 0
-//           && r.startContainer.nodeValue.startsWith(nbsp)
-//           && r.startContainer.previousSibling == null) {
-//         let newr = document.createRange();
-//         newr.setStart(r.startContainer, 1);
-//         document.getSelection().removeAllRanges();
-//         document.getSelection().addRange(newr);
-//       }
-//     }
+//    Avoid keeping cursor before the artifical space:
+    if (document.getSelection().isCollapsed
+        && document.getSelection().rangeCount == 1) {
+      let r = document.getSelection().getRangeAt(0);
+      //console.log("ON INPUT", document.getSelection(), r.startContainer.nodeName, r.startOffset, r.startContainer);
+      if (r.startContainer.nodeName === "#text"
+          && r.startOffset == 0
+          && r.startContainer.nodeValue.startsWith(nbsp)
+          && r.startContainer.previousSibling == null) {
+        let newr = document.createRange();
+        newr.setStart(r.startContainer, 1);
+        document.getSelection().removeAllRanges();
+        document.getSelection().addRange(newr);
+      }
+    }
   }
 
   paste(e, songbody) {

@@ -27,6 +27,14 @@ div#verse_main.chorus {
   padding-left: 2em;
 }
 
+div.verse  label {
+  display: flex;
+  align-items: center;
+}
+div.verse input[type=checkbox]{
+  flex: none;
+}
+
 
 div.bis {
   display: grid;
@@ -62,3 +70,4 @@ div.bis_main {
   grid-column: 1/2;
   margin-left: 0em;
 }
+
