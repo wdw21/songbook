@@ -4,23 +4,23 @@ function onLoad() {
   text = '<?xml version="1.0" encoding="utf-8"?>'
       + `<lyric>
     <block type="verse">
-      <row important_over="false"><ch a="G"/> Kiedy stałem w przedśw<ch a="D"/>icie a Synaj</row>
-      <row important_over="false"><ch a="C"/> Prawdę głosił przez tr<ch a="e"/>ąby wiatru</row>
-      <row important_over="false"><ch a="G"/> Zasmerczyły się chmury igl<ch a="D"/>iwiem</row>
+      <row important_over="true"><ch a="G"/> Kiedy stałem w przedśw<ch a="D"/>icie a Synaj</row>
+      <row important_over="true"><ch a="C"/> Prawdę głosił przez tr<ch a="e"/>ąby wiatru</row>
+      <row important_over="true"><ch a="G"/> Zasmerczyły się chmury igl<ch a="D"/>iwiem</row>
       <bis times="3">
-        <row important_over="false"><ch a="e"/> Bure świerki o g<ch a="C"/>óry wsp<ch a="D"/>arte</row>
-        <row important_over="false"><ch a="G"/> I na niebie byłem ja j<ch a="D"/>eden</row>
-        <row important_over="false"><ch a="C"/> Plotąc pieśni w wark<ch a="e"/>ocze bukowe</row>
+        <row important_over="true"><ch a="e"/> Bure świerki o g<ch a="C"/>óry wsp<ch a="D"/>arte</row>
+        <row important_over="true"><ch a="G"/> I na niebie byłem ja j<ch a="D"/>eden</row>
+        <row important_over="true"><ch a="C"/> Plotąc pieśni w wark<ch a="e"/>ocze bukowe</row>
       </bis>
       <row important_over="false"><ch a="G"/> I schodziłem na zi<ch a="D"/>emię za kwestą</row>
       <row important_over="false"><ch a="e"/> Przez skrzydlącą się br<ch a="C"/>amę Lack<ch a="D"/>owej</row>
     </block>
-     <blocklink blocknb="1"/>
+    <blocklink blocknb="1"/>
     <block type="chorus">
-      <row important_over="false"><ch a="G"/> I był Beskid i b<ch a="C"/>yły sł<ch a="G"/>owa</row>
-      <row important_over="false"><ch a="G"/> Zanurzone po p<ch a="C"/>ępki w cerkwi b<ch a="D"/>aniach</row>
-      <row important_over="false">Rozłoż<ch a="D"/>yście złotych</row>
-      <row important_over="false"><ch a="C"/> Smagających się wi<ch a="D"/>atrem do krw<ch a="G"/>i</row>
+      <row important_over="true"><ch a="G"/> I był Beskid i b<ch a="C"/>yły sł<ch a="G"/>owa</row>
+      <row important_over="true"><ch a="G"/> Zanurzone po p<ch a="C"/>ępki w cerkwi b<ch a="D"/>aniach</row>
+      <row important_over="true">Rozłoż<ch a="D"/>yście złotych</row>
+      <row important_over="true"><ch a="C"/> Smagających się wi<ch a="D"/>atrem do krw<ch a="G"/>i</row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="G"/> Moje myśli biegały k<ch a="D"/>ońmi</row>

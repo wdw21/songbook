@@ -3,11 +3,15 @@ span.cho {
   position: relative;
   left: 0px;
   width:0px;
-  top: -1.3em;
+  top: -1.4em;
   margin-top: 1.5em;
   overflow-wrap: normal;
   hyphens: none;
   font-family: Arial;
+}
+
+:host-context(song-row[important_over="true"]) span.cho {
+  top: -1.7em;
 }
 
 span.cho span.ch {
@@ -16,11 +20,22 @@ span.cho span.ch {
   left: 0px;
   font-size: xx-small;
   /*//width:30px;*/
-  font-weight: bold;
+  font-weight: lighter;
   overflow-wrap: normal;
   hyphens: none;
   user-select: all;
   cursor: grab;
+  width: fit-content;
+  overflow-wrap: normal;
+  font-weight: lighter;
+  background: white;
+  white-space:nowrap;
+}
+
+
+:host-context(song-row[important_over="true"]) span.cho span.ch {
+  font-weight: bold;
+  font-size: small;
 }
 
 span.cho input.ch {
@@ -36,12 +51,4 @@ span.cho input.ch {
   z-index: 5;
   background-color: rgba(255,255,0,0.5);
   border-width: 0px;
-}
-
-span.cho span.ch {
-  width: fit-content;
-  overflow-wrap: normal;
-  font-weight: bold;
-  background: white;
-  white-space:nowrap;
 }

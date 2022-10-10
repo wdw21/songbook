@@ -195,7 +195,9 @@ class SongVerse extends HTMLElement {
     if (this.childNodes.length<1) {
       return null;
     }
-    return this.childNodes[0].childNodes[0].innerText + " ...";
+
+    let rows = this.getElementsByTagName("song-row");
+    return rows.length>0? rows[0].innerText : null;
   }
 
   static get observedAttributes() {

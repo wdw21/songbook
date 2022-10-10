@@ -78,7 +78,8 @@ class SongBody extends HTMLElement {
     const template = document.createElement('template');
     template.innerHTML = `
 <link rel="stylesheet" href="song.css"/>
-<div class="toolbar"><button id="buttonBis">BIS</button></div>
+<div class="toolbar"><button id="buttonBis">BIS</button>
+                     <button id="importantOver">Kluczowe akordy</button></div>
 <div class="songbody" id="songbody"><slot/></div>
   `;
 
@@ -86,6 +87,7 @@ class SongBody extends HTMLElement {
     shadow.appendChild(template.content.cloneNode(true));
     this.body=shadow.getElementById("songbody");
     this.buttonBis=shadow.getElementById("buttonBis");
+    this.importantOver=shadow.getElementById("importantOver");
 
     this.body.addEventListener("mousedown", this.mouseDown);
     this.body.addEventListener("dragover", (e) => {this.dragOver(e, this); });
@@ -96,6 +98,9 @@ class SongBody extends HTMLElement {
     this.body.addEventListener("focusout", (e) => {this.focusout(e, this); });
 
     this.buttonBis.addEventListener("click", (e) => this.wrapBis());
+    this.importantOver.addEventListener("click", (e) => this.markImportantOver());
+
+    document.addEventListener('selectionchange', (event) => { this.refreshToolbar(); });
   }
 
   focusout(e, songbook) {
@@ -130,6 +135,9 @@ class SongBody extends HTMLElement {
   }
 
   selectedRows() {
+    if (document.getSelection().rangeCount == 0) {
+      return [];
+    }
     let r = document.getSelection().getRangeAt(0);
     let result=[];
 
@@ -148,36 +156,63 @@ class SongBody extends HTMLElement {
   }
 
   wrapBis() {
-    let r = document.getSelection().getRangeAt(0);
+    let selRows = this.selectedRows();
+    if (selRows.length>0) {
+      let r = document.getSelection().getRangeAt(0);
+      let songRowsParent = findAncestor(r.commonAncestorContainer,"SONG-ROWS");
+      if (songRowsParent) {
+        let selRows = this.selectedRows();
 
-    console.log(r.commonAncestorContainer);
-    let songRowsParent = findAncestor(r.commonAncestorContainer,"SONG-ROWS");
+        flattenBis(findAncestor(r.startContainer, "SONG-BIS"));
+        flattenBis(findAncestor(r.endContainer, "SONG-BIS"));
 
-    if (songRowsParent) {
-      let selRows = this.selectedRows();
+        let biss = songRowsParent.getElementsByTagName("SONG-BIS");
+        for (let i = 0; i < biss.length; ++i) {
+          console.log("Considering", biss[i]);
+          if (r.intersectsNode(biss[i])) {
+            flattenBis(biss[i]);
+          }
+        }
 
-      flattenBis(findAncestor(r.startContainer, "SONG-BIS"));
-      flattenBis(findAncestor(r.endContainer, "SONG-BIS"));
-
-      let biss = songRowsParent.getElementsByTagName("SONG-BIS");
-      for (let i = 0; i < biss.length; ++i) {
-        console.log("Considering", biss[i]);
-        if (r.intersectsNode(biss[i])) {
-          flattenBis(biss[i]);
+        if (selRows.length > 0) {
+          songRowsParent = selRows[0].parentNode;
+          let bis = document.createElement("song-bis");
+          bis.setAttribute("x", "2");
+          let bisRows = document.createElement("song-rows");
+          bis.appendChild(bisRows);
+          songRowsParent.insertBefore(bis, selRows[0]);
+          bisRows.append(...selRows);
+          bis.focus();
         }
       }
-
-      if (selRows.length > 0) {
-        songRowsParent = selRows[0].parentNode;
-        let bis = document.createElement("song-bis");
-        bis.setAttribute("x", "2");
-        let bisRows = document.createElement("song-rows");
-        bis.appendChild(bisRows);
-        songRowsParent.insertBefore(bis, selRows[0]);
-        bisRows.append(...selRows);
-        bis.focus();
-      }
     }
+  }
+
+  markImportantOver() {
+    let allImportant = this.allSelectedImportant();
+    let selRows = this.selectedRows();
+    for (let i = 0; i < selRows.length; ++i) {
+      selRows[i].setAttribute("important_over", !allImportant);
+    }
+    this.refreshToolbar();
+  }
+
+  allSelectedImportant() {
+    let selRows = this.selectedRows();
+    let allImportant=true;
+    for (let i=0; i<selRows.length; ++i) {
+      allImportant &&= selRows[i].getAttribute("important_over")==="true";
+    }
+    return allImportant;
+  }
+
+  refreshToolbar() {
+    if (this.allSelectedImportant()) {
+      this.importantOver.innerText='Mało ważne akordy';
+    } else {
+      this.importantOver.innerText='Kluczowe akordy';
+    }
+    this.buttonBis.disabled = document.getSelection().rangeCount==0;
   }
 
   dragStart(e, songbook) {

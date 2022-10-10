@@ -28,6 +28,17 @@ songbody {
   display: block;
 }
 
+div.toolbar {
+  position: fixed;
+  color:red;
+  right:10px;
+  top: 10%;
+}
+
+div.toolbar button {
+  display: block;
+  margin-top: 0.5em;
+}
 /*song-ch {*/
 /*  user-select: all;*/
 /*}*/

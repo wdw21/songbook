@@ -47,6 +47,11 @@ function  nestToVerseOrBis(parent) {
   return nestToVerse(parent);
 }
 
+function createRow(important_over=false) {
+  let row = document.createElement("song-row");
+  row.setAttribute("important_over", important_over);
+  return row;
+}
 
 function  nestToRows(parent) {
   let p = findAncestor(parent, "SONG-ROWS");
@@ -65,7 +70,7 @@ function nestToRow(parent, forceNew=false) {
     return parent;
   } else {
     let newParent = nestToRows(parent);
-    let row = document.createElement("song-row");
+    let row = createRow();
     newParent.appendChild(row);
     return row;
   }
@@ -201,7 +206,7 @@ function traverse(parent, node) {
     }
     case 'ROW': {
       let newParent = nestToRows(parent);
-      let newRow = document.createElement("song-row");
+      let newRow = createRow(node.getAttribute("important_over"));
       newParent.appendChild(newRow);
       traverseChilds(newRow, node.childNodes);
       node.remove();
