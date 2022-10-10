@@ -19,12 +19,24 @@ function  nestToBody(parent) {
   return body;
 }
 
+function createVerse(type="verse", blocknb=null) {
+  let verse = document.createElement("song-verse");
+  if (type) {
+    verse.setAttribute("type", type);
+  }
+  if (blocknb) {
+    verse.setAttribute("blocknb", blocknb);
+  }
+  verse.id="v"+Math.floor(Math.random() * 100000000);
+  return verse;
+}
+
 function  nestToVerse(parent) {
   let p = findAncestor(parent, "SONG-VERSE");
   if (p) { return p; }
 
   let newParent = nestToBody(parent);
-  let verse = document.createElement("song-verse");
+  let verse = createVerse();
   newParent.appendChild(verse);
   return verse;
 }
@@ -170,13 +182,21 @@ function traverse(parent, node) {
     }
     case 'BLOCK': {
       let newParent = nestToBody(parent);
-      let newVerse = document.createElement("song-verse");
-      newParent.appendChild(newVerse);
+      let newVerse = createVerse(node.getAttribute("type"));
       let newRows = document.createElement("song-rows");
       newVerse.appendChild(newRows);
-      newVerse.setAttribute("type", node.getAttribute("type", "verse"))
       traverseChilds(newRows, node.childNodes);
       node.remove();
+      newParent.appendChild(newVerse);
+      return newParent;
+    }
+    case 'BLOCKLINK': {
+      let newParent = nestToBody(parent);
+      let newVerse = createVerse(null, node.getAttribute("blocknb"));
+      let newRows = document.createElement("song-rows");
+      newVerse.appendChild(newRows);
+      node.remove();
+      newParent.appendChild(newVerse);
       return newParent;
     }
     case 'ROW': {
@@ -321,7 +341,8 @@ function lightTraverse(node) {
         console.log("Misplaced", node);
         return false;
       }
-      if (node.childNodes.length == 0) {
+      if (node.childNodes.length == 0
+          && !node.parentNode.getAttribute("blocknb")) {
         node.remove();
       }
       break;
@@ -342,16 +363,10 @@ function lightTraverse(node) {
         console.log("Misplaced", node);
         return false;
       }
-      if (node.childNodes.length == 0
-          || node.childNodes[0].nodeName != 'SONG-ROWS') {
+      if ((node.childNodes.length == 0
+          || node.childNodes[0].nodeName != 'SONG-ROWS')
+         && !node.getAttribute("blocknb")) {
         node.remove();
-      }
-      break;
-    }
-    case 'SONG-VERSES': {
-      if (node.parentNode.nodeName!='SONG-BODY') {
-        console.log("Misplaced", node);
-        return false;
       }
       break;
     }
@@ -385,7 +400,7 @@ function lightTraverse(node) {
   if (node.childNodes.length == 0
     && (node.nodeName==='SONG-ROWS'
       || node.nodeName==='SONG-BIS'
-      || node.nodeName==='SONG-VERSE')) {
+      || (node.nodeName==='SONG-VERSE' && !node.getAttribute("blocknb")))) {
     node.remove();
   }
   return true;

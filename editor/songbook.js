@@ -15,6 +15,7 @@ function onLoad() {
       <row important_over="false"><ch a="G"/> I schodziłem na zi<ch a="D"/>emię za kwestą</row>
       <row important_over="false"><ch a="e"/> Przez skrzydlącą się br<ch a="C"/>amę Lack<ch a="D"/>owej</row>
     </block>
+     <blocklink blocknb="1"/>
     <block type="chorus">
       <row important_over="false"><ch a="G"/> I był Beskid i b<ch a="C"/>yły sł<ch a="G"/>owa</row>
       <row important_over="false"><ch a="G"/> Zanurzone po p<ch a="C"/>ępki w cerkwi b<ch a="D"/>aniach</row>
