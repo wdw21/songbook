@@ -436,7 +436,7 @@ class SongBody extends HTMLElement {
 
   input(e, songbody) {
      console.log("Oninput", e);
-     if (e == songbody.parentNode) {
+     if (e.target == songbody.parentNode) {
        Sanitize(songbody);
 //    Avoid keeping cursor before the artifical space:
        if (document.getSelection().isCollapsed

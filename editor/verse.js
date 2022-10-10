@@ -115,10 +115,7 @@ class SongVerse extends HTMLElement {
       }
     }
 
-    this.observer = new MutationObserver((mutations) => {
-      console.log("CALLBACK");
-      this.refreshPosition(this, mutations);
-    } );
+    this.observer = new MutationObserver((mutations) => this.refreshPosition(this, mutations));
     console.log("Observing:", this.parentNode);
     this.refreshPosition(this)
     this.observer.observe(this.parentNode, { attributes: true, childList: true, subtree: true });
@@ -130,8 +127,6 @@ class SongVerse extends HTMLElement {
   }
 
   refreshPosition(verse, mutations) {
-    console.log("Refreshing... ", verse, mutations);
-
     verse.blocklink.disabled=!verse.previousSibling;
 
     if (!verse.isChorus()) {
