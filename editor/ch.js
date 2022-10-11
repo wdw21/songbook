@@ -29,10 +29,11 @@ class SongCh extends HTMLElement {
       this.setAttribute("a", this.che.value);
     };
     this.che.onblur = (event) => {
+      let storedParent = this.parentNode;
       this.setAttribute("editing", "false");
       this.updateEditing();
 
-      this.selectParent();
+      this.selectParent(storedParent);
     }
     this.ch.onmousedown = (event) => {
       // We need to prevent the parent to catch the double click
@@ -63,7 +64,7 @@ class SongCh extends HTMLElement {
         }
       }
       if (e.key == 'Enter') {
-        this.selectParent();
+        this.selectParent(this.parentNode);
         e.preventDefault();
       }
     }
@@ -78,12 +79,13 @@ class SongCh extends HTMLElement {
     return this.getAttribute("editing")==="true";
   }
 
-  selectParent() {
-    this.parentNode.focus();
+  selectParent(storedParent) {
+    console.log(storedParent);
+    storedParent.focus();
     let r = document.createRange();
     if (this.nextSibling==null) {
       let t=document.createTextNode(nbsp);
-      this.parentNode.appendChild(t);
+      storedParent.appendChild(t);
       r.selectNodeContents(t);
     } else {
       r.setStartAfter(this);

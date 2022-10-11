@@ -1,5 +1,6 @@
 const nbsp = "\u00a0";
 const spaceRegex = / /g;
+const nbspsRegexp = /\u00a0+/g;
 
 function findAncestor(p, nodeName) {
   while (p != null) {
@@ -240,6 +241,7 @@ function isEmptyRow(el) {
 }
 
 function Sanitize(body) {
+  console.log("Sanitizing...");
   let r=document.getSelection().rangeCount>0 ? document.getSelection().getRangeAt(0).cloneRange() : null;
   // As sanitization modifies the text (e.g replace all ' ' -> nbsp), we
   // need to persist where is the selection, to be able to restore it.
@@ -301,7 +303,7 @@ function Sanitize(body) {
   }
 
   if (r) {
-    r.setStart(r.startContainer, rso);
+    r.setStart(r.startContainer, Math.min(rso, r.startContainer.length));
     document.getSelection().removeAllRanges();
     document.getSelection().addRange(r);
   }
@@ -318,7 +320,13 @@ function lightTraverse(node) {
         console.log("Misplaced", node);
         return false;
       }
-      node.nodeValue=node.nodeValue.replaceAll(" ", nbsp);
+      node.nodeValue=
+          node.nodeValue.replaceAll(" ", nbsp);
+
+      if (node.parentNode.getAttribute('type')==='instr') {
+        node.nodeValue=
+            node.nodeValue.replaceAll(nbspsRegexp, nbsp);
+      };
       break;
     }
     case 'SONG-CH': {
@@ -330,6 +338,11 @@ function lightTraverse(node) {
       if (node.getAttribute("editor") === "false"
           && node.getAttribute("a").trim().length == 0) {
         node.remove();
+      }
+      if (node.parentNode.getAttribute("type")==='instr') {
+        node.parentNode.replaceChild(
+            document.createTextNode(nbsp + node.getAttribute("a") + nbsp),
+            node);
       }
       break;
     }

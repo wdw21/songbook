@@ -78,8 +78,11 @@ class SongBody extends HTMLElement {
     const template = document.createElement('template');
     template.innerHTML = `
 <link rel="stylesheet" href="song.css"/>
-<div class="toolbar"><button id="buttonBis">BIS</button>
-                     <button id="importantOver">Kluczowe akordy</button></div>
+<div class="toolbar">
+  <button id="buttonBis">BIS</button>
+  <button id="importantOver">Kluczowe akordy</button>
+  <button id="buttonInstr">Wers instrumentalny</button>
+</div>
 <div class="songbody" id="songbody"><slot/></div>
   `;
 
@@ -88,6 +91,7 @@ class SongBody extends HTMLElement {
     this.body=shadow.getElementById("songbody");
     this.buttonBis=shadow.getElementById("buttonBis");
     this.importantOver=shadow.getElementById("importantOver");
+    this.buttonInstr=shadow.getElementById("buttonInstr");
 
     this.body.addEventListener("mousedown", this.mouseDown);
     this.body.addEventListener("dragover", (e) => {this.dragOver(e, this); });
@@ -99,6 +103,7 @@ class SongBody extends HTMLElement {
 
     this.buttonBis.addEventListener("click", (e) => this.wrapBis());
     this.importantOver.addEventListener("click", (e) => this.markImportantOver());
+    this.buttonInstr.addEventListener("click", (e) => this.toggleInstrumental());
 
     document.addEventListener('selectionchange', (event) => { this.refreshToolbar(); });
   }
@@ -111,6 +116,7 @@ class SongBody extends HTMLElement {
             || e.target.getAttribute("x").trim()==="0")) {
       flattenBis(e.target);
     }
+    Sanitize(songbook);
   }
 
   connectedCallback() {
@@ -155,6 +161,7 @@ class SongBody extends HTMLElement {
     return result;
   }
 
+
   wrapBis() {
     let selRows = this.selectedRows();
     if (selRows.length>0) {
@@ -197,6 +204,44 @@ class SongBody extends HTMLElement {
     this.refreshToolbar();
   }
 
+  makeRowInstrumental(row) {
+    let text=nbsp;
+    for (let i=0; i < row.childNodes.length; ++i) {
+      let n = row.childNodes[i];
+      if (n.nodeName==='SONG-CH') {
+        text+=n.getAttribute("a") + nbsp;
+      }
+    }
+    row.setAttribute("type", "instr");
+    row.innerText=text;
+  }
+
+  makeRowNotInstrumental(row) {
+    let chords = row.innerText.replaceAll(' ', nbsp).split(nbsp);
+    console.log(chords);
+    row.removeAttribute("type");
+    removeAllChildren(row);
+    for (let i=0; i<chords.length; ++i) {
+      row.appendChild(createChord(chords[i]));
+      row.appendChild(document.createTextNode(nbsp + nbsp));
+    }
+  }
+
+  toggleInstrumental() {
+    let allInstrumental = this.allSelectedInstrumental();
+    let selRows = this.selectedRows();
+    for (let i = 0; i < selRows.length; ++i) {
+      if (allInstrumental) {
+        this.makeRowNotInstrumental(selRows[i]);
+      } else {
+        this.makeRowInstrumental(selRows[i])
+      }
+    }
+    console.log(this);
+    Sanitize(findAncestor(this, "SONG-BODY"));
+    this.refreshToolbar();
+  }
+
   allSelectedImportant() {
     let selRows = this.selectedRows();
     let allImportant=true;
@@ -206,11 +251,25 @@ class SongBody extends HTMLElement {
     return allImportant;
   }
 
+  allSelectedInstrumental() {
+    let selRows = this.selectedRows();
+    let allInstrumental=true;
+    for (let i=0; i<selRows.length; ++i) {
+      allInstrumental &&= selRows[i].getAttribute("type")==="instr";
+    }
+    return allInstrumental;
+  }
+
   refreshToolbar() {
     if (this.allSelectedImportant()) {
       this.importantOver.innerText='Mało ważne akordy';
     } else {
       this.importantOver.innerText='Kluczowe akordy';
+    }
+    if (this.allSelectedInstrumental()) {
+      this.buttonInstr.innerText='Wers liryczny';
+    } else {
+      this.buttonInstr.innerText='Wers instrumentalny';
     }
     this.buttonBis.disabled = document.getSelection().rangeCount==0;
   }
@@ -283,6 +342,7 @@ class SongBody extends HTMLElement {
         songbody.dropped = true;
       }
       e.preventDefault();
+      Sanitize(songbody);
       return;
     }
 
@@ -303,21 +363,12 @@ class SongBody extends HTMLElement {
       Sanitize(songbody);
       e.preventDefault();
 
-      //songbody.dropped = true;
-
       return;
     }
-    // console.log("On drop: ", e);
-    // e.dataTransfer.types.forEach(
-    //     (t) =>
-    //     {
-    //       console.log(t, e.dataTransfer.getData(t));
-    //     }
-    // );
+
   }
 
   beforeInput(e, songbody) {
-    console.log("BEFORE", e);
     if (e.inputType == "deleteContentBackward"
        && e.target == songbody.parentNode) {
       if (document.getSelection().rangeCount == 1

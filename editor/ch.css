@@ -7,12 +7,18 @@ span.cho {
   margin-top: 1.5em;
   overflow-wrap: normal;
   hyphens: none;
-  font-family: Arial;
 }
 
 :host-context(song-row[important_over="true"]) span.cho {
   top: -1.7em;
+  width: revert;
 }
+
+/*:host-context(song-row[style="instr"]) span.cho {
+  display: inline-block;
+  position: static;
+  top: revert;
+}*/
 
 span.cho span.ch {
   display: inline-block;
@@ -30,6 +36,7 @@ span.cho span.ch {
   font-weight: lighter;
   background: white;
   white-space:nowrap;
+  font-family: Arial;
 }
 
 
@@ -37,6 +44,11 @@ span.cho span.ch {
   font-weight: bold;
   font-size: small;
 }
+
+
+/*:host-context(song-row[style="instr"]) span.cho span.ch {
+  position: static;
+}*/
 
 span.cho input.ch {
   width: 6em;
