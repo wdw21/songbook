@@ -4,7 +4,7 @@
     xmlns="http://21wdh.staszic.waw.pl"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <xsl:output method="xml" indent="yes"/>
+  <xsl:output method="xml" indent="yes" omit-xml-declaration="no" standalone="yes"/>
 
   <xsl:template match="@*|node()">
     <xsl:copy>

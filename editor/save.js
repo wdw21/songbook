@@ -15,16 +15,23 @@ export function Save(songbody) {
   let xslt = loadXMLDoc('./save.xslt');
   console.log(xslt);
   xsltProcessor.importStylesheet(xslt);
-  //let src = loadXMLDoc("./save.xslt");
-  //let src = Document(songbody.cloneNode(true));
-
 
   const src = document.implementation.createDocument("", "", null);
   const clonedNode = src.importNode(songbody, true);
   src.appendChild(clonedNode);
 
   let resultDocument = xsltProcessor.transformToDocument(src);
+
+  const pi = resultDocument.createProcessingInstruction('xml', 'version="1.0" encoding="UTF-8"');
+  resultDocument.insertBefore(pi, resultDocument.firstChild);
   console.log(resultDocument);
 
-  document.getElementById("example").innerText=new XMLSerializer().serializeToString(resultDocument);
+  let txt=new XMLSerializer().serializeToString(resultDocument);;
+  document.getElementById("output").innerText=txt;
+
+  const elem = window.document.createElement('a');
+  elem.href = window.URL.createObjectURL(new Blob([txt]), {type: 'text/xml'});
+  elem.download = 'song.xml';
+  elem.text="[download]";
+  document.getElementById("output").parentNode.appendChild(elem);
 }
