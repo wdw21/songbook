@@ -1,4 +1,4 @@
-import {findAncestor, getRangeForCursor,nbsp,removeAllChildren} from './utils.js';
+import {findAncestor, getRangeForCursor,nbsp,removeAllChildren,loadXMLDoc} from './utils.js';
 import {createChord} from './ch.js'
 import {Sanitize} from './sanitize.js'
 import {Save} from './save.js'
@@ -60,6 +60,7 @@ export default class SongBody extends HTMLElement {
   <button id="importantOver">Kluczowe akordy</button>
   <button id="buttonInstr">Wers instrumentalny</button>
   <button id="buttonSave">Save</button>
+  <input  id="open" type="file" accept=".xml"/>
 </div>
 <div class="songbody" id="songbody"><slot/></div>
   `;
@@ -71,6 +72,7 @@ export default class SongBody extends HTMLElement {
     this.importantOver=shadow.getElementById("importantOver");
     this.buttonInstr=shadow.getElementById("buttonInstr");
     this.buttonSave=shadow.getElementById("buttonSave");
+    this.open=shadow.getElementById("open");
 
     this.body.addEventListener("mousedown", this.mouseDown);
     this.body.addEventListener("dragover", (e) => {this.dragOver(e, this); });
@@ -84,6 +86,7 @@ export default class SongBody extends HTMLElement {
     this.importantOver.addEventListener("click", (e) => this.markImportantOver());
     this.buttonInstr.addEventListener("click", (e) => this.toggleInstrumental());
     this.buttonSave.addEventListener("click", () => Save(this));
+    this.open.addEventListener("change", (e) => this.Load(e));
 
     document.addEventListener('selectionchange', (event) => { this.refreshToolbar(); });
   }
@@ -97,6 +100,23 @@ export default class SongBody extends HTMLElement {
       flattenBis(e.target);
     }
     Sanitize(songbook);
+  }
+
+  Load(e) {
+    console.log("LOADING", e);
+    let parser = new DOMParser();
+
+    // setting up the reader
+    var reader = new FileReader();
+    reader.addEventListener('load', (event) => {
+      let parser = new DOMParser();
+      let xmlDoc = parser.parseFromString(event.target.result, "text/xml");
+      let z=xmlDoc.getElementsByTagName("lyric");
+      removeAllChildren(this);
+      this.appendChild(z[0]);
+      Sanitize(this);
+    });
+    reader.readAsText(this.open.files[0]);
   }
 
   connectedCallback() {

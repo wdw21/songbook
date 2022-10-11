@@ -1,13 +1,4 @@
-function loadXMLDoc(filename)
-{
-  let xhttp = window.ActiveXObject ?
-    new ActiveXObject("Msxml2.XMLHTTP")
-    : new XMLHttpRequest();
-  xhttp.open("GET", filename, false);
-  try {xhttp.responseType = "msxml-document"} catch(err) {} // Helping IE11
-  xhttp.send("");
-  return xhttp.responseXML;
-}
+import {loadXMLDoc} from './utils.js';
 
 // function docFromNode(node) {
 //   let DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

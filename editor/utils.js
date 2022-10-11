@@ -43,3 +43,14 @@ export function removeAllChildren(node) {
     node.removeChild(node.childNodes[0]);
   }
 }
+
+export function loadXMLDoc(filename)
+{
+  let xhttp = window.ActiveXObject ?
+      new ActiveXObject("Msxml2.XMLHTTP")
+      : new XMLHttpRequest();
+  xhttp.open("GET", filename, false);
+  try {xhttp.responseType = "msxml-document"} catch(err) {} // Helping IE11
+  xhttp.send("");
+  return xhttp.responseXML;
+}

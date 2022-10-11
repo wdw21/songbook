@@ -200,11 +200,7 @@ function traverse(parent, node) {
       return newParent;
     }
   }
-  while (node.childNodes.length > 0) {
-    let n=node.childNodes[0];
-    parent.appendChild(n);
-    traverse(parent, n);
-  }
+  traverseChilds(parent, node.childNodes);
   node.remove();
   return parent;
 }
