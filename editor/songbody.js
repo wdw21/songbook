@@ -1,6 +1,7 @@
 import {findAncestor, getRangeForCursor,nbsp,removeAllChildren} from './utils.js';
 import {createChord} from './ch.js'
 import {Sanitize} from './sanitize.js'
+import {Save} from './save.js'
 
 function acceptsTextAndChords(element) {
   return element.nodeName=="SONG-ROW";
@@ -58,6 +59,7 @@ export default class SongBody extends HTMLElement {
   <button id="buttonBis">BIS</button>
   <button id="importantOver">Kluczowe akordy</button>
   <button id="buttonInstr">Wers instrumentalny</button>
+  <button id="buttonSave">Save</button>
 </div>
 <div class="songbody" id="songbody"><slot/></div>
   `;
@@ -68,6 +70,7 @@ export default class SongBody extends HTMLElement {
     this.buttonBis=shadow.getElementById("buttonBis");
     this.importantOver=shadow.getElementById("importantOver");
     this.buttonInstr=shadow.getElementById("buttonInstr");
+    this.buttonSave=shadow.getElementById("buttonSave");
 
     this.body.addEventListener("mousedown", this.mouseDown);
     this.body.addEventListener("dragover", (e) => {this.dragOver(e, this); });
@@ -80,6 +83,7 @@ export default class SongBody extends HTMLElement {
     this.buttonBis.addEventListener("click", (e) => this.wrapBis());
     this.importantOver.addEventListener("click", (e) => this.markImportantOver());
     this.buttonInstr.addEventListener("click", (e) => this.toggleInstrumental());
+    this.buttonSave.addEventListener("click", () => Save(this));
 
     document.addEventListener('selectionchange', (event) => { this.refreshToolbar(); });
   }
