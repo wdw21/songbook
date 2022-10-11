@@ -1,7 +1,11 @@
+import {SongChInit} from './ch.js'
+import SongVerseBisInit from './verse.js'
+import {createSongBody} from './songbody.js';
+import {Sanitize} from './sanitize.js';
 
-function onLoad() {
+function OnLoad() {
   //document.execCommand('defaultParagraphSeparator', false, 'br');
-  text = '<?xml version="1.0" encoding="utf-8"?>'
+  let text = '<?xml version="1.0" encoding="utf-8"?>'
       + `<lyric>
     <block type="verse">
       <row important_over="true"><ch a="G"/> Kiedy stałem w przedśw<ch a="D"/>icie a Synaj</row>
@@ -35,13 +39,13 @@ function onLoad() {
     <blocklink blocknb="2"/>
   </lyric>`;
 
-  parser = new DOMParser();
-  xmlDoc = parser.parseFromString(text, "text/xml");
+  let parser = new DOMParser();
+  let xmlDoc = parser.parseFromString(text, "text/xml");
 
   let editor = document.getElementById("editor");
   SongChInit(editor);
   SongVerseBisInit();
-  SongBodyInit();
+  //SongBodyInit();
 
   let body = createSongBody();
   editor.appendChild(body);
@@ -50,4 +54,4 @@ function onLoad() {
   Sanitize(body);
 }
 
-
+OnLoad();

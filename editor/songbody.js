@@ -1,33 +1,9 @@
-function getRangeForCursor(e) {
-  if (document.caretRangeFromPoint) {
-    // edge, chrome, android
-    range = document.caretRangeFromPoint(e.clientX, e.clientY)
-  } else {
-    // firefox
-    var pos = [e.rangeParent, e.rangeOffset]
-    range = document.createRange()
-    range.setStart(...pos);
-    range.setEnd(...pos);
-  }
-  return range;
-}
-
-function mergeNodeAfter(target, source) {
-  let first = source.childNodes[0];
-  let documentFragment = document.createDocumentFragment();
-  while (source.childNodes.length > 0) {
-    documentFragment.appendChild(source.childNodes[0]);
-  }
-  target.append(documentFragment);
-  if (first != null) {
-    console.log("Setting cursor before:", first);
-    setCursorBefore(first);
-  }
-  source.remove();
-}
+import {findAncestor, getRangeForCursor,nbsp,removeAllChildren} from './utils.js';
+import {createChord} from './ch.js'
+import {Sanitize} from './sanitize.js'
 
 function acceptsTextAndChords(element) {
-  return element.nodeName="SONG-ROW";
+  return element.nodeName=="SONG-ROW";
 }
 
 function canInsertChord() {
@@ -64,20 +40,20 @@ function flattenBis(node) {
   if (!node) {
     return;
   }
-  rows = node.childNodes[0].childNodes;
+  let rows = node.childNodes[0].childNodes;
   while (rows.length > 0) {
     node.parentNode.insertBefore(rows[0], node);
   }
   node.remove();
 }
 
-class SongBody extends HTMLElement {
+export default class SongBody extends HTMLElement {
   constructor() {
     super();
 
     const template = document.createElement('template');
     template.innerHTML = `
-<link rel="stylesheet" href="song.css"/>
+<link rel="stylesheet" href="./song.css"/>
 <div class="toolbar">
   <button id="buttonBis">BIS</button>
   <button id="importantOver">Kluczowe akordy</button>
@@ -525,9 +501,13 @@ class SongBody extends HTMLElement {
 }
 
 function SongBodyInit() {
-  customElements.define("song-body", SongBody);
+  if (!customElements.get("song-body")) {
+    customElements.define("song-body", SongBody);
+  }
 };
 
-function createSongBody() {
+export function createSongBody() {
   return document.createElement("song-body");
 }
+
+SongBodyInit();

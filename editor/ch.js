@@ -8,7 +8,7 @@ const predefinedChords = ["A", "A2", "A4", "A7", "A7+", "A7/4", "A7/6", "Ais",
 
 const chtemplate = document.createElement('template');
 
-class SongCh extends HTMLElement {
+export default class SongCh extends HTMLElement {
   constructor() {
     super();
 
@@ -133,7 +133,7 @@ function predefinedChordsList() {
   dl.id = "predefinedChords";
   predefinedChords.forEach(
       (ch) => {
-        opt = document.createElement("option");
+        let opt = document.createElement("option");
         opt.value = ch;
         dl.appendChild(opt);
       }
@@ -141,9 +141,9 @@ function predefinedChordsList() {
   return dl;
 }
 
-function SongChInit(parent) {
+export function SongChInit(parent) {
   chtemplate.innerHTML =
-      `<link rel="stylesheet" href="ch.css"/>` +
+      `<link rel="stylesheet" href="./ch.css"/>` +
       `<span class="cho" id="cho" draggable="true" contenteditable="false">`+
       `<span class="ch" id="ch" draggable="false" contenteditable="false"></span>` +
       `<input type="search" class="ch" id="che" list="predefinedChords" />` +
@@ -152,7 +152,7 @@ function SongChInit(parent) {
   customElements.define("song-ch", SongCh);
 }
 
-function createChord(chord) {
+export function createChord(chord) {
   let ch = document.createElement("song-ch");
   ch.setAttribute('a', chord);
   return ch;

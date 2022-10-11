@@ -1,15 +1,8 @@
-const nbsp = "\u00a0";
+import {createChord} from './ch.js';
+import {findAncestor,nbsp,removeAllChildren} from './utils.js';
+
 const spaceRegex = / /g;
 const nbspsRegexp = /\u00a0+/g;
-
-function findAncestor(p, nodeName) {
-  while (p != null) {
-    if (p.nodeName === nodeName) {
-      return p;
-    }
-    p = p.parentNode;
-  }
-}
 
 function  nestToBody(parent) {
   let p = findAncestor(parent, "SONG-BODY");
@@ -74,13 +67,6 @@ function nestToRow(parent, forceNew=false) {
     let row = createRow();
     newParent.appendChild(row);
     return row;
-  }
-}
-
-
-function removeAllChildren(node) {
-  while(node.childNodes.length > 0) {
-    node.removeChild(node.childNodes[0]);
   }
 }
 
@@ -240,7 +226,7 @@ function isEmptyRow(el) {
     && (el.textContent==='' || el.textContent===nbsp);
 }
 
-function Sanitize(body) {
+export function Sanitize(body) {
   console.log("Sanitizing...");
   let r=document.getSelection().rangeCount>0 ? document.getSelection().getRangeAt(0).cloneRange() : null;
   // As sanitization modifies the text (e.g replace all ' ' -> nbsp), we

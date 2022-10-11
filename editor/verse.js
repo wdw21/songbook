@@ -1,10 +1,10 @@
-class SongVerse extends HTMLElement {
+export class SongVerse extends HTMLElement {
   constructor() {
     super();
 
     const template = document.createElement('template');
     template.innerHTML = `
-<link rel="stylesheet" href="verse.css"/>
+<link rel="stylesheet" href="./verse.css"/>
 <div class="verse">
   <div class="verse_meta">
     <span id="nr"></span>
@@ -227,7 +227,7 @@ class SongVerse extends HTMLElement {
 
 
 
-class SongBis extends HTMLElement {
+export class SongBis extends HTMLElement {
   constructor() {
     super();
 
@@ -269,7 +269,7 @@ class SongBis extends HTMLElement {
 
 
 
-function SongVerseBisInit() {
+export default function SongVerseBisInit() {
   customElements.define("song-verse", SongVerse);
   customElements.define("song-bis", SongBis);
 }
