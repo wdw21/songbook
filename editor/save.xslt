@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xsl:stylesheet version="2.0"
-    xmlns="http://21wdh.staszic.waw.pl"    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+<xsl:stylesheet version="1.0"
+    xmlns="http://21wdh.staszic.waw.pl"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <xsl:output method="xml" indent="yes"/>
 
@@ -89,23 +90,5 @@
       </xsl:when>
     </xsl:choose>
   </xsl:template>
-<!--  </xsl:template>-->
-<!--    <xsl:choose>-->
-<!--      <xsl:when test="contains($datalist,$delimiter)  ">-->
-<!--        <xsl:element name="processedItem">-->
-<!--          <xsl:value-of select="substring-before($datalist,$delimiter) * 10"/>-->
-<!--        </xsl:element>-->
-<!--        <xsl:call-template name="processingTemplate">-->
-<!--          <xsl:with-param name="datalist" select="substring-after($datalist,$delimiter)"/>-->
-<!--        </xsl:call-template>-->
-<!--      </xsl:when>-->
-<!--      <xsl:when test="string-length($datalist)=1">-->
-<!--        <xsl:element name="processedItem">-->
-<!--          <xsl:value-of select="$datalist * 10"/>-->
-
-<!--        </xsl:element>-->
-<!--      </xsl:when>-->
-<!--    </xsl:choose>-->
-
 
 </xsl:stylesheet>
