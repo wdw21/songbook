@@ -55,24 +55,11 @@ export default class SongBody extends HTMLElement {
     const template = document.createElement('template');
     template.innerHTML = `
 <link rel="stylesheet" href="./song.css"/>
-<div class="toolbar">
-  <button id="buttonBis">BIS</button>
-  <button id="importantOver">Kluczowe akordy</button>
-  <button id="buttonInstr">Wers instrumentalny</button>
-  <button id="buttonSave">Save</button>
-  <input  id="open" type="file" accept=".xml"/>
-</div>
-<div class="songbody" id="songbody"><slot/></div>
-  `;
+<div class="songbody" id="songbody"><slot/></div>`;
 
     const shadow = this.attachShadow({ mode: "closed" });
     shadow.appendChild(template.content.cloneNode(true));
     this.body=shadow.getElementById("songbody");
-    this.buttonBis=shadow.getElementById("buttonBis");
-    this.importantOver=shadow.getElementById("importantOver");
-    this.buttonInstr=shadow.getElementById("buttonInstr");
-    this.buttonSave=shadow.getElementById("buttonSave");
-    this.open=shadow.getElementById("open");
 
     this.body.addEventListener("mousedown", this.mouseDown);
     this.body.addEventListener("dragover", (e) => {this.dragOver(e, this); });
@@ -81,14 +68,6 @@ export default class SongBody extends HTMLElement {
     this.body.addEventListener("drop", (e) => {this.drop(e, this); });
   //  this.body.addEventListener("keydown", (e) => { this.keyDown(e, this); });
     this.body.addEventListener("focusout", (e) => {this.focusout(e, this); });
-
-    this.buttonBis.addEventListener("click", (e) => this.wrapBis());
-    this.importantOver.addEventListener("click", (e) => this.markImportantOver());
-    this.buttonInstr.addEventListener("click", (e) => this.toggleInstrumental());
-    this.buttonSave.addEventListener("click", () => Save(this));
-    this.open.addEventListener("change", (e) => this.Load(e));
-
-    document.addEventListener('selectionchange', (event) => { this.refreshToolbar(); });
   }
 
   focusout(e, songbook) {
@@ -100,23 +79,6 @@ export default class SongBody extends HTMLElement {
       flattenBis(e.target);
     }
     Sanitize(songbook);
-  }
-
-  Load(e) {
-    console.log("LOADING", e);
-    let parser = new DOMParser();
-
-    // setting up the reader
-    var reader = new FileReader();
-    reader.addEventListener('load', (event) => {
-      let parser = new DOMParser();
-      let xmlDoc = parser.parseFromString(event.target.result, "text/xml");
-      let z=xmlDoc.getElementsByTagName("lyric");
-      removeAllChildren(this);
-      this.appendChild(z[0]);
-      Sanitize(this);
-    });
-    reader.readAsText(this.open.files[0]);
   }
 
   connectedCallback() {
@@ -201,7 +163,6 @@ export default class SongBody extends HTMLElement {
     for (let i = 0; i < selRows.length; ++i) {
       selRows[i].setAttribute("important_over", !allImportant);
     }
-    this.refreshToolbar();
   }
 
   makeRowInstrumental(row) {
@@ -239,7 +200,6 @@ export default class SongBody extends HTMLElement {
     }
     console.log(this);
     Sanitize(findAncestor(this, "SONG-BODY"));
-    this.refreshToolbar();
   }
 
   allSelectedImportant() {
@@ -258,20 +218,6 @@ export default class SongBody extends HTMLElement {
       allInstrumental &&= selRows[i].getAttribute("type")==="instr";
     }
     return allInstrumental;
-  }
-
-  refreshToolbar() {
-    if (this.allSelectedImportant()) {
-      this.importantOver.innerText='Mało ważne akordy';
-    } else {
-      this.importantOver.innerText='Kluczowe akordy';
-    }
-    if (this.allSelectedInstrumental()) {
-      this.buttonInstr.innerText='Wers liryczny';
-    } else {
-      this.buttonInstr.innerText='Wers instrumentalny';
-    }
-    this.buttonBis.disabled = document.getSelection().rangeCount==0;
   }
 
   dragStart(e, songbook) {
@@ -370,7 +316,7 @@ export default class SongBody extends HTMLElement {
 
   beforeInput(e, songbody) {
     if (e.inputType == "deleteContentBackward"
-       && e.target == songbody.parentNode) {
+       && e.target == songbody) {
       if (document.getSelection().rangeCount == 1
           && document.getSelection().isCollapsed) {
         let r = document.getSelection().getRangeAt(0);
@@ -487,7 +433,7 @@ export default class SongBody extends HTMLElement {
 
   input(e, songbody) {
      console.log("Oninput", e);
-     if (e.target == songbody.parentNode) {
+     if (e.target == songbody) {
        Sanitize(songbody);
 //    Avoid keeping cursor before the artifical space:
        if (document.getSelection().isCollapsed
@@ -524,7 +470,7 @@ export default class SongBody extends HTMLElement {
   }
 }
 
-function SongBodyInit() {
+export function SongBodyInit() {
   if (!customElements.get("song-body")) {
     customElements.define("song-body", SongBody);
   }
@@ -533,5 +479,3 @@ function SongBodyInit() {
 export function createSongBody() {
   return document.createElement("song-body");
 }
-
-SongBodyInit();

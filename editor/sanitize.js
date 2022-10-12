@@ -165,7 +165,11 @@ function traverse(parent, node) {
     case 'BIS': {
       let newParent = nestToRows(parent);
       let newBis = document.createElement("song-bis");
-      newBis.setAttribute("x", node.getAttribute("times"));
+      if (node.hasAttribute("times")) {
+        newBis.setAttribute("x", node.getAttribute("times"));
+      } else {
+        newBis.setAttribute("x", 2);
+      }
       newParent.appendChild(newBis);
       let newRows = document.createElement("song-rows");
       newBis.appendChild(newRows);
@@ -247,7 +251,7 @@ export function Sanitize(body) {
   rows = body.getElementsByTagName("SONG-ROW");
   for (let i=0; i < rows.length; ++i) {
     if (isEmptyRow(rows[i]) && isEmptyRow(rows[i].previousSibling)) {
-      songVerse = findAncestor(rows[i], "SONG-VERSE");
+      let songVerse = findAncestor(rows[i], "SONG-VERSE");
       if (songVerse) {
         let row=rows[i];
         let newVerse = songVerse.cloneNode(false);
@@ -285,7 +289,11 @@ export function Sanitize(body) {
   }
 
   if (r) {
-    r.setStart(r.startContainer, Math.min(rso, r.startContainer.length));
+    r.setStart(r.startContainer,
+        Math.min(rso,
+            r.startContainer.nodeName=='#text'
+                ? r.startContainer.length
+                : r.startContainer.childNodes.length));
     document.getSelection().removeAllRanges();
     document.getSelection().addRange(r);
   }

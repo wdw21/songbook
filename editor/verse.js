@@ -269,7 +269,7 @@ export class SongBis extends HTMLElement {
 
 
 
-export default function SongVerseBisInit() {
+export function SongVerseBisInit() {
   customElements.define("song-verse", SongVerse);
   customElements.define("song-bis", SongBis);
 }

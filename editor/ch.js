@@ -141,7 +141,7 @@ function predefinedChordsList() {
   return dl;
 }
 
-export function SongChInit(parent) {
+export function SongChInit() {
   chtemplate.innerHTML =
       `<link rel="stylesheet" href="./ch.css"/>` +
       `<span class="cho" id="cho" draggable="true" contenteditable="false">`+

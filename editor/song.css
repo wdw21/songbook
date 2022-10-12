@@ -47,6 +47,12 @@ div.toolbar {
 div.toolbar button {
   display: block;
   margin-top: 0.5em;
+  width: 13em;
+}
+
+div.toolbar input {
+  margin-top: 0.5em;
+  width: 13em;
 }
 /*song-ch {*/
 /*  user-select: all;*/
