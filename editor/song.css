@@ -39,14 +39,14 @@ songbody {
 
 div.toolbar {
   position: fixed;
-  color:red;
   right:10px;
-  top: 10%;
+  top: 5%;
 }
 
 div.toolbar button {
   display: block;
   margin-top: 0.5em;
+  marging-left: 3em;
   width: 13em;
 }
 

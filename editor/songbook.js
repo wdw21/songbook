@@ -13,13 +13,17 @@ export class SongEditor extends HTMLElement {
     const template = document.createElement('template');
     template.innerHTML = `
 <link rel="stylesheet" href="song.css"/>
-<div>
+<div style="width: fit-content;">
   <div class="toolbar">
-    <button id="buttonBis">BIS</button>
-    <button id="importantOver">Kluczowe akordy</button>
-    <button id="buttonInstr">Wers instrumentalny</button>
-    <button id="buttonSave">Save</button>
-    <input  id="open" type="file" accept=".xml"/>
+    <div>Pliki:</br>
+      <input  id="open" type="file" accept=".xml"/>
+      <button id="buttonSave">Zapisz</button>  
+    </div>
+    <div>Formatowanie:
+      <button id="buttonBis">BIS</button>
+      <button id="importantOver">Kluczowe akordy</button>
+      <button id="buttonInstr">Wers instrumentalny</button>
+    </div>    
   </div>
   <slot id="song-body"/>
 </div>
@@ -44,7 +48,17 @@ export class SongEditor extends HTMLElement {
   }
 
   body() {
-    return this.firstChild;
+    return this.getElementsByTagName("song-body")[0];
+  }
+
+  New() {
+    this.innerHTML=`
+<song-body contenteditable='true'>
+  <song-verse type='verse'><song-rows>
+     <song-row>Herbata stygnie, zapada zmrok</song-row>
+     <song-row>A pod piórem ciągle nic...</song-row></song-rows>
+  </song-verse></song-body>`;
+    this.body().selectAll();
   }
 
   Load(e) {
@@ -80,25 +94,12 @@ export class SongEditor extends HTMLElement {
     this.buttonBis.disabled = document.getSelection().rangeCount==0;
   }
 
-  // input(e, songbis) {
-  //   songbis.setAttribute("x", e.target.value);
-  // }
-  //
-  // connectedCallback() {
-  //   this.attributeChangedCallback();
-  // }
-  //
-  // attributeChangedCallback() {
-  //   this.x.value = this.getAttribute("x");
-  // }
-  //
-  // static get observedAttributes() {
-  //   return ["x"]
-  // }
-  //
-  // focus() {
-  //   this.x.focus();
-  // }
+  connectedCallback() {
+    if (!this.body()) {
+      this.New();
+    }
+  }
+
 }
 
 
@@ -115,57 +116,3 @@ function init() {
 }
 
 init();
-
-
-// function OnLoad() {
-//   //document.execCommand('defaultParagraphSeparator', false, 'br');
-//   let text = '<?xml version="1.0" encoding="utf-8"?>'
-//       + `<lyric>
-//     <block type="verse">
-//       <row important_over="true"><ch a="G"/> Kiedy stałem w przedśw<ch a="D"/>icie a Synaj</row>
-//       <row important_over="true"><ch a="C"/> Prawdę głosił przez tr<ch a="e"/>ąby wiatru</row>
-//       <row important_over="true"><ch a="G"/> Zasmerczyły się chmury igl<ch a="D"/>iwiem</row>
-//       <bis times="3">
-//         <row important_over="true"><ch a="e"/> Bure świerki o g<ch a="C"/>óry wsp<ch a="D"/>arte</row>
-//         <row important_over="true"><ch a="G"/> I na niebie byłem ja j<ch a="D"/>eden</row>
-//         <row important_over="true"><ch a="C"/> Plotąc pieśni w wark<ch a="e"/>ocze bukowe</row>
-//       </bis>
-//       <row important_over="false"><ch a="G"/> I schodziłem na zi<ch a="D"/>emię za kwestą</row>
-//       <row important_over="false"><ch a="e"/> Przez skrzydlącą się br<ch a="C"/>amę Lack<ch a="D"/>owej</row>
-//     </block>
-//     <blocklink blocknb="1"/>
-//     <block type="chorus">
-//       <row important_over="true"><ch a="G"/> I był Beskid i b<ch a="C"/>yły sł<ch a="G"/>owa</row>
-//       <row important_over="true"><ch a="G"/> Zanurzone po p<ch a="C"/>ępki w cerkwi b<ch a="D"/>aniach</row>
-//       <row important_over="true">Rozłoż<ch a="D"/>yście złotych</row>
-//       <row important_over="true"><ch a="C"/> Smagających się wi<ch a="D"/>atrem do krw<ch a="G"/>i</row>
-//     </block>
-//     <block type="verse">
-//       <row important_over="false"><ch a="G"/> Moje myśli biegały k<ch a="D"/>ońmi</row>
-//       <row important_over="false"><ch a="C"/> Po niebieskich m<ch a="e"/>okrych połon<ch a="G"/>inach</row>
-//       <row important_over="false"><ch a="G"/> I modliłem si<ch a="D"/>ę złożywszy dłonie</row>
-//       <row important_over="false">Do g<ch a="e"/>ór do madonny brun<ch a="C"/>atnol<ch a="D"/>icej</row>
-//       <row important_over="false"><ch a="G"/> A gdy serce kropl<ch a="D"/>ami tęsknoty</row>
-//       <row important_over="false"><ch a="C"/> Jęło spadać na g<ch a="e"/>óry sine</row>
-//       <row important_over="false"><ch a="G"/> Czarodziejskim kwi<ch a="D"/>atem paproci</row>
-//       <row important_over="false"><ch a="e"/> Rozgwieździła si<ch a="C"/>ę bukow<ch a="D"/>ina</row>
-//     </block>
-//     <blocklink blocknb="2"/>
-//   </lyric>`;
-//
-//   let parser = new DOMParser();
-//   let xmlDoc = parser.parseFromString(text, "text/xml");
-//
-//   let editor = document.getElementById("editor");
-//   SongChInit(editor);
-//   SongVerseBisInit();
-//   //SongBodyInit();
-//
-//   let body = createSongBody();
-//   editor.appendChild(body);
-//
-//   body.appendChild(xmlDoc.getRootNode().childNodes[0]);
-//   Sanitize(body);
-// }
-//
-// OnLoad();

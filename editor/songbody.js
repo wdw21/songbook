@@ -202,6 +202,17 @@ export default class SongBody extends HTMLElement {
     Sanitize(findAncestor(this, "SONG-BODY"));
   }
 
+  selectAll() {
+    let r=document.createRange();
+    let rows=this.getElementsByTagName("SONG-ROW");
+    r.setStartBefore(rows[0].firstChild);
+    r.setEndAfter(rows[rows.length-1].lastChild);
+    document.getSelection().removeAllRanges();
+    document.getSelection().addRange(r);
+    //document.getSelection().selectAllChildren(this.body);
+    this.body.focus();
+  }
+
   allSelectedImportant() {
     let selRows = this.selectedRows();
     let allImportant=true;
