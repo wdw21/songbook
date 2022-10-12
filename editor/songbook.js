@@ -16,6 +16,7 @@ export class SongEditor extends HTMLElement {
 <div style="width: fit-content;">
   <div class="toolbar">
     <div>Pliki:</br>
+      <button id="buttonNew">Nowy</button>  
       <input  id="open" type="file" accept=".xml"/>
       <button id="buttonSave">Zapisz</button>  
     </div>
@@ -32,6 +33,7 @@ export class SongEditor extends HTMLElement {
     const shadow = this.attachShadow({ mode: "closed" });
     shadow.appendChild(template.content.cloneNode(true));
 
+    this.buttonNew=shadow.getElementById("buttonNew");
     this.buttonBis=shadow.getElementById("buttonBis");
     this.importantOver=shadow.getElementById("importantOver");
     this.buttonInstr=shadow.getElementById("buttonInstr");
@@ -43,6 +45,7 @@ export class SongEditor extends HTMLElement {
     this.buttonInstr.addEventListener("click", (e) =>  { this.body().toggleInstrumental(); this.refreshToolbar(); });
     this.buttonSave.addEventListener("click", () => Save(this.body()));
     this.open.addEventListener("change", (e) => this.Load(e));
+    this.buttonNew.addEventListener("click", (e) => this.New(e));
 
     document.addEventListener('selectionchange', (event) => { this.refreshToolbar(); });
   }
