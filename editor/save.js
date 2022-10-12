@@ -27,7 +27,7 @@ export function Save(songbody) {
   console.log(resultDocument);
 
   let txt=new XMLSerializer().serializeToString(resultDocument);;
-  document.getElementById("output").innerText=txt;
+  document.getElementById("output").innerText=txt.replaceAll("?><song","?>\n<song");
 
   const elem = window.document.createElement('a');
   elem.href = window.URL.createObjectURL(new Blob([txt]), {type: 'text/xml'});

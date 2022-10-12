@@ -54,6 +54,14 @@ div.toolbar input {
   margin-top: 0.5em;
   width: 13em;
 }
+
+div.toolbar div {
+  margin-top: 1em;
+}
+
+div.songbody{
+  padding-right: 2em;
+}
 /*song-ch {*/
 /*  user-select: all;*/
 /*}*/
