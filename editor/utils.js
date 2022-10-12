@@ -54,3 +54,12 @@ export function loadXMLDoc(filename)
   xhttp.send("");
   return xhttp.responseXML;
 }
+
+export function setCursorBefore(node) {
+  let newr=document.createRange();
+  newr.setStartBefore(node);
+  newr.setEndBefore(node);
+  document.getSelection().removeAllRanges();
+  document.getSelection().addRange(newr);
+  console.log("New selection:", document.getSelection(), newr);
+}

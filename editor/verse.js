@@ -127,6 +127,10 @@ export class SongVerse extends HTMLElement {
   }
 
   refreshPosition(verse, mutations) {
+    if (!verse.parentNode) {
+      console.warn("refresh-position disconnected");
+      return;
+    }
     verse.blocklink.disabled=!verse.previousSibling;
 
     if (!verse.isChorus()) {

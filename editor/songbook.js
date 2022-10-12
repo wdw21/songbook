@@ -61,6 +61,7 @@ export class SongEditor extends HTMLElement {
      <song-row>Herbata stygnie, zapada zmrok</song-row>
      <song-row>A pod piórem ciągle nic...</song-row></song-rows>
   </song-verse></song-body>`;
+    Sanitize(this.body());
     this.body().selectAll();
   }
 

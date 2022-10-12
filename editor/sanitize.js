@@ -13,6 +13,12 @@ function  nestToBody(parent) {
   return body;
 }
 
+function setRandomId(node) {
+  if (!node.id || node.id.trim()==='') {
+    node.id="v"+Math.floor(Math.random() * 100000000);
+  }
+}
+
 function createVerse(type="verse", blocknb=null) {
   let verse = document.createElement("song-verse");
   if (type) {
@@ -21,7 +27,7 @@ function createVerse(type="verse", blocknb=null) {
   if (blocknb) {
     verse.setAttribute("blocknb", blocknb);
   }
-  verse.id="v"+Math.floor(Math.random() * 100000000);
+  setRandomId(verse);
   return verse;
 }
 
@@ -83,16 +89,19 @@ function traverseChilds(parent, childNodes) {
 // // the call responsibility is to process the node and put it into parent.
 function traverse(parent, node) {
   //console.log("Traversing...", node.nodeName, node);
-  node.style=null;
+  if (node instanceof Element) {
+    node.removeAttribute("style");
+  }
   switch (node.nodeName.toUpperCase()) {
 
     // BASIC
     case '#TEXT' : {
-      if (node.parentNode.nodeName!='SONG-ROW' && node.nodeValue.trim().replace(/[\n\t\r]/g,"")==='') {
+      if (node.parentNode.nodeName!='SONG-ROW' && node.nodeValue.replace(/[\n\t\r ]/g,"")==='') {
+       // console.log("trimmed!!!");
         node.remove();
         return parent;
       }
-      node.nodeValue=node.nodeValue.replaceAll(" ", nbsp);
+      textNodeReplaceAll(node, " ", nbsp);
       let newParent = nestToRow(parent);
       newParent.appendChild(node);
       return newParent;
@@ -124,6 +133,7 @@ function traverse(parent, node) {
     case 'SONG-VERSE': {
       let newParent = nestToBody(parent);
       newParent.appendChild(node);
+      setRandomId(node);
       traverseChilds(node, node.childNodes);
       return newParent;
     }
@@ -218,6 +228,7 @@ function sanitizeRow(row) {
       row.appendChild(document.createTextNode(nbsp));
     }
   }
+  row.normalize();
 }
 
 function isEmptyRow(el) {
@@ -228,11 +239,11 @@ function isEmptyRow(el) {
 
 export function Sanitize(body) {
   console.log("Sanitizing...");
-  let r=document.getSelection().rangeCount>0 ? document.getSelection().getRangeAt(0).cloneRange() : null;
-  // As sanitization modifies the text (e.g replace all ' ' -> nbsp), we
-  // need to persist where is the selection, to be able to restore it.
-  let rso=r?r.startOffset:0;
-  console.log("Stored", r);
+  // let r=document.getSelection().rangeCount>0 ? document.getSelection().getRangeAt(0).cloneRange() : null;
+  // // As sanitization modifies the text (e.g replace all ' ' -> nbsp), we
+  // // need to persist where is the selection, to be able to restore it.
+  // let rso=r?r.startOffset:0;
+  //console.log("Stored", r);
   if (!lightTraverse(body)) {
     console.log("Full fix...");
     console.log("before fix: ", body.outerHTML);
@@ -255,6 +266,8 @@ export function Sanitize(body) {
       if (songVerse) {
         let row=rows[i];
         let newVerse = songVerse.cloneNode(false);
+        songVerse.id='';
+        setRandomId(songVerse);
         songVerse.parentNode.insertBefore(
               newVerse, songVerse.nextSibling);
         let newRows = document.createElement("SONG-ROWS");
@@ -288,34 +301,41 @@ export function Sanitize(body) {
     }
   }
 
-  if (r) {
-    r.setStart(r.startContainer,
-        Math.min(rso,
-            r.startContainer.nodeName=='#text'
-                ? r.startContainer.length
-                : r.startContainer.childNodes.length));
-    document.getSelection().removeAllRanges();
-    document.getSelection().addRange(r);
+  // if (r) {
+  //   r.setStart(r.startContainer,
+  //       Math.min(rso,
+  //           r.startContainer.nodeName=='#text'
+  //               ? r.startContainer.length
+  //               : r.startContainer.childNodes.length));
+  //   document.getSelection().removeAllRanges();
+  //   document.getSelection().addRange(r);
+  // }
+}
+
+function textNodeReplaceAll(node, searchValue, replaceValue) {
+  let r = document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : null;
+  if (r && r.intersectsNode(node)) {
+    return;
   }
+  node.nodeValue=node.nodeValue.replaceAll(searchValue, replaceValue);
 }
 
 // Returns whether tree is valid (is. requires deep validation).
 function lightTraverse(node) {
   if (node instanceof Element) {
     node.removeAttribute("style");
-  }``
+  }
   switch (node.nodeName) {
     case '#text' : {
+      //console.log("Light traverse text", node, '>'+node.nodeValue+'<', node.parentNode);
       if (node.parentNode.nodeName!='SONG-ROW') {
         console.log("Misplaced", node);
         return false;
       }
-      node.nodeValue=
-          node.nodeValue.replaceAll(" ", nbsp);
+      textNodeReplaceAll(node, " ", nbsp);
 
       if (node.parentNode.getAttribute('type')==='instr') {
-        node.nodeValue=
-            node.nodeValue.replaceAll(nbspsRegexp, nbsp);
+        textNodeReplaceAll(node, nbspsRegexp, nbsp);
       };
       break;
     }
@@ -371,6 +391,7 @@ function lightTraverse(node) {
         console.log("Misplaced", node);
         return false;
       }
+      setRandomId(node);
       if ((node.childNodes.length == 0
           || node.childNodes[0].nodeName != 'SONG-ROWS')
          && !node.getAttribute("blocknb")) {

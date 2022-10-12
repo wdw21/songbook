@@ -60,7 +60,8 @@
         <xsl:text> </xsl:text> <!--prevent line breaks within row when formatting-->
       </xsl:if>
       <xsl:if test="not(@type='instr')">
-        <xsl:apply-templates select="@important_over|node()"/>
+        <xsl:attribute name="important_over"><xsl:value-of select="@important_over='true'"/></xsl:attribute>
+        <xsl:apply-templates select="node()"/>
       </xsl:if>
     </row>
   </xsl:template>

@@ -1,4 +1,4 @@
-import {findAncestor, getRangeForCursor,nbsp,removeAllChildren,loadXMLDoc} from './utils.js';
+import {findAncestor, getRangeForCursor,nbsp,removeAllChildren,mergeNodeAfter,setCursorBefore} from './utils.js';
 import {createChord} from './ch.js'
 import {Sanitize} from './sanitize.js'
 import {Save} from './save.js'
@@ -26,15 +26,6 @@ function insertChordHere(ch) {
     return true;
   }
   return  false;
-}
-
-function setCursorBefore(node) {
-  let newr=document.createRange();
-  newr.setStartBefore(node);
-  newr.setEndBefore(node);
-  document.getSelection().removeAllRanges();
-  document.getSelection().addRange(newr);
-  console.log("New selection:", document.getSelection(), newr);
 }
 
 function flattenBis(node) {
@@ -186,6 +177,7 @@ export default class SongBody extends HTMLElement {
       row.appendChild(createChord(chords[i]));
       row.appendChild(document.createTextNode(nbsp + nbsp));
     }
+    row.normalize();
   }
 
   toggleInstrumental() {
@@ -326,6 +318,7 @@ export default class SongBody extends HTMLElement {
   }
 
   beforeInput(e, songbody) {
+    console.log("beforeInput", e);
     if (e.inputType == "deleteContentBackward"
        && e.target == songbody) {
       if (document.getSelection().rangeCount == 1
@@ -439,6 +432,21 @@ export default class SongBody extends HTMLElement {
         }
       }
       Sanitize(songbody);
+      let r= document.getSelection().getRangeAt(0);
+      if (r.commonAncestorContainer.nodeName === 'SONG-ROWS') {
+        r.deleteContents();
+        //document.execCommand("insertText",false, "");
+        e.preventDefault();
+        return;
+      }
+    }
+
+    // Without this pressing any key when there is selection... removing all content.
+    if (document.getSelection().rangeCount>0) {
+      let r = document.getSelection().getRangeAt(0);
+      if (r.commonAncestorContainer.nodeName === 'SONG-ROWS') {
+        r.deleteContents();
+      }
     }
   }
 
@@ -471,6 +479,7 @@ export default class SongBody extends HTMLElement {
     let data = e.clipboardData.getData("text/html");
     console.log(data);
     p.innerHTML  = data;
+    getSelection().getRangeAt(0).deleteContents();
     getSelection().getRangeAt(0).insertNode(p);
     e.preventDefault();
     Sanitize(songbody);
