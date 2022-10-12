@@ -1,5 +1,6 @@
 import {createChord} from './ch.js';
 import {findAncestor,nbsp,removeAllChildren} from './utils.js';
+import {makeRowInstrumental} from './songbody.js';
 
 const spaceRegex = / /g;
 const nbspsRegexp = /\u00a0+/g;
@@ -21,9 +22,10 @@ function setRandomId(node) {
 
 function createVerse(type="verse", blocknb=null) {
   let verse = document.createElement("song-verse");
-  if (type) {
-    verse.setAttribute("type", type);
+  if (!type || type!='verse' || type!='chorus') {
+    type = "verse"
   }
+  verse.setAttribute("type", type);
   if (blocknb) {
     verse.setAttribute("blocknb", blocknb);
   }
@@ -47,9 +49,14 @@ function  nestToVerseOrBis(parent) {
   return nestToVerse(parent);
 }
 
-function createRow(important_over=false) {
+function createRow(important_over=false, instrumental=false) {
   let row = document.createElement("song-row");
-  row.setAttribute("important_over", important_over);
+  if (!instrumental) {
+    if (!important_over) { important_over=false; }
+    row.setAttribute("important_over", important_over.toString());
+  } else {
+    row.setAttribute("type", "instr");
+  }
   return row;
 }
 
@@ -88,7 +95,7 @@ function traverseChilds(parent, childNodes) {
 // // parent - is sanitized parent of tag (song, song-verse(div), song-bis(div), song-row(div))
 // // the call responsibility is to process the node and put it into parent.
 function traverse(parent, node) {
-  //console.log("Traversing...", node.nodeName, node);
+  //console.log("Traversing...", node.nodeName, node, node.style);
   if (node instanceof Element) {
     node.removeAttribute("style");
   }
@@ -207,10 +214,15 @@ function traverse(parent, node) {
     }
     case 'ROW': {
       let newParent = nestToRows(parent);
-      let newRow = createRow(node.getAttribute("important_over"));
+      let newRow = createRow(
+          node.getAttribute("important_over"),
+          node.getAttribute("type")==="instr");
       newParent.appendChild(newRow);
       traverseChilds(newRow, node.childNodes);
       node.remove();
+      if (newRow.getAttribute("type") === "instr") {
+        makeRowInstrumental(newRow);
+      }
       return newParent;
     }
   }
@@ -322,6 +334,7 @@ function textNodeReplaceAll(node, searchValue, replaceValue) {
 
 // Returns whether tree is valid (is. requires deep validation).
 function lightTraverse(node) {
+  //console.log("lightTraverse", node, node.style);
   if (node instanceof Element) {
     node.removeAttribute("style");
   }

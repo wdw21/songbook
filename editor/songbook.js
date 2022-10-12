@@ -73,7 +73,7 @@ export class SongEditor extends HTMLElement {
     var reader = new FileReader();
     reader.addEventListener('load', (event) => {
       let parser = new DOMParser();
-      let xmlDoc = parser.parseFromString(event.target.result, "text/xml");
+      let xmlDoc = parser.parseFromString(event.target.result.replaceAll(" style=", " type="), "text/xml");
       let z=xmlDoc.getElementsByTagName("lyric");
       removeAllChildren(this);
       let tmp= document.createElement("div");

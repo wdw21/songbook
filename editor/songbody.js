@@ -17,6 +17,31 @@ function canInsertChord() {
   return x;
 }
 
+export function makeRowNotInstrumental(row) {
+  let chords = row.innerText.replaceAll(' ', nbsp).split(nbsp);
+  console.log(chords);
+  row.removeAttribute("type");
+  removeAllChildren(row);
+  for (let i=0; i<chords.length; ++i) {
+    row.appendChild(createChord(chords[i]));
+    row.appendChild(document.createTextNode(nbsp + nbsp));
+  }
+  row.normalize();
+}
+
+export function makeRowInstrumental(row) {
+  let text=nbsp;
+  for (let i=0; i < row.childNodes.length; ++i) {
+    let n = row.childNodes[i];
+    if (n.nodeName==='SONG-CH') {
+      text+=n.getAttribute("a") + nbsp;
+    }
+  }
+  row.setAttribute("type", "instr");
+  row.innerText=text;
+}
+
+
 function insertChordHere(ch) {
   if (canInsertChord()) {
     let chedit = createChord("");
@@ -154,30 +179,6 @@ export default class SongBody extends HTMLElement {
     for (let i = 0; i < selRows.length; ++i) {
       selRows[i].setAttribute("important_over", !allImportant);
     }
-  }
-
-  makeRowInstrumental(row) {
-    let text=nbsp;
-    for (let i=0; i < row.childNodes.length; ++i) {
-      let n = row.childNodes[i];
-      if (n.nodeName==='SONG-CH') {
-        text+=n.getAttribute("a") + nbsp;
-      }
-    }
-    row.setAttribute("type", "instr");
-    row.innerText=text;
-  }
-
-  makeRowNotInstrumental(row) {
-    let chords = row.innerText.replaceAll(' ', nbsp).split(nbsp);
-    console.log(chords);
-    row.removeAttribute("type");
-    removeAllChildren(row);
-    for (let i=0; i<chords.length; ++i) {
-      row.appendChild(createChord(chords[i]));
-      row.appendChild(document.createTextNode(nbsp + nbsp));
-    }
-    row.normalize();
   }
 
   toggleInstrumental() {
