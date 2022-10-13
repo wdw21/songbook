@@ -146,7 +146,7 @@ export function SongChInit() {
       `<link rel="stylesheet" href="./ch.css"/>` +
       `<span class="cho" id="cho" draggable="true" contenteditable="false">`+
       `<span class="ch" id="ch" draggable="false" contenteditable="false"></span>` +
-      `<input type="search" class="ch" id="che" list="predefinedChords" />` +
+      `<input type="text" class="ch" id="che" list="predefinedChords" />` +
       `</span>`;
 
   customElements.define("song-ch", SongCh);

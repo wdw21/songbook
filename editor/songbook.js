@@ -26,7 +26,84 @@ export class SongEditor extends HTMLElement {
       <button id="buttonInstr">Wers instrumentalny</button>
     </div>    
   </div>
-  <slot id="song-body"/>
+  
+  <h3>Metryka</h3>
+  
+  <div class="metadata">
+    <label>Tytuł</label> <input type="text"/>
+    <label>Autor tekstu</label> <input type="text_author"/> 
+    
+    <select inlist="creatortype">
+      <option value=""></option>
+      <option value="band">Zespół</option>
+      <option value="solo">Osoba</option>  
+    </select>
+    
+    <label>Wykonawca</label> <input type="composer"/> 
+    <select inlist="creatortype">
+      <option value=""></option>
+      <option value="band">Zespół</option>
+      <option value="solo">Osoba</option>  
+    </select>
+  </div>
+     
+  <h3>Treść</h3>
+  <slot id="song-body"></slot>
+  
+  <h3>Szczegóły:</h3>
+  <div class="metadata">
+    <datalist id="genres">
+      <option>Kolęda</option>
+      <option>Piosenka harcerska</option>
+      <option>Piosenka kabaretowa</option>
+      <option>Piosenka turystyczna</option>
+      <option>Piosenka turystyczna górska</option>
+      <option>Pieśń ludowa</option>
+      <option>Poezja śpiewana</option>
+      <option>Rock</option>
+      <option>Szanta</option>
+      <option>Parodia</option>
+      <option>Przeróbka</option>
+      <option>Inna</option>
+    </datalist> 
+    
+    <datalist id="metres">
+      <option>2/2</option>
+      <option>3/3</option>
+      <option>2/4</option>
+      <option>3/4</option>
+      <option>4/4</option>
+      <option>6/8</option>
+      <option>8/8</option>
+      <option>12/8</option>
+    </datalist>
+    
+    <label>Tytuł alternatywny</label> <input type="alias"/>
+    <label>Tytuł oryginału</label> <input type="original_title"/>
+    <label>Tłumacz</label> <input type="composer"/>
+    <label>Album</label> <input type="music_source"/>
+        
+    <label>Kompozytor</label> <input type="composer"/> 
+    <label>Źródło muzyki</label> <input type="music_source"/>
+    <label>Metrum</label> <input type="metre" list="metres"/>
+    <label>Kapodaster</label> <input type="guitar_barre"/>
+
+    <label>Gatunek</label> <input type="text" list="genres" name="genere"/>    
+    
+
+    <label>Słowa kluczowe</label> <textarea type="keywords"></textarea>
+    <label>Komentarz</label> <textarea></textarea>
+  </div>
+  
+  <h3>Status:</h3>
+  <div class="metadata status">
+     <label>Sprawdzono tekst</label> <input type="checkbox"/>
+     <label>Sprawdzono akordy</label> <input type="checkbox"/>
+     <label>Sprawdzono twórców</label> <input type="checkbox"/>
+     <label>Sprawdzający</label> <textarea></textarea>
+     <label>Do zrobienia</label> <textarea></textarea>
+  </div>
+  
 </div>
   `;
 

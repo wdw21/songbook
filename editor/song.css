@@ -62,6 +62,35 @@ div.toolbar div {
 div.songbody{
   padding-right: 2em;
 }
+
+div.metadata {
+  display: grid;
+  grid-display-columns: max-content, max-content;
+  grid-gap: 5px;
+}
+
+div.metadata label {
+  text-align: right;
+  grid-column: 1/2;
+}
+
+div.metadata input {
+  grid-column: 2/2;
+}
+
+div.metadata select {
+  grid-column: 3/3;
+}
+
+div.metadata label:after {
+  content: ":";
+}
+
+/*div.metadata input {*/
+/*  left: 10em;*/
+/*  display: inline-block;*/
+/*}*/
+
 /*song-ch {*/
 /*  user-select: all;*/
 /*}*/
