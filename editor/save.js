@@ -1,16 +1,6 @@
 import {loadXMLDoc} from './utils.js';
 
-// function docFromNode(node) {
-//   let DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-//   factory.setNamespaceAware(true);
-//   DocumentBuilder builder = factory.newDocumentBuilder();
-//   Document newDocument = builder.newDocument();
-//   Node importedNode = newDocument.importNode(node, true);
-//   newDocument.appendChild(importedNode);
-//   return newDocument;
-//}
-
-export function Save(songbody) {
+export function Save(songbody, title="piosenka") {
   let xsltProcessor = new XSLTProcessor()
   let xslt = loadXMLDoc('./save.xslt');
   console.log(xslt);
@@ -29,9 +19,16 @@ export function Save(songbody) {
   let txt=new XMLSerializer().serializeToString(resultDocument);;
   document.getElementById("output").innerText=txt.replaceAll("?><song","?>\n<song");
 
-  const elem = window.document.createElement('a');
-  elem.href = window.URL.createObjectURL(new Blob([txt]), {type: 'text/xml'});
-  elem.download = 'song.xml';
-  elem.text="[download]";
-  document.getElementById("output").parentNode.appendChild(elem);
+  let download = document.getElementById("download");
+  if (!download) {
+    download = window.document.createElement('a');
+    download.id="download";
+    download.text="[download]";
+    document.getElementById("output").parentNode.appendChild(download);
+  }
+  if (!title || title.trim()==='') {
+    title='song';
+  }
+  download.download = title.replaceAll(' ','_')+'.xml';
+  download.href = window.URL.createObjectURL(new Blob([txt]), {type: 'text/xml'});
 }

@@ -102,7 +102,9 @@ export class SongEditor extends HTMLElement {
      <label for="verificators">Sprawdzający</label> <textarea id="verificators"></textarea>
      <label for="todo">Do zrobienia</label> <textarea id="todo"></textarea>
   </div>
-  
+  <hr/>
+  <h2>Wygenerowane</h2>
+  <button id="buttonSave2">Zapisz</button>
 </div>
   `;
 
@@ -114,16 +116,21 @@ export class SongEditor extends HTMLElement {
     this.importantOver=shadow.getElementById("importantOver");
     this.buttonInstr=shadow.getElementById("buttonInstr");
     this.buttonSave=shadow.getElementById("buttonSave");
+    this.buttonSave2=shadow.getElementById("buttonSave2");
     this.open=shadow.getElementById("open");
 
     this.buttonBis.addEventListener("click", (e) => this.body().wrapBis());
     this.importantOver.addEventListener("click", (e) => { this.body().markImportantOver(); this.refreshToolbar(); });
     this.buttonInstr.addEventListener("click", (e) =>  { this.body().toggleInstrumental(); this.refreshToolbar(); });
-    this.buttonSave.addEventListener("click", () => Save(this.body()));
+    this.buttonSave.addEventListener("click", () => Save(this.body(), this.getAttribute("title")));
+    this.buttonSave2.addEventListener("click", () => Save(this.body(), this.getAttribute("title")));
     this.open.addEventListener("change", (e) => this.Load(e));
     this.buttonNew.addEventListener("click", (e) => this.New(e));
 
     document.addEventListener('selectionchange', (event) => { this.refreshToolbar(); });
+
+    this.title_=shadow.getElementById("title");
+    this.title_.addEventListener("change", (e) => this.setAttribute("title", e.target.value));
   }
 
   body() {
