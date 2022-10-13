@@ -37,6 +37,11 @@ songbody {
   display: block;
 }
 
+div.songbody{
+  margin-top: 0.3em;
+  margin-bottom: 2em;
+}
+
 div.toolbar {
   position: fixed;
   left:500px;

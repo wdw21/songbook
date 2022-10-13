@@ -2,7 +2,7 @@ div.verse {
   display: grid;
   grid-template-columns: max-content max-content;
   white-space: normal;
-  margin-top: 2em;
+  margin-bottom: 1.5em;
 }
 
 div.verse_meta {

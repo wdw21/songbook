@@ -39,8 +39,8 @@ export class SongEditor extends HTMLElement {
       <option value="solo">Osoba</option>  
     </select>
     
-    <label for="artist">Wykonawca</label> <input type="artist"/> 
-    <select inlist="creatortype" type="artist_type">
+    <label for="artist">Wykonawca</label> <input id="artist" type="text"/> 
+    <select inlist="creatortype" id="artist_type">
       <option value=""></option>
       <option value="band">Zespół</option>
       <option value="solo">Osoba</option>  
@@ -110,6 +110,7 @@ export class SongEditor extends HTMLElement {
 
     const shadow = this.attachShadow({ mode: "closed" });
     shadow.appendChild(template.content.cloneNode(true));
+    this.shadow = shadow;
 
     this.buttonNew=shadow.getElementById("buttonNew");
     this.buttonBis=shadow.getElementById("buttonBis");
@@ -129,8 +130,29 @@ export class SongEditor extends HTMLElement {
 
     document.addEventListener('selectionchange', (event) => { this.refreshToolbar(); });
 
-    this.title_=shadow.getElementById("title");
-    this.title_.addEventListener("change", (e) => this.setAttribute("title", e.target.value));
+    const attrs=["title", "text_author", "text_author_type", "artist", "artist_type",
+      "alias", "original_title", "translator", "album", "composer",
+      "music_source", "metre", "guitar_barre", "genre",
+      "keywords", "comment", "done_text", "done_authors", "done_chords",
+      "verificators", "todo"];
+    for (let i=0; i<attrs.length; ++i) {
+      this.mapAttribute(attrs[i]);
+    }
+    // this.mapAttribute("title");
+    // this.mapAttribute("text_author");
+    // this.mapAttribute("text_author_type");
+  }
+
+  mapAttribute(attr) {
+    let a = this.shadow.getElementById(attr);
+    if (a.nodeName=='INPUT' && a.type==='checkbox') {
+      a.addEventListener("change",
+          (e) => this.setAttribute(attr, e.target.checked));
+
+    } else {
+      a.addEventListener("change",
+          (e) => this.setAttribute(attr, e.target.value));
+    }
   }
 
   body() {
