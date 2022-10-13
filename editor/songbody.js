@@ -432,12 +432,15 @@ export default class SongBody extends HTMLElement {
           e.preventDefault();
         }
       }
-      Sanitize(songbody);
       let r= document.getSelection().getRangeAt(0);
       if (r.commonAncestorContainer.nodeName === 'SONG-ROWS') {
+        let start=findAncestor(r.startContainer, 'SONG-ROW');
         r.deleteContents();
-        //document.execCommand("insertText",false, "");
+        if (start.childNodes.length === 0) {
+          start.remove();
+        }
         e.preventDefault();
+        Sanitize(songbody);
         return;
       }
     }
@@ -448,6 +451,7 @@ export default class SongBody extends HTMLElement {
       if (r.commonAncestorContainer.nodeName === 'SONG-ROWS') {
         r.deleteContents();
       }
+      Sanitize(songbody);
     }
   }
 

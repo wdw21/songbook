@@ -39,7 +39,7 @@ songbody {
 
 div.toolbar {
   position: fixed;
-  right:10px;
+  left:500px;
   top: 5%;
 }
 
