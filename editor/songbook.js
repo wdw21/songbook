@@ -30,17 +30,17 @@ export class SongEditor extends HTMLElement {
   <h3>Metryka</h3>
   
   <div class="metadata">
-    <label>Tytuł</label> <input type="text"/>
-    <label>Autor tekstu</label> <input type="text_author"/> 
+    <label for="title">Tytuł</label>              <input type="text" id="title"/>
+    <label for="text_author">Autor tekstu</label> <input type="text" id="text_author"/> 
     
-    <select inlist="creatortype">
+    <select inlist="creatortype" id="text_author_type">
       <option value=""></option>
       <option value="band">Zespół</option>
       <option value="solo">Osoba</option>  
     </select>
     
-    <label>Wykonawca</label> <input type="composer"/> 
-    <select inlist="creatortype">
+    <label for="artist">Wykonawca</label> <input type="artist"/> 
+    <select inlist="creatortype" type="artist_type">
       <option value=""></option>
       <option value="band">Zespół</option>
       <option value="solo">Osoba</option>  
@@ -78,30 +78,29 @@ export class SongEditor extends HTMLElement {
       <option>12/8</option>
     </datalist>
     
-    <label>Tytuł alternatywny</label> <input type="alias"/>
-    <label>Tytuł oryginału</label> <input type="original_title"/>
-    <label>Tłumacz</label> <input type="composer"/>
-    <label>Album</label> <input type="music_source"/>
+    <label for="alias">Tytuł alternatywny</label> <input type="text" id="alias"/>
+    <label for="original_title">Tytuł oryginału</label> <input type="text" id="original_title"/>
+    <label for="translator">Tłumacz</label> <input type="text" id="translator"/>
+    <label for="album">Album</label> <input type="text" id="album"/>
         
-    <label>Kompozytor</label> <input type="composer"/> 
-    <label>Źródło muzyki</label> <input type="music_source"/>
-    <label>Metrum</label> <input type="metre" list="metres"/>
-    <label>Kapodaster</label> <input type="guitar_barre"/>
+    <label for="composer">Kompozytor</label> <input type="text" id="composer"/> 
+    <label for="music_source">Źródło muzyki</label> <input type="text" id="music_source"/>
+    <label for="metre">Metrum</label> <input type="text" id="metre" list="metres"/>
+    <label for="guitar_barre">Kapodaster</label> <input type="text" id="guitar_barre"/>
 
-    <label>Gatunek</label> <input type="text" list="genres" name="genere"/>    
+    <label for="genre">Gatunek</label> <input type="text" list="genres" id="genre"/>    
     
-
-    <label>Słowa kluczowe</label> <textarea type="keywords"></textarea>
-    <label>Komentarz</label> <textarea></textarea>
+    <label for="keywords">Słowa kluczowe</label> <textarea id="keywords"></textarea>
+    <label for="comment">Komentarz</label> <textarea id="comment"></textarea>
   </div>
   
   <h3>Status:</h3>
   <div class="metadata status">
-     <label>Sprawdzono tekst</label> <input type="checkbox"/>
-     <label>Sprawdzono akordy</label> <input type="checkbox"/>
-     <label>Sprawdzono twórców</label> <input type="checkbox"/>
-     <label>Sprawdzający</label> <textarea></textarea>
-     <label>Do zrobienia</label> <textarea></textarea>
+     <label for="done_text">Sprawdzono tekst</label> <input type="checkbox" id="done_text"/>
+     <label for="done_authors">Sprawdzono akordy</label> <input type="checkbox" id="done_authors"/>
+     <label for="done_chords">Sprawdzono twórców</label> <input type="checkbox" id="done_chords"/>
+     <label for="verificators">Sprawdzający</label> <textarea id="verificators"></textarea>
+     <label for="todo">Do zrobienia</label> <textarea id="todo"></textarea>
   </div>
   
 </div>
