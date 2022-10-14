@@ -7,7 +7,7 @@ import {Save} from './save.js';
 import {removeAllChildren} from './utils.js';
 
 const attrs=["title", "text_author", "text_author_type", "artist", "artist_type",
-  "alias", "original_title", "translator", "album", "composer",
+  "alias", "original_title", "translator", "album", "composer", "composer_type",
   "music_source", "metre", "guitar_barre", "genre",
   "keywords", "comment", "done_text", "done_authors", "done_chords",
   "verificators", "todo"];
@@ -77,6 +77,11 @@ export class SongEditor extends HTMLElement {
     <label for="album">Album</label> <input type="text" id="album"/>
         
     <label for="composer">Kompozytor</label> <input type="text" id="composer"/> 
+    <select inlist="creatortype" id="composer_type">
+      <option value=""></option>
+      <option value="band">Zespół</option>
+      <option value="solo">Osoba</option>  
+    </select>
     <label for="music_source">Źródło muzyki</label> <input type="text" id="music_source"/>
     <label for="metre">Metrum</label> <input type="text" id="metre" list="metres"/>
     <label for="guitar_barre">Kapodaster</label> <input type="text" id="guitar_barre"/>
@@ -226,6 +231,7 @@ export class SongEditor extends HTMLElement {
       this.readAttribute(song, "translator", "translator");
       this.readAttribute(song, "album", "album");
       this.readAttribute(song, "composer", "composer");
+      this.readAttribute(song, "composer_type", "composer", "type");
       this.readAttribute(song, "music_source", "music_source");
 
       this.readAttribute(song, "metre", "music","metre");
@@ -233,12 +239,12 @@ export class SongEditor extends HTMLElement {
       this.readAttribute(song, "genre", "genre");
       this.readAttribute(song, "comment", "comment");
 
-      this.readAttributeDone(song, "text", "text");
-      this.readAttributeDone(song, "authors", "authors");
-      this.readAttributeDone(song, "chords", "chords");
+      this.readAttributeDone(song, "done_text", "text");
+      this.readAttributeDone(song, "done_authors", "authors");
+      this.readAttributeDone(song, "done_chords", "chords");
 
-      //this.readAttribute(song, "keywords", "keywords");
-      //this.readAttribute(song, "verificators", "verificators");
+      this.readAttributeList(song, "keywords", "keyword");
+      this.readAttributeList(song, "verificators", "verificator");
 
       this.readAttribute(song, "todo", "todo");
     });
@@ -265,9 +271,20 @@ export class SongEditor extends HTMLElement {
     let nodes = song.getElementsByTagName(sourceTagName);
     let node = nodes.length > 0 ? nodes[0] : null;
     if (node) {
-      this.setAttribute(targetAttr, node.textContent);
+      this.setAttribute(targetAttr, node.textContent.trim()==''?'true':node.textContent);
     } else {
       this.removeAttribute(targetAttr);
+    }
+  }
+
+  readAttributeList(song, targetAttr, sourceTagName) {
+    let nodes = song.getElementsByTagName(sourceTagName);
+    let txt='';
+    for (let i=0; i < nodes.length; ++i) {
+      txt+=nodes[i].textContent + '\n';
+    };
+    if (txt && txt.trim()!='') {
+      this.setAttribute(targetAttr, txt);
     }
   }
 
