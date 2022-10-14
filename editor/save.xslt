@@ -12,12 +12,129 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="xhtml:song-body">
+  <xsl:template match="xhtml:song-editor">
     <song>
+      <xsl:attribute name="title"><xsl:value-of select="@title"/></xsl:attribute>
+      <xsl:apply-templates select="@alias"/>
+      <xsl:apply-templates select="@text_author"/>
+      <xsl:apply-templates select="@comment"/>
+      <xsl:apply-templates select="@composer"/>
+      <xsl:apply-templates select="@artist"/>
+      <xsl:apply-templates select="@translator"/>
+      <xsl:apply-templates select="@original_title"/>
+      <xsl:apply-templates select="xhtml:song-body"/>
+
+      <xsl:if test="(@metre != '') or (@guitar_barre != '')">
+        <music>
+          <xsl:if test="@metre != ''"><xsl:attribute name="metre"><xsl:value-of select="@metre"/></xsl:attribute></xsl:if>
+          <xsl:if test="@guitar_barre != ''">
+            <guitar><xsl:attribute name="barre"><xsl:value-of select="@guitar_barre"/></xsl:attribute></guitar>
+          </xsl:if>
+        </music>
+      </xsl:if>
+
+      <keywords>
+        <xsl:call-template name="splitIntoElements">
+          <xsl:with-param name="datalist" select="@keywords"/>
+          <xsl:with-param name="element" select="'keyword'"/>
+        </xsl:call-template>
+      </keywords>
+      <xsl:apply-templates select="@album"/>
+      <xsl:apply-templates select="@genre"/>
+      <status>
+        <done>
+          <xsl:if test="@done_text"><text/></xsl:if>
+          <xsl:if test="@done_authors"><authors/></xsl:if>
+          <xsl:if test="@done_chords"><chords><xsl:value-of select="@done_chords"/></chords></xsl:if>
+        </done>
+        <verificators>
+          <xsl:call-template name="splitIntoElements">
+            <xsl:with-param name="datalist" select="@verificators"/>
+            <xsl:with-param name="element" select="'verificator'"/>
+          </xsl:call-template>
+        </verificators>
+        <xsl:apply-templates select="@todo"/>
+      </status>
+      <xsl:apply-templates select="@music_source"/>
+    </song>
+  </xsl:template>
+
+  <xsl:template name="splitIntoElements">
+    <xsl:param name="datalist"/>
+    <xsl:param name="element" select="'item'"/>
+    <xsl:param name="delim" select="'&#10;'"/>
+    <xsl:choose>
+      <xsl:when test="contains($datalist,$delim)">
+        <xsl:if test="substring-before($datalist,$delim)">
+          <xsl:if test="normalize-space(substring-before($datalist,$delim)) != ''">
+            <xsl:element name="{$element}"><xsl:value-of select="normalize-space(substring-before($datalist,$delim))"/></xsl:element>
+          </xsl:if>
+        </xsl:if>
+        <xsl:call-template name="splitIntoElements">
+          <xsl:with-param name="datalist" select="substring-after($datalist,$delim)"/>
+          <xsl:with-param name="element" select="$element"/>
+          <xsl:with-param name="delim" select="$delim"/>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="string-length($datalist)=1">
+        <xsl:if test="$datalist and normalize-space($datalist)!=''">
+          <xsl:element name="{$element}"><xsl:value-of select="$datalist"/></xsl:element>
+        </xsl:if>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template match="@text_author">
+    <xsl:call-template name="creator">
+      <xsl:with-param name="type" select="../@text_author_type"/>
+    </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template match="@composer">
+    <xsl:call-template name="creator">
+      <xsl:with-param name="type" select="../@composer_type"/>
+    </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template match="@artist">
+    <xsl:call-template name="creator">
+      <xsl:with-param name="type" select="../@artist_type"/>
+    </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template match="@alias"><xsl:call-template name="attr2field"/></xsl:template>
+  <xsl:template match="@original_title"><xsl:call-template name="attr2field"/></xsl:template>
+  <xsl:template match="@translator"><xsl:call-template name="attr2field"/></xsl:template>
+  <xsl:template match="@album"><xsl:call-template name="attr2field"/></xsl:template>
+  <xsl:template match="@music_source"><xsl:call-template name="attr2field"/></xsl:template>
+  <xsl:template match="@genre"><xsl:call-template name="attr2field"/></xsl:template>
+  <xsl:template match="@comment"><xsl:call-template name="attr2field"/></xsl:template>
+
+  <xsl:template name="attr2field">
+    <xsl:if test=". != ''">
+      <xsl:element name="{name()}">
+        <xsl:value-of select="."/>
+      </xsl:element>
+    </xsl:if>
+  </xsl:template>
+
+
+  <xsl:template name="creator">
+    <xsl:param name="type" select="''"/>
+    <xsl:if test=". != ''">
+      <xsl:element name="{name()}">
+        <xsl:if test="$type != ''">
+          <xsl:attribute name="type"><xsl:value-of select="$type"/></xsl:attribute>
+        </xsl:if>
+        <xsl:value-of select="."/>
+      </xsl:element>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="xhtml:song-body">
       <lyric>
         <xsl:apply-templates select="xhtml:song-verse"/>
       </lyric>
-    </song>
   </xsl:template>
 
   <xsl:template match="xhtml:song-verse">

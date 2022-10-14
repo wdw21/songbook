@@ -6,10 +6,12 @@ import {Sanitize} from './sanitize.js';
 import {Save} from './save.js';
 import {removeAllChildren} from './utils.js';
 
-const attrs=["title", "text_author", "text_author_type", "artist", "artist_type",
-  "alias", "original_title", "translator", "album", "composer", "composer_type",
+const attrs=["title", "alias","text_author", "text_author_type","comment",
+  "composer", "composer_type","artist", "artist_type",
+  "translator" , "original_title",
+  "album",
   "music_source", "metre", "guitar_barre", "genre",
-  "keywords", "comment", "done_text", "done_authors", "done_chords",
+  "keywords",  "done_text", "done_authors", "done_chords",
   "verificators", "todo"];
 
 export class SongEditor extends HTMLElement {
@@ -139,8 +141,8 @@ export class SongEditor extends HTMLElement {
     this.buttonBis.addEventListener("click", (e) => this.body().wrapBis());
     this.importantOver.addEventListener("click", (e) => { this.body().markImportantOver(); this.refreshToolbar(); });
     this.buttonInstr.addEventListener("click", (e) =>  { this.body().toggleInstrumental(); this.refreshToolbar(); });
-    this.buttonSave.addEventListener("click", () => Save(this.body(), this.getAttribute("title")));
-    this.buttonSave2.addEventListener("click", () => Save(this.body(), this.getAttribute("title")));
+    this.buttonSave.addEventListener("click", () => Save(this));
+    this.buttonSave2.addEventListener("click", () => Save(this));
     this.open.addEventListener("change", (e) => this.Load(e));
     this.buttonNew.addEventListener("click", (e) => this.New(e));
 
