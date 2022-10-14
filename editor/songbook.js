@@ -6,6 +6,12 @@ import {Sanitize} from './sanitize.js';
 import {Save} from './save.js';
 import {removeAllChildren} from './utils.js';
 
+const attrs=["title", "text_author", "text_author_type", "artist", "artist_type",
+  "alias", "original_title", "translator", "album", "composer",
+  "music_source", "metre", "guitar_barre", "genre",
+  "keywords", "comment", "done_text", "done_authors", "done_chords",
+  "verificators", "todo"];
+
 export class SongEditor extends HTMLElement {
   constructor() {
     super();
@@ -13,20 +19,7 @@ export class SongEditor extends HTMLElement {
     const template = document.createElement('template');
     template.innerHTML = `
 <link rel="stylesheet" href="song.css"/>
-<div style="width: fit-content;">
-  <div class="toolbar">
-    <div>Pliki:</br>
-      <button id="buttonNew">Nowy</button>  
-      <input  id="open" type="file" accept=".xml"/>
-      <button id="buttonSave">Zapisz</button>  
-    </div>
-    <div>Formatowanie:
-      <button id="buttonBis">BIS</button>
-      <button id="importantOver">Kluczowe akordy</button>
-      <button id="buttonInstr">Wers instrumentalny</button>
-    </div>    
-  </div>
-  
+<div class="song-editor">
   <h3>Metryka</h3>
   
   <div class="metadata">
@@ -97,14 +90,32 @@ export class SongEditor extends HTMLElement {
   <h3>Status:</h3>
   <div class="metadata status">
      <label for="done_text">Sprawdzono tekst</label> <input type="checkbox" id="done_text"/>
-     <label for="done_authors">Sprawdzono akordy</label> <input type="checkbox" id="done_authors"/>
-     <label for="done_chords">Sprawdzono twórców</label> <input type="checkbox" id="done_chords"/>
+     <label for="done_chords">Sprawdzono akordy</label> <input type="checkbox" id="done_chords"/>
+       <select id="done_chords_value">
+         <option value=""></option>
+         <option value="chords">akordy</option>
+         <option value="chord positioning">rozmieszczenie akordów</option>
+       </select>
+     <label for="done_authors">Sprawdzono twórców</label> <input type="checkbox" id="done_authors"/>
      <label for="verificators">Sprawdzający</label> <textarea id="verificators"></textarea>
      <label for="todo">Do zrobienia</label> <textarea id="todo"></textarea>
   </div>
-  <hr/>
-  <h2>Wygenerowane</h2>
+</div>
+<div class="toolbar">
+    <div>Pliki:</br>
+      <button id="buttonNew">Nowy</button>  
+      <input  id="open" type="file" accept=".xml"/>
+      <button id="buttonSave">Zapisz</button>  
+    </div>
+    <div class="formatting">Formatowanie:
+      <button id="buttonBis">BIS</button>
+      <button id="importantOver">Kluczowe akordy</button>
+      <button id="buttonInstr">Wers instrumentalny</button>
+    </div>    
+</div>
+<div class="generated">
   <button id="buttonSave2">Zapisz</button>
+  <h2>Wygenerowane</h2>
 </div>
   `;
 
@@ -130,28 +141,44 @@ export class SongEditor extends HTMLElement {
 
     document.addEventListener('selectionchange', (event) => { this.refreshToolbar(); });
 
-    const attrs=["title", "text_author", "text_author_type", "artist", "artist_type",
-      "alias", "original_title", "translator", "album", "composer",
-      "music_source", "metre", "guitar_barre", "genre",
-      "keywords", "comment", "done_text", "done_authors", "done_chords",
-      "verificators", "todo"];
     for (let i=0; i<attrs.length; ++i) {
       this.mapAttribute(attrs[i]);
     }
-    // this.mapAttribute("title");
-    // this.mapAttribute("text_author");
-    // this.mapAttribute("text_author_type");
   }
 
   mapAttribute(attr) {
     let a = this.shadow.getElementById(attr);
-    if (a.nodeName=='INPUT' && a.type==='checkbox') {
+    if (a.id === "done_chords") {
+      let av = this.shadow.getElementById("done_chords_value");
+      let fun = (e) => {
+         if (a.checked) {
+           this.setAttribute("done_chords", av.value);
+         } else {
+           this.removeAttribute("done_chords");
+         }
+      }
+      a.addEventListener("change", fun);
+      av.addEventListener("change", fun);
+    } else if (a.nodeName=='INPUT' && a.type==='checkbox') {
       a.addEventListener("change",
           (e) => this.setAttribute(attr, e.target.checked));
 
     } else {
       a.addEventListener("change",
           (e) => this.setAttribute(attr, e.target.value));
+    }
+  }
+
+  attributeChangedCallback(attr) {
+    let a = this.shadow.getElementById(attr);
+    if (a.id === "done_chords") {
+      a.checked = this.hasAttribute("done_chords");
+      this.shadow.getElementById("done_chords_value").value = a.checked
+          ? this.getAttribute("done_chords") : "";
+    } else if (a.nodeName=='INPUT' && a.type==='checkbox') {
+      a.checked=this.getAttribute(attr)==="true";
+    } else {
+      a.value=this.getAttribute(attr);
     }
   }
 
@@ -185,8 +212,63 @@ export class SongEditor extends HTMLElement {
       tmp.appendChild(z[0]);
       Sanitize(tmp);
       this.appendChild(tmp.childNodes[0]);
+
+      let song=xmlDoc.getElementsByTagName("song")[0];
+
+      this.setAttribute("title", song.getAttribute("title"));
+      this.readAttribute(song, "text_author", "text_author");
+      this.readAttribute(song, "text_author_type", "text_author", "type");
+      this.readAttribute(song, "artist", "artist");
+      this.readAttribute(song, "artist_type", "artist", "type");
+
+      this.readAttribute(song, "alias", "alias");
+      this.readAttribute(song, "original_title", "original_title");
+      this.readAttribute(song, "translator", "translator");
+      this.readAttribute(song, "album", "album");
+      this.readAttribute(song, "composer", "composer");
+      this.readAttribute(song, "music_source", "music_source");
+
+      this.readAttribute(song, "metre", "music","metre");
+      this.readAttribute(song, "guitar_barre", "guitar", "barre");
+      this.readAttribute(song, "genre", "genre");
+      this.readAttribute(song, "comment", "comment");
+
+      this.readAttributeDone(song, "text", "text");
+      this.readAttributeDone(song, "authors", "authors");
+      this.readAttributeDone(song, "chords", "chords");
+
+      //this.readAttribute(song, "keywords", "keywords");
+      //this.readAttribute(song, "verificators", "verificators");
+
+      this.readAttribute(song, "todo", "todo");
     });
     reader.readAsText(this.open.files[0]);
+  }
+
+  readAttribute(song, targetAttr, sourceTagName, sourceAttr=null) {
+    let nodes = song.getElementsByTagName(sourceTagName);
+    let node = nodes.length > 0 ? nodes[0] : null;
+    let txt=null;
+    if (node && !sourceAttr) {
+      txt = node.textContent;
+    } else if (node) {
+      txt = node.getAttribute(sourceAttr);
+    }
+    if (!txt || txt.trim()=='') {
+      this.removeAttribute(targetAttr);
+    } else {
+      this.setAttribute(targetAttr, txt);
+    }
+  }
+
+  readAttributeDone(song, targetAttr, sourceTagName) {
+    let nodes = song.getElementsByTagName(sourceTagName);
+    let node = nodes.length > 0 ? nodes[0] : null;
+    if (node) {
+      this.setAttribute(targetAttr, node.textContent);
+    } else {
+      this.removeAttribute(targetAttr);
+    }
   }
 
   refreshToolbar() {
@@ -207,6 +289,10 @@ export class SongEditor extends HTMLElement {
     if (!this.body()) {
       this.New();
     }
+  }
+
+  static get observedAttributes() {
+    return attrs;
   }
 
 }

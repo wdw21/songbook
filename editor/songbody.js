@@ -1,7 +1,6 @@
 import {findAncestor, getRangeForCursor,nbsp,removeAllChildren,mergeNodeAfter,setCursorBefore} from './utils.js';
 import {createChord} from './ch.js'
 import {Sanitize} from './sanitize.js'
-import {Save} from './save.js'
 
 function acceptsTextAndChords(element) {
   return element.nodeName=="SONG-ROW";
@@ -186,9 +185,9 @@ export default class SongBody extends HTMLElement {
     let selRows = this.selectedRows();
     for (let i = 0; i < selRows.length; ++i) {
       if (allInstrumental) {
-        this.makeRowNotInstrumental(selRows[i]);
+        makeRowNotInstrumental(selRows[i]);
       } else {
-        this.makeRowInstrumental(selRows[i])
+        makeRowInstrumental(selRows[i])
       }
     }
     console.log(this);
