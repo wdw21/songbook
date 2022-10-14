@@ -11,7 +11,9 @@ export function Save(songeditor) {
   src.appendChild(clonedNode);
 
   let resultDocument = xsltProcessor.transformToDocument(src);
-
+  if (!resultDocument) {
+    alert("XSLT transformation failed")
+  }
   const pi = resultDocument.createProcessingInstruction('xml', 'version="1.0" encoding="UTF-8"');
   resultDocument.insertBefore(pi, resultDocument.firstChild);
   console.log(resultDocument);

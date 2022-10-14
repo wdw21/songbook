@@ -4,7 +4,7 @@
     xmlns="http://21wdh.staszic.waw.pl"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <xsl:output method="xml" indent="yes" omit-xml-declaration="no" standalone="yes"/>
+  <xsl:output method="xml" indent="yes" omit-xml-declaration="no" standalone="no"/>
 
   <xsl:template match="@*|node()">
     <xsl:copy>
@@ -76,7 +76,7 @@
           <xsl:with-param name="delim" select="$delim"/>
         </xsl:call-template>
       </xsl:when>
-      <xsl:when test="string-length($datalist)=1">
+      <xsl:when test="string-length($datalist)>0">
         <xsl:if test="$datalist and normalize-space($datalist)!=''">
           <xsl:element name="{$element}"><xsl:value-of select="$datalist"/></xsl:element>
         </xsl:if>
@@ -109,6 +109,7 @@
   <xsl:template match="@music_source"><xsl:call-template name="attr2field"/></xsl:template>
   <xsl:template match="@genre"><xsl:call-template name="attr2field"/></xsl:template>
   <xsl:template match="@comment"><xsl:call-template name="attr2field"/></xsl:template>
+  <xsl:template match="@todo"><xsl:call-template name="attr2field"/></xsl:template>
 
   <xsl:template name="attr2field">
     <xsl:if test=". != ''">
