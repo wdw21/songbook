@@ -70,24 +70,35 @@ functions.http('helloHttp', async (req, res) => {
       error: console.error
     }});
 
-  const {
-    data: { login },
-  } = await octokit.rest.users.getAuthenticated();
-  console.log("Hello, %s", login);
+  // const {
+  //   data: { login },
+  // } =
+  let x = await octokit.rest.users.getAuthenticated();
+  console.log("Hello, %s", x.data);
+  // https://api.github.com/repos/ptabor/songbook
+  // "full_name": "wdw21/songbook",
 
-  res.send(`Hello ${req.query.name || req.body.name || 'World'}!`);
-
-  await octokit.request('POST /repos/{owner}/{repo}/pulls', {
+  await octokit.request('POST /repos/{owner}/{repo}/forks', {
     owner: 'wdw21',
     repo: 'songbook',
-    title: 'Amazing new feature',
-    body: 'Please pull these awesome changes in!',
-    head: 'ptabor:20220926-editor',
-    base: 'master'
+    name: 'Hello-World',
+    default_branch_only: true
   })
+
+//  res.send(`Hello ${req.query.name || req.body.name || 'World'}!`);
+
+  // await octokit.request('POST /repos/{owner}/{repo}/pulls', {
+  //   owner: 'wdw21',
+  //   repo: 'songbook',
+  //   title: 'Amazing new feature',
+  //   body: 'Please pull these awesome changes in!',
+  //   head: 'ptabor:20220926-editor',
+  //   base: 'master'
+  // })
+  // res.redirect("https://github.com/wdw21/songbook/compare/main...ptabor:20221017-gh-editor?quick_pull=1&labels=song&title=Piosenka");
 });
 
-https://github.com/wdw21/songbook/compare/main...ptabor:20220926-editor?quick_pull=1&labels=song&title=Piosenka:
+//https://github.com/wdw21/songbook/compare/main...ptabor:20220926-editor?quick_pull=1&labels=song&title=Piosenka:
 
 // functions.
 // function wait(ms){
