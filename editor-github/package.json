@@ -5,18 +5,22 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx functions-framework --target=helloHttp"
+    "start": "npx functions-framework --target=api"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@google-cloud/functions-framework": "^3.1.2",
-    "@octokit/core": "^4.1.0",
-    "@octokit/rest": "^19.0.5",
-    "@octokit/graphql": "^5.0.3",
+    "@octokit/auth-app": "^4.0.7",
     "@octokit/auth-oauth-app": "^5.0.4",
-    "@octokit/auth-app": "^4.0.7"
+    "@octokit/core": "^4.1.0",
+    "@octokit/graphql": "^5.0.3",
+    "@octokit/oauth-app": "^4.1.0",
+    "@octokit/rest": "^19.0.5",
+    "cookie-parser": "^1.4.6"
+  },
+  "dependencies": {
+    "request": "^2.88.2"
   }
 }
-
