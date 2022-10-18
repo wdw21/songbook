@@ -1,6 +1,6 @@
 import {loadXMLDoc} from './utils.js';
 
-export function Save(songeditor) {
+export function Serialize(songeditor) {
   let xsltProcessor = new XSLTProcessor()
   let xslt = loadXMLDoc('./save.xslt');
   console.log(xslt);
@@ -19,7 +19,12 @@ export function Save(songeditor) {
   console.log(resultDocument);
 
   let txt=new XMLSerializer().serializeToString(resultDocument);;
-  document.getElementById("output").innerText=txt.replaceAll("?><song","?>\n<song");
+  return txt.replaceAll("?><song","?>\n<song");
+}
+
+export function Save(songeditor) {
+  let txt = Serialize(songeditor);
+  document.getElementById("output").innerText=txt;
 
   let download = document.getElementById("download");
   if (!download) {

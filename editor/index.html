@@ -5,8 +5,51 @@
   <meta charset="UTF-8">
   <script type="module" src="./songbook.js"></script>
   <link rel="stylesheet" href="./song.css"/>
+  <script>
+    function init() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const loadUrl = urlParams.get('load');
+      const commitUrl = urlParams.get('commit');
+      if (loadUrl) {
+        fetch(loadUrl)
+            .then((response) => response.text())
+            .then((txt) => document.getElementsByTagName("song-editor")[0].Load(txt));
+      }
+      document.getElementById("saveToGithub").hidden=(commitUrl==null);
+    }
+  </script>
+  <script>
+    async function commit() {
+      let txt = document.getElementsByTagName("song-editor")[0].Serialize();
+      const urlParams = new URLSearchParams(window.location.search);
+      const commitUrl = urlParams.get('commit');
+      console.log(txt);
+      if (commitUrl) {
+        try {
+          const config = {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'text/xml',
+            },
+            body: txt
+          }
+          const response = await fetch(commitUrl, config)
+          if (response.ok) {
+            return response
+          } else {
+            console.warn(response);
+            alert(JSON.stringify(response));
+          }
+        } catch (error) {
+          console.error(error);
+          alert(JSON.stringify(error));
+        }
+      }
+    }
+  </script>
 </head>
-<body>
+<body onload="init()">
   <h1>Edytor piosenek</h1>
   <song-editor></song-editor>
 
@@ -14,6 +57,8 @@
     <i>Wygenerowany opis piosenki:</i>
     <div id="output" style="white-space: pre; background-color: lightgoldenrodyellow"></div>
   </div>
+
+  <button id='saveToGithub' onclick="commit();">Zapisz w Github</button>
 </body>
 </html>
 
