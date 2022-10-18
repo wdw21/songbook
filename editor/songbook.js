@@ -3,7 +3,7 @@ import {SongVerseBisInit, SongVerse} from './verse.js'
 import {SongBodyInit} from './songbody.js';
 import {createSongBody} from './songbody.js';
 import {Sanitize} from './sanitize.js';
-import {Save} from './save.js';
+import {Save, Serialize} from './save.js';
 import {removeAllChildren} from './utils.js';
 
 const attrs=["title", "alias","text_author", "text_author_type","comment",
@@ -143,7 +143,7 @@ export class SongEditor extends HTMLElement {
     this.buttonInstr.addEventListener("click", (e) =>  { this.body().toggleInstrumental(); this.refreshToolbar(); });
     this.buttonSave.addEventListener("click", () => Save(this));
     this.buttonSave2.addEventListener("click", () => Save(this));
-    this.open.addEventListener("change", (e) => this.Load(e));
+    this.open.addEventListener("change", (e) => this.LoadFile(e));
     this.buttonNew.addEventListener("click", (e) => this.New(e));
 
     document.addEventListener('selectionchange', (event) => { this.refreshToolbar(); });
@@ -204,51 +204,59 @@ export class SongEditor extends HTMLElement {
     this.body().selectAll();
   }
 
-  Load(e) {
+  Load(xmlContent) {
+    let parser = new DOMParser();
+    let xmlDoc = parser.parseFromString(xmlContent.replaceAll(" style=", " type="), "text/xml");
+    let z=xmlDoc.getElementsByTagName("lyric");
+    removeAllChildren(this);
+    let tmp= document.createElement("div");
+    tmp.appendChild(z[0]);
+    Sanitize(tmp);
+    this.appendChild(tmp.childNodes[0]);
+
+    let song=xmlDoc.getElementsByTagName("song")[0];
+
+    this.setAttribute("title", song.getAttribute("title"));
+    this.readAttribute(song, "text_author", "text_author");
+    this.readAttribute(song, "text_author_type", "text_author", "type");
+    this.readAttribute(song, "artist", "artist");
+    this.readAttribute(song, "artist_type", "artist", "type");
+
+    this.readAttribute(song, "alias", "alias");
+    this.readAttribute(song, "original_title", "original_title");
+    this.readAttribute(song, "translator", "translator");
+    this.readAttribute(song, "album", "album");
+    this.readAttribute(song, "composer", "composer");
+    this.readAttribute(song, "composer_type", "composer", "type");
+    this.readAttribute(song, "music_source", "music_source");
+
+    this.readAttribute(song, "metre", "music","metre");
+    this.readAttribute(song, "guitar_barre", "guitar", "barre");
+    this.readAttribute(song, "genre", "genre");
+    this.readAttribute(song, "comment", "comment");
+
+    this.readAttributeDone(song, "done_text", "text");
+    this.readAttributeDone(song, "done_authors", "authors");
+    this.readAttributeDone(song, "done_chords", "chords");
+
+    this.readAttributeList(song, "keywords", "keyword");
+    this.readAttributeList(song, "verificators", "verificator");
+
+    this.readAttribute(song, "todo", "todo");
+  }
+
+  Serialize() {
+    return Serialize(this);
+  }
+
+  LoadFile(e) {
     console.log("LOADING", e);
     let parser = new DOMParser();
 
     // setting up the reader
     var reader = new FileReader();
     reader.addEventListener('load', (event) => {
-      let parser = new DOMParser();
-      let xmlDoc = parser.parseFromString(event.target.result.replaceAll(" style=", " type="), "text/xml");
-      let z=xmlDoc.getElementsByTagName("lyric");
-      removeAllChildren(this);
-      let tmp= document.createElement("div");
-      tmp.appendChild(z[0]);
-      Sanitize(tmp);
-      this.appendChild(tmp.childNodes[0]);
-
-      let song=xmlDoc.getElementsByTagName("song")[0];
-
-      this.setAttribute("title", song.getAttribute("title"));
-      this.readAttribute(song, "text_author", "text_author");
-      this.readAttribute(song, "text_author_type", "text_author", "type");
-      this.readAttribute(song, "artist", "artist");
-      this.readAttribute(song, "artist_type", "artist", "type");
-
-      this.readAttribute(song, "alias", "alias");
-      this.readAttribute(song, "original_title", "original_title");
-      this.readAttribute(song, "translator", "translator");
-      this.readAttribute(song, "album", "album");
-      this.readAttribute(song, "composer", "composer");
-      this.readAttribute(song, "composer_type", "composer", "type");
-      this.readAttribute(song, "music_source", "music_source");
-
-      this.readAttribute(song, "metre", "music","metre");
-      this.readAttribute(song, "guitar_barre", "guitar", "barre");
-      this.readAttribute(song, "genre", "genre");
-      this.readAttribute(song, "comment", "comment");
-
-      this.readAttributeDone(song, "done_text", "text");
-      this.readAttributeDone(song, "done_authors", "authors");
-      this.readAttributeDone(song, "done_chords", "chords");
-
-      this.readAttributeList(song, "keywords", "keyword");
-      this.readAttributeList(song, "verificators", "verificator");
-
-      this.readAttribute(song, "todo", "todo");
+      this.Load(event.target.result);;
     });
     reader.readAsText(this.open.files[0]);
   }
