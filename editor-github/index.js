@@ -2,6 +2,8 @@ const { oauthAuthorizationUrl } = require("@octokit/oauth-authorization-url");
 const { createAppAuth, createOAuthUserAuth } = require("@octokit/auth-app");
 const { createTokenAuth } = require("@octokit/auth-token");
 
+var cors = require('cors')
+
 const USER_AGENT="songbook/0.0.1";
 
 const OAUTH_APP_ID = 2019824;
@@ -19,6 +21,8 @@ const express = require('express');
 const util = require('util');
 const crypto = require('crypto');
 const cookieParser = require("cookie-parser");
+
+
 
 //
 const app = express();
@@ -57,6 +61,7 @@ const CLIENT_SECRET = "478cb7bf580635475f9dcebbc9716ff3b1ab7487";
 async function newUserOctokit(req,res) {
   let access_token = req.cookies.session ? req.cookies.session.access_token
       : null;
+  console.log("access token from cookie: ", access_token)
   if (!access_token) {
 
     //TODO(ptab): Compare secret with the cookie.
@@ -73,6 +78,7 @@ async function newUserOctokit(req,res) {
     try {
       const {token} = await auth();
       access_token = token;
+      res.cookie("session", {"access_token": access_token});
     } catch (e) {
       console.log(e);
       res.redirect("/auth");
@@ -116,10 +122,13 @@ const MAIN_BRANCH_NAME="songeditor-main";
 
 // TODO: Rename: /changes:new
 app.get('/newChange', async (req, res) => {
+  console.log("Starting request /newChange");
   const octokit = await newUserOctokit(req, res);
   if (!octokit) {
+    console.log("!!! abandoned");
     return;
   }
+  console.log("!!! continuing");
   const user = 'ptabor';
   const mainBranch = await octokit.rest.repos.getBranch({owner:'ptabor', repo: 'songbook', branch: MAIN_BRANCH_NAME});
 
@@ -129,6 +138,13 @@ app.get('/newChange', async (req, res) => {
   <html xmlns="http://www.w3.org/1999/html" lang="pl-PL">\n
   <head>
    <meta charset="UTF-8">
+    <script>
+      function edit() {
+        let load = 'https://raw.githubusercontent.com/wdw21/songbook/main/songs/' + document.getElementById('file').value;
+        let commit = 'http://localhost:8080/save?branch=se-20221019-' + document.getElementById('file').value;
+        window.open('https://ptabor.github.io/songbook/editor?load=' + encodeURIComponent(load) + '&commit=' + encodeURIComponent(commit), '_self')
+      }
+    </script>
   </head>
   <body>\n
   <h1>Nowa zmiana</h1>\n
@@ -149,7 +165,7 @@ app.get('/newChange', async (req, res) => {
   <input id='file' type="text" list="files"/>
   
   <div>
-    <button onclick="window.open('https://ptabor.github.io/songbook/editor?load=https://raw.githubusercontent.com/wdw21/songbook/main/songs/' + document.getElementById('file').value,'_self')">Rozpocznij edycję</button>
+    <button onclick="edit();">Rozpocznij edycję</button>
     <a href="/changes">List zmian</a>
   </div>
   
@@ -159,6 +175,26 @@ app.get('/newChange', async (req, res) => {
 });
 //MAIN_BRANCH_NAME
 
+app.use(cors({origins: ["http://ptabor.github.io", "https://ptabor.github.io"]}));
+
+function logRequest(req, res, next) {
+  console.log("==============================================================");
+  console.log("REQUEST", req.url)
+  next();
+}
+app.use(logRequest)
+
+
+app.post('/save', async (req,res) => {
+  const octokit = await newUserOctokit(req, res);
+  if (!octokit) { return; }
+
+  const branch = req.query.branch;
+  console.log(req.body.toString());
+  octokit.graphql.
+
+  res.sendStatus(200);
+});
 
 app.get('/config', async (req, res) => {
   const octokit = await newUserOctokit(req, res);
