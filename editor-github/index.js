@@ -17,12 +17,13 @@ const OAUTH_REDIRECT_URL = "http://localhost:8080/newChange";
 //const {createAppAuth} = require('@octokit/auth-app');
 const {http} = require('@google-cloud/functions-framework');
 const { Octokit } = require("@octokit/rest");
+const { graphql } = require("@octokit/graphql");
 const express = require('express');
 const util = require('util');
 const crypto = require('crypto');
 const cookieParser = require("cookie-parser");
 
-
+const { request } = require("@octokit/request");
 
 //
 const app = express();
@@ -85,16 +86,30 @@ async function newUserOctokit(req,res) {
       return null;
     }
   }
-  return new Octokit({
-    userAgent: USER_AGENT,
-    //   authStrategy: createOAuthUserAuth,
-    //   authStrategy: createTokenAuth,
-    auth: access_token,
-    // auth: {
-    //   token: access_token,
-    // },
-    log: console,
-  });
+  return {
+    octokit: new Octokit({
+      userAgent: USER_AGENT,
+      auth: access_token,
+      log: console,
+    }),
+    mygraphql: graphql.defaults({
+      headers: {
+        "Authorization": "bearer " + access_token
+      },
+      // request: {
+      //   async hook(request, options) {
+      //     console.log(request);
+      //     console.log(options);
+      //     res = await request(request(options));
+      //     console.log(res);
+      //     return res;
+      //   }
+      // }
+    }),
+    user: 'ptabor',
+  }
+
+
 };
 
 // function appAuthOctokit() {
@@ -120,16 +135,16 @@ app.use(cookieParser());
 
 const MAIN_BRANCH_NAME="songeditor-main";
 
+
 // TODO: Rename: /changes:new
 app.get('/newChange', async (req, res) => {
   console.log("Starting request /newChange");
-  const octokit = await newUserOctokit(req, res);
+  const {octokit,mygraphql, user} = await newUserOctokit(req, res);
   if (!octokit) {
     console.log("!!! abandoned");
     return;
   }
   console.log("!!! continuing");
-  const user = 'ptabor';
   const mainBranch = await octokit.rest.repos.getBranch({owner:'ptabor', repo: 'songbook', branch: MAIN_BRANCH_NAME});
 
   console.log(util.inspect(mainBranch,false,null,false));
@@ -140,8 +155,11 @@ app.get('/newChange', async (req, res) => {
    <meta charset="UTF-8">
     <script>
       function edit() {
+        let today = new Date().toISOString().slice(0, 10);
+        let rand= Math.floor(Math.random()*10000);
+        let branch = "se-"+ today + "-" + rand + "-" + document.getElementById('file').value;
         let load = 'https://raw.githubusercontent.com/wdw21/songbook/main/songs/' + document.getElementById('file').value;
-        let commit = 'http://localhost:8080/save?branch=se-20221019-' + document.getElementById('file').value;
+        let commit = 'http://localhost:8080/save?branch=' + encodeURIComponent(branch) + '&file=' + encodeURIComponent("songs/"+document.getElementById('file').value);
         window.open('https://ptabor.github.io/songbook/editor?load=' + encodeURIComponent(load) + '&commit=' + encodeURIComponent(commit), '_self')
       }
     </script>
@@ -184,16 +202,93 @@ function logRequest(req, res, next) {
 }
 app.use(logRequest)
 
+async function fetchBranch(octokit, user, branchName) {
+  try {
+    branch = await octokit.rest.repos.getBranch(
+        {owner: user, repo: 'songbook', 'branch': branchName});
+    return branch;
+  } catch (e) {
+    if (!(typeof e == 'HttpError') || e.code != 404) {
+      console.error(e);
+    }
+  }
+  return null;
+}
+
+async function prepareMainBranch(octokit, user) {
+  let branch = await fetchBranch(octokit, user, MAIN_BRANCH_NAME);
+  if (!branch) {
+    let originBranch = await fetchBranch(octokit, 'wdw21', 'main');
+    console.log(util.inspect(originBranch, false, null, false));
+    await octokit.rest.git.createRef({owner: user, repo: 'songbook', "ref": "refs/heads/" + MAIN_BRANCH_NAME, "sha": originBranch.data.commit.sha});
+  }
+  await octokit.rest.repos.mergeUpstream({owner: user, repo: 'songbook', 'branch': MAIN_BRANCH_NAME});
+  return fetchBranch(octokit, user, MAIN_BRANCH_NAME);
+}
+
+async function prepareBranch(octokit, user, branchName) {
+  branch = await fetchBranch(octokit, user, branchName);
+  if (branch) {
+    return branch;
+  }
+  let mainBranch = await prepareMainBranch(octokit, user);
+  console.log(util.inspect(mainBranch, false, null, false));
+
+  await octokit.rest.git.createRef({owner: user, repo: 'songbook', "ref": "refs/heads/" + branchName, "sha": mainBranch.data.commit.sha});
+  return fetchBranch(octokit, user, branchName);
+}
+
 
 app.post('/save', async (req,res) => {
-  const octokit = await newUserOctokit(req, res);
+  const {octokit,mygraphql, user} = await newUserOctokit(req, res);
   if (!octokit) { return; }
 
-  const branch = req.query.branch;
-  console.log(req.body.toString());
-  octokit.graphql.
+  const branchName = req.query.branch;
+  const msg = req.query.msg ? req.query.msg : "Kolejne zmiany";
+  const file = req.query.file
+  console.log('Branch:', branchName);
+  const payload = req.body.toString().replaceAll(/(?<=^ *)  /gm,"\t");
+  const branch = await prepareBranch(octokit, user, branchName)
 
-  res.sendStatus(200);
+  console.log(util.inspect(branch, false, null, false));
+
+  //console.log("GRAPHQL", await mygraphql("{ viewer { login } }"));
+
+  const commitResult = await mygraphql(`
+  mutation ($input: CreateCommitOnBranchInput!) {
+    createCommitOnBranch(input: $input) {
+      commit {
+        url
+      }
+    }
+  }
+  `,{
+    "input": {
+      "branch": {
+        "repositoryNameWithOwner": user + "/songbook",
+        "branchName": branchName
+      },
+      "message": {
+        "headline": msg
+      },
+      "fileChanges": {
+        "additions": [
+          {
+            "path": file,
+            "contents": Buffer.from(payload).toString("base64")
+          }
+        ]
+      },
+      "expectedHeadOid": branch.data.commit.sha
+    }
+  });
+
+  res.send(
+      {
+        "status": "committed",
+        "commit": commitResult.createCommitOnBranch.commit
+      }
+  );
 });
 
 app.get('/config', async (req, res) => {

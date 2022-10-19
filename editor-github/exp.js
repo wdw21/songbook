@@ -42,3 +42,7 @@ function test() {
   console.log(decryptJSONhex(
       "0d9b6aa042cf845fe679b91b13e5800dc859d229ec451a180e9e26874ee46531"));
 }
+
+
+console.log(`      abcd 
+    cztery`.replaceAll(/(?<=^ *)  /gm,"\t"));
