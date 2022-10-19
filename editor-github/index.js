@@ -153,16 +153,19 @@ app.get('/newChange', async (req, res) => {
   <html xmlns="http://www.w3.org/1999/html" lang="pl-PL">\n
   <head>
    <meta charset="UTF-8">
-    <script>
-      function edit() {
-        let today = new Date().toISOString().slice(0, 10);
-        let rand= Math.floor(Math.random()*10000);
-        let branch = "se-"+ today + "-" + rand + "-" + document.getElementById('file').value;
-        let load = 'https://raw.githubusercontent.com/wdw21/songbook/main/songs/' + document.getElementById('file').value;
-        let commit = 'http://localhost:8080/save?branch=' + encodeURIComponent(branch) + '&file=' + encodeURIComponent("songs/"+document.getElementById('file').value);
-        window.open('https://ptabor.github.io/songbook/editor?load=' + encodeURIComponent(load) + '&commit=' + encodeURIComponent(commit), '_self')
-      }
-    </script>
+<!--    <script>-->
+<!--    function edit() {-->
+<!--      window.open("/changes/new")-->
+<!--    }-->
+<!--      // function edit() {-->
+<!--      //   let today = new Date().toISOString().slice(0, 10);-->
+<!--      //   let rand= Math.floor(Math.random()*10000);-->
+<!--      //   let branch = "se-"+ today + "-" + rand + "-" + document.getElementById('file').value;-->
+<!--      //   let load = 'https://raw.githubusercontent.com/wdw21/songbook/main/songs/' + document.getElementById('file').value;-->
+<!--      //   let commit = 'http://localhost:8080/save?branch=' + encodeURIComponent(branch) + '&file=' + encodeURIComponent("songs/"+document.getElementById('file').value);-->
+<!--      //   window.open('https://ptabor.github.io/songbook/editor?load=' + encodeURIComponent(load) + '&commit=' + encodeURIComponent(commit), '_self')-->
+<!--      // }-->
+<!--    </script>-->
   </head>
   <body>\n
   <h1>Nowa zmiana</h1>\n
@@ -180,12 +183,13 @@ app.get('/newChange', async (req, res) => {
 
     res.write(`
   
-  <input id='file' type="text" list="files"/>
-  
-  <div>
-    <button onclick="edit();">Rozpocznij edycję</button>
-    <a href="/changes">List zmian</a>
-  </div>
+  <form action="/changes/new" method="post">
+    <input name="file" id='file' type="text" list="files"/>
+    <div>
+      <input type="submit">Rozpocznij edycję</>
+      <a href="/changes">List zmian</a>
+    </div>
+  </form>
   
   </body>
   </html>`);
@@ -238,6 +242,25 @@ async function prepareBranch(octokit, user, branchName) {
   return fetchBranch(octokit, user, branchName);
 }
 
+app.post('/changes/new', express.urlencoded({
+  extended: true
+}),  async(req, res) => {
+    console.log("BODY", req.body);
+    let file = req.body.file.trim();
+    if (!file.toLowerCase().endsWith(".xml")) {
+      file = file + ".xml";
+    }
+    let today = new Date().toISOString().slice(0, 10);
+    let rand= Math.floor(Math.random()*10000);
+    let branchName = "se-"+ today + "-" + rand + "-" + file;
+
+    const {octokit,mygraphql, user} = await newUserOctokit(req, res);
+    const branch = await prepareBranch(octokit, user, branchName)
+
+    let load = 'https://raw.githubusercontent.com/' + encodeURIComponent(user) + '/songbook/' + encodeURIComponent(branchName) + '/songs/' + encodeURIComponent(file);
+    let commit = 'http://localhost:8080/save?branch=' + encodeURIComponent(branchName) + '&file=' + encodeURIComponent("songs/" + file);
+    res.redirect('https://ptabor.github.io/songbook/editor?load=' + encodeURIComponent(load) + '&commit=' + encodeURIComponent(commit));
+});
 
 app.post('/save', async (req,res) => {
   const {octokit,mygraphql, user} = await newUserOctokit(req, res);
