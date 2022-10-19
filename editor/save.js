@@ -1,4 +1,4 @@
-import {loadXMLDoc} from './utils.js';
+import {loadXMLDoc, nbsp} from './utils.js';
 
 export function Serialize(songeditor) {
   let xsltProcessor = new XSLTProcessor()
@@ -19,7 +19,9 @@ export function Serialize(songeditor) {
   console.log(resultDocument);
 
   let txt=new XMLSerializer().serializeToString(resultDocument);;
-  return txt.replaceAll("?><song","?>\n<song");
+  return txt.replaceAll("?><song","?>\n<song")
+      .replaceAll(nbsp," ")
+      .replaceAll(/(?<=^ *)  /gm,"\t") + "\n";
 }
 
 export function Save(songeditor) {

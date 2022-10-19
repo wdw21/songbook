@@ -208,6 +208,9 @@ export class SongEditor extends HTMLElement {
     let parser = new DOMParser();
     let xmlDoc = parser.parseFromString(xmlContent.replaceAll(" style=", " type="), "text/xml");
     let z=xmlDoc.getElementsByTagName("lyric");
+    if (z.length!=1) {
+      return false;
+    }
     removeAllChildren(this);
     let tmp= document.createElement("div");
     tmp.appendChild(z[0]);

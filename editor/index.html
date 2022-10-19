@@ -10,15 +10,21 @@
       const urlParams = new URLSearchParams(window.location.search);
       const loadUrl = urlParams.get('load');
       const commitUrl = urlParams.get('commit');
+      const commitOnLoad = urlParams.get('commitOnLoad');
       if (loadUrl) {
         fetch(loadUrl)
             .then((response) => response.text())
-            .then((txt) => document.getElementsByTagName("song-editor")[0].Load(txt));
+            .then((txt) => {
+              let songEditor = document.getElementsByTagName("song-editor")[0];
+              songEditor.Load(txt);
+              if (commitOnLoad) {
+                commit();
+              }
+            })
       }
       document.getElementById("saveToGithub").hidden=(commitUrl==null);
     }
-  </script>
-  <script>
+
     async function commit() {
       let txt = document.getElementsByTagName("song-editor")[0].Serialize();
       const urlParams = new URLSearchParams(window.location.search);
