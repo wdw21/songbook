@@ -78,7 +78,7 @@ async function newUserOctokit(req,res) {
     try {
       const {token} = await auth();
       access_token = token;
-      res.cookie("session", {"access_token": access_token});
+      res.cookie("session", {"access_token": access_token}, { maxAge: 3*24*60*60*1000, httpOnly: true, sameSite:'none', secure: true });
     } catch (e) {
       console.log(e);
       res.redirect("/auth");
@@ -175,7 +175,7 @@ app.get('/newChange', async (req, res) => {
 });
 //MAIN_BRANCH_NAME
 
-app.use(cors({origins: ["http://ptabor.github.io", "https://ptabor.github.io"]}));
+app.use(cors({origin: "https://ptabor.github.io", credentials: true}));
 
 function logRequest(req, res, next) {
   console.log("==============================================================");
