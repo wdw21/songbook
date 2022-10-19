@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Bajka">
-	<comment>Piosenka pochodzi z 19 Ogólnopolskiego Studenckiego Przeglądu Piosenki Turystycznej Yapa '94.Gość spiewał ją przygrywając sobie na bembenku.Proszę nie spodziewać się akprdów :)</comment>
+	<comment>Piosenka pochodzi z 19 Ogólnopolskiego Studenckiego Przeglądu Piosenki Turystycznej Yapa '94.
+Gość śpiewał ją przygrywając sobie na bembenku. Proszę nie spodziewać się akordów :)</comment>
 	<artist type="solo">Paweł Nowaczyk</artist>
 	<lyric>
 		<block type="verse">
@@ -55,10 +56,11 @@
 	<status>
 		<done>
 			<text/>
+			<authors/>
 			<chords>chord positioning</chords>
 		</done>
 		<verificators>
-			<verificator>Adam</verificator>
+			<verificator>Adam Foland</verificator>
 		</verificators>
 	</status>
 </song>
