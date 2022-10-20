@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="">
+	<lyric>
+		<block type="verse">
+			<row important_over="false"> Herbata stygnie, zapada zmrok</row>
+			<row important_over="false"> A pod piórem ciągle nic...</row>
+		</block>
+	</lyric>
+	<keywords/>
+	<status>
+		<done/>
+		<verificators/>
+	</status>
+</song>
