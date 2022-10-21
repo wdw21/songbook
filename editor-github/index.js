@@ -8,7 +8,8 @@ const USER_AGENT="songbook/0.0.1";
 const OAUTH_APP_ID = 2019824;
 const OAUTH_APP_SECRET = "542c32a00d9d1ddb184fd96ad120182568b6c502";
 const OAUTH_CLIENT_ID = "e1230ada4de9a5ce168b";
-const OAUTH_REDIRECT_URL = "http://localhost:8080/newChange";
+const CHANGES_BASE_URL = "http://localhost:8080/changes";
+const OAUTH_REDIRECT_URL = CHANGES_BASE_URL;
 
 const {http} = require('@google-cloud/functions-framework');
 const { Octokit } = require("@octokit/rest");
@@ -17,6 +18,9 @@ const express = require('express');
 const util = require('util');
 const crypto = require('crypto');
 const cookieParser = require("cookie-parser");
+
+const MAIN_BRANCH_NAME="songeditor-main";
+const SONGEDITOR_BRANCH_REGEXP=/^se-.*/g;
 
 const app = express();
 
@@ -73,11 +77,226 @@ async function newUserOctokit(req,res) {
 app.use(cookieParser());
 app.use(cors({origin: "https://ptabor.github.io", credentials: true}));
 
+app.get('/changes', async (req, res) => {
+  try {
+  const {octokit, user, mygraphql} = await newUserOctokit(req, res);
+  if (!octokit) {
+    return;
+  }
+  let r = await mygraphql(`query ($user:String!, $repo:String!){
+  repository(owner:$user,name:$repo) {
+    url
+    parent {
+      id
+      name
+      owner {
+        id
+        login
+      }
+    }
+    refs(last: 100, refPrefix:"refs/heads/", orderBy: {field:TAG_COMMIT_DATE, direction:DESC}) {
+      nodes {
+        id
+        name
+        associatedPullRequests(last:5) {
+          edges {
+            node {
+              id
+              title
+              number
+              url
+              closed
+              closedAt
+              changedFiles
+              merged
+            }
+          }
+        }
+        target {
+        ... on Commit {
+            changedFilesIfAvailable,
+                commitSHA: oid
+            committedDate,
+            commitUrl,
+            url,
+                history(first: 2) {
+              nodes {
+                id
+                oid
+                commitUrl
+                messageHeadline
+                committedDate
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}`,
+      {
+        user: user,
+        repo: "songbook"
+      });
 
-const MAIN_BRANCH_NAME="songeditor-main";
+  const diffs = new Map();
+  const refs = r.repository.refs.nodes;
+
+  refs.sort( (a,b) => {
+    if (!a || !a.target || !a.target.committedDate) {
+      return 1;
+    }
+    if (!b || !b.target || !a.target.committedDate) {
+      return -1;
+    }
+    return -a.target.committedDate.localeCompare(b.target.committedDate)} ) ;
+
+  for (let i = 0; i < refs.length; ++i) {
+    let branch = refs[i];
+    if (SONGEDITOR_BRANCH_REGEXP.test(branch.name)) {
+      diffs.set(branch.name, octokit.rest.repos.compareCommitsWithBasehead({
+        owner: 'wdw21',
+        repo: 'songbook',
+        basehead: `main...${user}:songbook:${branch.name}`
+      }));
+    }
+  }
+
+  res.write(`
+<html>
+  <head>
+   <meta charset="UTF-8">
+    <script>      
+      function deleteBranch(branch) {
+        if (confirm("Czy na pewno chcesz skasować zmianę: '" +branch + "'?")) {
+          fetch("${CHANGES_BASE_URL}/"+branch, {method:'DELETE'})
+            .then((response) => window.location.reload());
+        }
+      }
+    </script>
+    </head>
+  <body>
+    <table>`);
+
+  for (let i = 0; i < refs.length; ++i) {
+    let branch = refs[i];
+    if (SONGEDITOR_BRANCH_REGEXP.test(branch.name)) {
+      const diff = await diffs.get(branch.name);
+      if (!diff || diff.data.files.length < 1) {
+        continue;
+      }
 
 
-app.get('/changes:new', async (req, res) => {
+      res.write(`<td>${diff.data.files[0].status == 'added'? 'Nowy:':''} ${diff.data.files[0].filename.replaceAll("songs/","")}</td>`)
+
+      res.write(`<td>${new Date(branch.target.committedDate).toLocaleString("pl-PL")}</td>`)
+
+
+      res.write(`<td>
+        <a href="/changes/${branch.name}:edit">[Edytuj]</a>
+        <button onclick="deleteBranch('${branch.name}')">Usuń</button></td>`);
+
+      res.write(`<td>`);
+      if (branch.associatedPullRequests.edges.length > 0) {
+        let pr = branch.associatedPullRequests.edges[0].node;
+        res.write(`<a href="${pr.url}">[W recenzji]</a>`);
+      } else {
+        res.write(`<a href="/changes/${branch.name}:publish">[Wyślij do recenzji]</a>`);
+      }
+      res.write(`</td>`);
+
+      res.write(`<td>
+         <b>${branch.name}</b>
+         <a href="${r.repository.url}/tree/${branch.name}">[branch]</a><br/>
+         <a href="${branch.target.commitUrl}">[commit]</a>
+      </td>`);
+      res.write(`</tr>`);
+    }
+  }
+
+  // Let's delete empty & merged branches.
+  for (let i = 0; i < refs.length; ++i) {
+    let branch = refs[i];
+    if (SONGEDITOR_BRANCH_REGEXP.test(branch.name)) {
+      const diff = await diffs.get(branch.name);
+      if (!diff || diff.data.files.length == 0) {
+        octokit.rest.git.deleteRef({owner: user, repo: 'songbook', "ref": "heads/" + branch.name});
+        continue;
+      }
+      if (branch.associatedPullRequests.edges.length>0) {
+        merged = true;
+        for (const edge of branch.associatedPullRequests.edges) {
+          if (!edge.node.closed || !edge.node.merged) {
+            merged = false;
+          }
+        }
+        if (merged) {
+          octokit.rest.git.deleteRef({owner: user, repo: 'songbook', "ref": "heads/" + branch.name});
+          continue;
+        }
+      }
+    }
+  }
+
+  // <pre>${util.inspect(diff, false, null, false)}</pre>
+  res.write(`
+    </table>
+
+    <a id="newChange" href="/changes:new">[Nowa zmiana]</a>
+
+    <details>
+      <summary>[Magia pod spodem]</summary>
+      <pre>${util.inspect(r, false, null, false)}</pre>`);
+
+    for (let [key, value] of diffs) {
+      res.write(`<hr/><h3>diff: ${key}</h3><pre>${util.inspect(await value, false, null, false)}</pre>\n`);
+    }
+
+  res.write(`    
+    </details>
+  </body>
+</html>
+`);
+  } finally {
+    res.end();
+  }
+})
+
+async function getFileFromBranch(octokit, user, branchName) {
+  diff = await octokit.rest.repos.compareCommitsWithBasehead({
+    owner: 'wdw21',
+    repo: 'songbook',
+    basehead: `main...${user}:songbook:${branchName}`
+  });
+  return diff.data.files.length>0 ? diff.data.files[0].filename : null;
+}
+
+app.get('/changes/:branch[:]edit', async (req, res) => {
+  const branchName = req.params.branch;
+  const {octokit,mygraphql, user} = await newUserOctokit(req, res);
+  let file = getFileFromBranch(octokit, user, branchName);
+  res.redirect(editorLink(user, branchName, file, false));
+});
+
+app.delete('/changes/:branch', async (req, res) => {
+  const branchName = req.params.branch;
+  const {octokit,mygraphql, user} = await newUserOctokit(req, res);
+  await octokit.rest.git.deleteRef({owner: user, repo: 'songbook', "ref": "heads/" + branchName});
+  res.send("Deleted");
+});
+
+app.get('/changes/:branch[:]publish', async (req, res) => {
+  const branchName = req.params.branch;
+  const {octokit,mygraphql, user} = await newUserOctokit(req, res);
+  let file = await getFileFromBranch(octokit, user, branchName);
+  let link = editorLink(user, branchName, file);
+  let body = `{Opisz zmiany w piosence i kliknij "Create pull request". }\n\n\n[Link do edytora](${link})`;
+  let url=`https://github.com/wdw21/songbook/compare/main...${user}:songbook:${branchName}?title=Piosenka: ${encodeURIComponent(file)}&expand=1&body=${encodeURIComponent(body)}`
+  res.redirect(url);
+});
+
+
+app.get('/changes[:]new', async (req, res) => {
   console.log("Starting request /newChange");
   const {octokit,mygraphql, user} = await newUserOctokit(req, res);
   if (!octokit) {
@@ -163,7 +382,13 @@ async function prepareBranch(octokit, user, branchName) {
   return fetchBranch(octokit, user, branchName);
 }
 
-app.post('/changes:new', express.urlencoded({
+function editorLink(user, branchName, file, autocommit) {
+  let load = 'https://raw.githubusercontent.com/' + encodeURIComponent(user) + '/songbook/' + encodeURIComponent(branchName) + '/' + encodeURIComponent(file);
+  let commit = 'http://localhost:8080/changes/'+branchName+':commit?&file=' + encodeURIComponent(file);
+  return 'https://ptabor.github.io/songbook/editor?load=' + encodeURIComponent(load) + '&commit=' + encodeURIComponent(commit) + (autocommit?'&commitOnLoad=true':'');
+}
+
+app.post('/changes[:]new', express.urlencoded({
   extended: true
 }),  async(req, res) => {
     console.log("BODY", req.body);
@@ -178,16 +403,14 @@ app.post('/changes:new', express.urlencoded({
     const {octokit,mygraphql, user} = await newUserOctokit(req, res);
     const branch = await prepareBranch(octokit, user, branchName)
 
-    let load = 'https://raw.githubusercontent.com/' + encodeURIComponent(user) + '/songbook/' + encodeURIComponent(branchName) + '/songs/' + encodeURIComponent(file);
-    let commit = 'http://localhost:8080/save?branch=' + encodeURIComponent(branchName) + '&file=' + encodeURIComponent("songs/" + file);
-    res.redirect('https://ptabor.github.io/songbook/editor?load=' + encodeURIComponent(load) + '&commit=' + encodeURIComponent(commit));
+    res.redirect(editorLink(user, branchName, "songs/"+file, true));
 });
 
-app.post('/save', async (req,res) => {
+app.post('/changes/:branchName:commit', async (req,res) => {
   const {octokit,mygraphql, user} = await newUserOctokit(req, res);
   if (!octokit) { return; }
 
-  const branchName = req.query.branch;
+  const branchName = req.params.branchName;
   const msg = req.query.msg ? req.query.msg : "Kolejne zmiany";
   const file = req.query.file
   console.log('Branch:', branchName);
@@ -231,59 +454,6 @@ app.post('/save', async (req,res) => {
         "commit": commitResult.createCommitOnBranch.commit
       }
   );
-});
-
-app.get('/changes', async (req, res) => {
-  const {octokit, user} = await newUserOctokit(req, res);
-  if (!octokit) {
-    return;
-  }
-
-  const repo = await octokit.rest.repos.get({owner: user, repo: 'songbook'});
-  const branches = await  octokit.rest.repos.listBranches({owner: 'ptabor', repo: 'songbook'});
-  res.write(`
-<html>
-  <body>`);
-
-  res.write('Twoje zmiany:');
-  res.write('<table>')
-
-  await octokit.rest.repos.mergeUpstream({owner: user, repo: 'songbook', branch: 'main'});
-
-  let songs = await octokit.rest.repos.getContent({owner: user, repo: 'songbook', path: 'songs'})
-  res.write(`<pre>${util.inspect(songs,false,null,false)}</pre>`);
-
-
-  for (let i=0; i< branches.data.length; ++i) {
-    let b = branches.data[i];
-
-   let diff = await octokit.rest.repos.compareCommitsWithBasehead({owner: 'wdw21', repo: 'songbook', basehead: `main...${user}:songbook:${b.name}`});
-
-    //let branch = await octokit.rest.repos.getBranch({owner: user, repo: 'songbook', branch: b.name});
-    res.write(`<tr><td>${b.name}</td>
-       <td><pre>DIFF: ${util.inspect(diff,false, null, false)}</pre></td>
-       <td><pre>BRANCH: ${util.inspect(b, false, null, false)}</pre></td></tr>`);
-  }
-  res.write('</table>')
-
-  res.write(`<hr/>
-     Repo found: ${repo != null}<br/>
-     Repo details: <pre>${util.inspect(repo, false, null, false)}</pre><br/>
-     Repo source: ${repo.data.source.full_name}
-     <hr/>
-     Branches: <pre>${util.inspect(branches, false, null, false)}</pre>`
-  );
-
-  for (let i=0; i< branches.data.length; ++i) {
-    let b = branches.data[i];
-    let branch = await octokit.rest.repos.getBranch({owner: user, repo: 'songbook', branch: b.name});
-    res.write(`<pre>BRANCH: ${util.inspect(branch, false, null, false)}</pre>>`);
-  }
-
-  res.write(`
-</body>
-</html>`);
-  res.end();
 });
 
 app.get('/auth', async (req, res) => {
