@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Miejcie nadzieję (3)">
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Miejcie nadzieję">
+	<text_author type="solo">Adam Asnyk</text_author>
+	<artist type="solo">Jacek Wójcicki</artist>
 	<lyric>
 		<block type="verse">
 			<row important_over="false"> <ch a="a"/>Miejcie nadzieję nie tę lichą marną<ch a="E"/><ch a="a"/></row>
@@ -50,8 +52,11 @@
 		<guitar barre="0"/>
 	</music>
 	<keywords/>
+	<album>Live Character</album>
 	<status>
-		<done/>
+		<done>
+			<authors/>
+		</done>
 		<verificators/>
 	</status>
 </song>
