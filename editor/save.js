@@ -19,26 +19,29 @@ export function Serialize(songeditor) {
   console.log(resultDocument);
 
   let txt=new XMLSerializer().serializeToString(resultDocument);;
-  return txt.replaceAll("?><song","?>\n<song")
+  txt = txt.replaceAll("?><song","?>\n<song")
       .replaceAll(nbsp," ")
       .replaceAll(/(?<=^ *)  /gm,"\t") + "\n";
+  if (songeditor.shadow.getElementById("lastSerialized")) {
+    songeditor.shadow.getElementById("lastSerialized").innerText=txt;
+  }
+  return txt;
 }
 
 export function Save(songeditor) {
   let txt = Serialize(songeditor);
-  document.getElementById("output").innerText=txt;
 
-  let download = document.getElementById("download");
-  if (!download) {
-    download = window.document.createElement('a');
-    download.id="download";
-    download.text="[download]";
-    document.getElementById("output").parentNode.appendChild(download);
-  }
+  let download = window.document.createElement('a');
+  download.id="download";
+  download.text="[download]";
+
   let title = songeditor.getAttribute("title");
   if (!title || title.trim()==='') {
     title='song';
   }
-  download.download = title.replaceAll(' ','_')+'.xml';
-  download.href = window.URL.createObjectURL(new Blob([txt]), {type: 'text/xml'});
+
+  let url=window.URL.createObjectURL(new Blob([txt]), {type: 'text/xml'});
+  download.href=url;
+  download.download=title+".xml";
+  download.click();
 }

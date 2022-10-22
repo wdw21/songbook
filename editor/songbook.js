@@ -22,6 +22,19 @@ export class SongEditor extends HTMLElement {
     template.innerHTML = `
 <link rel="stylesheet" href="song.css"/>
 <div class="song-editor">
+  
+<div id="fileToolbar">
+  <button id="buttonNew">Nowy</button>
+  <input style="display: none"  id="open" type="file" accept=".xml"/>
+  <input type="button" id="openCustom" value="Importuj plik"/>  
+  <button id="buttonSave">Exportuj plik</button>
+</div>
+
+<div class="gitToolbar">
+  <button class="buttonCommit">Zapisz zmiany</button>
+  <button class="buttonCommitAndPublish">Zapisz zmiany i zgłoś do recenzji</button>
+</div>
+  
   <h3>Metryka</h3>
   
   <div class="metadata">
@@ -108,22 +121,14 @@ export class SongEditor extends HTMLElement {
      <label for="todo">Do zrobienia</label> <textarea id="todo"></textarea>
   </div>
 </div>
-<div class="toolbar">
-    <div>Pliki:</br>
-      <button id="buttonNew">Nowy</button>  
-      <input  id="open" type="file" accept=".xml"/>
-      <button id="buttonSave">Zapisz</button>  
-    </div>
-    <div class="formatting">Formatowanie:
-      <button id="buttonBis">BIS</button>
-      <button id="importantOver">Kluczowe akordy</button>
-      <button id="buttonInstr">Wers instrumentalny</button>
-    </div>    
+<div class="gitToolbar">
+  <button class="buttonCommit">Zapisz zmiany</button>
+  <button class="buttonCommitAndPublish">Zapisz zmiany i zgłoś do recenzji</button>
 </div>
-<div class="generated">
-  <button id="buttonSave2">Zapisz</button>
-  <h2>Wygenerowane</h2>
-</div>
+<details>
+  <summary>Ostatni zapisany/wyesportowany:</summary>
+  <pre id="lastSerialized"></pre>
+</details>
   `;
 
     const shadow = this.attachShadow({ mode: "closed" });
@@ -131,26 +136,41 @@ export class SongEditor extends HTMLElement {
     this.shadow = shadow;
 
     this.buttonNew=shadow.getElementById("buttonNew");
-    this.buttonBis=shadow.getElementById("buttonBis");
-    this.importantOver=shadow.getElementById("importantOver");
-    this.buttonInstr=shadow.getElementById("buttonInstr");
     this.buttonSave=shadow.getElementById("buttonSave");
-    this.buttonSave2=shadow.getElementById("buttonSave2");
     this.open=shadow.getElementById("open");
+    this.openCustom=shadow.getElementById("openCustom");
 
-    this.buttonBis.addEventListener("click", (e) => this.body().wrapBis());
-    this.importantOver.addEventListener("click", (e) => { this.body().markImportantOver(); this.refreshToolbar(); });
-    this.buttonInstr.addEventListener("click", (e) =>  { this.body().toggleInstrumental(); this.refreshToolbar(); });
+    this.openCustom.addEventListener("click", () => this.open.click());
     this.buttonSave.addEventListener("click", () => Save(this));
-    this.buttonSave2.addEventListener("click", () => Save(this));
     this.open.addEventListener("change", (e) => this.LoadFile(e));
-    this.buttonNew.addEventListener("click", (e) => this.New(e));
+    this.buttonNew.addEventListener("click", (e) => {
+      if (confirm("Czy chcesz przywrócić wartości początkowe we wszystkich polach ?")) {
+        this.New(e) }});
 
-    document.addEventListener('selectionchange', (event) => { this.refreshToolbar(); });
-
-    for (let i=0; i<attrs.length; ++i) {
-      this.mapAttribute(attrs[i]);
+    for (let attr of attrs) {
+      this.mapAttribute(attr);
     }
+
+    for (let button of shadow.querySelectorAll(".buttonCommit")) {
+      console.log("registering button", button);
+      const doubleClickEvent = new CustomEvent("git:commit", {
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+      });
+      button.addEventListener("click", () => {this.dispatchEvent(doubleClickEvent)});
+    }
+
+    for (let button of shadow.querySelectorAll(".buttonCommitAndPublish")) {
+      const doubleClickEvent = new CustomEvent("git:commitAndPublish", {
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+      });
+      button.addEventListener("click", () => this.dispatchEvent(doubleClickEvent));
+    }
+
+    this.attributeChangedCallback("git");
   }
 
   mapAttribute(attr) {
@@ -177,20 +197,31 @@ export class SongEditor extends HTMLElement {
   }
 
   attributeChangedCallback(attr) {
+    if (attr=='git') {
+      for (let d of this.shadow.querySelectorAll(".gitToolbar")) {
+        d.hidden = this.getAttribute('git') != 'true';
+      }
+      return
+    }
+
     let a = this.shadow.getElementById(attr);
-    if (a.id === "done_chords") {
+    if (a && a.id === "done_chords") {
       a.checked = this.hasAttribute("done_chords");
       this.shadow.getElementById("done_chords_value").value = a.checked
           ? this.getAttribute("done_chords") : "";
-    } else if (a.nodeName=='INPUT' && a.type==='checkbox') {
+    } else if (a && a.nodeName=='INPUT' && a.type==='checkbox') {
       a.checked=this.getAttribute(attr)==="true";
-    } else {
+    } else if (a) {
       a.value=this.getAttribute(attr);
     }
   }
 
   body() {
     return this.getElementsByTagName("song-body")[0];
+  }
+
+  openFileClick() {
+    return this.shadowRoot.getElementById('open').click();
   }
 
   New() {
@@ -301,20 +332,6 @@ export class SongEditor extends HTMLElement {
     }
   }
 
-  refreshToolbar() {
-    if (this.body().allSelectedImportant()) {
-      this.importantOver.innerText='Mało ważne akordy';
-    } else {
-      this.importantOver.innerText='Kluczowe akordy';
-    }
-    if (this.body().allSelectedInstrumental()) {
-      this.buttonInstr.innerText='Wers liryczny';
-    } else {
-      this.buttonInstr.innerText='Wers instrumentalny';
-    }
-    this.buttonBis.disabled = document.getSelection().rangeCount==0;
-  }
-
   connectedCallback() {
     if (!this.body()) {
       this.New();
@@ -322,7 +339,7 @@ export class SongEditor extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return attrs;
+    return attrs.concat(["git"]);
   }
 
 }
