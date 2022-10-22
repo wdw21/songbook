@@ -9,28 +9,38 @@
     function init() {
       const urlParams = new URLSearchParams(window.location.search);
       const loadUrl = urlParams.get('load');
-      const commitUrl = urlParams.get('commit');
+    //  const commitUrl = urlParams.get('commit');
+      const changeUrl = urlParams.get('change');
       const commitOnLoad = urlParams.get('commitOnLoad');
+      const songEditor = document.getElementsByTagName("song-editor")[0];
+      songEditor.setAttribute("git", changeUrl && changeUrl.trim() != '');
       if (loadUrl) {
         fetch(loadUrl)
             .then((response) => response.text())
             .then((txt) => {
-              let songEditor = document.getElementsByTagName("song-editor")[0];
-              songEditor.Load(txt);
+              if (!songEditor.Load(txt)) {
+                return;
+              }
               if (commitOnLoad) {
                 commit();
               }
             })
       }
-      document.getElementById("saveToGithub").hidden=(commitUrl==null);
+
+
+      songEditor.addEventListener("git:commit", (e) => commit(e) );
+      songEditor.addEventListener("git:commitAndPublish", (e)=>commitAndPublish(e) );
+      //document.getElementById("saveToGithub").hidden=(commitUrl==null);
     }
 
-    async function commit() {
-      let txt = document.getElementsByTagName("song-editor")[0].Serialize();
+    async function commit(e) {
+      let txt = e.target.Serialize();//document.getElementsByTagName("song-editor")[0].Serialize();
       const urlParams = new URLSearchParams(window.location.search);
-      const commitUrl = urlParams.get('commit');
+      //const commitUrl = urlParams.get('commit');
+      const changeUrl = urlParams.get('change');
       console.log(txt);
-      if (commitUrl) {
+      if (changeUrl) {
+        const msg = prompt("Wprowadź, proszę, krótki opis ostatnich zmian", "Poprawiono...");
         try {
           const config = {
             method: 'POST',
@@ -41,12 +51,12 @@
             },
             body: txt
           }
-          const response = await fetch(commitUrl, config)
+          const response = await fetch(changeUrl + ":commit/msg=" + encodeURIComponent(msg), config)
           if (response.ok) {
             return response
           } else {
+            alert("Zapis się nie powiódł. Czy jesteś podlączony do internetu ?");
             console.warn(response);
-            alert(JSON.stringify(response));
           }
         } catch (error) {
           console.error(error);
@@ -54,20 +64,18 @@
         }
       }
     }
+
+    async function commitAndPublish(e) {
+      await commit(e);
+      const urlParams = new URLSearchParams(window.location.search);
+      const changeUrl = urlParams.get('change');
+      window.location = changeUrl + ':publish'
+    }
+
   </script>
 </head>
 <body onload="init()">
   <h1>Edytor piosenek</h1>
   <song-editor></song-editor>
-
-  <div class="output" style="margin-top: 4em">
-    <i>Wygenerowany opis piosenki:</i>
-    <div id="output" style="white-space: pre; background-color: lightgoldenrodyellow"></div>
-  </div>
-
-  <button id='saveToGithub' onclick="commit();">Zapisz w Github</button>
 </body>
 </html>
-
-
-

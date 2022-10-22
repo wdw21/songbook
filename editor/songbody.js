@@ -70,6 +70,13 @@ export default class SongBody extends HTMLElement {
     const template = document.createElement('template');
     template.innerHTML = `
 <link rel="stylesheet" href="./song.css"/>
+<div class="toolbar">
+    <div class="formatting">Formatowanie:
+      <button id="buttonBis">BIS</button>
+      <button id="importantOver">Kluczowe akordy</button>
+      <button id="buttonInstr">Wers instrumentalny</button>
+    </div>    
+</div>
 <div class="songbody" id="songbody"><slot/></div>`;
 
     const shadow = this.attachShadow({ mode: "closed" });
@@ -83,6 +90,30 @@ export default class SongBody extends HTMLElement {
     this.body.addEventListener("drop", (e) => {this.drop(e, this); });
   //  this.body.addEventListener("keydown", (e) => { this.keyDown(e, this); });
     this.body.addEventListener("focusout", (e) => {this.focusout(e, this); });
+
+    this.buttonBis=shadow.getElementById("buttonBis");
+    this.importantOver=shadow.getElementById("importantOver");
+    this.buttonInstr=shadow.getElementById("buttonInstr");
+
+    this.buttonBis.addEventListener("click", (e) => this.wrapBis());
+    this.importantOver.addEventListener("click", (e) => { this.markImportantOver(); this.refreshToolbar(); });
+    this.buttonInstr.addEventListener("click", (e) =>  { this.toggleInstrumental(); this.refreshToolbar(); });
+
+    document.addEventListener('selectionchange', (event) => { this.refreshToolbar(); });
+  }
+
+  refreshToolbar() {
+    if (this.allSelectedImportant()) {
+      this.importantOver.innerText='Mało ważne akordy';
+    } else {
+      this.importantOver.innerText='Kluczowe akordy';
+    }
+    if (this.allSelectedInstrumental()) {
+      this.buttonInstr.innerText='Wers liryczny';
+    } else {
+      this.buttonInstr.innerText='Wers instrumentalny';
+    }
+    this.buttonBis.disabled = document.getSelection().rangeCount==0;
   }
 
   focusout(e, songbook) {
@@ -241,7 +272,7 @@ export default class SongBody extends HTMLElement {
   }
 
   keyDown(e,songBook) {
-    console.log("keydown...",e, document.getSelection());
+    //console.log("keydown...",e, document.getSelection());
     if (e.key == '`' && canInsertChord()) {
       if (insertChordHere("")) {
         e.preventDefault();
@@ -318,7 +349,7 @@ export default class SongBody extends HTMLElement {
   }
 
   beforeInput(e, songbody) {
-    console.log("beforeInput", e);
+    //console.log("beforeInput", e);
     if (e.inputType == "deleteContentBackward"
        && e.target == songbody) {
       if (document.getSelection().rangeCount == 1
@@ -455,7 +486,7 @@ export default class SongBody extends HTMLElement {
   }
 
   input(e, songbody) {
-     console.log("Oninput", e);
+//     console.log("Oninput", e);
      if (e.target == songbody) {
        Sanitize(songbody);
 //    Avoid keeping cursor before the artifical space:
@@ -479,14 +510,16 @@ export default class SongBody extends HTMLElement {
   paste(e, songbody) {
     console.log(e);
     console.log("types", e.clipboardData.types);
-    let p = document.createElement("span");
-    let data = e.clipboardData.getData("text/html");
-    console.log(data);
-    p.innerHTML  = data;
-    getSelection().getRangeAt(0).deleteContents();
-    getSelection().getRangeAt(0).insertNode(p);
-    e.preventDefault();
-    Sanitize(songbody);
+    if (e.target.nodeName === 'SONG-ROW' || e.target.nodeName === 'SONG-BODY') {
+      let p = document.createElement("span");
+      let data = e.clipboardData.getData("text/html");
+      console.log(data);
+      p.innerHTML  = data;
+      getSelection().getRangeAt(0).deleteContents();
+      getSelection().getRangeAt(0).insertNode(p);
+      e.preventDefault();
+      Sanitize(songbody);
+    }
   }
 
   attributeChangedCallback() {

@@ -250,7 +250,6 @@ function isEmptyRow(el) {
 }
 
 export function Sanitize(body) {
-  console.log("Sanitizing...");
   // let r=document.getSelection().rangeCount>0 ? document.getSelection().getRangeAt(0).cloneRange() : null;
   // // As sanitization modifies the text (e.g replace all ' ' -> nbsp), we
   // // need to persist where is the selection, to be able to restore it.
@@ -258,7 +257,6 @@ export function Sanitize(body) {
   //console.log("Stored", r);
   if (!lightTraverse(body)) {
     console.log("Full fix...");
-    console.log("before fix: ", body.outerHTML);
     traverse(body, body);
     console.log("after fix: ", body.outerHTML);
   }
