@@ -10,6 +10,7 @@ import {listChanges} from './listChanges.js';
 import {
   EDITOR_DOMAIN,
   CHANGES_BASE_URL,
+  OAUTH_CLIENT_ID,
   newUserOctokit,
   getFileFromBranch,
   htmlSuffix,
@@ -108,12 +109,7 @@ app.get('/changes[:]new', async (req, res) => {
   }
 });
 
-app.post('/changes[:]new', express.urlencoded({extended: true }),  async(req, res) => {
-  console.log("BODY", req.body);
-  let file = req.body.file.trim();
-  if (!file.toLowerCase().endsWith(".xml")) {
-    file = file + ".xml";
-  }
+async function newChange(file, req, res) {
   let today = new Date().toISOString().slice(0, 10);
   let rand= Math.floor(Math.random()*10000);
   let branchName = "se-"+ today + "-" + rand + "-" + file;
@@ -122,6 +118,20 @@ app.post('/changes[:]new', express.urlencoded({extended: true }),  async(req, re
   const branch = await prepareBranch(octokit, user, branchName)
 
   res.redirect(editorLink(user, branchName, "songs/"+file, true));
+}
+
+app.post('/changes[:]new', express.urlencoded({extended: true }),  async(req, res) => {
+  console.log("BODY", req.body);
+  let file = req.body.file.trim();
+  if (!file.toLowerCase().endsWith(".xml")) {
+    file = file + ".xml";
+  }
+  newChange(file, req, res)
+});
+
+app.post('/changes/:file[:]new',  async(req, res) => {
+  let file = req.params.trim();
+  newChange(file, req, res)
 });
 
 app.get('/songs', async (req, res) => {
@@ -168,16 +178,12 @@ function logRequest(req, res, next) {
 app.use(logRequest)
 
 
-
-async function commit(req, res) {
+async function commit(branchName, file, msg, body, payload, req, res) {
   const {octokit,mygraphql, user} = await newUserOctokit(req, res);
   if (!octokit) { return; }
 
-  const branchName = req.params.branchName;
-  const msg = req.query.msg ? req.query.msg : "Kolejne zmiany";
-  const file = req.query.file
+
   console.log('Branch:', branchName);
-  const payload = req.body.toString().replaceAll(/(?<=^ *)  /gm,"\t");
   const branch = await prepareBranch(octokit, user, branchName)
 
   console.log(util.inspect(branch, false, null, false));
@@ -197,7 +203,7 @@ async function commit(req, res) {
         "branchName": branchName
       },
       "message": {
-        "headline": msg
+        "headline": msg.trim()
       },
       "fileChanges": {
         "additions": [
@@ -213,7 +219,11 @@ async function commit(req, res) {
 }
 
 app.post('/changes/:branchName[:]commit', async (req,res) => {
-  const commitResult = await commit(req, res);
+  const branchName = req.params.branchName;
+  const msg = req.query.msg ? req.query.msg : "Kolejne zmiany";
+  const file = req.query.file
+  const payload = req.body;
+  const commitResult = await commit(branchName, file, msg, payload, req, res);
   res.send(
       {
         "status": "committed",
@@ -223,11 +233,39 @@ app.post('/changes/:branchName[:]commit', async (req,res) => {
   console.log(":commit over")
 });
 
-app.post('/changes/:branchName[:]commitAndPublish', async (req,res) => {
-  await commit(req, res);
+app.post('/changes/:branchName/:file([^$]+)', async (req,res) => {
+  const branchName = req.params.branchName;
+  const msg = req.query.msg ? req.query.msg.trim() : "Kolejne zmiany";
+  const file = req.params.file.trim()
+  const payload = req.body;
+  const commitResult = await commit(branchName, file, msg, payload, req, res);
+  res.send(
+      {
+        "status": "committed",
+        "commit": commitResult.createCommitOnBranch.commit
+      }
+  );
+  console.log(":commit over")
+});
+
+app.post('/changes/:branchName/:file([^$]+)[:]commitAndPublish', async (req,res) => {
+  const branchName = req.params.branchName;
+  const msg = req.query.msg ? req.query.msg : "Kolejne zmiany";
+  const file = req.params.file.trim()
+  const payload = req.body;
+  await commit(branchName, file, msg, payload, req, res);
   return publish(res, req);
 });
 
+app.get('/changes/:branchName/:file([^$]+)', async (req,res) => {
+  const {user} = await newUserOctokit(req, res);
+  const branchName = req.params.branchName;
+  const file = req.params.file.trim()
+  console.log("Reading file", file);
+  res.redirect(`https://github.com/${user}/songbook/raw/${branchName}/${file}`);
+});
+
+// TODO(ptab): - it should redirect back to origin, not to the 'changes' page
 app.get('/auth', async (req, res) => {
   const state = crypto.randomUUID();
   res.clearCookie("session");

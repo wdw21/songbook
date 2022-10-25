@@ -8,7 +8,7 @@ const USER_AGENT="songbook/0.0.1";
 const OAUTH_APP_ID = 2019824;
 const OAUTH_APP_SECRET = "542c32a00d9d1ddb184fd96ad120182568b6c502";
 
-const OAUTH_CLIENT_ID = "e1230ada4de9a5ce168b";
+export const OAUTH_CLIENT_ID = "e1230ada4de9a5ce168b";
 export const BASE_URL = "http://localhost:8080"
 export const EDITOR_DOMAIN = 'https://ptabor.github.io'
 export const EDITOR_BASE_URL = EDITOR_DOMAIN + '/songbook/editor'
