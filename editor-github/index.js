@@ -26,20 +26,37 @@ app.use(cors({origin: EDITOR_DOMAIN, credentials: true}));
 
 app.get('/', async  (req, res) => {
   res.redirect(CHANGES_BASE_URL);
-})
+});
 
-app.get('/changes', listChanges)
+app.get('/changes', async (req, res) => {
+  const {octokit,mygraphql,user} =
+      await newUserOctokit(req, res);
+  if (!octokit) { return; }
+  res.redirect(`/users/${user}/changes`)
+} );
 
-app.get('/changes/:branch[:]edit', async (req, res) => {
+
+app.get('/songs', async (req, res) => {
+  const {octokit,mygraphql,user} = await newUserOctokit(req, res);
+  if (!octokit) return;
+  res.redirect(`/users/${user}/songs`)
+} );
+
+app.get('/users/:user/changes', listChanges);
+
+app.get('/users/:user/changes/:branch[:]edit', async (req, res) => {
   const branchName = req.params.branch;
-  const {octokit,mygraphql, user} = await newUserOctokit(req, res);
+  const {octokit,mygraphql,user} = await newUserOctokit(req, res);
+  if (!octokit) return;
   let file = await getFileFromBranch(octokit, user, branchName);
   res.redirect(editorLink(user, branchName, file, false));
 });
 
-app.delete('/changes/:branch', async (req, res) => {
+app.delete('/users/:user/changes/:branch', async (req, res) => {
   const branchName = req.params.branch;
-  const {octokit,mygraphql, user} = await newUserOctokit(req, res);
+  const {octokit,mygraphql,user} = await newUserOctokit(req, res);
+  if (!octokit) return;
+
   await octokit.rest.git.deleteRef({owner: user, repo: 'songbook', "ref": "heads/" + branchName});
   res.send("Deleted");
 });
@@ -54,7 +71,7 @@ async function publish(req, res) {
   res.redirect(url);
 }
 
-app.get('/changes/:branch[:]publish', async (req, res) => {
+app.get('/users/:user/changes/:branch[:]publish', async (req, res) => {
   publish(req, res);
 });
 
@@ -74,9 +91,9 @@ async function getSongs(octokit, user) {
   return os
 }
 
-app.get('/changes[:]new', async (req, res) => {
+app.get('/users/:user/changes[:]new', async (req, res) => {
   try {
-    console.log("Starting request /newChange");
+    console.log("Starting request /users/:user/changes[:]new");
     const {octokit, mygraphql, user} = await newUserOctokit(req, res);
     if (!octokit) {
       return;
@@ -96,8 +113,8 @@ app.get('/changes[:]new', async (req, res) => {
     }
     res.write(`</datalist>\n`);
 
-    res.write(`    
-    <form action="/changes:new" method="post">
+    res.write(`
+    <form action="/users/${user}/changes:new" method="post">
       <input name="file" id='file' type="text" list="files"/>
       <div>
         <input type="submit" value="Rozpocznij edycję"/>
@@ -114,13 +131,13 @@ async function newChange(file, req, res) {
   let rand= Math.floor(Math.random()*10000);
   let branchName = "se-"+ today + "-" + rand + "-" + file;
 
-  const {octokit,mygraphql, user} = await newUserOctokit(req, res);
+  const {octokit,mygraphql,user} = await newUserOctokit(req, res);
   const branch = await prepareBranch(octokit, user, branchName)
 
   res.redirect(editorLink(user, branchName, "songs/"+file, true));
 }
 
-app.post('/changes[:]new', express.urlencoded({extended: true }),  async(req, res) => {
+app.post('/users/:user/changes[:]new', express.urlencoded({extended: true }),  async(req, res) => {
   console.log("BODY", req.body);
   let file = req.body.file.trim();
   if (!file.toLowerCase().endsWith(".xml")) {
@@ -129,12 +146,12 @@ app.post('/changes[:]new', express.urlencoded({extended: true }),  async(req, re
   newChange(file, req, res)
 });
 
-app.post('/changes/:file[:]new',  async(req, res) => {
+app.post('/users/:user/changes/:file[:]new',  async(req, res) => {
   let file = req.params.trim();
   newChange(file, req, res)
 });
 
-app.get('/songs', async (req, res) => {
+app.get('/users/:user/songs', async (req, res) => {
   try {
     console.log("Starting request /songs");
     const {octokit, mygraphql, user} = await newUserOctokit(req, res);
@@ -156,8 +173,8 @@ app.get('/songs', async (req, res) => {
     }
     res.write(`</ul>\n`);
 
-    res.write(`    
-    <form action="/changes:new" method="post">
+    res.write(`
+    <form action="/users/${user}/changes:new" method="post">
       <input name="file" id='file' type="text" list="files"/>
       <div>
         <input type="submit" value="Rozpocznij edycję"/>
@@ -179,7 +196,7 @@ app.use(logRequest)
 
 
 async function commit(branchName, file, msg, body, payload, req, res) {
-  const {octokit,mygraphql, user} = await newUserOctokit(req, res);
+  const {octokit,mygraphql,user} = await newUserOctokit(req, res);
   if (!octokit) { return; }
 
 
@@ -218,7 +235,7 @@ async function commit(branchName, file, msg, body, payload, req, res) {
   });
 }
 
-app.post('/changes/:branchName[:]commit', async (req,res) => {
+app.post('/users/:user/changes/:branchName[:]commit', async (req,res) => {
   const branchName = req.params.branchName;
   const msg = req.query.msg ? req.query.msg : "Kolejne zmiany";
   const file = req.query.file
@@ -233,7 +250,7 @@ app.post('/changes/:branchName[:]commit', async (req,res) => {
   console.log(":commit over")
 });
 
-app.post('/changes/:branchName/:file([^$]+)', async (req,res) => {
+app.post('/users/:user/changes/:branchName/:file([^$]+)', async (req,res) => {
   const branchName = req.params.branchName;
   const msg = req.query.msg ? req.query.msg.trim() : "Kolejne zmiany";
   const file = req.params.file.trim()
@@ -248,7 +265,7 @@ app.post('/changes/:branchName/:file([^$]+)', async (req,res) => {
   console.log(":commit over")
 });
 
-app.post('/changes/:branchName/:file([^$]+)[:]commitAndPublish', async (req,res) => {
+app.post('/users/:user/changes/:branchName/:file([^$]+)[:]commitAndPublish', async (req,res) => {
   const branchName = req.params.branchName;
   const msg = req.query.msg ? req.query.msg : "Kolejne zmiany";
   const file = req.params.file.trim()
@@ -257,8 +274,13 @@ app.post('/changes/:branchName/:file([^$]+)[:]commitAndPublish', async (req,res)
   return publish(res, req);
 });
 
-app.get('/changes/:branchName/:file([^$]+)', async (req,res) => {
-  const {user} = await newUserOctokit(req, res);
+app.get('/users/:user/changes/:branchName/:file([^$]+)', async (req,res) => {
+  let user = req.params.user;
+  if (user==='me') {
+    let o=newUserOctokit(req,res);
+    if (!o || !o.user) {return}
+    user=o.user;
+  }
   const branchName = req.params.branchName;
   const file = req.params.file.trim()
   console.log("Reading file", file);

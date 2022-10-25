@@ -103,14 +103,14 @@ export async function listChanges(req, res) {
                     continue;
                 }
 
-                res.write(`<td>${diff.data.files[0].status == 'added'? 'Nowy:':''} ${diff.data.files[0].filename.replaceAll("songs/","")}</td>`)
+                res.write(`<td>${diff.data.files[0].status === 'added'? 'Nowy:':''} ${diff.data.files[0].filename.replaceAll("songs/","")}</td>`)
 
                 res.write(`<td>${new Date(branch.target.committedDate).toLocaleString("pl-PL")}</td>`)
 
 
                 res.write(`<td>
-        <a href="/changes/${branch.name}:edit">[Edytuj]</a>
-        <button onclick="deleteBranch('${branch.name}')">Usuń</button></td>`);
+        <a href="/users/${user}/changes/${branch.name}:edit">[Edytuj]</a>
+        <button onclick="deleteBranch('${user}','${branch.name}')">Usuń</button></td>`);
 
                 res.write(`<td>`);
                 if (branch.associatedPullRequests.edges.length > 0) {
@@ -135,7 +135,7 @@ export async function listChanges(req, res) {
             let branch = refs[i];
             if (SONGEDITOR_BRANCH_REGEXP.test(branch.name)) {
                 const diff = await diffs.get(branch.name);
-                if (!diff || diff.data.files.length == 0) {
+                if (!diff || diff.data.files.length === 0) {
                     octokit.rest.git.deleteRef({owner: user, repo: 'songbook', "ref": "heads/" + branch.name});
                     continue;
                 }
@@ -148,7 +148,6 @@ export async function listChanges(req, res) {
                     }
                     if (merged) {
                         octokit.rest.git.deleteRef({owner: user, repo: 'songbook', "ref": "heads/" + branch.name});
-                        continue;
                     }
                 }
             }
@@ -167,7 +166,7 @@ export async function listChanges(req, res) {
         for (let [key, value] of diffs) {
             res.write(`<hr/><h3>diff: ${key}</h3><pre>${util.inspect(await value, false, null, false)}</pre>\n`);
         }
-        res.write(`    
+        res.write(`
     </details>`);
     } finally {
         htmlSuffix(res);

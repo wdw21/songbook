@@ -5,7 +5,7 @@ import {graphql}  from "@octokit/graphql";
 
 const USER_AGENT="songbook/0.0.1";
 
-const OAUTH_APP_ID = 2019824;
+//export const OAUTH_APP_ID = 2019824;
 const OAUTH_APP_SECRET = "542c32a00d9d1ddb184fd96ad120182568b6c502";
 
 export const OAUTH_CLIENT_ID = "e1230ada4de9a5ce168b";
@@ -31,11 +31,13 @@ export function htmlPrefix(res) {
 <html xmlns="http://www.w3.org/1999/html" lang="pl-PL">
   <head>
     <meta charset="UTF-8">
-    <script>      
-      function deleteBranch(branch) {
+    <title>Edytor piosenek</title>
+    <script>
+      function deleteBranch(user, branch) {
         if (confirm("Czy na pewno chcesz skasować zmianę: '" +branch + "'?")) {
-          fetch("${CHANGES_BASE_URL}/"+branch, {method:'DELETE'})
-            .then((response) => window.location.reload());
+          let url='${BASE_URL}/users/' + user + '/changes/' + branch;
+          fetch(url, {method:'DELETE'})
+            .then(() => window.location.reload());
         }
       }
     </script>
@@ -43,7 +45,7 @@ export function htmlPrefix(res) {
   <body>
     <div>
       <a href="/changes">[Edycje]</a>
-      <a href="/changes:new">[Nowa]</a>
+      <a href="/users/me/changes:new">[Nowa]</a>
       <a href="/songs">[Piosenki]</a>
     </div>
 `);
@@ -59,9 +61,9 @@ export function htmlSuffix(res) {
 export async function newUserOctokit(req,res) {
     let access_token = req.cookies.session ? req.cookies.session.access_token
         : null;
-    let user = req.cookies.session ? req.cookies.session.user : null;
+    let authuser = req.cookies.session ? req.cookies.session.user : null;
     console.log("access token from cookie: ", access_token)
-    if (!access_token || !user) {
+    if (!access_token || !authuser) {
         //TODO(ptab): Compare secret with the cookie.
         const authData = {
             clientId: OAUTH_CLIENT_ID,
@@ -88,9 +90,10 @@ export async function newUserOctokit(req,res) {
         });
         const authenticated = await octokit.rest.users.getAuthenticated();
         console.log(util.inspect(authenticated, false, null, false));
-        user = authenticated.data.login;
         res.cookie("session", {"access_token": access_token, "user": user}, { maxAge: 3*24*60*60*1000, httpOnly: true, sameSite:'none', secure: true });
     }
+    const usr = (!req.param.user || req.param.user === 'me') ? authuser : req.param.user;
+    console.log('Acting as user:', usr);
     return {
         octokit: new Octokit({
             userAgent: USER_AGENT,
@@ -102,20 +105,20 @@ export async function newUserOctokit(req,res) {
                 "Authorization": "bearer " + access_token
             },
         }),
-        user: user,
+        authuser: authuser,
+        user: usr
     }
-};
+}
 
 
 export async function fetchBranch(octokit, user, branchName) {
     try {
-        let branch = await octokit.rest.repos.getBranch(
+        return await octokit.rest.repos.getBranch(
             {owner: user, repo: 'songbook', 'branch': branchName});
-        return branch;
     } catch (e) {
-        if (!(typeof e == 'HttpError') || e.code != 404) {
+   //     if (!(e instanceof HttpError) || (e.code !== 404)) {
             console.error(e);
-        }
+   //     }
     }
     return null;
 }
@@ -144,12 +147,13 @@ export async function prepareBranch(octokit, user, branchName) {
 }
 
 export function editorLink(user, branchName, file, autocommit) {
-    let load = 'https://raw.githubusercontent.com/' + encodeURIComponent(user) + '/songbook/' + encodeURIComponent(branchName) + '/' + encodeURIComponent(file);
-    let commit = CHANGES_BASE_URL + '/'+branchName+':commit';
+    //let load = 'https://raw.githubusercontent.com/' + encodeURIComponent(user) + '/songbook/' + encodeURIComponent(branchName) + '/' + encodeURIComponent(file);
+    //let commit = CHANGES_BASE_URL + '/'+branchName+':commit';
     // return EDITOR_BASE_URL+'?load=' + encodeURIComponent(load) + '&change=' + encodeURIComponent(commit) + (autocommit?'&commitOnLoad=true':'') + '&changesUrl=' + encodeURIComponent(CHANGES_BASE_URL) + "&songsUrl=" + encodeURIComponent(SONGS_BASE_URL) + "&file=" + encodeURIComponent(file);
     return EDITOR_BASE_URL + '?' +
         '&baseUrl=' + encodeURIComponent(CHANGES_BASE_URL) +
         '&branch=' + encodeURIComponent(branchName) +
         '&file=' + encodeURIComponent(file) +
+        '&user=' + encodeURIComponent(user) +
         (autocommit?'&commitOnLoad=true':'');
 }
