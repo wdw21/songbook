@@ -20,7 +20,7 @@
       const songEditor = document.getElementsByTagName("song-editor")[0];
       songEditor.setAttribute("git", branch && branch.trim() != '');
       if (loadUrl) {
-        fetch(loadUrl)
+        fetch(loadUrl, {credentials: 'include', method: 'GET', redirect: 'follow'})
             .then((response) => response.text())
             .then((txt) => {
               if (!songEditor.Load(txt)) {
