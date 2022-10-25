@@ -13,8 +13,9 @@
       const baseUrl = urlParams.get('baseUrl');
       const branch = urlParams.get('branch');
       const file = urlParams.get('file');
+      const user = urlParams.get('user');
 
-      const loadUrl = urlParams.get('load') ? urlParams.get('load') : `${baseUrl}/changes/${branch}/${file}`;
+      const loadUrl = urlParams.get('load') ? urlParams.get('load') : `${baseUrl}/users/${user}/changes/${branch}/${file}`;
 
       const commitOnLoad = urlParams.get('commitOnLoad');
       const songEditor = document.getElementsByTagName("song-editor")[0];
@@ -31,8 +32,6 @@
               }
             })
       }
-
-
       songEditor.addEventListener("git:commit", (e) => commit(e) );
       songEditor.addEventListener("git:commitAndPublish", (e)=>commitAndPublish(e) );
     }
@@ -44,6 +43,7 @@
       const baseUrl = urlParams.get('baseUrl');
       const branch = urlParams.get('branch');
       const file = urlParams.get('file');
+      const user = urlParams.get('user');
 
       console.log(txt);
       if (changeUrl) {
@@ -58,7 +58,7 @@
             },
             body: txt
           }
-          const response = await fetch(`${baseUrl}/changes/${branch}/${file}?msg=${encodeURIComponent(msg)}`, config)
+          const response = await fetch(`${baseUrl}/users/${user}/changes/${branch}/${file}?msg=${encodeURIComponent(msg)}`, config)
           if (response.ok) {ś
             return response
           } else {
