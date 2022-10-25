@@ -68,6 +68,8 @@ export async function listChanges(req, res) {
         const diffs = new Map();
         const refs = r.repository.refs.nodes;
 
+        console.log("Refs size before sort", refs.length);
+
         refs.sort( (a,b) => {
             if (!a || !a.target || !a.target.committedDate) {
                 return 1;
@@ -77,9 +79,13 @@ export async function listChanges(req, res) {
             }
             return -a.target.committedDate.localeCompare(b.target.committedDate)} ) ;
 
+        console.log("Refs size after sort", refs.length);
+
         for (let i = 0; i < refs.length; ++i) {
             let branch = refs[i];
-            if (SONGEDITOR_BRANCH_REGEXP.test(branch.name)) {
+            console.log("Considering: " + branch.name, i, branch.name.match(SONGEDITOR_BRANCH_REGEXP));
+            if (branch.name.match(SONGEDITOR_BRANCH_REGEXP)) {
+                console.log("Processing: " + branch.name, i);
                 diffs.set(branch.name, octokit.rest.repos.compareCommitsWithBasehead({
                     owner: 'wdw21',
                     repo: 'songbook',
@@ -97,7 +103,7 @@ export async function listChanges(req, res) {
 
         for (let i = 0; i < refs.length; ++i) {
             let branch = refs[i];
-            if (SONGEDITOR_BRANCH_REGEXP.test(branch.name)) {
+            if (branch.name.match(SONGEDITOR_BRANCH_REGEXP)) {
                 const diff = await diffs.get(branch.name);
                 if (!diff || diff.data.files.length < 1) {
                     continue;
@@ -133,9 +139,9 @@ export async function listChanges(req, res) {
         // Let's delete empty & merged branches.
         for (let i = 0; i < refs.length; ++i) {
             let branch = refs[i];
-            if (SONGEDITOR_BRANCH_REGEXP.test(branch.name)) {
+            if (branch.name.match(SONGEDITOR_BRANCH_REGEXP)) {
                 const diff = await diffs.get(branch.name);
-                if (!diff || diff.data.files.length === 0) {
+                if (diff.data.files.length === 0) {
                     octokit.rest.git.deleteRef({owner: user, repo: 'songbook', "ref": "heads/" + branch.name});
                     continue;
                 }
@@ -157,7 +163,7 @@ export async function listChanges(req, res) {
         res.write(`
     </table>
 
-    <a id="newChange" href="/changes:new">[Nowa zmiana]</a>
+    <a id="newChange" href="/users/${user}/changes:new">[Nowa zmiana]</a>
 
     <details>
       <summary>[Magia pod spodem]</summary>

@@ -151,7 +151,7 @@ export function editorLink(user, branchName, file, autocommit) {
     //let commit = CHANGES_BASE_URL + '/'+branchName+':commit';
     // return EDITOR_BASE_URL+'?load=' + encodeURIComponent(load) + '&change=' + encodeURIComponent(commit) + (autocommit?'&commitOnLoad=true':'') + '&changesUrl=' + encodeURIComponent(CHANGES_BASE_URL) + "&songsUrl=" + encodeURIComponent(SONGS_BASE_URL) + "&file=" + encodeURIComponent(file);
     return EDITOR_BASE_URL + '?' +
-        '&baseUrl=' + encodeURIComponent(CHANGES_BASE_URL) +
+        '&baseUrl=' + encodeURIComponent(BASE_URL) +
         '&branch=' + encodeURIComponent(branchName) +
         '&file=' + encodeURIComponent(file) +
         '&user=' + encodeURIComponent(user) +

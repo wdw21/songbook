@@ -275,16 +275,41 @@ app.post('/users/:user/changes/:branchName/:file([^$]+)[:]commitAndPublish', asy
 });
 
 app.get('/users/:user/changes/:branchName/:file([^$]+)', async (req,res) => {
-  let user = req.params.user;
-  if (user==='me') {
-    let o=newUserOctokit(req,res);
-    if (!o || !o.user) {return}
-    user=o.user;
+  try {
+    console.log("hello1");
+    const {octokit,user} = await newUserOctokit(req, res);
+    console.log("hello2", octokit);
+    if (!octokit) return;
+    console.log("hello3");
+
+    const branchName = req.param.branchName;
+    console.log(branchName);
+    let cont = await octokit.rest.repos.getContent(
+        {owner: user, repo: 'songbook', path: req.params.file, ref: branchName});
+    console.log(util.inspect(cont, false, null, false));
+
+    // res.setHeader('Content-disposition', 'attachment; filename='+req.params.file);
+    res.setHeader('Content-type', 'text/xml')
+
+    res.send(new Buffer(cont.data.content, "base64").toString('utf-8'));
+
+    //res.write(cont);
+  } catch (e) {
+    console.log(e);
+  } finally {
+    res.end();
   }
-  const branchName = req.params.branchName;
-  const file = req.params.file.trim()
-  console.log("Reading file", file);
-  res.redirect(`https://github.com/${user}/songbook/raw/${branchName}/${file}`);
+  // let user = req.params.user;
+  // if (user==='me') {
+  //   let o=newUserOctokit(req,res);
+  //   if (!o || !o.user) {return}
+  //   user=o.user;
+  // }
+  // const branchName = req.params.branchName;
+  // const file = req.params.file.trim()
+  // console.log("Reading file", file);
+  //
+  // res.redirect(`https://github.com/${user}/songbook/raw/${branchName}/${file}`);
 });
 
 // TODO(ptab): - it should redirect back to origin, not to the 'changes' page
