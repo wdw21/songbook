@@ -1,0 +1,155 @@
+import {createOAuthUserAuth} from "@octokit/auth-app";
+import {Octokit} from "@octokit/rest";
+import util from "util";
+import {graphql}  from "@octokit/graphql";
+
+const USER_AGENT="songbook/0.0.1";
+
+const OAUTH_APP_ID = 2019824;
+const OAUTH_APP_SECRET = "542c32a00d9d1ddb184fd96ad120182568b6c502";
+
+const OAUTH_CLIENT_ID = "e1230ada4de9a5ce168b";
+export const BASE_URL = "http://localhost:8080"
+export const EDITOR_DOMAIN = 'https://ptabor.github.io'
+export const EDITOR_BASE_URL = EDITOR_DOMAIN + '/songbook/editor'
+export const CHANGES_BASE_URL = BASE_URL + "/changes";
+
+export const MAIN_BRANCH_NAME="songeditor-main";
+
+
+export async function getFileFromBranch(octokit, user, branchName) {
+    let diff = await octokit.rest.repos.compareCommitsWithBasehead({
+        owner: 'wdw21',
+        repo: 'songbook',
+        basehead: `main...${user}:songbook:${branchName}`
+    });
+    return diff.data.files.length>0 ? diff.data.files[0].filename : null;
+}
+
+export function htmlPrefix(res) {
+    res.write(`<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" lang="pl-PL">
+  <head>
+    <meta charset="UTF-8">
+    <script>      
+      function deleteBranch(branch) {
+        if (confirm("Czy na pewno chcesz skasować zmianę: '" +branch + "'?")) {
+          fetch("${CHANGES_BASE_URL}/"+branch, {method:'DELETE'})
+            .then((response) => window.location.reload());
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div>
+      <a href="/changes">[Edycje]</a>
+      <a href="/changes:new">[Nowa]</a>
+      <a href="/songs">[Piosenki]</a>
+    </div>
+`);
+}
+
+export function htmlSuffix(res) {
+    res.write(`
+  </body>
+</html>`);
+    res.end();
+}
+
+export async function newUserOctokit(req,res) {
+    let access_token = req.cookies.session ? req.cookies.session.access_token
+        : null;
+    let user = req.cookies.session ? req.cookies.session.user : null;
+    console.log("access token from cookie: ", access_token)
+    if (!access_token || !user) {
+        //TODO(ptab): Compare secret with the cookie.
+        const authData = {
+            clientId: OAUTH_CLIENT_ID,
+            clientSecret: OAUTH_APP_SECRET,
+            code: req.query.code,
+            state: req.query.state,
+            redirectUrl: CHANGES_BASE_URL,
+            log: console,
+        };
+
+        const auth = await createOAuthUserAuth(authData);
+        try {
+            const {token} = await auth();
+            access_token = token;
+        } catch (e) {
+            console.log(e);
+            res.redirect("/auth");
+            return null;
+        }
+        const octokit = new Octokit({
+            userAgent: USER_AGENT,
+            auth: access_token,
+            log: console,
+        });
+        const authenticated = await octokit.rest.users.getAuthenticated();
+        console.log(util.inspect(authenticated, false, null, false));
+        user = authenticated.data.login;
+        res.cookie("session", {"access_token": access_token, "user": user}, { maxAge: 3*24*60*60*1000, httpOnly: true, sameSite:'none', secure: true });
+    }
+    return {
+        octokit: new Octokit({
+            userAgent: USER_AGENT,
+            auth: access_token,
+            log: console,
+        }),
+        mygraphql: graphql.defaults({
+            headers: {
+                "Authorization": "bearer " + access_token
+            },
+        }),
+        user: user,
+    }
+};
+
+
+export async function fetchBranch(octokit, user, branchName) {
+    try {
+        let branch = await octokit.rest.repos.getBranch(
+            {owner: user, repo: 'songbook', 'branch': branchName});
+        return branch;
+    } catch (e) {
+        if (!(typeof e == 'HttpError') || e.code != 404) {
+            console.error(e);
+        }
+    }
+    return null;
+}
+
+export async function prepareMainBranch(octokit, user) {
+    let branch = await fetchBranch(octokit, user, MAIN_BRANCH_NAME);
+    if (!branch) {
+        let originBranch = await fetchBranch(octokit, 'wdw21', 'main');
+        console.log(util.inspect(originBranch, false, null, false));
+        await octokit.rest.git.createRef({owner: user, repo: 'songbook', "ref": "refs/heads/" + MAIN_BRANCH_NAME, "sha": originBranch.data.commit.sha});
+    }
+    await octokit.rest.repos.mergeUpstream({owner: user, repo: 'songbook', 'branch': MAIN_BRANCH_NAME});
+    return fetchBranch(octokit, user, MAIN_BRANCH_NAME);
+}
+
+export async function prepareBranch(octokit, user, branchName) {
+    let branch = await fetchBranch(octokit, user, branchName);
+    if (branch) {
+        return branch;
+    }
+    let mainBranch = await prepareMainBranch(octokit, user);
+    console.log(util.inspect(mainBranch, false, null, false));
+
+    await octokit.rest.git.createRef({owner: user, repo: 'songbook', "ref": "refs/heads/" + branchName, "sha": mainBranch.data.commit.sha});
+    return fetchBranch(octokit, user, branchName);
+}
+
+export function editorLink(user, branchName, file, autocommit) {
+    let load = 'https://raw.githubusercontent.com/' + encodeURIComponent(user) + '/songbook/' + encodeURIComponent(branchName) + '/' + encodeURIComponent(file);
+    let commit = CHANGES_BASE_URL + '/'+branchName+':commit';
+    // return EDITOR_BASE_URL+'?load=' + encodeURIComponent(load) + '&change=' + encodeURIComponent(commit) + (autocommit?'&commitOnLoad=true':'') + '&changesUrl=' + encodeURIComponent(CHANGES_BASE_URL) + "&songsUrl=" + encodeURIComponent(SONGS_BASE_URL) + "&file=" + encodeURIComponent(file);
+    return EDITOR_BASE_URL + '?' +
+        '&baseUrl=' + encodeURIComponent(CHANGES_BASE_URL) +
+        '&branch=' + encodeURIComponent(branchName) +
+        '&file=' + encodeURIComponent(file) +
+        (autocommit?'&commitOnLoad=true':'');
+}
