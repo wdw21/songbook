@@ -8,12 +8,17 @@
   <script>
     function init() {
       const urlParams = new URLSearchParams(window.location.search);
-      const loadUrl = urlParams.get('load');
-    //  const commitUrl = urlParams.get('commit');
-      const changeUrl = urlParams.get('change');
+      // baseUrl=http%3A%2F%2Flocalhost%3A8080%2Fchanges&branch=se-2022-10-21-7718-Miejcie_nadzieje.xml&file=songs%2FMiejcie_nadzieje.xml
+
+      const baseUrl = urlParams.get('baseUrl');
+      const branch = urlParams.get('branch');
+      const file = urlParams.get('file');
+
+      const loadUrl = urlParams.get('load') ? urlParams.get('load') : `${baseUrl}/changes/${branch}/${file}`;
+
       const commitOnLoad = urlParams.get('commitOnLoad');
       const songEditor = document.getElementsByTagName("song-editor")[0];
-      songEditor.setAttribute("git", changeUrl && changeUrl.trim() != '');
+      songEditor.setAttribute("git", branch && branch.trim() != '');
       if (loadUrl) {
         fetch(loadUrl)
             .then((response) => response.text())
@@ -30,14 +35,16 @@
 
       songEditor.addEventListener("git:commit", (e) => commit(e) );
       songEditor.addEventListener("git:commitAndPublish", (e)=>commitAndPublish(e) );
-      //document.getElementById("saveToGithub").hidden=(commitUrl==null);
     }
 
     async function commit(e) {
       let txt = e.target.Serialize();//document.getElementsByTagName("song-editor")[0].Serialize();
       const urlParams = new URLSearchParams(window.location.search);
-      //const commitUrl = urlParams.get('commit');
-      const changeUrl = urlParams.get('change');
+
+      const baseUrl = urlParams.get('baseUrl');
+      const branch = urlParams.get('branch');
+      const file = urlParams.get('file');
+
       console.log(txt);
       if (changeUrl) {
         const msg = prompt("Wprowadź, proszę, krótki opis ostatnich zmian", "Poprawiono...");
@@ -51,8 +58,8 @@
             },
             body: txt
           }
-          const response = await fetch(changeUrl + ":commit/msg=" + encodeURIComponent(msg), config)
-          if (response.ok) {
+          const response = await fetch(`${baseUrl}/changes/${branch}/${file}?msg=${encodeURIComponent(msg)}`, config)
+          if (response.ok) {ś
             return response
           } else {
             alert("Zapis się nie powiódł. Czy jesteś podlączony do internetu ?");
