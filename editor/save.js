@@ -20,8 +20,12 @@ export function Serialize(songeditor) {
 
   let txt=new XMLSerializer().serializeToString(resultDocument);;
   txt = txt.replaceAll("?><song","?>\n<song")
-      .replaceAll(nbsp," ")
-      .replaceAll(/(?<=^ *)  /gm,"\t") + "\n";
+      .replaceAll(nbsp," ");
+
+  if (songeditor.tabs) {
+    txt = txt.replaceAll(/(?<=^ *)  /gm,"\t") + "\n";
+  }
+
   if (songeditor.shadow.getElementById("lastSerialized")) {
     songeditor.shadow.getElementById("lastSerialized").innerText=txt;
   }

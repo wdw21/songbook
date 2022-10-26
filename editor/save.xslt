@@ -166,6 +166,10 @@
     <xsl:apply-templates select="xhtml:song-row|xhtml:song-bis"/>
   </xsl:template>
 
+  <xsl:template match="xhtml:song-row/node()[1][name()=''][ starts-with(.,' ') or starts-with(.,'&#160;')]">
+    <xsl:value-of select="substring(., 2)"/>
+  </xsl:template>
+
   <xsl:template match="xhtml:song-row">
     <row>
       <xsl:if test="@type">
