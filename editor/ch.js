@@ -53,8 +53,6 @@ export default class SongCh extends HTMLElement {
       console.log("dragend", event);
       event.target.opacity = '1.0';
       if (this.getSongBody().dropped && event.dataTransfer.dropEffect == 'move') {
-        // const ch = findAncestor(event.target, "SONG-CH");
-        // console.log("dragend removing", ch );
         this.remove();
       }
     }
