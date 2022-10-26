@@ -42,6 +42,7 @@
     }
 
     function parseParams() {
+      const urlParams = new URLSearchParams(window.location.search);
       return {
         baseUrl: urlParams.get('baseUrl'),
         branch: urlParams.get('branch'),
@@ -69,7 +70,7 @@
             body: txt
           }
           const response = await fetch(`${baseUrl}/users/${user}/changes/${branch}/${file}?msg=${encodeURIComponent(msg)}`, config)
-          if (response.ok) {ś
+          if (response.ok) {
             return response
           } else {
             alert("Zapis się nie powiódł. Czy jesteś podlączony do internetu ?");
