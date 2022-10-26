@@ -278,7 +278,7 @@ export class SongEditor extends HTMLElement {
 
     this.readAttribute(song, "todo", "todo");
 
-    //this.tabs = xmlContent.includes("\t");
+    this.tabs = xmlContent.includes("\t");
   }
 
   Serialize() {
