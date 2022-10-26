@@ -44,5 +44,7 @@ function test() {
 }
 
 
-console.log(`      abcd 
+console.log(`      abcd
     cztery`.replaceAll(/(?<=^ *)  /gm,"\t"));
+
+console.log("Pieśń na pieśniami-to jest _dzieło_.xml".replaceAll(/[^a-zA-Z0-9\.\-_]/g, "_"));

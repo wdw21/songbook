@@ -123,7 +123,7 @@ export async function listChanges(req, res) {
                     let pr = branch.associatedPullRequests.edges[0].node;
                     res.write(`<a href="${pr.url}">[W recenzji]</a>`);
                 } else {
-                    res.write(`<a href="/changes/${branch.name}:publish">[Wyślij do recenzji]</a>`);
+                    res.write(`<a href="/users/${user}/changes/${branch.name}:publish">[Wyślij do recenzji]</a>`);
                 }
                 res.write(`</td>`);
 

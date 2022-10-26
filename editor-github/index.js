@@ -115,7 +115,7 @@ app.get('/users/:user/changes[:]new', async (req, res) => {
 
     res.write(`
     <form action="/users/${user}/changes:new" method="post">
-      <input name="file" id='file' type="text" list="files"/>
+      <input name="file" id='file' type="text" list="files" required pattern="[a-zA-Z0-9\.\-_()]+" validationMessage="Pole musi być wypełnione i zawierać wyłącznie podstawowe litery, cyfry, '.', myślnik i podkreślnik."/>
       <div>
         <input type="submit" value="Rozpocznij edycję"/>
       </div>
@@ -126,10 +126,14 @@ app.get('/users/:user/changes[:]new', async (req, res) => {
   }
 });
 
+function sanitizeBranchName(br) {
+  return br.replaceAll(/[^a-zA-Z0-9\.\-_]/g, "_");
+}
+
 async function newChange(file, req, res) {
   let today = new Date().toISOString().slice(0, 10);
   let rand= Math.floor(Math.random()*10000);
-  let branchName = "se-"+ today + "-" + rand + "-" + file;
+  let branchName = sanitizeBranchName("se-"+ today + "-" + rand + "-" + file);
 
   const {octokit,mygraphql,user} = await newUserOctokit(req, res);
   const branch = await prepareBranch(octokit, user, branchName)
@@ -169,7 +173,7 @@ app.get('/users/:user/songs', async (req, res) => {
 
     res.write(`<ul>\n`);
     for (const song of songs) {
-      res.write(`  <li>${song.title} <form action="/changes:new" method="post"><input type="hidden" name="file" value="${song.filename}"/><input type="submit" value="[ Edytuj ]"/></form></li>\n`);
+      res.write(`  <li>${song.title} <form action="/users/${user}/changes:new" method="post"><input type="hidden" name="file" value="${song.filename}"/><input type="submit" value="[ Edytuj ]"/></form></li>\n`);
     }
     res.write(`</ul>\n`);
 
@@ -177,7 +181,7 @@ app.get('/users/:user/songs', async (req, res) => {
     <form action="/users/${user}/changes:new" method="post">
       <input name="file" id='file' type="text" list="files"/>
       <div>
-        <input type="submit" value="Rozpocznij edycję"/>
+        <input type="submit" value="Dodaj nową"/>
       </div>
     </form>`);
   } finally {
@@ -194,8 +198,7 @@ function logRequest(req, res, next) {
 }
 app.use(logRequest)
 
-
-async function commit(branchName, file, msg, body, payload, req, res) {
+async function commit(branchName, file, msg, payload, req, res) {
   const {octokit,mygraphql,user} = await newUserOctokit(req, res);
   if (!octokit) { return; }
 
@@ -276,22 +279,18 @@ app.post('/users/:user/changes/:branchName/:file([^$]+)[:]commitAndPublish', asy
 
 app.get('/users/:user/changes/:branchName/:file([^$]+)', async (req,res) => {
   try {
-    console.log("hello1");
     const {octokit,user} = await newUserOctokit(req, res);
-    console.log("hello2", octokit);
     if (!octokit) return;
-    console.log("hello3");
 
-    const branchName = req.param.branchName;
+    const branchName = req.params.branchName;
     console.log(branchName);
     let cont = await octokit.rest.repos.getContent(
         {owner: user, repo: 'songbook', path: req.params.file, ref: branchName});
-    console.log(util.inspect(cont, false, null, false));
 
     // res.setHeader('Content-disposition', 'attachment; filename='+req.params.file);
     res.setHeader('Content-type', 'text/xml')
 
-    res.send(new Buffer(cont.data.content, "base64").toString('utf-8'));
+    res.send(new Buffer.from(cont.data.content, "base64").toString('utf-8'));
 
     //res.write(cont);
   } catch (e) {
@@ -299,17 +298,6 @@ app.get('/users/:user/changes/:branchName/:file([^$]+)', async (req,res) => {
   } finally {
     res.end();
   }
-  // let user = req.params.user;
-  // if (user==='me') {
-  //   let o=newUserOctokit(req,res);
-  //   if (!o || !o.user) {return}
-  //   user=o.user;
-  // }
-  // const branchName = req.params.branchName;
-  // const file = req.params.file.trim()
-  // console.log("Reading file", file);
-  //
-  // res.redirect(`https://github.com/${user}/songbook/raw/${branchName}/${file}`);
 });
 
 // TODO(ptab): - it should redirect back to origin, not to the 'changes' page
