@@ -14,8 +14,8 @@ export const BASE_URL = "http://localhost:8080"
 // export const EDITOR_DOMAIN = 'https://ptabor.github.io'
 // export const EDITOR_BASE_URL = EDITOR_DOMAIN + '/songbook/editor'
 
-export const EDITOR_DOMAIN = 'localhost:63342'
-export const EDITOR_BASE_URL = EDITOR_DOMAIN + '/editor/songbook/index.html?_ijt=1gb48nh9nfnchi9pkou1v8tffm&_ij_reload=RELOAD_ON_SAVE'
+export const EDITOR_DOMAIN = 'http://localhost:63342'
+export const EDITOR_BASE_URL = EDITOR_DOMAIN + '/editor/songbook'
 
 //http://localhost:63342/editor/songbook/index.html?_ijt=1gb48nh9nfnchi9pkou1v8tffm&_ij_reload=RELOAD_ON_SAVE
 
