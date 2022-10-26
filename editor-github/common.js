@@ -10,8 +10,15 @@ const OAUTH_APP_SECRET = "542c32a00d9d1ddb184fd96ad120182568b6c502";
 
 export const OAUTH_CLIENT_ID = "e1230ada4de9a5ce168b";
 export const BASE_URL = "http://localhost:8080"
-export const EDITOR_DOMAIN = 'https://ptabor.github.io'
-export const EDITOR_BASE_URL = EDITOR_DOMAIN + '/songbook/editor'
+
+// export const EDITOR_DOMAIN = 'https://ptabor.github.io'
+// export const EDITOR_BASE_URL = EDITOR_DOMAIN + '/songbook/editor'
+
+export const EDITOR_DOMAIN = 'localhost:63342'
+export const EDITOR_BASE_URL = EDITOR_DOMAIN + '/editor/songbook/index.html?_ijt=1gb48nh9nfnchi9pkou1v8tffm&_ij_reload=RELOAD_ON_SAVE'
+
+//http://localhost:63342/editor/songbook/index.html?_ijt=1gb48nh9nfnchi9pkou1v8tffm&_ij_reload=RELOAD_ON_SAVE
+
 export const CHANGES_BASE_URL = BASE_URL + "/changes";
 
 export const MAIN_BRANCH_NAME="songeditor-main";
