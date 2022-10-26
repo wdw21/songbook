@@ -8,12 +8,8 @@
   <script>
     function init() {
       const urlParams = new URLSearchParams(window.location.search);
-      // baseUrl=http%3A%2F%2Flocalhost%3A8080%2Fchanges&branch=se-2022-10-21-7718-Miejcie_nadzieje.xml&file=songs%2FMiejcie_nadzieje.xml
-
-      const baseUrl = urlParams.get('baseUrl');
-      const branch = urlParams.get('branch');
-      const file = urlParams.get('file');
-      const user = urlParams.get('user');
+  
+      const {baseUrl,branch,file,user} = parseParams();
 
       const loadUrl = urlParams.get('load') ? urlParams.get('load') : `${baseUrl}/users/${user}/changes/${branch}/${file}`;
 
@@ -34,16 +30,30 @@
       }
       songEditor.addEventListener("git:commit", (e) => commit(e) );
       songEditor.addEventListener("git:commitAndPublish", (e)=>commitAndPublish(e) );
+
+      const topNav = document.getElementById("topnav");
+      if (baseUrl) {
+        topNav.innerHTML = `<a href="${baseUrl}/users/me/changes">[Zmiany]</a> <a href="${baseUrl}/users/me/songs">[Piosenki]</a>`;
+        topNav.hidden = false;
+      } else {
+        topNav.innerHTML = '';
+        topNav.hidden = true;
+      }
+    }
+
+    function parseParams() {
+      return {
+        baseUrl: urlParams.get('baseUrl'),
+        branch: urlParams.get('branch'),
+        file: urlParams.get('file'),
+        user: urlParams.get('user')
+      }
     }
 
     async function commit(e) {
       let txt = e.target.Serialize();//document.getElementsByTagName("song-editor")[0].Serialize();
-      const urlParams = new URLSearchParams(window.location.search);
 
-      const baseUrl = urlParams.get('baseUrl');
-      const branch = urlParams.get('branch');
-      const file = urlParams.get('file');
-      const user = urlParams.get('user');
+      const {baseUrl,branch,file,user} = parseParams();
 
       console.log(txt);
       if (branch) {
@@ -74,17 +84,17 @@
 
     async function commitAndPublish(e) {
       await commit(e);
-      const urlParams = new URLSearchParams(window.location.search);
-      const changeUrl = urlParams.get('change');
-      window.location = changeUrl + ':publish'
+      const {baseUrl,branch,user} = parseParams();
+      window.location = `${baseUrl}/users/${user}/changes/${branch}` + ':publish'
     }
 
   </script>
 </head>
 <body onload="init()">
-  TODO: URL'e na górze... róże...</br>
+  <div id="topnav"></div>
+
   Sprawdzanie, czy piosenka jest oparta o spacje, czy taby</br>
-  Usuwanie pustychs spacji przy zapisie...
+  Usuwanie pustych spacji przy zapisie...
 
   <h1>Edytor piosenek</h1>
   <song-editor></song-editor>
