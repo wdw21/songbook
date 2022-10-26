@@ -1,3 +1,5 @@
+import {findAncestor} from "./utils";
+
 const predefinedChords = ["A", "A2", "A4", "A7", "A7+", "A7/4", "A7/6", "Ais",
   "B", "C", "C0", "C7", "C7+", "C9", "C9/5", "Cis", "Cis0", "D", "D2", "D4",
   "D7", "D7+", "Dis", "E", "E0", "E5+", "E7", "E7/4", "F", "F0", "F7", "F7+",
@@ -50,9 +52,12 @@ export default class SongCh extends HTMLElement {
     }
 
     this.cho.ondragend = (event) => {
+      console.log("dragend", event);
       event.target.opacity = '1.0';
       if (this.getSongBody().dropped && event.dataTransfer.dropEffect == 'move') {
-        event.target.remove();
+        const ch = findAncestor(event.target, "song-ch");
+        console.log("dragend removing", ch );
+        ch.remove();
       }
     }
 
