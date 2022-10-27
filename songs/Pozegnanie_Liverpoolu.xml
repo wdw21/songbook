@@ -7,10 +7,10 @@
     <block type="verse">
       <row important_over="false"><ch a="C"/>Żegnaj nam dostojny stary porcie<ch a="C7"/><ch a="F"/><ch a="C"/></row>
       <row important_over="false"><ch a="C"/>Rzeko Mersey żegnaj nam<ch a="G7"/></row>
-      <row important_over="false"><ch a="C"/>Zaciągnąłem się na rejs do Kaliforni<ch a="C7"/><ch a="F"/><ch a="C"/></row>
+      <row important_over="false"><ch a="C"/>Zaciągnąłem się na rejs do Kalifornii<ch a="C7"/><ch a="F"/><ch a="C"/></row>
       <row important_over="false"><ch a="C"/>Byłem tam już niejeden raz<ch a="G7"/><ch a="C"/></row>
     </block>
-    <block type="chorus">
+    <block type="verse">
       <row important_over="false"><ch a="G7"/>A więc żegnaj mi kochana ma<ch a="F"/><ch a="C"/></row>
       <row important_over="false"><ch a="C"/>Za chwilę wypłyniemy w długi rejs<ch a="G7"/></row>
       <row important_over="false"><ch a="C"/>Ile miesięcy Cię nie będę widział nie wiem sam<ch a="C7"/><ch a="F"/><ch a="C"/></row>
@@ -33,7 +33,7 @@
     <block type="verse">
       <row important_over="false"><ch a="C"/>Żegnaj nam dostojny stary porcie<ch a="C7"/><ch a="F"/><ch a="C"/></row>
       <row important_over="false"><ch a="C"/>Rzeko Mersey żegnaj nam<ch a="G7"/></row>
-      <row important_over="false"><ch a="C"/>Wypływamy już na rejs do Kaliforni<ch a="C7"/><ch a="F"/><ch a="C"/></row>
+      <row important_over="false"><ch a="C"/>Wypływamy już na rejs do Kalifornii<ch a="C7"/><ch a="F"/><ch a="C"/></row>
       <row important_over="false"><ch a="C"/>Gdy wrócimy opowiemy wam<ch a="G7"/><ch a="C"/></row>
     </block>
     <blocklink blocknb="2"/>
