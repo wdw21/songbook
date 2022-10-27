@@ -10,6 +10,7 @@ import {listChanges} from './listChanges.js';
 import {
   EDITOR_DOMAIN,
   CHANGES_BASE_URL,
+  CONFIG_BASE_URL,
   OAUTH_CLIENT_ID,
   newUserOctokit,
   getFileFromBranch,
@@ -17,9 +18,14 @@ import {
   htmlPrefix,
   MAIN_BRANCH_NAME,
   prepareBranch,editorLink,
+  prepareMainBranch
 } from './common.js';
 
 const app = express();
+
+console.warn("Registering songbook");
+http('songbook', app);
+console.warn("Registered songbook");
 
 app.use(cookieParser());
 app.use(cors({origin: EDITOR_DOMAIN, credentials: true}));
@@ -165,8 +171,8 @@ app.get('/users/:user/songs', async (req, res) => {
 
     htmlPrefix(res);
     res.write(`
-      <h1>Nowa edycja</h1>\n
-      Wybierz (lub utwórz) plik, który będziesz edytował:
+      <h1>Lista piosenek</h1>\n
+      Wybierz plik, który będziesz edytował:
       `);
 
     let songs = await getSongs(octokit, user)
@@ -188,6 +194,21 @@ app.get('/users/:user/songs', async (req, res) => {
     htmlSuffix(res);
     console.log("!!! /changes processing finished !!!");
   }
+});
+
+app.get('/config', async (req, res) => {
+  const {octokit, mygraphql, authuser} = await newUserOctokit(req, res);
+
+  try {
+    const repo = await octokit.rest.repos.get({owner: authuser, repo: "songbook"});
+  } catch (e) {
+    const newFork = octokit.rest.repos.createFork({owner: "wdw21", repo: "songbook"});
+    const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+    await delay(3000);
+  }
+
+  prepareMainBranch(octokit, authuser);
+  res.redirect(`/users/${authuser}/changes`);
 });
 
 function logRequest(req, res, next) {
@@ -310,11 +331,9 @@ app.get('/auth', async (req, res) => {
       oauthAuthorizationUrl({
         clientType: "oauth-app",
         clientId: OAUTH_CLIENT_ID,
-        redirectUrl: CHANGES_BASE_URL,
+        redirectUrl: CONFIG_BASE_URL,
         scopes: ["repo"],
         state: state,
       });
   res.redirect(url);
 });
-
-http('api', app);

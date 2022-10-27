@@ -1,0 +1,3 @@
+OAUTH_CLIENT_ID: "e1230ada4de9a5ce168b"
+BASE_URL: "https://songbook-gh6-j72bw4qyaq-ew.a.run.app"
+EDITOR_DOMAIN: "https://ptabor.github.io"

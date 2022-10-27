@@ -3,23 +3,23 @@ import {Octokit} from "@octokit/rest";
 import util from "util";
 import {graphql}  from "@octokit/graphql";
 
-const USER_AGENT="songbook/0.0.1";
+const USER_AGENT="songbook/0.1.0";
 
-//export const OAUTH_APP_ID = 2019824;
-const OAUTH_APP_SECRET = "542c32a00d9d1ddb184fd96ad120182568b6c502";
+const OAUTH_APP_SECRET = process.env.OAUTH_APP_SECRET;
 
-export const OAUTH_CLIENT_ID = "e1230ada4de9a5ce168b";
-export const BASE_URL = "http://localhost:8080"
+export const OAUTH_CLIENT_ID = process.env.OAUTH_CLIENT_ID;
 
-// export const EDITOR_DOMAIN = 'https://ptabor.github.io'
-// export const EDITOR_BASE_URL = EDITOR_DOMAIN + '/songbook/editor'
+export const BASE_URL = process.env.BASE_URL;
+export const EDITOR_DOMAIN = process.env.EDITOR_DOMAIN;
+export const EDITOR_BASE_URL = EDITOR_DOMAIN + '/songbook/editor'
 
-export const EDITOR_DOMAIN = 'http://localhost:63342'
-export const EDITOR_BASE_URL = EDITOR_DOMAIN + '/editor/songbook'
+// export const EDITOR_DOMAIN = 'http://localhost:63342'
+// export const EDITOR_BASE_URL = EDITOR_DOMAIN + '/editor/songbook'
 
 //http://localhost:63342/editor/songbook/index.html?_ijt=1gb48nh9nfnchi9pkou1v8tffm&_ij_reload=RELOAD_ON_SAVE
 
 export const CHANGES_BASE_URL = BASE_URL + "/changes";
+export const CONFIG_BASE_URL = BASE_URL + "/config";
 
 export const MAIN_BRANCH_NAME="songeditor-main";
 
@@ -96,8 +96,9 @@ export async function newUserOctokit(req,res) {
             log: console,
         });
         const authenticated = await octokit.rest.users.getAuthenticated();
+        authuser = authenticated.data.login;
         console.log(util.inspect(authenticated, false, null, false));
-        res.cookie("session", {"access_token": access_token, "user": user}, { maxAge: 3*24*60*60*1000, httpOnly: true, sameSite:'none', secure: true });
+        res.cookie("session", {"access_token": access_token, "user": authuser}, { maxAge: 3*24*60*60*1000, httpOnly: true, sameSite:'none', secure: true });
     }
     const usr = (!req.param.user || req.param.user === 'me') ? authuser : req.param.user;
     console.log('Acting as user:', usr);
