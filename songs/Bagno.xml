@@ -1,15 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl Song.xsd" title="Bagno">
-  <alias/>
-  <text_author>21. WDH ,,Stare Żbiki''</text_author>
+<?xml version="1.0" encoding="UTF-8"?>
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Bagno">
+  <text_author type="band">21. WDH ,,Stare Żbiki''</text_author>
   <comment>Piosenka wykonywana na specyficznie nastrojonej gitarze.</comment>
   <composer type="band">21. WDH ,,Stare Żbiki''</composer>
   <artist type="band">21. WDH ,,Stare Żbiki''</artist>
-  <translator/>
-  <original_title/>
   <lyric>
     <block type="verse">
-      <row important_over="true"> W<ch a="a"/>ujek Euz<ch a="e"/>ebiusz d<ch a="a"/>ał mi kilka c<ch a="e"/>egieł</row>
+      <row important_over="true">W<ch a="a"/>ujek Euz<ch a="e"/>ebiusz d<ch a="a"/>ał mi kilka c<ch a="e"/>egieł</row>
       <row important_over="false">Ż<ch a="a"/>ebym zbudował z<ch a="e"/>amek bo mi<ch a="a"/>ałem kilka c<ch a="e"/>egieł</row>
       <row important_over="false">Które d<ch a="a"/>ał mi wujek Euz<ch a="e"/>ebiusz</row>
       <row important_over="false">Wi<ch a="a"/>ęc zbudowałem z<ch a="e"/>amek n<ch a="a"/>a skalistym podł<ch a="e"/>ożu</row>
@@ -99,8 +96,8 @@
       <row important_over="false">Bo k<ch a="a"/>artka nam się k<ch a="e"/>ończy na kt<ch a="a"/>órej są zapis<ch a="e"/>ane</row>
       <row important_over="false">Godz<ch a="a"/>iny porannego budz<ch a="e"/>enia</row>
     </block>
-    <block type="verse">
-      <bis>
+    <block type="chorus">
+      <bis times="2">
         <row important_over="false">Cz<ch a="D"/>ary--m<ch a="G"/>ary, zmieni<ch a="D"/>amy git<ch a="G"/>ary</row>
       </bis>
     </block>
@@ -108,6 +105,7 @@
   <music metre="4/4">
     <guitar barre="0"/>
   </music>
+  <keywords/>
   <status>
     <done>
       <text/>
@@ -117,6 +115,5 @@
     <verificators>
       <verificator>Onufry</verificator>
     </verificators>
-    <to_do/>
   </status>
 </song>
