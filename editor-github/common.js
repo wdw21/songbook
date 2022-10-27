@@ -1,5 +1,6 @@
 import {createOAuthUserAuth} from "@octokit/auth-app";
 import {Octokit} from "@octokit/rest";
+import {RequestError} from "@octokit/request-error";
 import util from "util";
 import {graphql}  from "@octokit/graphql";
 
@@ -86,9 +87,10 @@ export async function newUserOctokit(req,res) {
             const {token} = await auth();
             access_token = token;
         } catch (e) {
-            console.log(e);
+            console.log("Catched error(1):", e);
+            console.log("Catched error(2):", e.status, e instanceof RequestError);
             res.redirect("/auth");
-            return null;
+            return {octkokit: null,authuser:null,user:null,mygraphql:null};
         }
         const octokit = new Octokit({
             userAgent: USER_AGENT,
@@ -100,7 +102,7 @@ export async function newUserOctokit(req,res) {
         console.log(util.inspect(authenticated, false, null, false));
         res.cookie("session", {"access_token": access_token, "user": authuser}, { maxAge: 3*24*60*60*1000, httpOnly: true, sameSite:'none', secure: true });
     }
-    const usr = (!req.param.user || req.param.user === 'me') ? authuser : req.param.user;
+    const usr = (!req.params.user || req.params.user === 'me') ? authuser : req.params.user;
     console.log('Acting as user:', usr);
     return {
         octokit: new Octokit({
@@ -125,7 +127,9 @@ export async function fetchBranch(octokit, user, branchName) {
             {owner: user, repo: 'songbook', 'branch': branchName});
     } catch (e) {
    //     if (!(e instanceof HttpError) || (e.code !== 404)) {
-            console.error(e);
+            console.error(util.inspect(e,false,null,false), e instanceof RequestError);
+            
+            
    //     }
     }
     return null;
@@ -155,13 +159,24 @@ export async function prepareBranch(octokit, user, branchName) {
 }
 
 export function editorLink(user, branchName, file, autocommit) {
-    //let load = 'https://raw.githubusercontent.com/' + encodeURIComponent(user) + '/songbook/' + encodeURIComponent(branchName) + '/' + encodeURIComponent(file);
-    //let commit = CHANGES_BASE_URL + '/'+branchName+':commit';
-    // return EDITOR_BASE_URL+'?load=' + encodeURIComponent(load) + '&change=' + encodeURIComponent(commit) + (autocommit?'&commitOnLoad=true':'') + '&changesUrl=' + encodeURIComponent(CHANGES_BASE_URL) + "&songsUrl=" + encodeURIComponent(SONGS_BASE_URL) + "&file=" + encodeURIComponent(file);
     return EDITOR_BASE_URL + '?' +
         '&baseUrl=' + encodeURIComponent(BASE_URL) +
         '&branch=' + encodeURIComponent(branchName) +
         '&file=' + encodeURIComponent(file) +
         '&user=' + encodeURIComponent(user) +
         (autocommit?'&commitOnLoad=true':'');
+}
+
+export function HandleError(e, res) {
+    console.log("HttpError", util.inspect(e, false, null, false) );
+    if (!res.headersSent && e instanceof RequestError && e.status===401) {
+        // HttpError RequestError [HttpError]: Bad credentials
+        res.redirect('/auth');
+        return;
+    }
+    if (!res.responsesSent) {
+        res.send(`<hr/><detail><summery>Error</summery><pre>`);
+        res.send(util.inspect(e, false, null, false));
+        res.end(`</pre></detail></body></html>`);
+    }
 }

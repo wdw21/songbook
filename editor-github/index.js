@@ -1,5 +1,6 @@
 import { oauthAuthorizationUrl } from "@octokit/oauth-authorization-url";
 import { http }  from '@google-cloud/functions-framework';
+import {RequestError} from "@octokit/request-error";
 import express  from 'express';
 import util  from 'util';
 import crypto  from 'crypto';
@@ -8,6 +9,7 @@ import cors  from 'cors';
 
 import {listChanges} from './listChanges.js';
 import {
+  BASE_URL,
   EDITOR_DOMAIN,
   CHANGES_BASE_URL,
   CONFIG_BASE_URL,
@@ -18,14 +20,15 @@ import {
   htmlPrefix,
   MAIN_BRANCH_NAME,
   prepareBranch,editorLink,
-  prepareMainBranch
+  prepareMainBranch,
+    HandleError,
 } from './common.js';
 
 const app = express();
 
-console.warn("Registering songbook");
+console.info("Registering songbook", "baseUrl:" + BASE_URL);
 http('songbook', app);
-console.warn("Registered songbook");
+console.info("Registered songbook", "baseUrl:" + BASE_URL);
 
 app.use(cookieParser());
 app.use(cors({origin: EDITOR_DOMAIN, credentials: true}));
@@ -126,9 +129,11 @@ app.get('/users/:user/changes[:]new', async (req, res) => {
         <input type="submit" value="Rozpocznij edycję"/>
       </div>
     </form>`);
+  } catch (e) {
+    HandleError(e, res);
   } finally {
     htmlSuffix(res);
-    console.log("!!! /changes processing finished !!!");
+    console.log("!!! /changes:NEW processing finished !!!");
   }
 });
 
@@ -190,9 +195,11 @@ app.get('/users/:user/songs', async (req, res) => {
         <input type="submit" value="Dodaj nową"/>
       </div>
     </form>`);
+  } catch (e) {
+    HandleError(e, res);
   } finally {
     htmlSuffix(res);
-    console.log("!!! /changes processing finished !!!");
+    console.log("!!! /songs processing finished !!!");
   }
 });
 
@@ -218,6 +225,14 @@ function logRequest(req, res, next) {
   console.log("^=============================================================^");
 }
 app.use(logRequest)
+
+app.use((err, req, res, next) => {
+  console.error("Failed request", req.url, util.inspect(err, false, null, false));
+  if (err instanceof RequestError) {
+    console.log("RequestError");
+  }
+  next(res);
+})
 
 async function commit(branchName, file, msg, payload, req, res) {
   const {octokit,mygraphql,user} = await newUserOctokit(req, res);
@@ -315,7 +330,7 @@ app.get('/users/:user/changes/:branchName/:file([^$]+)', async (req,res) => {
 
     //res.write(cont);
   } catch (e) {
-    console.log(e);
+    HandleError(e, res);
   } finally {
     res.end();
   }

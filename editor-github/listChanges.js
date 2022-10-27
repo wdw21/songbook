@@ -1,7 +1,9 @@
-import {newUserOctokit, htmlPrefix, htmlSuffix} from './common.js'
+import {newUserOctokit, htmlPrefix, htmlSuffix, HandleError} from './common.js'
 import util from "util";
 
 const SONGEDITOR_BRANCH_REGEXP=/^se-.*/g;
+
+import {RequestError} from "@octokit/request-error";
 
 export async function listChanges(req, res) {
     try {
@@ -70,14 +72,15 @@ export async function listChanges(req, res) {
 
         console.log("Refs size before sort", refs.length);
 
-        refs.sort( (a,b) => {
+        refs.sort((a, b) => {
             if (!a || !a.target || !a.target.committedDate) {
                 return 1;
             }
             if (!b || !b.target || !a.target.committedDate) {
                 return -1;
             }
-            return -a.target.committedDate.localeCompare(b.target.committedDate)} ) ;
+            return -a.target.committedDate.localeCompare(b.target.committedDate)
+        });
 
         console.log("Refs size after sort", refs.length);
 
@@ -109,7 +112,7 @@ export async function listChanges(req, res) {
                     continue;
                 }
 
-                res.write(`<td>${diff.data.files[0].status === 'added'? 'Nowy:':''} ${diff.data.files[0].filename.replaceAll("songs/","")}</td>`)
+                res.write(`<td>${diff.data.files[0].status === 'added' ? 'Nowy:' : ''} ${diff.data.files[0].filename.replaceAll("songs/", "")}</td>`)
 
                 res.write(`<td>${new Date(branch.target.committedDate).toLocaleString("pl-PL")}</td>`)
 
@@ -145,7 +148,7 @@ export async function listChanges(req, res) {
                     octokit.rest.git.deleteRef({owner: user, repo: 'songbook', "ref": "heads/" + branch.name});
                     continue;
                 }
-                if (branch.associatedPullRequests.edges.length>0) {
+                if (branch.associatedPullRequests.edges.length > 0) {
                     let merged = true;
                     for (const edge of branch.associatedPullRequests.edges) {
                         if (!edge.node.closed || !edge.node.merged) {
@@ -174,7 +177,11 @@ export async function listChanges(req, res) {
         }
         res.write(`
     </details>`);
+    } catch (e) {
+        HandleError(e, res);
     } finally {
-        htmlSuffix(res);
+        if (!res.responsesSent) {
+            htmlSuffix(res);
+        }
     }
 }
