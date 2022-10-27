@@ -57,7 +57,7 @@
       <row important_over="false"><ch a="a"/>Ale utonął w b<ch a="e"/>agnie bo podł<ch a="a"/>oże było skal<ch a="e"/>iste</row>
       <row important_over="false">Jak k<ch a="a"/>amień nerk<ch a="e"/>owy mał<ch a="a"/>ego ślicznego zaj<ch a="e"/>ączka</row>
     </block>
-    <block type="chorus">
+    <block type="verse">
       <row important_over="false">K<ch a="D"/>amień nerk<ch a="G"/>owy, j<ch a="D"/>e je j<ch a="G"/>e...</row>
     </block>
     <block type="verse">
@@ -98,7 +98,7 @@
     </block>
     <block type="chorus">
       <bis times="2">
-        <row important_over="false">Cz<ch a="D"/>ary--m<ch a="G"/>ary, zmieni<ch a="D"/>amy git<ch a="G"/>ary</row>
+        <row important_over="false">Cz<ch a="D"/>ary—m<ch a="G"/>ary, zmieni<ch a="D"/>amy git<ch a="G"/>ary</row>
       </bis>
     </block>
   </lyric>
