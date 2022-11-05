@@ -32,12 +32,14 @@
       songEditor.addEventListener("git:commitAndPublish", (e)=>commitAndPublish(e) );
 
       const topNav = document.getElementById("topnav");
-      if (baseUrl) {
-        topNav.innerHTML = `<a href="${baseUrl}/users/me/changes">[Zmiany]</a> <a href="${baseUrl}/users/me/songs">[Piosenki]</a>`;
-        topNav.hidden = false;
-      } else {
-        topNav.innerHTML = '';
-        topNav.hidden = true;
+      for (const nav of [document.getElementById("topnav"), document.getElementById("bottomnav")]) {
+        if (baseUrl) {
+          nav.innerHTML = `<a href="${baseUrl}/users/me/changes">[Zmiany]</a> <a href="${baseUrl}/users/me/songs">[Piosenki]</a>`;
+          nav.hidden = false;
+        } else {
+          nav.innerHTML = '';
+          nav.hidden = true;
+        }
       }
     }
 
@@ -59,6 +61,9 @@
       console.log(txt);
       if (branch) {
         const msg = prompt("Wprowadź, proszę, krótki opis ostatnich zmian", "Poprawiono...");
+        if (!msg) {
+          return;
+        }
         try {
           const config = {
             method: 'POST',
@@ -95,5 +100,6 @@
   <div id="topnav"></div>
   <h1>Edytor piosenek</h1>
   <song-editor></song-editor>
+  <div id="bottomnav"></div>
 </body>
 </html>

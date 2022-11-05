@@ -12,7 +12,10 @@ export const OAUTH_CLIENT_ID = process.env.OAUTH_CLIENT_ID;
 
 export const BASE_URL = process.env.BASE_URL;
 export const EDITOR_DOMAIN = process.env.EDITOR_DOMAIN;
-export const EDITOR_BASE_URL = EDITOR_DOMAIN + '/songbook/editor'
+export const EDITOR_PATH = process.env.EDITOR_PATH;
+
+
+export const EDITOR_BASE_URL = EDITOR_DOMAIN + EDITOR_PATH
 
 // export const EDITOR_DOMAIN = 'http://localhost:63342'
 // export const EDITOR_BASE_URL = EDITOR_DOMAIN + '/editor/songbook'

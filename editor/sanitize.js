@@ -22,7 +22,7 @@ function setRandomId(node) {
 
 function createVerse(type="verse", blocknb=null) {
   let verse = document.createElement("song-verse");
-  if (!type || type!='verse' || type!='chorus') {
+  if (!type || type!='chorus') {
     type = "verse"
   }
   verse.setAttribute("type", type);
@@ -278,8 +278,7 @@ export function Sanitize(body) {
         let newVerse = songVerse.cloneNode(false);
         songVerse.id='';
         setRandomId(songVerse);
-        songVerse.parentNode.insertBefore(
-              newVerse, songVerse.nextSibling);
+        songVerse.parentNode.insertBefore(newVerse, songVerse.nextSibling);
         let newRows = document.createElement("SONG-ROWS");
         newVerse.appendChild(newRows);
         console.log(row, row.nextSibling);
