@@ -92,7 +92,7 @@ div.songbody{
 
 div.metadata {
   display: grid;
-  grid-template-columns: max-content max-content;
+  grid-template-columns: max-content max-content max-content;
   grid-gap: 5px;
 }
 
@@ -115,7 +115,7 @@ div.metadata label:after {
 
 div.metadata textarea {
   height: 5em;
-  min-width: 10em;
+  min-width: 20em;
 }
 
 div.generated  {
@@ -132,6 +132,7 @@ input#title {
   grid-column: 2 / span 2;
   font-size: x-large;
   text-align: center;
+  min-width: 600px;
 }
 
 div.gitToolbar {
