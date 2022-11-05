@@ -3,7 +3,7 @@ import {SongVerseBisInit, SongVerse} from './verse.js'
 import {SongBodyInit} from './songbody.js';
 import {createSongBody} from './songbody.js';
 import {Sanitize} from './sanitize.js';
-import {Save} from './save.js';
+import {Save, Serialize} from './save.js';
 import {removeAllChildren} from './utils.js';
 
 const attrs=["title", "alias","text_author", "text_author_type","comment",
@@ -22,6 +22,19 @@ export class SongEditor extends HTMLElement {
     template.innerHTML = `
 <link rel="stylesheet" href="song.css"/>
 <div class="song-editor">
+  
+<div id="fileToolbar">
+  <button id="buttonNew">Nowy</button>
+  <input style="display: none"  id="open" type="file" accept=".xml"/>
+  <input type="button" id="openCustom" value="Importuj plik"/>  
+  <button id="buttonSave">Exportuj plik</button>
+</div>
+
+<div class="gitToolbar">
+  <button class="buttonCommit">Zapisz zmiany</button>
+  <button class="buttonCommitAndPublish">Zapisz zmiany i zgłoś do recenzji</button>
+</div>
+  
   <h3>Metryka</h3>
   
   <div class="metadata">
@@ -108,22 +121,14 @@ export class SongEditor extends HTMLElement {
      <label for="todo">Do zrobienia</label> <textarea id="todo"></textarea>
   </div>
 </div>
-<div class="toolbar">
-    <div>Pliki:</br>
-      <button id="buttonNew">Nowy</button>  
-      <input  id="open" type="file" accept=".xml"/>
-      <button id="buttonSave">Zapisz</button>  
-    </div>
-    <div class="formatting">Formatowanie:
-      <button id="buttonBis">BIS</button>
-      <button id="importantOver">Kluczowe akordy</button>
-      <button id="buttonInstr">Wers instrumentalny</button>
-    </div>    
+<div class="gitToolbar">
+  <button class="buttonCommit">Zapisz zmiany</button>
+  <button class="buttonCommitAndPublish">Zapisz zmiany i zgłoś do recenzji</button>
 </div>
-<div class="generated">
-  <button id="buttonSave2">Zapisz</button>
-  <h2>Wygenerowane</h2>
-</div>
+<details>
+  <summary>Ostatni zapisany/wyesportowany:</summary>
+  <pre id="lastSerialized"></pre>
+</details>
   `;
 
     const shadow = this.attachShadow({ mode: "closed" });
@@ -131,26 +136,41 @@ export class SongEditor extends HTMLElement {
     this.shadow = shadow;
 
     this.buttonNew=shadow.getElementById("buttonNew");
-    this.buttonBis=shadow.getElementById("buttonBis");
-    this.importantOver=shadow.getElementById("importantOver");
-    this.buttonInstr=shadow.getElementById("buttonInstr");
     this.buttonSave=shadow.getElementById("buttonSave");
-    this.buttonSave2=shadow.getElementById("buttonSave2");
     this.open=shadow.getElementById("open");
+    this.openCustom=shadow.getElementById("openCustom");
 
-    this.buttonBis.addEventListener("click", (e) => this.body().wrapBis());
-    this.importantOver.addEventListener("click", (e) => { this.body().markImportantOver(); this.refreshToolbar(); });
-    this.buttonInstr.addEventListener("click", (e) =>  { this.body().toggleInstrumental(); this.refreshToolbar(); });
+    this.openCustom.addEventListener("click", () => this.open.click());
     this.buttonSave.addEventListener("click", () => Save(this));
-    this.buttonSave2.addEventListener("click", () => Save(this));
-    this.open.addEventListener("change", (e) => this.Load(e));
-    this.buttonNew.addEventListener("click", (e) => this.New(e));
+    this.open.addEventListener("change", (e) => this.LoadFile(e));
+    this.buttonNew.addEventListener("click", (e) => {
+      if (confirm("Czy chcesz przywrócić wartości początkowe we wszystkich polach ?")) {
+        this.New(e) }});
 
-    document.addEventListener('selectionchange', (event) => { this.refreshToolbar(); });
-
-    for (let i=0; i<attrs.length; ++i) {
-      this.mapAttribute(attrs[i]);
+    for (let attr of attrs) {
+      this.mapAttribute(attr);
     }
+
+    for (let button of shadow.querySelectorAll(".buttonCommit")) {
+      console.log("registering button", button);
+      const doubleClickEvent = new CustomEvent("git:commit", {
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+      });
+      button.addEventListener("click", () => {this.dispatchEvent(doubleClickEvent)});
+    }
+
+    for (let button of shadow.querySelectorAll(".buttonCommitAndPublish")) {
+      const doubleClickEvent = new CustomEvent("git:commitAndPublish", {
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+      });
+      button.addEventListener("click", () => this.dispatchEvent(doubleClickEvent));
+    }
+
+    this.attributeChangedCallback("git");
   }
 
   mapAttribute(attr) {
@@ -177,20 +197,31 @@ export class SongEditor extends HTMLElement {
   }
 
   attributeChangedCallback(attr) {
+    if (attr=='git') {
+      for (let d of this.shadow.querySelectorAll(".gitToolbar")) {
+        d.hidden = this.getAttribute('git') != 'true';
+      }
+      return
+    }
+
     let a = this.shadow.getElementById(attr);
-    if (a.id === "done_chords") {
+    if (a && a.id === "done_chords") {
       a.checked = this.hasAttribute("done_chords");
       this.shadow.getElementById("done_chords_value").value = a.checked
           ? this.getAttribute("done_chords") : "";
-    } else if (a.nodeName=='INPUT' && a.type==='checkbox') {
+    } else if (a && a.nodeName=='INPUT' && a.type==='checkbox') {
       a.checked=this.getAttribute(attr)==="true";
-    } else {
+    } else if (a) {
       a.value=this.getAttribute(attr);
     }
   }
 
   body() {
     return this.getElementsByTagName("song-body")[0];
+  }
+
+  openFileClick() {
+    return this.shadowRoot.getElementById('open').click();
   }
 
   New() {
@@ -204,51 +235,64 @@ export class SongEditor extends HTMLElement {
     this.body().selectAll();
   }
 
-  Load(e) {
+  Load(xmlContent) {
+    let parser = new DOMParser();
+    let xmlDoc = parser.parseFromString(xmlContent.replaceAll(" style=", " type="), "text/xml");
+    let z=xmlDoc.getElementsByTagName("lyric");
+    if (z.length!=1) {
+      return false;
+    }
+    removeAllChildren(this);
+    let tmp= document.createElement("div");
+    tmp.appendChild(z[0]);
+    Sanitize(tmp);
+    this.appendChild(tmp.childNodes[0]);
+
+    let song=xmlDoc.getElementsByTagName("song")[0];
+
+    this.setAttribute("title", song.getAttribute("title"));
+    this.readAttribute(song, "text_author", "text_author");
+    this.readAttribute(song, "text_author_type", "text_author", "type");
+    this.readAttribute(song, "artist", "artist");
+    this.readAttribute(song, "artist_type", "artist", "type");
+
+    this.readAttribute(song, "alias", "alias");
+    this.readAttribute(song, "original_title", "original_title");
+    this.readAttribute(song, "translator", "translator");
+    this.readAttribute(song, "album", "album");
+    this.readAttribute(song, "composer", "composer");
+    this.readAttribute(song, "composer_type", "composer", "type");
+    this.readAttribute(song, "music_source", "music_source");
+
+    this.readAttribute(song, "metre", "music","metre");
+    this.readAttribute(song, "guitar_barre", "guitar", "barre");
+    this.readAttribute(song, "genre", "genre");
+    this.readAttribute(song, "comment", "comment");
+
+    this.readAttributeDone(song, "done_text", "text");
+    this.readAttributeDone(song, "done_authors", "authors");
+    this.readAttributeDone(song, "done_chords", "chords");
+
+    this.readAttributeList(song, "keywords", "keyword");
+    this.readAttributeList(song, "verificators", "verificator");
+
+    this.readAttribute(song, "todo", "todo");
+
+    this.tabs = xmlContent.includes("\t");
+  }
+
+  Serialize() {
+    return Serialize(this);
+  }
+
+  LoadFile(e) {
     console.log("LOADING", e);
     let parser = new DOMParser();
 
     // setting up the reader
     var reader = new FileReader();
     reader.addEventListener('load', (event) => {
-      let parser = new DOMParser();
-      let xmlDoc = parser.parseFromString(event.target.result.replaceAll(" style=", " type="), "text/xml");
-      let z=xmlDoc.getElementsByTagName("lyric");
-      removeAllChildren(this);
-      let tmp= document.createElement("div");
-      tmp.appendChild(z[0]);
-      Sanitize(tmp);
-      this.appendChild(tmp.childNodes[0]);
-
-      let song=xmlDoc.getElementsByTagName("song")[0];
-
-      this.setAttribute("title", song.getAttribute("title"));
-      this.readAttribute(song, "text_author", "text_author");
-      this.readAttribute(song, "text_author_type", "text_author", "type");
-      this.readAttribute(song, "artist", "artist");
-      this.readAttribute(song, "artist_type", "artist", "type");
-
-      this.readAttribute(song, "alias", "alias");
-      this.readAttribute(song, "original_title", "original_title");
-      this.readAttribute(song, "translator", "translator");
-      this.readAttribute(song, "album", "album");
-      this.readAttribute(song, "composer", "composer");
-      this.readAttribute(song, "composer_type", "composer", "type");
-      this.readAttribute(song, "music_source", "music_source");
-
-      this.readAttribute(song, "metre", "music","metre");
-      this.readAttribute(song, "guitar_barre", "guitar", "barre");
-      this.readAttribute(song, "genre", "genre");
-      this.readAttribute(song, "comment", "comment");
-
-      this.readAttributeDone(song, "done_text", "text");
-      this.readAttributeDone(song, "done_authors", "authors");
-      this.readAttributeDone(song, "done_chords", "chords");
-
-      this.readAttributeList(song, "keywords", "keyword");
-      this.readAttributeList(song, "verificators", "verificator");
-
-      this.readAttribute(song, "todo", "todo");
+      this.Load(event.target.result);;
     });
     reader.readAsText(this.open.files[0]);
   }
@@ -290,20 +334,6 @@ export class SongEditor extends HTMLElement {
     }
   }
 
-  refreshToolbar() {
-    if (this.body().allSelectedImportant()) {
-      this.importantOver.innerText='Mało ważne akordy';
-    } else {
-      this.importantOver.innerText='Kluczowe akordy';
-    }
-    if (this.body().allSelectedInstrumental()) {
-      this.buttonInstr.innerText='Wers liryczny';
-    } else {
-      this.buttonInstr.innerText='Wers instrumentalny';
-    }
-    this.buttonBis.disabled = document.getSelection().rangeCount==0;
-  }
-
   connectedCallback() {
     if (!this.body()) {
       this.New();
@@ -311,7 +341,7 @@ export class SongEditor extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return attrs;
+    return attrs.concat(["git"]);
   }
 
 }

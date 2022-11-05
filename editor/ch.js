@@ -50,9 +50,10 @@ export default class SongCh extends HTMLElement {
     }
 
     this.cho.ondragend = (event) => {
+      console.log("dragend", event);
       event.target.opacity = '1.0';
       if (this.getSongBody().dropped && event.dataTransfer.dropEffect == 'move') {
-        event.target.remove();
+        this.remove();
       }
     }
 
