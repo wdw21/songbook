@@ -124,7 +124,9 @@ app.get('/users/:user/changes[:]new', async (req, res) => {
 
     res.write(`
     <form action="/users/${user}/changes:new" method="post">
-      <input name="file" id='file' type="text" list="files" required pattern="[a-zA-Z0-9\.\-_()]+" validationMessage="Pole musi być wypełnione i zawierać wyłącznie podstawowe litery, cyfry, '.', myślnik i podkreślnik."/>
+      <input name="file" id='file' type="text" list="files" required pattern="[a-zA-Z0-9\\.\\-_()]+" 
+        oninvalid="this.setCustomValidity('Pole musi być wypełnione i zawierać wyłącznie podstawowe litery, cyfry, myślnik i podkreślnik.')"
+        oninput="this.setCustomValidity('')"/>
       <div>
         <input type="submit" value="Rozpocznij edycję"/>
       </div>
