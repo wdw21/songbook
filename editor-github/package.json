@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "source ./local-env.txt && npx functions-framework --target=songbook"
+    "start": "source ./local-env.txt && source ./local-env-secret.txt && npx functions-framework --target=songbook"
   },
   "keywords": [],
   "author": "",

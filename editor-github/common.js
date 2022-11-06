@@ -17,11 +17,6 @@ export const EDITOR_PATH = process.env.EDITOR_PATH;
 
 export const EDITOR_BASE_URL = EDITOR_DOMAIN + EDITOR_PATH
 
-// export const EDITOR_DOMAIN = 'http://localhost:63342'
-// export const EDITOR_BASE_URL = EDITOR_DOMAIN + '/editor/songbook'
-
-//http://localhost:63342/editor/songbook/index.html?_ijt=1gb48nh9nfnchi9pkou1v8tffm&_ij_reload=RELOAD_ON_SAVE
-
 export const CHANGES_BASE_URL = BASE_URL + "/changes";
 export const CONFIG_BASE_URL = BASE_URL + "/config";
 
@@ -162,12 +157,15 @@ export async function prepareBranch(octokit, user, branchName) {
 }
 
 export function editorLink(user, branchName, file, autocommit) {
-    return EDITOR_BASE_URL + '?' +
-        '&baseUrl=' + encodeURIComponent(BASE_URL) +
-        '&branch=' + encodeURIComponent(branchName) +
-        '&file=' + encodeURIComponent(file) +
-        '&user=' + encodeURIComponent(user) +
-        (autocommit?'&commitOnLoad=true':'');
+    let url = new URL(EDITOR_BASE_URL);
+    url.searchParams.set('baseUrl', BASE_URL);
+    url.searchParams.set('branch', branchName);
+    url.searchParams.set('file', file);
+    url.searchParams.set('user', user);
+    if (autocommit) {
+        url.searchParams.set('commitOnLoad', 'true');
+    }
+    return url.href;
 }
 
 export function HandleError(e, res) {
