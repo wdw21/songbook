@@ -26,7 +26,7 @@ export function Serialize(songeditor) {
     txt = txt.replaceAll(/(?<=^ *)  /gm,"\t");
   }
 
-  songeditor = songeditor + "\n";
+  txt = txt + "\n";
 
   if (songeditor.shadow.getElementById("lastSerialized")) {
     songeditor.shadow.getElementById("lastSerialized").innerText=txt;
