@@ -3,7 +3,7 @@ import {createChord} from './ch.js'
 import {Sanitize} from './sanitize.js'
 
 function acceptsTextAndChords(element) {
-  return element.nodeName=="SONG-ROW";
+  return element.nodeName=="SONG-ROW" && element.getAttribute("type")!=='instr';
 }
 
 function canInsertChord() {
@@ -70,11 +70,15 @@ export default class SongBody extends HTMLElement {
     const template = document.createElement('template');
     template.innerHTML = `
 <link rel="stylesheet" href="./song.css"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 <div class="toolbar">
     <div class="formatting">Formatowanie:
-      <button id="buttonBis">BIS</button>
-      <button id="importantOver">Kluczowe akordy</button>
-      <button id="buttonInstr">Wers instrumentalny</button>
+      <button id="buttonBis">BIS</button><i id="help-bis-icon" class="material-icons">help</i>
+      <div id="help-bis" class="help">Zaznaczone wiersze będą powtarzane. Ustaw licznik na 1 by wyłączyć.</div>
+      <button id="importantOver">Kluczowe akordy</button><i id="help-io-icon" class="material-icons">help</i>
+      <div id="help-io" class="help">Oznacz wersy w których jest ważne by akordy pojawiały się nad tekstem.</div>
+      <button id="buttonInstr">Wers instrumentalny</button><i id="help-instr-icon" class="material-icons">help</i>
+      <div id="help-instr" class="help">Wers zawierający tylko akordy. Odzielaj je spacjami.</div>
     </div>    
 </div>
 <div class="songbody" id="songbody"><slot/></div>`;
@@ -100,6 +104,20 @@ export default class SongBody extends HTMLElement {
     this.buttonInstr.addEventListener("click", (e) =>  { this.toggleInstrumental(); this.refreshToolbar(); });
 
     document.addEventListener('selectionchange', (event) => { this.refreshToolbar(); });
+
+    this.shadow = shadow;
+    this.initHelp("help-bis");
+    this.initHelp("help-io");
+    this.initHelp("help-instr");
+  }
+
+  initHelp(id) {
+    const helpDiv = this.shadow.getElementById(id);
+    const helpIcon = this.shadow.getElementById(id+"-icon");
+    helpDiv.hidden = true;
+    helpDiv.addEventListener("click", (e) => {helpDiv.hidden = true;});
+
+    helpIcon.addEventListener("click", (e) => {helpDiv.hidden^=true;} );
   }
 
   refreshToolbar() {

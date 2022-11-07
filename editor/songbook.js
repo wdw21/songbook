@@ -21,6 +21,7 @@ export class SongEditor extends HTMLElement {
     const template = document.createElement('template');
     template.innerHTML = `
 <link rel="stylesheet" href="song.css"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 <div class="song-editor">
   
 <div id="fileToolbar">
@@ -55,7 +56,18 @@ export class SongEditor extends HTMLElement {
     </select>
   </div>
      
-  <h3>Treść</h3>
+  <h3>Treść<i id="helpbody-icon" class="material-icons">help</i></h3>
+  <div id="help-body" class="help">
+    <p>Kilka tricków, które warto znać: 
+     <ul>
+      <li>Klawisz \` (przeważnie lewy górny róg klawiatury) pozwala na dodanie akordu w bieżącym miejscu.</li>
+      <li>Akordy możesz przeciągać lub edytować poprzez drukrotne kliknięcie.</li>
+      <li>Zwrotkę możesz rozbić na dwie poprzez wstawienie dwóch pustych wierszy.</li>
+      <li>"Cofnij" działa tylko trochę (edycja tekstu, ale nie akordów).</li>
+      <li>Gotową piosenkę możesz zapisać do pliku lub zgłosić do recenzji przed publikacją w githubie</li>
+     </ul> 
+    </p> 
+  </div>
   <slot id="song-body"></slot>
   
   <h3>Szczegóły:</h3>
@@ -139,6 +151,11 @@ export class SongEditor extends HTMLElement {
     this.buttonSave=shadow.getElementById("buttonSave");
     this.open=shadow.getElementById("open");
     this.openCustom=shadow.getElementById("openCustom");
+
+    this.helpbody = shadow.getElementById("help-body");
+    this.helpbody.addEventListener("click", (e) => {this.helpbody.hidden = true; });
+    this.helpbody.hidden=true;
+    shadow.getElementById("helpbody-icon").addEventListener("click", (e) => {this.helpbody.hidden ^= true;})
 
     this.openCustom.addEventListener("click", () => this.open.click());
     this.buttonSave.addEventListener("click", () => Save(this));
@@ -279,10 +296,21 @@ export class SongEditor extends HTMLElement {
     this.readAttribute(song, "todo", "todo");
 
     this.tabs = xmlContent.includes("\t");
+    this.serialized = xmlContent;
   }
 
   Serialize() {
-    return Serialize(this);
+    this.serialized = Serialize(this);
+    return this.serialized;
+  }
+
+  SerializeWithChange() {
+    const prev = this.serialized;
+    const newP = this.Serialize();
+    return {
+      serialized: newP,
+      changed: newP != prev,
+    }
   }
 
   LoadFile(e) {

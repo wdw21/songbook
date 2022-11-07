@@ -28,7 +28,12 @@
               }
             })
       }
-      songEditor.addEventListener("git:commit", (e) => commit(e) );
+      songEditor.addEventListener("git:commit", async (e) => {
+        const success = await commit(e);
+        if (success) {
+          notice("Zapisano");
+        }
+      } );
       songEditor.addEventListener("git:commitAndPublish", (e)=>commitAndPublish(e) );
 
       const topNav = document.getElementById("topnav");
@@ -53,16 +58,37 @@
       }
     }
 
+    function notice(txt, owner=null) {
+      const notice = document.createElement("div");
+      notice.classList.add("notice");
+      notice.innerText=txt;
+
+      setTimeout(() => {
+        notice.remove();
+      }, 2000)
+
+      if (!owner) {
+        document.getElementsByTagName("BODY")[0].insertBefore(notice, null);
+      } else {
+        owner.parentNode.insertBefore(notice, owner.nextSibling);
+      }
+    }
+
     async function commit(e) {
-      let txt = e.target.Serialize();//document.getElementsByTagName("song-editor")[0].Serialize();
+      const {serialized,changed} = e.target.SerializeWithChange();//document.getElementsByTagName("song-editor")[0].Serialize();
+
+      if (!changed) {
+        notice("Brak nowych zmian", e.target);
+        return false;
+      }
 
       const {baseUrl,branch,file,user} = parseParams();
 
-      console.log(txt);
+      console.log(serialized);
       if (branch) {
         const msg = prompt("Wprowadź, proszę, krótki opis ostatnich zmian", "Poprawiono...");
         if (!msg) {
-          return;
+          return false;
         }
         try {
           const config = {
@@ -72,18 +98,20 @@
               'Accept': 'application/json',
               'Content-Type': 'text/xml',
             },
-            body: txt
+            body: serialized
           }
           const response = await fetch(`${baseUrl}/users/${user}/changes/${branch}/${file}?msg=${encodeURIComponent(msg)}`, config)
           if (response.ok) {
-            return response
+            return true;
           } else {
             alert("Zapis się nie powiódł. Czy jesteś podlączony do internetu ?");
             console.warn(response);
+            return false;
           }
         } catch (error) {
           console.error(error);
           alert(JSON.stringify(error));
+          return false;
         }
       }
     }
@@ -95,6 +123,7 @@
     }
 
   </script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 </head>
 <body onload="init()">
   <div id="topnav"></div>

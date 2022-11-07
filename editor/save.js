@@ -23,8 +23,10 @@ export function Serialize(songeditor) {
       .replaceAll(nbsp," ");
 
   if (songeditor.tabs) {
-    txt = txt.replaceAll(/(?<=^ *)  /gm,"\t") + "\n";
+    txt = txt.replaceAll(/(?<=^ *)  /gm,"\t");
   }
+
+  txt = txt + "\n";
 
   if (songeditor.shadow.getElementById("lastSerialized")) {
     songeditor.shadow.getElementById("lastSerialized").innerText=txt;

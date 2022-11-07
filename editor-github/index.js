@@ -19,9 +19,9 @@ import {
   htmlSuffix,
   htmlPrefix,
   MAIN_BRANCH_NAME,
-  prepareBranch,editorLink,
+  prepareBranch, editorLink,
   prepareMainBranch,
-    HandleError,
+  HandleError, EDITOR_BASE_URL,
 } from './common.js';
 
 const app = express();
@@ -34,7 +34,11 @@ app.use(cookieParser());
 app.use(cors({origin: EDITOR_DOMAIN, credentials: true}));
 
 app.get('/', async  (req, res) => {
-  res.redirect(CHANGES_BASE_URL);
+  if (req.cookies.new === 'false') {
+    res.redirect(CHANGES_BASE_URL);
+  } else {
+    res.redirect("/intro");
+  }
 });
 
 app.get('/changes', async (req, res) => {
@@ -124,7 +128,9 @@ app.get('/users/:user/changes[:]new', async (req, res) => {
 
     res.write(`
     <form action="/users/${user}/changes:new" method="post">
-      <input name="file" id='file' type="text" list="files" required pattern="[a-zA-Z0-9\.\-_()]+" validationMessage="Pole musi być wypełnione i zawierać wyłącznie podstawowe litery, cyfry, '.', myślnik i podkreślnik."/>
+      <input name="file" id='file' type="text" list="files" required pattern="[a-zA-Z0-9\\.\\-_()]+" 
+        oninvalid="this.setCustomValidity('Pole musi być wypełnione i zawierać wyłącznie podstawowe litery, cyfry, myślnik i podkreślnik.')"
+        oninput="this.setCustomValidity('')"/>
       <div>
         <input type="submit" value="Rozpocznij edycję"/>
       </div>
@@ -351,4 +357,38 @@ app.get('/auth', async (req, res) => {
         state: state,
       });
   res.redirect(url);
+});
+
+app.get('/intro', async (req, res) => {
+  htmlPrefix(res);
+  res.write(`
+      <h1>Witaj w edytorze piosenek</h1>
+      
+      <p>Poniższe narzędzie umożliwia wygodne edytowanie piosenek i dodawanie ich do śpiewnika.
+         Śpiewnik ten może być <a href="https://21wdw.staszic.waw.pl/media/21wdw_spiewnik_full.pdf">drukowany (PDF)</a>, ściągany jako <a href="https://github.com/ktab15/songbook/releases/download/epub-20220921/spiewnik.epub">ebook (EPUB)</a> lub <a href="https://21wdw.staszic.waw.pl/spiewnik/">przeglądany na stronie</a>.
+      </p>
+      <p>Jeżeli chcesz użyć lub zapoznać się z samym edytorem piosenek to przejdź do: <a href="${EDITOR_BASE_URL}">samodzielnego edytora</a>. 
+         Będziesz mógł/mogła tworzyć nowe piosenki lub otwierać pliki z Twojego dysku lub je zapisywać do plików.
+      </p>
+      <p>
+        Publiczna baza piosenek jest przetrzymywana w githubie (<a href="https://github.com/wdw21/songbook/tree/main/songs">https://github.com/wdw21/songbook/tree/main/songs)</a>. 
+        Jest to narzędzie potężnę - bo umożliwia recenzowanie i porównywanie zmian, lecz trudne w użyciu. Dlatego też przygotowaliśmy
+        nakładkę, która pozwoli Ci zgłaszać propozycję zmian w piosenkach bez konieczności obsługi git'a. 
+        Musisz jednak zarejestrować się na githubie i upoważnić tę nakładkę do działania w Twoim imieniu.
+      </p>
+      <p>
+        Możesz odczuwać uzasadniony dyskomfort (w szczególności jeśli masz swoje własne repozytoria githubowe),
+        by upoważniać jakąś aplikację by miała do nich dostęp. Mogę Cię tylko zapewnić (ale musisz mi zaufać),
+        że ta aplikacja tylko: 
+        <ul>
+            <li>Tworzy roboczą kopię (fork) repozytorium <a href="https://github.com/wdw21/songbook">wdw21/songbook</a>, jeśli go jeszcze nieposiadasz.</li>
+            <li>Dotyka wyłącznie twojej roboczej kopi repozytorium 'songbook'</li>
+            <li>Tworzy i kasuje gałęzie (branches) w repozytorium 'songbook' o nazwie zaczynającej się od 'se-', gdy tworzysz nowe zmiany.</li>
+            <li>Tworzy zapisy (commits) w tych gałęziach, gdy zapisujesz zmiany piosenek.</li>
+        </ul>
+        Jeśli chcesz spróbować - <b>przejdź do <a href="/auth">edycji</a></b> - zostaniesz poproszeony o zalogowanie lub/i przyznanie uprawnień aplikacji.
+      </p>
+      <p>Problemy/uwagi możesz zgłaszać na: <a href="https://github.com/wdw21/songbook/issues">https://github.com/wdw21/songbook/issues</a></p>
+      `);
+  htmlSuffix(res);
 });

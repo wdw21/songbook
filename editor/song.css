@@ -75,7 +75,16 @@ div.toolbar button {
 
 div.toolbar div.formatting {
   position: sticky;
+  display: grid;
 }
+
+div.toolbar div.formatting button {
+  grid-column: 1;
+}
+div.toolbar div.formatting i {
+  grid-column: 2;
+}
+
 
 div.toolbar input {
   margin-top: 0.5em;
@@ -137,4 +146,21 @@ input#title {
 
 div.gitToolbar {
   margin-top: 10px;
+}
+
+div.notice {
+  position: fixed;
+  color: black;
+  background: yellow;
+  left: 50px;
+  top: 50px;
+}
+
+div.help {
+  position: static;
+  left: 50px;
+  top: 50px;
+  background: lightcyan;
+  border: 1px solid blue;
+  z-index: 4;
 }
