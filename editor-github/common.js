@@ -98,7 +98,11 @@ export async function newUserOctokit(req,res) {
         const authenticated = await octokit.rest.users.getAuthenticated();
         authuser = authenticated.data.login;
         console.log(util.inspect(authenticated, false, null, false));
-        res.cookie("session", {"access_token": access_token, "user": authuser}, { maxAge: 3*24*60*60*1000, httpOnly: true, sameSite:'none', secure: true });
+        res.cookie("session", {
+            "access_token": access_token,
+            "user": authuser},
+            { maxAge: 3*24*60*60*1000, httpOnly: true, sameSite:'none', secure: true });
+        res.cookie("new", "false", { maxAge: 31536000});
     }
     const usr = (!req.params.user || req.params.user === 'me') ? authuser : req.params.user;
     console.log('Acting as user:', usr);
