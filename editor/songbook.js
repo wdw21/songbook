@@ -312,6 +312,7 @@ export class SongEditor extends HTMLElement {
     return {
       serialized: newP,
       changed: newP != prev,
+      title: this.getAttribute("title"),
     }
   }
 

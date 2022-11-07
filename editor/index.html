@@ -75,7 +75,7 @@
     }
 
     async function commit(e) {
-      const {serialized,changed} = e.target.SerializeWithChange();//document.getElementsByTagName("song-editor")[0].Serialize();
+      const {serialized,changed, title} = e.target.SerializeWithChange();//document.getElementsByTagName("song-editor")[0].Serialize();
 
       if (!changed) {
         notice("Brak nowych zmian", e.target);
@@ -86,10 +86,11 @@
 
       console.log(serialized);
       if (branch) {
-        const msg = prompt("Wprowadź, proszę, krótki opis ostatnich zmian", "Poprawiono...");
+        const msg = prompt("Wprowadź, proszę, krótki opis ostatnich zmian", `...`);
         if (!msg) {
           return false;
         }
+        msg = `Piosenka ${title}: ` + msg;
         try {
           const config = {
             method: 'POST',
