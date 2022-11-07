@@ -364,6 +364,14 @@ function lightTraverse(node) {
             document.createTextNode(nbsp + node.getAttribute("a") + nbsp),
             node);
       }
+      const chords = node.getAttribute("a").trim().split(' ');
+      if (chords.length > 1) {
+        const df = document.createDocumentFragment();
+        for (const ch of chords) {
+          df.appendChild(createChord(ch));
+        }
+        node.parentNode.replaceChild(df, node);
+      }
       break;
     }
     case 'SONG-ROW': {

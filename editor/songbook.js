@@ -374,10 +374,7 @@ export class SongEditor extends HTMLElement {
   static get observedAttributes() {
     return attrs.concat(["git"]);
   }
-
 }
-
-
 
 function songEditorInit() {
   customElements.define("song-editor", SongEditor);
