@@ -11,7 +11,7 @@
   
       const {baseUrl,branch,file,user} = parseParams();
 
-      const loadUrl = urlParams.get('load') ? urlParams.get('load') : `${baseUrl}/users/${user}/changes/${branch}/${file}`;
+      const loadUrl = urlParams.get('load') ? urlParams.get('load') : baseUrl ? `${baseUrl}/users/${user}/changes/${branch}/${file}` : null;
 
       const commitOnLoad = urlParams.get('commitOnLoad');
       const songEditor = document.getElementsByTagName("song-editor")[0];

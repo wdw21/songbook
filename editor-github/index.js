@@ -372,7 +372,7 @@ app.get('/intro', async (req, res) => {
       </p>
       <p>
         Publiczna baza piosenek jest przetrzymywana w githubie (<a href="https://github.com/wdw21/songbook/tree/main/songs">https://github.com/wdw21/songbook/tree/main/songs)</a>. 
-        Jest to narzędzie potężnę - bo umożliwia recenzowanie i porównywanie zmian, lecz trudne w użyciu. Dlatego też przygotowaliśmy
+        Jest to narzędzie potężne - bo umożliwia recenzowanie i porównywanie zmian, lecz trudne w użyciu. Dlatego też przygotowaliśmy
         nakładkę, która pozwoli Ci zgłaszać propozycję zmian w piosenkach bez konieczności obsługi git'a. 
         Musisz jednak zarejestrować się na githubie i upoważnić tę nakładkę do działania w Twoim imieniu.
       </p>

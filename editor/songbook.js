@@ -58,7 +58,7 @@ export class SongEditor extends HTMLElement {
      
   <h3>Treść<i id="helpbody-icon" class="material-icons">help</i></h3>
   <div id="help-body" class="help">
-    <p>Kilka tricków, które warto znać: 
+    <p>Kilka trików, które warto znać: 
      <ul>
       <li>Klawisz \` (przeważnie lewy górny róg klawiatury) pozwala na dodanie akordu w bieżącym miejscu.</li>
       <li>Akordy możesz przeciągać lub edytować poprzez drukrotne kliknięcie.</li>
@@ -242,13 +242,25 @@ export class SongEditor extends HTMLElement {
   }
 
   New() {
-    this.innerHTML=`
-<song-body contenteditable='true'>
-  <song-verse type='verse'><song-rows>
-     <song-row>Herbata stygnie, zapada zmrok</song-row>
-     <song-row>A pod piórem ciągle nic...</song-row></song-rows>
-  </song-verse></song-body>`;
-    Sanitize(this.body());
+    this.Load(`
+  <song title=""><lyric>
+  <block type="verse">
+    <row important_over="true"><ch a="D"></ch>Herbata stygn<ch a="G"/>ie zapa<ch a="A"/>da mrok</row>
+    <row important_over="true">A p<ch a="D"/>od piór<ch a="G"/>em ciąg<ch a="A"/>le nic</row>
+    <row important_over="false">Ob<ch a="D"/>owiązek ob<ch a="G"/>owiązkie<ch a="A"/>m jest</row>
+    <row important_over="false">Piosenka musi p<ch a="D"/>osiadać teks<ch a="A"/>t <ch a="G"/></row>
+  </block>
+</lyric></song>`);
+//     this.innerHTML=`
+//   <lyric>
+//   <block type="verse">
+//     <row important_over="true"><ch a="D"></ch>Herbata stygn<ch a="G"/>ie zapa<ch a="A"/>da mrok</row>
+//     <row important_over="true">A p<ch a="D"/>od piór<ch a="G"/>em ciąg<ch a="A"/>le nic</row>
+//     <row important_over="false">Ob<ch a="D"/>owiązek ob<ch a="G"/>owiązkie<ch a="A"/>m jest</row>
+//     <row important_over="false">Piosenka musi p<ch a="D"/>osiadać teks<ch a="A"/>t <ch a="G"/></row>
+//   </block>
+// </lyric>`;
+//     Sanitize(this.body());
     this.body().selectAll();
   }
 
