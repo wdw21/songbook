@@ -251,16 +251,6 @@ export class SongEditor extends HTMLElement {
     <row important_over="false">Piosenka musi p<ch a="D"/>osiadać teks<ch a="A"/>t <ch a="G"/></row>
   </block>
 </lyric></song>`);
-//     this.innerHTML=`
-//   <lyric>
-//   <block type="verse">
-//     <row important_over="true"><ch a="D"></ch>Herbata stygn<ch a="G"/>ie zapa<ch a="A"/>da mrok</row>
-//     <row important_over="true">A p<ch a="D"/>od piór<ch a="G"/>em ciąg<ch a="A"/>le nic</row>
-//     <row important_over="false">Ob<ch a="D"/>owiązek ob<ch a="G"/>owiązkie<ch a="A"/>m jest</row>
-//     <row important_over="false">Piosenka musi p<ch a="D"/>osiadać teks<ch a="A"/>t <ch a="G"/></row>
-//   </block>
-// </lyric>`;
-//     Sanitize(this.body());
     this.body().selectAll();
   }
 
