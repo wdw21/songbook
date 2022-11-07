@@ -365,7 +365,7 @@ app.get('/intro', async (req, res) => {
       <h1>Witaj w edytorze piosenek</h1>
       
       <p>Poniższe narzędzie umożliwia wygodne edytowanie piosenek i dodawanie ich do śpiewnika.
-         Śpiewnik ten może być <a href="https://21wdw.staszic.waw.pl/media/21wdw_spiewnik_full.pdf">drukowany (PDF)</a>, ściągany jako <a href="https://github.com/ktab15/songbook/releases/tag/epub-20220921#:~:text=3-,spiewnik.epub,-638%20KB">ebook (EPUB)</a> lub <a href="https://21wdw.staszic.waw.pl/spiewnik/">przeglądany na stronie</a>.
+         Śpiewnik ten może być <a href="https://21wdw.staszic.waw.pl/media/21wdw_spiewnik_full.pdf">drukowany (PDF)</a>, ściągany jako <a href="https://github.com/ktab15/songbook/releases/download/epub-20220921/spiewnik.epub">ebook (EPUB)</a> lub <a href="https://21wdw.staszic.waw.pl/spiewnik/">przeglądany na stronie</a>.
       </p>
       <p>Jeżeli chcesz użyć lub zapoznać się z samym edytorem piosenek to przejdź do: <a href="${EDITOR_BASE_URL}">samodzielnego edytora</a>. 
          Będziesz mógł/mogła tworzyć nowe piosenki lub otwierać pliki z Twojego dysku lub je zapisywać do plików.
