@@ -312,7 +312,7 @@ export default class SongBody extends HTMLElement {
   }
 
   keyDown(e,songBook) {
-    //console.log("keydown...",e, document.getSelection());
+    console.log("keydown...",e, document.getSelection());
     if (e.key == '`' && canInsertChord()) {
       if (insertChordHere("")) {
         e.preventDefault();
@@ -330,6 +330,45 @@ export default class SongBody extends HTMLElement {
         }
       }
     }
+
+    if (e.key == 'ArrowRight'){
+      if (document.getSelection().isCollapsed
+          && document.getSelection().rangeCount == 1
+          && document.getSelection().type === 'Caret') {
+        let r = document.getSelection().getRangeAt(0);
+        if (r.collapsed && r.startContainer.nodeName==='#text' && r.startOffset >= r.startContainer.nodeValue.length
+            && r.startContainer.nextSibling.nodeName==='SONG-CH') {
+          let ch = r.startContainer.nextSibling;
+          while (ch && ch.nodeName==='SONG-CH') {
+            ch = ch.nextSibling;
+          }
+          if (ch) {
+            document.getSelection().collapse(ch);
+          }
+          e.preventDefault();
+        }
+      }
+    }
+
+    if (e.key == 'ArrowLeft'){
+      if (document.getSelection().isCollapsed
+          && document.getSelection().rangeCount == 1
+          && document.getSelection().type === 'Caret') {
+        let r = document.getSelection().getRangeAt(0);
+        if (r.collapsed && r.startContainer.nodeName==='#text' && r.startOffset == 0
+            && r.startContainer.previousSibling.nodeName==='SONG-CH') {
+          let ch = r.startContainer.previousSibling;
+          while (ch && ch.nodeName==='SONG-CH') {
+            ch = ch.previousSibling;
+          }
+          if (ch) {
+            document.getSelection().collapse(ch, ch.nodeValue.length);
+          }
+          e.preventDefault();
+        }
+      }
+    }
+
     if (e.key == 'b'  && e.metaKey) {
       songBook.wrapBis();
       e.preventDefault();
@@ -396,7 +435,7 @@ export default class SongBody extends HTMLElement {
   }
 
   beforeInput(e, songbody) {
-    //console.log("beforeInput", e);
+    console.log("beforeInput", e);
     if (e.inputType == "deleteContentBackward"
        && e.target == songbody) {
       if (document.getSelection().rangeCount == 1
@@ -549,6 +588,7 @@ export default class SongBody extends HTMLElement {
   }
 
   input(e, songbody) {
+    console.log("input", e);
      if (e.target == songbody) {
        songbody.changePostprocess();
 //    Avoid keeping cursor before the artifical space:

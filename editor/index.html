@@ -28,6 +28,8 @@
                 commit();
               }
             })
+      } else {
+        songEditor.New();
       }
       songEditor.addEventListener("git:commit", async (e) => {
         const success = await commit(e);

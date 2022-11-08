@@ -366,9 +366,9 @@ export class SongEditor extends HTMLElement {
   }
 
   connectedCallback() {
-    if (!this.body()) {
-      this.New();
-    }
+    // if (!this.body()) {
+    //   this.New();
+    // }
   }
 
   static get observedAttributes() {
