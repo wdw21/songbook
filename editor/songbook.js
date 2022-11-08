@@ -168,6 +168,9 @@ export class SongEditor extends HTMLElement {
       this.mapAttribute(attr);
     }
 
+    const title = this.shadow.getElementById("title");
+    title.addEventListener("change", () => { document.title = title.value; });
+
     for (let button of shadow.querySelectorAll(".buttonCommit")) {
       console.log("registering button", button);
       const doubleClickEvent = new CustomEvent("git:commit", {
@@ -299,6 +302,9 @@ export class SongEditor extends HTMLElement {
 
     this.tabs = xmlContent.includes("\t");
     this.serialized = xmlContent;
+
+    const title = this.shadow.getElementById("title");
+    document.title = title.value;
   }
 
   Serialize() {
