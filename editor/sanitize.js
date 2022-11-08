@@ -359,13 +359,14 @@ function lightTraverse(node) {
           && node.getAttribute("a").trim().length == 0) {
         node.remove();
       }
-      if (node.parentNode.getAttribute("type")==='instr') {
+      if (node.parentNode.getAttribute("type") === 'instr') {
         node.parentNode.replaceChild(
             document.createTextNode(nbsp + node.getAttribute("a") + nbsp),
             node);
       }
       const chords = node.getAttribute("a").trim().split(' ');
       if (chords.length > 1) {
+
         const df = document.createDocumentFragment();
         for (const ch of chords) {
           df.appendChild(createChord(ch));

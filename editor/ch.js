@@ -32,10 +32,12 @@ export default class SongCh extends HTMLElement {
     };
     this.che.onblur = (event) => {
       let storedParent = this.parentNode;
+      const nextSibling = this.nextSibling;
       this.setAttribute("editing", "false");
       this.updateEditing();
 
-      this.selectParent(storedParent);
+      this.select(storedParent, nextSibling);
+      //this.selectParent(storedParent);
     }
     this.ch.onmousedown = (event) => {
       // We need to prevent the parent to catch the double click
@@ -82,19 +84,22 @@ export default class SongCh extends HTMLElement {
     return this.getAttribute("editing")==="true";
   }
 
-  selectParent(storedParent) {
-    console.log(storedParent);
-    storedParent.focus();
+  select(row, toSelect) {
+    row.focus();
     let r = document.createRange();
-    if (this.nextSibling==null) {
+    if (!toSelect) {
       let t=document.createTextNode(nbsp);
-      storedParent.appendChild(t);
+      row.appendChild(t);
       r.selectNodeContents(t);
     } else {
-      r.setStartAfter(this);
+      r.setStartBefore(toSelect);
     }
     document.getSelection().removeAllRanges();
     document.getSelection().addRange(r);
+  }
+
+  selectParent(storedParent) {
+    this.select(storedParent, this.nextSibling);
   }
 
   connectedCallback() {
