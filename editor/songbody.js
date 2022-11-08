@@ -6,9 +6,31 @@ function acceptsTextAndChords(element) {
   return element.nodeName=="SONG-ROW" && element.getAttribute("type")!=='instr';
 }
 
+function getChordSelected() {
+  if (window.getSelection().rangeCount < 1) {return false; }
+  let r = window.getSelection().getRangeAt(0);
+  if (r.collapse
+      && (r.startOffset < r.startContainer.childNodes.length)
+      && r.startContainer.childNodes[r.startOffset].nodeName === 'SONG-CH') {
+    return r.startContainer.childNodes[r.startOffset];
+  }
+  return null;
+}
+
+function isChordSelected() {
+  return getChordSelected() != null;
+}
+
 function canInsertChord() {
   if (window.getSelection().rangeCount < 1) {return false; }
   let r = window.getSelection().getRangeAt(0);
+  if (r.startContainer.nodeName == '#text'
+      && acceptsTextAndChords(r.startContainer.parentNode)) {
+    return true;
+  }
+  if (isChordSelected()) {
+    return true;
+  }
   let x =
       //acceptsTextAndChords(r.startContainer);
       (r.startContainer.nodeName == '#text'
@@ -335,9 +357,16 @@ export default class SongBody extends HTMLElement {
     let d = e.dataTransfer.getData("songbook/chord");
     if (d != null && d != "") {
       let range = getRangeForCursor(e)
+      console.log('RANGE for DROP', range);
       if (acceptsTextAndChords(range.commonAncestorContainer.parentNode)) {
         range.insertNode(createChord(d));
         songbody.dropped = true;
+      } else if (isChordSelected()) {
+        const selectedChord = getChordSelected();
+        selectedChord.parentNode.insertBefore(createChord(d), selectedChord.nextSibling);
+        songbody.dropped = true;
+      } else {
+        console.log('Drop refused', e);
       }
       e.preventDefault();
       songbody.changePostprocess();
@@ -520,7 +549,6 @@ export default class SongBody extends HTMLElement {
   }
 
   input(e, songbody) {
-//     console.log("Oninput", e);
      if (e.target == songbody) {
        songbody.changePostprocess();
 //    Avoid keeping cursor before the artifical space:

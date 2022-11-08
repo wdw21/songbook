@@ -22,12 +22,6 @@ export default class SongCh extends HTMLElement {
     this.che = shadow.getElementById("che");
     this.cho = shadow.getElementById("cho");
 
-    this.ch.addEventListener("click",
-        (e) => {
-           console.log("Clicked", this.ch.getBoundingClientRect());
-      }
-    );
-
     this.ch.ondblclick = (event) => {
       console.log("CH-double-click");
       this.setAttribute("editing", "true");
@@ -58,9 +52,9 @@ export default class SongCh extends HTMLElement {
     }
 
     this.cho.ondragend = (event) => {
-      console.log("dragend", event);
+      console.log("dragend", event.dataTransfer.dropEffect, event);
       event.target.opacity = '1.0';
-      if (this.getSongBody().dropped && event.dataTransfer.dropEffect == 'move') {
+      if (/*this.getSongBody().dropped &&*/ event.dataTransfer.dropEffect == 'move') {
         this.remove();
       }
     }
@@ -112,7 +106,7 @@ export default class SongCh extends HTMLElement {
     if (this.offset) {
       return this.offset;
     }
-    if (this.previousSibling.nodeName==='SONG-CH') {
+    if (this.previousSibling && this.previousSibling.nodeName==='SONG-CH') {
       this.offset = this.previousSibling.recomputeOffset() + this.previousSibling.ch.getBoundingClientRect().width + 1;
     } else {
       this.offset = 0;
