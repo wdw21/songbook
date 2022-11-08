@@ -8,6 +8,7 @@ song-verse {
 
 song-row {
   display: block;
+  font-size: large;
 }
 
 song-row[type="instr"] {

@@ -113,7 +113,7 @@ export default class SongCh extends HTMLElement {
       return this.offset;
     }
     if (this.previousSibling.nodeName==='SONG-CH') {
-      this.offset = this.previousSibling.recomputeOffset() + this.previousSibling.ch.getBoundingClientRect().width + 3;
+      this.offset = this.previousSibling.recomputeOffset() + this.previousSibling.ch.getBoundingClientRect().width + 1;
     } else {
       this.offset = 0;
     }
