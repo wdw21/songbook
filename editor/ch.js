@@ -1,3 +1,5 @@
+import {findAncestor, nbsp} from "./utils.js";
+
 const predefinedChords = ["A", "A2", "A4", "A7", "A7+", "A7/4", "A7/6", "Ais",
   "B", "C", "C0", "C7", "C7+", "C9", "C9/5", "Cis", "Cis0", "D", "D2", "D4",
   "D7", "D7+", "Dis", "E", "E0", "E5+", "E7", "E7/4", "F", "F0", "F7", "F7+",
@@ -19,6 +21,12 @@ export default class SongCh extends HTMLElement {
     this.ch = shadow.getElementById("ch");
     this.che = shadow.getElementById("che");
     this.cho = shadow.getElementById("cho");
+
+    this.ch.addEventListener("click",
+        (e) => {
+           console.log("Clicked", this.ch.getBoundingClientRect());
+      }
+    );
 
     this.ch.ondblclick = (event) => {
       console.log("CH-double-click");
@@ -93,6 +101,28 @@ export default class SongCh extends HTMLElement {
     }
     document.getSelection().removeAllRanges();
     document.getSelection().addRange(r);
+  }
+
+  connectedCallback() {
+    const songBody = findAncestor(this, "SONG-BODY");
+    new ResizeObserver(() => songBody.recomputeChordsOffsets()).observe(this.ch);
+  }
+
+  recomputeOffset() {
+    if (this.offset) {
+      return this.offset;
+    }
+    if (this.previousSibling.nodeName==='SONG-CH') {
+      this.offset = this.previousSibling.recomputeOffset() + this.previousSibling.ch.getBoundingClientRect().width + 3;
+    } else {
+      this.offset = 0;
+    }
+    this.cho.style.left = this.offset + "px";
+    return this.offset;
+  }
+
+  resetOffset() {
+    this.offset=null;
   }
 
   updateEditing() {

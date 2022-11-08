@@ -134,7 +134,7 @@ export default class SongBody extends HTMLElement {
     this.buttonBis.disabled = document.getSelection().rangeCount==0;
   }
 
-  focusout(e, songbook) {
+  focusout(e, songbody) {
     console.log("focusout", e);
     if (e.target.nodeName==='SONG-BIS'
         && (e.target.getAttribute("x").trim()==="1"
@@ -142,7 +142,7 @@ export default class SongBody extends HTMLElement {
             || e.target.getAttribute("x").trim()==="0")) {
       flattenBis(e.target);
     }
-    Sanitize(songbook);
+    songbody.changePostprocess();
   }
 
   connectedCallback() {
@@ -240,7 +240,7 @@ export default class SongBody extends HTMLElement {
       }
     }
     console.log(this);
-    Sanitize(findAncestor(this, "SONG-BODY"));
+    songbody.changePostprocess();
   }
 
   selectAll() {
@@ -340,7 +340,7 @@ export default class SongBody extends HTMLElement {
         songbody.dropped = true;
       }
       e.preventDefault();
-      Sanitize(songbody);
+      songbody.changePostprocess();
       return;
     }
 
@@ -358,7 +358,7 @@ export default class SongBody extends HTMLElement {
       let span = document.createElement("span");
       span.innerHTML=d;
       range.insertNode(span);
-      Sanitize(songbody);
+      songbody.changePostprocess();
       e.preventDefault();
 
       return;
@@ -488,7 +488,7 @@ export default class SongBody extends HTMLElement {
           start.remove();
         }
         e.preventDefault();
-        Sanitize(songbody);
+        songbody.changePostprocess();
         return;
       }
     }
@@ -498,15 +498,31 @@ export default class SongBody extends HTMLElement {
       let r = document.getSelection().getRangeAt(0);
       if (r.commonAncestorContainer.nodeName === 'SONG-ROWS') {
         r.deleteContents();
+        songbody.changePostprocess();
       }
-      Sanitize(songbody);
+    }
+  }
+
+  changePostprocess() {
+    console.log("postprocessing");
+    Sanitize(this);
+    this.recomputeChordsOffsets();
+  }
+
+  recomputeChordsOffsets() {
+    const chords = this.getElementsByTagName("SONG-CH");
+    for (let ch of chords) {
+      ch.resetOffset();
+    }
+    for (let ch of chords) {
+      ch.recomputeOffset();
     }
   }
 
   input(e, songbody) {
 //     console.log("Oninput", e);
      if (e.target == songbody) {
-       Sanitize(songbody);
+       songbody.changePostprocess();
 //    Avoid keeping cursor before the artifical space:
        if (document.getSelection().isCollapsed
            && document.getSelection().rangeCount == 1) {
@@ -536,7 +552,7 @@ export default class SongBody extends HTMLElement {
       getSelection().getRangeAt(0).deleteContents();
       getSelection().getRangeAt(0).insertNode(p);
       e.preventDefault();
-      Sanitize(songbody);
+      songbody.changePostprocess();
     }
   }
 
