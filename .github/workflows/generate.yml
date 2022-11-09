@@ -36,7 +36,7 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
-  Generate pdf:
+  Generate-pdf:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Generating a songbook PDF triggered by ${{ github.event_name }}"
