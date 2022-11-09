@@ -48,6 +48,7 @@ jobs:
           cache: 'pip' # caching pip dependencies
       - run: sudo snap install libxslt
       - run: sudo apt-get install libxml2
+      - run: sudo apt-get install python3-lxml
       - run: sudo apt-get install texlive
       - run: pip install -r ${{ github.workspace }}/requirements.txt
       - run: echo "DONE"
