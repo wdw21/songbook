@@ -18,6 +18,11 @@ on:
         required: false
         type: boolean
         default: true
+      release:
+        description: 'Create release'
+        required: false
+        type: boolean
+        default: true
 #  push:
 #    branches:
 #      - 'main'
@@ -25,7 +30,7 @@ jobs:
   Generate-artifacts:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "release_name=$(date +'%Y-%m-%dT%M:%H:%S')" >> $GITHUB_ENV
+      - run: echo "release_name=$(date +'%Y-%m-%dT%H_%M_%S')" >> $GITHUB_ENV
       - run: echo "Generating a songbook PDF triggered by ${{ github.event_name }} release:${{ env.release_name }}"
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -58,6 +63,7 @@ jobs:
 
       - name: Create Release
         id: create_release
+        if: ${{ inputs.create_release }}
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -67,7 +73,7 @@ jobs:
           draft: true
           prerelease: true
       - name: Upload PDF_A4 to release
-        if: ${{ inputs.pdf }}
+        if: ${{ inputs.pdf }} && ${{ inputs.create_release }}
         id: upload-release-asset_pdf_a4
         uses: actions/upload-release-asset@v1
         env:
