@@ -49,6 +49,10 @@ def actual_date():
     return str(datetime.now().strftime("%d/%m/%Y %H:%M"))
 
 
+def name_of_file(song):
+    return os.path.splitext(os.path.split(song)[1])[0]
+
+
 def create_content_opf(list_of_songs_meta, target_dir):
     tmp_path = 'templates/content.opf'
     out_path = os.path.join(target_dir, "epub", "OEBPS", "content.opf")
@@ -64,7 +68,7 @@ def create_content_opf(list_of_songs_meta, target_dir):
     for i in range(len(list_of_songs_meta)):
         x = etree.SubElement(manifest, "item")
         x.attrib['id'] = 'p' + str(i + 1)
-        x.attrib['href'] = os.path.splitext(os.path.split(list_of_songs_meta[i].plik)[1])[0] + '.html'
+        x.attrib['href'] = name_of_file(list_of_songs_meta[i].plik) + '.html'
 
         x.attrib['media-type'] = "application/xhtml+xml"
         etree.SubElement(spine, "itemref").attrib['idref'] = 'p' + str(i + 1)
@@ -89,7 +93,7 @@ def create_toc_ncx(list_of_songs_meta, target_dir):
         text = etree.SubElement(navlabel, "text")
         text.text = list_of_songs_meta[i].title
         content = etree.SubElement(navpoint, "content")
-        content.attrib['src'] = os.path.splitext(os.path.split(list_of_songs_meta[i].plik)[1])[0] + '.html'
+        content.attrib['src'] = name_of_file(list_of_songs_meta[i].plik) + '.html'
     et = etree.ElementTree(root)
     et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
 
@@ -105,7 +109,7 @@ def create_toc_xhtml(list_of_songs_meta, target_dir):
     for i in range(len(list_of_songs_meta)):
         li = etree.SubElement(ol, "li")
         a = etree.SubElement(li, "a")
-        a.attrib['href'] = os.path.splitext(os.path.split(list_of_songs_meta[i].plik)[1])[0] + '.html'
+        a.attrib['href'] = name_of_file(list_of_songs_meta[i].plik) + '.html'
         a.text = list_of_songs_meta[i].title
     et = etree.ElementTree(root)
     et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
