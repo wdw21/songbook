@@ -309,8 +309,7 @@ export class SongEditor extends HTMLElement {
   }
 
   Serialize() {
-    this.serialized = Serialize(this);
-    return this.serialized;
+    return Serialize(this);
   }
 
   SerializeWithChange() {
@@ -321,6 +320,10 @@ export class SongEditor extends HTMLElement {
       changed: newP != prev,
       title: this.getAttribute("title"),
     }
+  }
+
+  MarkAsCommitted(serialized) {
+    this.serialized = serialized;
   }
 
   LoadFile(e) {
