@@ -49,9 +49,10 @@ jobs:
       - run: sudo snap install libxslt
       - run: sudo apt-get install libxml2
       - run: sudo apt-get install python3-lxml
-      - run: sudo apt-get install texlive
       - run: pip3 install -r ${{ github.workspace }}/requirements.txt
       - run: pip install lxml
+        
+      - run: sudo apt-get install texlive texlive-latex-extra
       - run: cd  ${{ github.workspace }} && chmod 755 ./render_pdf.sh && ./render_pdf.sh songbook a5 "Śpiewnik $(date +'%Y-%m-%d')" songs/*.xml
       - run: mv ${{ github.workspace }}/build/output.pdf ${{ github.workspace }}/build/songbook_a5.pdf'
       - run: cd  ${{ github.workspace }} && ./render_pdf.sh songbook a4 "Śpiewnik $(date +'%Y-%m-%d')" songs/*.xml
