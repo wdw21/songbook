@@ -28,7 +28,7 @@ export class SongEditor extends HTMLElement {
   <button id="buttonNew">Nowy</button>
   <input style="display: none"  id="open" type="file" accept=".xml"/>
   <input type="button" id="openCustom" value="Importuj plik"/>  
-  <button id="buttonSave">Exportuj plik</button>
+  <button id="buttonSave">Eksportuj plik</button>
 </div>
 
 <div class="gitToolbar">
@@ -269,6 +269,7 @@ export class SongEditor extends HTMLElement {
     tmp.appendChild(z[0]);
     Sanitize(tmp);
     this.appendChild(tmp.childNodes[0]);
+    this.body().changePostprocess();
 
     let song=xmlDoc.getElementsByTagName("song")[0];
 

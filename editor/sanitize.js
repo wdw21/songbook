@@ -249,6 +249,49 @@ function isEmptyRow(el) {
     && (el.textContent==='' || el.textContent===nbsp);
 }
 
+export function SplitVerseFromRow(row) {
+  let songVerse = findAncestor(row, "SONG-VERSE");
+  if (songVerse) {
+    let newVerse = songVerse.cloneNode(false);
+    songVerse.id='';
+    setRandomId(songVerse);
+    songVerse.parentNode.insertBefore(newVerse, songVerse.nextSibling);
+    let newRows = document.createElement("SONG-ROWS");
+    newVerse.appendChild(newRows);
+    console.log(row, row.nextSibling);
+    let r=row.nextSibling;
+    if (r==null
+        && row.parentNode.parentNode.nodeName!='SONG-BIS') {
+      if (isEmptyRow(row.previousSibling)) {
+        row.previousSibling.remove();
+      }
+      newRows.append(row);
+    } else {
+      while(r != null) {
+        let nr=r.nextSibling;
+        newRows.appendChild(r);
+        r=nr;
+      }
+      // If we are within BIS within middle of the verse,
+      // we need to move verse-level rows as well.
+      if (row.parentNode.parentNode.nodeName=='SONG-BIS') {
+        r = row.parentNode.parentNode.nextSibling;
+        while(r != null) {
+          let nr=r.nextSibling;
+          newRows.appendChild(r);
+          r=nr;
+        }
+      }
+      if (isEmptyRow(row.previousSibling)) {
+        row.previousSibling.remove();
+      }
+      if (isEmptyRow(row)) {
+        row.remove();
+      }
+    }
+  }
+}
+
 export function Sanitize(body) {
   // let r=document.getSelection().rangeCount>0 ? document.getSelection().getRangeAt(0).cloneRange() : null;
   // // As sanitization modifies the text (e.g replace all ' ' -> nbsp), we
@@ -272,41 +315,7 @@ export function Sanitize(body) {
   rows = body.getElementsByTagName("SONG-ROW");
   for (let i=0; i < rows.length; ++i) {
     if (isEmptyRow(rows[i]) && isEmptyRow(rows[i].previousSibling)) {
-      let songVerse = findAncestor(rows[i], "SONG-VERSE");
-      if (songVerse) {
-        let row=rows[i];
-        let newVerse = songVerse.cloneNode(false);
-        songVerse.id='';
-        setRandomId(songVerse);
-        songVerse.parentNode.insertBefore(newVerse, songVerse.nextSibling);
-        let newRows = document.createElement("SONG-ROWS");
-        newVerse.appendChild(newRows);
-        console.log(row, row.nextSibling);
-        let r=row.nextSibling;
-        if (r==null
-           && row.parentNode.parentNode.nodeName!='SONG-BIS') {
-          row.previousSibling.remove();
-          newRows.append(row);
-        } else {
-          while(r != null) {
-            let nr=r.nextSibling;
-            newRows.appendChild(r);
-            r=nr;
-          }
-          // If we are within BIS within middle of the verse,
-          // we need to move verse-level rows as well.
-          if (row.parentNode.parentNode.nodeName=='SONG-BIS') {
-            r = row.parentNode.parentNode.nextSibling;
-            while(r != null) {
-              let nr=r.nextSibling;
-              newRows.appendChild(r);
-              r=nr;
-            }
-          }
-          row.previousSibling.remove();
-          row.remove();
-        }
-      }
+      SplitVerseFromRow(rows[i]);
     }
   }
 
