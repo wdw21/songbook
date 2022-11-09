@@ -15,7 +15,7 @@ span.lyric span.ch {
   hyphens: none;
 }
 
-span.lyric span.akord {
+span.lyric span.chord {
   display: inline-block;
   position: relative;
   left: 0px;
@@ -27,7 +27,7 @@ span.lyric span.akord {
   hyphens: none;
 }
 
-span.lyric span.akord span.ch {
+span.lyric span.chord span.ch {
 
   width: 75px;
   overflow-wrap: normal;

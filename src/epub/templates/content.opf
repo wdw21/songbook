@@ -7,7 +7,7 @@
         <dc:creator id="editor">21. Warszawska Drużyna Wędrownicza</dc:creator>
         <dc:identifier id="db-id">wdw21-experimental-3rmds92</dc:identifier>
         <meta refines="#editor" property="role" scheme="marc:relators" id="role">edt</meta>
-        <meta property="dcterms:modified">2022-08-21T12:00:00Z</meta>
+        <meta property="dcterms:modified"></meta>
         <dc:language>pl</dc:language>
     </metadata>
 
@@ -17,15 +17,11 @@
         <item id="template_css" href="CSS/template.css" media-type="text/css"/>
         <item id="song_css" href="CSS/song.css" media-type="text/css"/>
 
-        <!--	    <item id="p1" href="p1.xhtml" media-type="application/xhtml+xml" />-->
-        <!--	    <item id="p2" href="p2.xhtml" media-type="application/xhtml+xml" />-->
-
     </manifest>
 
     <spine toc="ncx">
         <itemref idref="toc"/>
-        <!--	    <itemref idref="p1" />-->
-        <!--	    <itemref idref="p2" />-->
+
     </spine>
 
 </package>

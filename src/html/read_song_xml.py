@@ -141,12 +141,3 @@ def parse_song_xml(path):
     tree = etree.parse(path)
     song = Song.parseDOM(tree.getroot())
     return song
-
-# #test
-# def main():
-#     tree = etree.parse("../../songs/Amsterdam.xml")
-#     song = Song.parseDOM(tree.getroot())
-#     print(song.title)
-#
-# if __name__ == "__main__":
-#     main()

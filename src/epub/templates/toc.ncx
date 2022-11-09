@@ -9,15 +9,10 @@
     </head>
 
     <docTitle>
-        <text>Śpiewnik 21WDW Wersja: </text>
+        <text>Śpiewnik 21WDW Wersja:</text>
     </docTitle>
 
     <navMap>
-        <!--    <navPoint id="p1" playOrder="1">-->
-        <!--        <navLabel><text>Piosenka 1 bleble</text></navLabel>-->
-        <!--        <content src="p1.xhtml" />-->
-        <!--    </navPoint>-->
-
 
     </navMap>
 

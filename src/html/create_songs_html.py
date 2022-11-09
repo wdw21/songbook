@@ -7,8 +7,8 @@ import src.html.read_song_xml as rsx
 def _add_chunk(chunk, parent, position):
     """class chunk -> html span chunk"""
     span_chunk = etree.SubElement(parent, "span", attrib={"class": "chunk"})
-    akord = etree.SubElement(span_chunk, "span", attrib={"class": "akord"})
-    span_ch = etree.SubElement(akord, "span", attrib={"class": "ch"})
+    chord = etree.SubElement(span_chunk, "span", attrib={"class": "chord"})
+    span_ch = etree.SubElement(chord, "span", attrib={"class": "ch"})
     span_ch.text = chunk.chord
     span_content = etree.SubElement(span_chunk, "span", attrib={"class": "content"})
     if position == 0:
@@ -180,13 +180,3 @@ def create_all_songs_html(list_of_songs, path_in, path_out):
     list_of_songs = create_list_of_songs(list_of_songs)
     for song in list_of_songs:
         xml2html(os.path.join(path_in, song + '.xml'), os.path.join(path_out, song + '.html'))
-
-# to test
-# def main():
-#     xml2html("Amsterdam")
-#     path = os.path.join("..", "..", "songs")
-#     path_out = os.path.join("..", "..", "songs_html")
-#     create_all_songs_html(create_list_of_songs(path), path, path_out)
-#
-# if __name__ == "__main__":
-#     main()
