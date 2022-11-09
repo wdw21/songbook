@@ -1,0 +1,94 @@
+name: Generate Songbook Artifacts
+run-name: ${{ github.actor }} is generating artifacts
+on:
+  workflow_dispatch:
+    inputs:
+      epub:
+        description: 'Generate epub'
+        required: false
+        type: boolean
+        default: true
+      pdf:
+        description: 'Generate pdf'
+        required: false
+        type: boolean
+        default: true
+      html:
+        description: 'Generate htmls'
+        required: false
+        type: boolean
+        default: true
+      release:
+        description: 'Create release'
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  Generate-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "release_name=$(date +'%Y-%m-%dT%H_%M_%S')" >> $GITHUB_ENV
+      - run: echo "Generating a songbook PDF triggered by ${{ github.event_name }} release:${{ env.release_name }}"
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip' # caching pip dependencies
+      - run: sudo apt-get install python3-lxml
+      - run: pip3 install -r ${{ github.workspace }}/requirements.txt
+      - run: pip install lxml
+
+      - if: ${{ inputs.pdf }}
+        run: sudo apt-get install texlive texlive-latex-extra texlive-lang-polish
+      - if: ${{ inputs.pdf }}
+        run: cd  ${{ github.workspace }} && chmod 755 ./render_pdf.sh && ./render_pdf.sh songbook a5 "Śpiewnik $(date +'%Y-%m-%d')" songs/*.xml
+      - if: ${{ inputs.pdf }}
+        run: mv ${{ github.workspace }}/build/output.pdf ${{ github.workspace }}/build/songbook_${{ env.release_name }}_a5.pdf
+      - if: ${{ inputs.pdf }}
+        run: cd  ${{ github.workspace }} && ./render_pdf.sh songbook a4 "Śpiewnik $(date +'%Y-%m-%d')" songs/*.xml
+      - if: ${{ inputs.pdf }}
+        run: mv ${{ github.workspace }}/build/output.pdf ${{ github.workspace }}/build/songbook_${{ env.release_name }}_a4.pdf
+      - name: Upload PDFs
+        if: ${{ inputs.pdf }}
+        uses: actions/upload-artifact@v3
+        with:
+         name: songbooks
+         path: ${{ github.workspace }}/build/*.pdf
+
+      - name: Create Release
+        id: create_release
+        if: ${{ inputs.release }}
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ env.release_name }}
+          draft: true
+          prerelease: true
+      - name: Upload PDF_A4 to release
+        if: ${{ inputs.pdf && inputs.release }}
+        id: upload-release-asset_pdf_a4
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: ${{ github.workspace }}/build/songbook_${{ env.release_name }}_a4.pdf
+          asset_name: songbook_${{ env.release_name }}_a4.pdf
+          asset_content_type: application/pdf
+      - name: Upload PDF_A5 to release
+        if: ${{ inputs.pdf && inputs.release }}
+        id: upload-release-asset_pdf_a5
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ github.workspace }}/build/songbook_${{ env.release_name }}_a5.pdf
+          asset_name: songbook_${{ env.release_name }}_a5.pdf
+          asset_content_type: application/pdf
+
+      - run: echo "DONE"
