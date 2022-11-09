@@ -40,11 +40,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Generating a songbook PDF triggered by ${{ github.event_name }}"
+      - name: Check out repository code
+        uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
           python-version: '3.9'
           cache: 'pip' # caching pip dependencies
-      - name: Check out repository code
-        uses: actions/checkout@v3
+      - run: apt-get install latex
       - run: pip install -r ${{ github.workspace }}/requirements.txt
       - run: echo "DONE"
