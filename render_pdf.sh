@@ -25,7 +25,7 @@ tex_file=${__dir}/build/output.tex
 
 sed "s/:title:/${title}/" ${__dir}/src/formats/${format}_${papersize}_p.tex > ${tex_file}
 for song in ${@:4}; do
-    python ${__dir}/src/song2tex.py $song >> ${tex_file}
+    python3 ${__dir}/src/song2tex.py $song >> ${tex_file}
 done
 cat ${__dir}/src/formats/${format}_${papersize}_s.tex >> ${tex_file}
 

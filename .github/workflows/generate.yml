@@ -51,4 +51,8 @@ jobs:
       - run: sudo apt-get install python3-lxml
       - run: sudo apt-get install texlive
       - run: pip install -r ${{ github.workspace }}/requirements.txt
+      - run: cd  ${{ github.workspace }} && ./render_pdf.sh songbook a5 "Śpiewnik $(date +'%Y-%m-%d')" songs/*.xml
+      - run: mv ${{ github.workspace }}/build/output.pdf ${{ github.workspace }}/build/songbook_a5.pdf'
+      - run: cd  ${{ github.workspace }} && ./render_pdf.sh songbook a4 "Śpiewnik $(date +'%Y-%m-%d')" songs/*.xml
+      - run: mv ${{ github.workspace }}/build/output.pdf ${{ github.workspace }}/build/songbook_a4.pdf
       - run: echo "DONE"
