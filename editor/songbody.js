@@ -95,14 +95,17 @@ export default class SongBody extends HTMLElement {
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 <div class="toolbar">
     <div class="formatting">Formatowanie:
-      <button id="buttonBis">BIS</button><i id="help-bis-icon" class="material-icons">help</i>
+      <button id="buttonChord"><i class="material-icons">format_overline</i>Wstaw akord</button>
+      <button id="buttonSplit"><i class="material-icons">insert_page_break</i>Podziel zwrotkę</button>
+      <button id="buttonBis"><i class="material-icons">repeat_on</i>BIS</button><i id="help-bis-icon" class="material-icons">help</i>
       <div id="help-bis" class="help">Zaznaczone wiersze będą powtarzane. Ustaw licznik na 1 by wyłączyć.</div>
-      <button id="importantOver">Kluczowe akordy</button><i id="help-io-icon" class="material-icons">help</i>
+      <button id="importantOver"><i class="material-icons">assignment_late</i>Kluczowe akordy</button><i id="help-io-icon" class="material-icons">help</i>
       <div id="help-io" class="help">Oznacz wersy w których jest ważne by akordy pojawiały się nad tekstem.</div>
-      <button id="buttonInstr">Wers instrumentalny</button><i id="help-instr-icon" class="material-icons">help</i>
+      <button id="buttonInstr"><i class="material-icons">music_note</i>Wers instrumentalny</button><i id="help-instr-icon" class="material-icons">help</i>
       <div id="help-instr" class="help">Wers zawierający tylko akordy. Odzielaj je spacjami.</div>
-      <button id="buttonChord">Wstaw akord</button>
-      <button id="buttonSplit">Podziel zwrotkę</button>
+      
+      <button id="buttonUndo"><i class="material-icons">undo</i>Confij</button>
+      <button id="buttonRedo"><i class="material-icons">redo</i>Ponów</button>
     </div>    
 </div>
 <div class="songbody" id="songbody"><slot/></div>`;
@@ -125,6 +128,11 @@ export default class SongBody extends HTMLElement {
     this.buttonChord=shadow.getElementById("buttonChord");
     this.buttonSplit=shadow.getElementById("buttonSplit");
 
+    this.buttonUndo=shadow.getElementById("buttonUndo");
+    this.buttonRedo=shadow.getElementById("buttonRedo");
+    this.buttonUndo.addEventListener("click", (e) => this.doUndo());
+    this.buttonRedo.addEventListener("click", (e) => this.doRedo());
+
     this.buttonBis.addEventListener("click", (e) => this.wrapBis());
     this.importantOver.addEventListener("click", (e) => { this.markImportantOver(); this.refreshToolbar(); });
     this.buttonInstr.addEventListener("click", (e) =>  { this.toggleInstrumental(); this.refreshToolbar(); });
@@ -137,6 +145,13 @@ export default class SongBody extends HTMLElement {
     this.initHelp("help-bis");
     this.initHelp("help-io");
     this.initHelp("help-instr");
+
+    this.reset();
+  }
+
+  reset() {
+    this.undo=[];
+    this.redo=[];
   }
 
   initHelp(id) {
@@ -150,14 +165,14 @@ export default class SongBody extends HTMLElement {
 
   refreshToolbar() {
     if (this.allSelectedImportant()) {
-      this.importantOver.innerText='Mało ważne akordy';
+      this.importantOver.innerHTML='<i class="material-icons">assignment_late</i>Mało ważne akordy';  //priority_high ?
     } else {
-      this.importantOver.innerText='Kluczowe akordy';
+      this.importantOver.innerHTML='<i class="material-icons">assignment_late</i>Kluczowe akordy'; //low_priority ?
     }
     if (this.allSelectedInstrumental()) {
-      this.buttonInstr.innerText='Wers liryczny';
+      this.buttonInstr.innerHTML='<i class="material-icons">lyrics</i>Wers liryczny';
     } else {
-      this.buttonInstr.innerText='Wers instrumentalny';
+      this.buttonInstr.innerHTML='<i class="material-icons">music_note</i>Wers instrumentalny';
     }
     this.buttonBis.disabled = document.getSelection().rangeCount==0;
   }
@@ -275,7 +290,7 @@ export default class SongBody extends HTMLElement {
       }
     }
     console.log(this);
-    songbody.changePostprocess();
+    this.changePostprocess();
   }
 
   selectAll() {
@@ -582,12 +597,47 @@ export default class SongBody extends HTMLElement {
         songbody.changePostprocess();
       }
     }
+
+    if (e.inputType == "historyUndo"
+        && e.target == songbody) {
+      songbody.doUndo();
+      e.preventDefault();
+    }
+
+    if (e.inputType == "historyRedo"
+        && e.target == songbody) {
+      songbody.doRedo();
+      e.preventDefault();
+    }
+
+  }
+
+  doUndo() {
+    const last = this.undo.pop();
+    this.redo.push(last);
+
+    if (this.undo.length > 0) {
+      const cn = this.undo[this.undo.length - 1].cloneNode(true).childNodes;
+      this.textContent='';
+      this.append(...cn);
+    }
+  }
+
+  doRedo() {
+    const redo = this.redo.pop();
+    this.undo.push(redo);
+
+    const cn = redo.cloneNode(true).childNodes;
+    this.textContent='';
+    this.append(...cn);
   }
 
   changePostprocess() {
     console.log("postprocessing");
     Sanitize(this);
     this.recomputeChordsOffsets();
+    this.undo.push(this.cloneNode(true));
+    console.log("Postprocessed. Undo len: ", this.undo.length);
   }
 
   recomputeChordsOffsets() {

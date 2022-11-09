@@ -269,6 +269,7 @@ export class SongEditor extends HTMLElement {
     tmp.appendChild(z[0]);
     Sanitize(tmp);
     this.appendChild(tmp.childNodes[0]);
+    this.body().changePostprocess();
 
     let song=xmlDoc.getElementsByTagName("song")[0];
 
