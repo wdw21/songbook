@@ -38,19 +38,27 @@ jobs:
       - run: pip3 install -r ${{ github.workspace }}/requirements.txt
       - run: pip install lxml
 
-      - run: sudo apt-get install texlive texlive-latex-extra texlive-lang-polish
-      - run: cd  ${{ github.workspace }} && chmod 755 ./render_pdf.sh && ./render_pdf.sh songbook a5 "Śpiewnik $(date +'%Y-%m-%d')" songs/*.xml
-      - run: mv ${{ github.workspace }}/build/output.pdf ${{ github.workspace }}/build/songbook_a5.pdf
-      - run: cd  ${{ github.workspace }} && ./render_pdf.sh songbook a4 "Śpiewnik $(date +'%Y-%m-%d')" songs/*.xml
-      - run: mv ${{ github.workspace }}/build/output.pdf ${{ github.workspace }}/build/songbook_a4.pdf
+      - if: ${{ inputs.pdf }}
+        run: sudo apt-get install texlive texlive-latex-extra texlive-lang-polish
+      - if: ${{ inputs.pdf }}
+        run: cd  ${{ github.workspace }} && chmod 755 ./render_pdf.sh && ./render_pdf.sh songbook a5 "Śpiewnik $(date +'%Y-%m-%d')" songs/*.xml
+      - if: ${{ inputs.pdf }}
+        run: mv ${{ github.workspace }}/build/output.pdf ${{ github.workspace }}/build/songbook_a5.pdf
+      - if: ${{ inputs.pdf }}
+        run: cd  ${{ github.workspace }} && ./render_pdf.sh songbook a4 "Śpiewnik $(date +'%Y-%m-%d')" songs/*.xml
+      - if: ${{ inputs.pdf }}
+        run: mv ${{ github.workspace }}/build/output.pdf ${{ github.workspace }}/build/songbook_a4.pdf
       - name: Upload A4 PDF
+        if: ${{ inputs.pdf }}
         uses: actions/upload-artifact@v3
         with:
          name: songbook_a4
          path: ${{ github.workspace }}/build/songbook_a4.pdf
       - name: Upload A5 PDF
+        if: ${{ inputs.pdf }}
         uses: actions/upload-artifact@v3
         with:
           name: songbook_a5
           path: ${{ github.workspace }}/build/songbook_a5.pdf
+
       - run: echo "DONE"
