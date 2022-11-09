@@ -22,21 +22,7 @@ on:
     branches:
       - 'main'
 jobs:
-  Explore-GitHub-Actions:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
-        uses: actions/checkout@v3
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
-  Generate-pdf:
+  Generate-artifacts:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Generating a songbook PDF triggered by ${{ github.event_name }}"
@@ -51,8 +37,8 @@ jobs:
       - run: sudo apt-get install python3-lxml
       - run: pip3 install -r ${{ github.workspace }}/requirements.txt
       - run: pip install lxml
-        
-      - run: sudo apt-get install texlive texlive-latex-extra
+
+      - run: sudo apt-get install texlive texlive-latex-extra texlive-lang-polish
       - run: cd  ${{ github.workspace }} && chmod 755 ./render_pdf.sh && ./render_pdf.sh songbook a5 "Śpiewnik $(date +'%Y-%m-%d')" songs/*.xml
       - run: mv ${{ github.workspace }}/build/output.pdf ${{ github.workspace }}/build/songbook_a5.pdf'
       - run: cd  ${{ github.workspace }} && ./render_pdf.sh songbook a4 "Śpiewnik $(date +'%Y-%m-%d')" songs/*.xml
