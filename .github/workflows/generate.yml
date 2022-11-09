@@ -46,6 +46,6 @@ jobs:
         with:
           python-version: '3.9'
           cache: 'pip' # caching pip dependencies
-      - run: apt-get install latex
+      - run: sudo apt-get install latex
       - run: pip install -r ${{ github.workspace }}/requirements.txt
       - run: echo "DONE"
