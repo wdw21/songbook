@@ -19,6 +19,7 @@
       const songEditor = document.getElementsByTagName("song-editor")[0];
       songEditor.setAttribute("git", branch && branch.trim() != '');
       if (loadUrl) {
+        songEditor.setAttribute("title", "Wczytywanie ...");
         fetch(loadUrl, {credentials: 'include', method: 'GET', redirect: 'follow'})
             .then((response) => response.text())
             .then((txt) => {
