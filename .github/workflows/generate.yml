@@ -38,8 +38,8 @@ jobs:
         with:
           python-version: '3.9'
           cache: 'pip' # caching pip dependencies
-      - run: sudo snap install libxslt
-      - run: sudo apt-get install libxml2
+#      - run: sudo snap install libxslt
+#      - run: sudo apt-get install libxml2
       - run: sudo apt-get install python3-lxml
       - run: pip3 install -r ${{ github.workspace }}/requirements.txt
       - run: pip install lxml
@@ -63,7 +63,7 @@ jobs:
 
       - name: Create Release
         id: create_release
-        if: ${{ inputs.create_release }}
+        if: ${{ inputs.release }}
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -73,7 +73,7 @@ jobs:
           draft: true
           prerelease: true
       - name: Upload PDF_A4 to release
-        if: ${{ inputs.pdf }} && ${{ inputs.create_release }}
+        if: ${{ inputs.pdf && inputs.release }}
         id: upload-release-asset_pdf_a4
         uses: actions/upload-release-asset@v1
         env:
