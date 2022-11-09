@@ -36,3 +36,15 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+  Generate pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Generating a songbook PDF triggered by ${{ github.event_name }}"
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip' # caching pip dependencies
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: pip install -r ${{ github.workspace }}/requirements.txt
+      - run: echo "DONE"
