@@ -28,7 +28,7 @@ export class SongEditor extends HTMLElement {
   <button id="buttonNew">Nowy</button>
   <input style="display: none"  id="open" type="file" accept=".xml"/>
   <input type="button" id="openCustom" value="Importuj plik"/>  
-  <button id="buttonSave">Exportuj plik</button>
+  <button id="buttonSave">Eksportuj plik</button>
 </div>
 
 <div class="gitToolbar">

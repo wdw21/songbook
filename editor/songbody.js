@@ -1,6 +1,6 @@
 import {findAncestor, getRangeForCursor,nbsp,removeAllChildren,mergeNodeAfter,setCursorBefore} from './utils.js';
 import {createChord} from './ch.js'
-import {Sanitize} from './sanitize.js'
+import {Sanitize, SplitVerseFromRow} from './sanitize.js'
 
 function acceptsTextAndChords(element) {
   return element.nodeName=="SONG-ROW" && element.getAttribute("type")!=='instr';
@@ -101,6 +101,8 @@ export default class SongBody extends HTMLElement {
       <div id="help-io" class="help">Oznacz wersy w których jest ważne by akordy pojawiały się nad tekstem.</div>
       <button id="buttonInstr">Wers instrumentalny</button><i id="help-instr-icon" class="material-icons">help</i>
       <div id="help-instr" class="help">Wers zawierający tylko akordy. Odzielaj je spacjami.</div>
+      <button id="buttonChord">Wstaw akord</button>
+      <button id="buttonSplit">Podziel zwrotkę</button>
     </div>    
 </div>
 <div class="songbody" id="songbody"><slot/></div>`;
@@ -120,10 +122,14 @@ export default class SongBody extends HTMLElement {
     this.buttonBis=shadow.getElementById("buttonBis");
     this.importantOver=shadow.getElementById("importantOver");
     this.buttonInstr=shadow.getElementById("buttonInstr");
+    this.buttonChord=shadow.getElementById("buttonChord");
+    this.buttonSplit=shadow.getElementById("buttonSplit");
 
     this.buttonBis.addEventListener("click", (e) => this.wrapBis());
     this.importantOver.addEventListener("click", (e) => { this.markImportantOver(); this.refreshToolbar(); });
     this.buttonInstr.addEventListener("click", (e) =>  { this.toggleInstrumental(); this.refreshToolbar(); });
+    this.buttonChord.addEventListener("click", (e) =>  { insertChordHere(""); this.refreshToolbar(); });
+    this.buttonSplit.addEventListener("click", (e) =>  { this.splitVerse(); this.refreshToolbar(); });
 
     document.addEventListener('selectionchange', (event) => { this.refreshToolbar(); });
 
@@ -248,6 +254,13 @@ export default class SongBody extends HTMLElement {
     let selRows = this.selectedRows();
     for (let i = 0; i < selRows.length; ++i) {
       selRows[i].setAttribute("important_over", !allImportant);
+    }
+  }
+
+  splitVerse() {
+    let selRows = this.selectedRows();
+    if (selRows.length > 0) {
+      SplitVerseFromRow(selRows[selRows.length - 1]);
     }
   }
 
