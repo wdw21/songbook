@@ -23,9 +23,7 @@ on:
         required: false
         type: boolean
         default: true
-#  push:
-#    branches:
-#      - 'main'
+
 jobs:
   Generate-artifacts:
     runs-on: ubuntu-latest
@@ -38,8 +36,6 @@ jobs:
         with:
           python-version: '3.9'
           cache: 'pip' # caching pip dependencies
-#      - run: sudo snap install libxslt
-#      - run: sudo apt-get install libxml2
       - run: sudo apt-get install python3-lxml
       - run: pip3 install -r ${{ github.workspace }}/requirements.txt
       - run: pip install lxml
@@ -82,6 +78,17 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           asset_path: ${{ github.workspace }}/build/songbook_${{ env.release_name }}_a4.pdf
           asset_name: songbook_${{ env.release_name }}_a4.pdf
+          asset_content_type: application/pdf
+      - name: Upload PDF_A5 to release
+        if: ${{ inputs.pdf && inputs.release }}
+        id: upload-release-asset_pdf_a5
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ github.workspace }}/build/songbook_${{ env.release_name }}_a5.pdf
+          asset_name: songbook_${{ env.release_name }}_a5.pdf
           asset_content_type: application/pdf
 
       - run: echo "DONE"
