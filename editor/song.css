@@ -2,18 +2,13 @@ h1 {
   text-align: left
 }
 
-div.row {
-/*  white-space: pre; /* consider turning off
-   adding-left: 0.3em;*/
-}
-
-
 song-verse {
   top-margin: 10em;
 }
 
 song-row {
   display: block;
+  font-size: large;
 }
 
 song-row[type="instr"] {

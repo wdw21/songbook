@@ -3,7 +3,6 @@ import util from "util";
 
 const SONGEDITOR_BRANCH_REGEXP=/^se-.*/g;
 
-import {RequestError} from "@octokit/request-error";
 
 export async function listChanges(req, res) {
     try {
@@ -162,7 +161,6 @@ export async function listChanges(req, res) {
             }
         }
 
-        // <pre>${util.inspect(diff, false, null, false)}</pre>
         res.write(`
     </table>
 

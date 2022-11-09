@@ -3,14 +3,14 @@ span.cho {
   position: relative;
   left: 0px;
   width:0px;
-  top: -1.4em;
+  top: -1.3em;
   margin-top: 1.5em;
   overflow-wrap: normal;
   hyphens: none;
 }
 
 :host-context(song-row[important_over="true"]) span.cho {
-  top: -1.7em;
+  top: -1.6em;
   width: revert;
 }
 
@@ -34,7 +34,7 @@ span.cho span.ch {
   width: fit-content;
   overflow-wrap: normal;
   font-weight: lighter;
-  background: white;
+  background: rgba(255,255,255,0.5);;
   white-space:nowrap;
   font-family: Arial;
 }
@@ -42,7 +42,7 @@ span.cho span.ch {
 
 :host-context(song-row[important_over="true"]) span.cho span.ch {
   font-weight: bold;
-  font-size: small;
+  font-size: x-small;
 }
 
 

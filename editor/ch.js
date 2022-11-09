@@ -1,3 +1,5 @@
+import {findAncestor, nbsp} from "./utils.js";
+
 const predefinedChords = ["A", "A2", "A4", "A7", "A7+", "A7/4", "A7/6", "Ais",
   "B", "C", "C0", "C7", "C7+", "C9", "C9/5", "Cis", "Cis0", "D", "D2", "D4",
   "D7", "D7+", "Dis", "E", "E0", "E5+", "E7", "E7/4", "F", "F0", "F7", "F7+",
@@ -30,10 +32,12 @@ export default class SongCh extends HTMLElement {
     };
     this.che.onblur = (event) => {
       let storedParent = this.parentNode;
+      const nextSibling = this.nextSibling;
       this.setAttribute("editing", "false");
       this.updateEditing();
 
-      this.selectParent(storedParent);
+      this.select(storedParent, nextSibling);
+      //this.selectParent(storedParent);
     }
     this.ch.onmousedown = (event) => {
       // We need to prevent the parent to catch the double click
@@ -50,9 +54,9 @@ export default class SongCh extends HTMLElement {
     }
 
     this.cho.ondragend = (event) => {
-      console.log("dragend", event);
+      console.log("dragend", event.dataTransfer.dropEffect, event);
       event.target.opacity = '1.0';
-      if (this.getSongBody().dropped && event.dataTransfer.dropEffect == 'move') {
+      if (/*this.getSongBody().dropped &&*/ event.dataTransfer.dropEffect == 'move') {
         this.remove();
       }
     }
@@ -80,19 +84,44 @@ export default class SongCh extends HTMLElement {
     return this.getAttribute("editing")==="true";
   }
 
-  selectParent(storedParent) {
-    console.log(storedParent);
-    storedParent.focus();
+  select(row, toSelect) {
+    row.focus();
     let r = document.createRange();
-    if (this.nextSibling==null) {
+    if (!toSelect) {
       let t=document.createTextNode(nbsp);
-      storedParent.appendChild(t);
+      row.appendChild(t);
       r.selectNodeContents(t);
     } else {
-      r.setStartAfter(this);
+      r.setStartBefore(toSelect);
     }
     document.getSelection().removeAllRanges();
     document.getSelection().addRange(r);
+  }
+
+  selectParent(storedParent) {
+    this.select(storedParent, this.nextSibling);
+  }
+
+  connectedCallback() {
+    const songBody = findAncestor(this, "SONG-BODY");
+    new ResizeObserver(() => songBody.recomputeChordsOffsets()).observe(this.ch);
+  }
+
+  recomputeOffset() {
+    if (this.offset) {
+      return this.offset;
+    }
+    if (this.previousSibling && this.previousSibling.nodeName==='SONG-CH') {
+      this.offset = this.previousSibling.recomputeOffset() + this.previousSibling.ch.getBoundingClientRect().width + 1;
+    } else {
+      this.offset = 0;
+    }
+    this.cho.style.left = this.offset + "px";
+    return this.offset;
+  }
+
+  resetOffset() {
+    this.offset=null;
   }
 
   updateEditing() {

@@ -6,9 +6,31 @@ function acceptsTextAndChords(element) {
   return element.nodeName=="SONG-ROW" && element.getAttribute("type")!=='instr';
 }
 
+function getChordSelected() {
+  if (window.getSelection().rangeCount < 1) {return false; }
+  let r = window.getSelection().getRangeAt(0);
+  if (r.collapse
+      && (r.startOffset < r.startContainer.childNodes.length)
+      && r.startContainer.childNodes[r.startOffset].nodeName === 'SONG-CH') {
+    return r.startContainer.childNodes[r.startOffset];
+  }
+  return null;
+}
+
+function isChordSelected() {
+  return getChordSelected() != null;
+}
+
 function canInsertChord() {
   if (window.getSelection().rangeCount < 1) {return false; }
   let r = window.getSelection().getRangeAt(0);
+  if (r.startContainer.nodeName == '#text'
+      && acceptsTextAndChords(r.startContainer.parentNode)) {
+    return true;
+  }
+  if (isChordSelected()) {
+    return true;
+  }
   let x =
       //acceptsTextAndChords(r.startContainer);
       (r.startContainer.nodeName == '#text'
@@ -134,7 +156,7 @@ export default class SongBody extends HTMLElement {
     this.buttonBis.disabled = document.getSelection().rangeCount==0;
   }
 
-  focusout(e, songbook) {
+  focusout(e, songbody) {
     console.log("focusout", e);
     if (e.target.nodeName==='SONG-BIS'
         && (e.target.getAttribute("x").trim()==="1"
@@ -142,7 +164,7 @@ export default class SongBody extends HTMLElement {
             || e.target.getAttribute("x").trim()==="0")) {
       flattenBis(e.target);
     }
-    Sanitize(songbook);
+    songbody.changePostprocess();
   }
 
   connectedCallback() {
@@ -240,7 +262,7 @@ export default class SongBody extends HTMLElement {
       }
     }
     console.log(this);
-    Sanitize(findAncestor(this, "SONG-BODY"));
+    songbody.changePostprocess();
   }
 
   selectAll() {
@@ -290,7 +312,7 @@ export default class SongBody extends HTMLElement {
   }
 
   keyDown(e,songBook) {
-    //console.log("keydown...",e, document.getSelection());
+    console.log("keydown...",e, document.getSelection());
     if (e.key == '`' && canInsertChord()) {
       if (insertChordHere("")) {
         e.preventDefault();
@@ -308,6 +330,45 @@ export default class SongBody extends HTMLElement {
         }
       }
     }
+
+    if (e.key == 'ArrowRight'){
+      if (document.getSelection().isCollapsed
+          && document.getSelection().rangeCount == 1
+          && document.getSelection().type === 'Caret') {
+        let r = document.getSelection().getRangeAt(0);
+        if (r.collapsed && r.startContainer.nodeName==='#text' && r.startOffset >= r.startContainer.nodeValue.length
+            && r.startContainer.nextSibling.nodeName==='SONG-CH') {
+          let ch = r.startContainer.nextSibling;
+          while (ch && ch.nodeName==='SONG-CH') {
+            ch = ch.nextSibling;
+          }
+          if (ch) {
+            document.getSelection().collapse(ch);
+          }
+          e.preventDefault();
+        }
+      }
+    }
+
+    if (e.key == 'ArrowLeft'){
+      if (document.getSelection().isCollapsed
+          && document.getSelection().rangeCount == 1
+          && document.getSelection().type === 'Caret') {
+        let r = document.getSelection().getRangeAt(0);
+        if (r.collapsed && r.startContainer.nodeName==='#text' && r.startOffset == 0
+            && r.startContainer.previousSibling.nodeName==='SONG-CH') {
+          let ch = r.startContainer.previousSibling;
+          while (ch && ch.nodeName==='SONG-CH') {
+            ch = ch.previousSibling;
+          }
+          if (ch) {
+            document.getSelection().collapse(ch, ch.nodeValue.length);
+          }
+          e.preventDefault();
+        }
+      }
+    }
+
     if (e.key == 'b'  && e.metaKey) {
       songBook.wrapBis();
       e.preventDefault();
@@ -335,12 +396,19 @@ export default class SongBody extends HTMLElement {
     let d = e.dataTransfer.getData("songbook/chord");
     if (d != null && d != "") {
       let range = getRangeForCursor(e)
+      console.log('RANGE for DROP', range);
       if (acceptsTextAndChords(range.commonAncestorContainer.parentNode)) {
         range.insertNode(createChord(d));
         songbody.dropped = true;
+      } else if (isChordSelected()) {
+        const selectedChord = getChordSelected();
+        selectedChord.parentNode.insertBefore(createChord(d), selectedChord.nextSibling);
+        songbody.dropped = true;
+      } else {
+        console.log('Drop refused', e);
       }
       e.preventDefault();
-      Sanitize(songbody);
+      songbody.changePostprocess();
       return;
     }
 
@@ -358,7 +426,7 @@ export default class SongBody extends HTMLElement {
       let span = document.createElement("span");
       span.innerHTML=d;
       range.insertNode(span);
-      Sanitize(songbody);
+      songbody.changePostprocess();
       e.preventDefault();
 
       return;
@@ -367,7 +435,7 @@ export default class SongBody extends HTMLElement {
   }
 
   beforeInput(e, songbody) {
-    //console.log("beforeInput", e);
+    console.log("beforeInput", e);
     if (e.inputType == "deleteContentBackward"
        && e.target == songbody) {
       if (document.getSelection().rangeCount == 1
@@ -488,7 +556,7 @@ export default class SongBody extends HTMLElement {
           start.remove();
         }
         e.preventDefault();
-        Sanitize(songbody);
+        songbody.changePostprocess();
         return;
       }
     }
@@ -498,15 +566,31 @@ export default class SongBody extends HTMLElement {
       let r = document.getSelection().getRangeAt(0);
       if (r.commonAncestorContainer.nodeName === 'SONG-ROWS') {
         r.deleteContents();
+        songbody.changePostprocess();
       }
-      Sanitize(songbody);
+    }
+  }
+
+  changePostprocess() {
+    console.log("postprocessing");
+    Sanitize(this);
+    this.recomputeChordsOffsets();
+  }
+
+  recomputeChordsOffsets() {
+    const chords = this.getElementsByTagName("SONG-CH");
+    for (let ch of chords) {
+      ch.resetOffset();
+    }
+    for (let ch of chords) {
+      ch.recomputeOffset();
     }
   }
 
   input(e, songbody) {
-//     console.log("Oninput", e);
+    console.log("input", e);
      if (e.target == songbody) {
-       Sanitize(songbody);
+       songbody.changePostprocess();
 //    Avoid keeping cursor before the artifical space:
        if (document.getSelection().isCollapsed
            && document.getSelection().rangeCount == 1) {
@@ -536,7 +620,7 @@ export default class SongBody extends HTMLElement {
       getSelection().getRangeAt(0).deleteContents();
       getSelection().getRangeAt(0).insertNode(p);
       e.preventDefault();
-      Sanitize(songbody);
+      songbody.changePostprocess();
     }
   }
 

@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <script type="module" src="./songbook.js"></script>
   <link rel="stylesheet" href="./song.css"/>
+  <link rel="stylesheet" href="./ch.css"/>
+  <link rel="icon" type="image/png" href="./favicon.png" />
   <script>
     function init() {
       const urlParams = new URLSearchParams(window.location.search);
@@ -27,6 +29,8 @@
                 commit();
               }
             })
+      } else {
+        songEditor.New();
       }
       songEditor.addEventListener("git:commit", async (e) => {
         const success = await commit(e);
@@ -75,7 +79,7 @@
     }
 
     async function commit(e) {
-      const {serialized,changed} = e.target.SerializeWithChange();//document.getElementsByTagName("song-editor")[0].Serialize();
+      const {serialized,changed, title} = e.target.SerializeWithChange();//document.getElementsByTagName("song-editor")[0].Serialize();
 
       if (!changed) {
         notice("Brak nowych zmian", e.target);
@@ -86,10 +90,11 @@
 
       console.log(serialized);
       if (branch) {
-        const msg = prompt("Wprowadź, proszę, krótki opis ostatnich zmian", "Poprawiono...");
+        const msg = prompt("Wprowadź, proszę, krótki opis ostatnich zmian", `...`);
         if (!msg) {
           return false;
         }
+        msg = `Piosenka ${title}: ` + msg;
         try {
           const config = {
             method: 'POST',
