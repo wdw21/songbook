@@ -15,13 +15,11 @@ class SongMeta:
         self.alias = alias if alias else ''
         self.plik = plik
 
-    # def __repr__(self):
-    #     return "(%s, alias: %s, plik: %s)" % (self.title, self.alias, self.plik)
-
     @staticmethod
     def parseDOM(root, plik):
         def elementTextOrNone(elem):
             return elem.text if elem is not None else None
+
         return SongMeta(
             title=root.get('title'),
             alias=elementTextOrNone(root.find('{*}alias')),
@@ -30,7 +28,7 @@ class SongMeta:
 
 
 def add_song(path, lista):
-    tree = etree.parse("../../songs/" + path + ".xml")
+    tree = etree.parse(path + ".xml")
     plik = path + ".xml"
     song = SongMeta.parseDOM(tree.getroot(), plik)
     lista.append(song)
@@ -40,11 +38,15 @@ def list_of_song(path_out):
     songs_list = os.listdir(path_out)
     list_od_meta = []
     for song in songs_list:
-        if song[-5:] == '.html':
-            path = song[0:-5]
+        if os.path.splitext(song)[1] == '.html':
+            path = "../../songs/" + os.path.splitext(song)[0]
             add_song(path, list_od_meta)
     list_od_meta.sort(key=lambda x: x.title)
     return list_od_meta
+
+
+def actual_date():
+    return str(datetime.now().strftime("%d/%m/%Y %H:%M"))
 
 
 def create_content_opf(list_of_songs_meta, target_dir):
@@ -54,13 +56,13 @@ def create_content_opf(list_of_songs_meta, target_dir):
     root = tree.getroot()
     metadata = root.getchildren()[0]
     title = metadata.getchildren()[0]
-    title.text += str(datetime.now().strftime("%d/%m/%Y %H:%M"))
+    title.text += actual_date()
     manifest = root.getchildren()[1]
     spine = root.getchildren()[2]
     for i in range(len(list_of_songs_meta)):
         x = etree.SubElement(manifest, "item")
         x.attrib['id'] = 'p' + str(i + 1)
-        x.attrib['href'] = list_of_songs_meta[i].plik[:-4] + '.html'
+        x.attrib['href'] = os.path.splitext(list_of_songs_meta[i].plik)[0] + '.html'
         x.attrib['media-type'] = "application/xhtml+xml"
         etree.SubElement(spine, "itemref").attrib['idref'] = 'p' + str(i + 1)
     et = etree.ElementTree(root)
@@ -74,7 +76,7 @@ def create_toc_ncx(list_of_songs_meta, target_dir):
     root = tree.getroot()
     doctitle = root.getchildren()[1]
     text1 = doctitle.getchildren()[0]
-    text1.text += str(datetime.now().strftime("%d/%m/%Y %H:%M"))
+    text1.text += actual_date()
     navmap = root.getchildren()[2]
     for i in range(len(list_of_songs_meta)):
         navpoint = etree.SubElement(navmap, "navPoint")
@@ -84,7 +86,7 @@ def create_toc_ncx(list_of_songs_meta, target_dir):
         text = etree.SubElement(navlabel, "text")
         text.text = list_of_songs_meta[i].title
         content = etree.SubElement(navpoint, "content")
-        content.attrib['src'] = list_of_songs_meta[i].plik[:-4] + '.html'
+        content.attrib['src'] = os.path.splitext(list_of_songs_meta[i].plik)[0] + '.html'
     et = etree.ElementTree(root)
     et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
 
@@ -100,7 +102,7 @@ def create_toc_xhtml(list_of_songs_meta, target_dir):
     for i in range(len(list_of_songs_meta)):
         li = etree.SubElement(ol, "li")
         a = etree.SubElement(li, "a")
-        a.attrib['href'] = list_of_songs_meta[i].plik[:-4] + '.html'
+        a.attrib['href'] = os.path.splitext(list_of_songs_meta[i].plik)[0] + '.html'
         a.text = list_of_songs_meta[i].title
     et = etree.ElementTree(root)
     et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
