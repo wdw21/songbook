@@ -3,14 +3,39 @@ import util from "util";
 
 const SONGEDITOR_BRANCH_REGEXP=/^se-.*/g;
 
-
-export async function listChanges(req, res) {
-    try {
-        const {octokit, user, mygraphql} = await newUserOctokit(req, res);
-        if (!octokit) {
-            return;
+export async function cleanupChanges(req, res) {
+    const {refs, diffs, user} = await getRefs(req, res);
+    // Let's delete empty & merged branches.
+    for (let i = 0; i < refs.length; ++i) {
+        let branch = refs[i];
+        if (branch.name.match(SONGEDITOR_BRANCH_REGEXP)) {
+            const diff = await diffs.get(branch.name);
+            if (diff.data.files.length === 0) {
+                octokit.rest.git.deleteRef({owner: user, repo: 'songbook', "ref": "heads/" + branch.name}).then();
+                continue;
+            }
+            if (branch.associatedPullRequests.edges.length > 0) {
+                let merged = true;
+                for (const edge of branch.associatedPullRequests.edges) {
+                    if (!edge.node.closed || !edge.node.merged) {
+                        merged = false;
+                    }
+                }
+                if (merged) {
+                    octokit.rest.git.deleteRef({owner: user, repo: 'songbook', "ref": "heads/" + branch.name}).then();
+                }
+            }
         }
-        let r = await mygraphql(`query ($user:String!, $repo:String!){
+    }
+    res.redirect(`/users/${user}/changes`);
+}
+
+async function getRefs(req, res) {
+    const {octokit, user, mygraphql} = await newUserOctokit(req, res);
+    if (!octokit) {
+        return null;
+    }
+    let r = await mygraphql(`query ($user:String!, $repo:String!){
   repository(owner:$user,name:$repo) {
     url
     parent {
@@ -61,40 +86,48 @@ export async function listChanges(req, res) {
     }
   }
 }`,
-            {
-                user: user,
-                repo: "songbook"
-            });
-
-        const diffs = new Map();
-        const refs = r.repository.refs.nodes;
-
-        console.log("Refs size before sort", refs.length);
-
-        refs.sort((a, b) => {
-            if (!a || !a.target || !a.target.committedDate) {
-                return 1;
-            }
-            if (!b || !b.target || !a.target.committedDate) {
-                return -1;
-            }
-            return -a.target.committedDate.localeCompare(b.target.committedDate)
+        {
+            user: user,
+            repo: "songbook"
         });
 
-        console.log("Refs size after sort", refs.length);
+    const diffs = new Map();
+    const refs = r.repository.refs.nodes;
 
-        for (let i = 0; i < refs.length; ++i) {
-            let branch = refs[i];
-            console.log("Considering: " + branch.name, i, branch.name.match(SONGEDITOR_BRANCH_REGEXP));
-            if (branch.name.match(SONGEDITOR_BRANCH_REGEXP)) {
-                console.log("Processing: " + branch.name, i);
-                diffs.set(branch.name, octokit.rest.repos.compareCommitsWithBasehead({
-                    owner: 'wdw21',
-                    repo: 'songbook',
-                    basehead: `main...${user}:songbook:${branch.name}`
-                }));
-            }
+    console.log("Refs size before sort", refs.length);
+
+    refs.sort((a, b) => {
+        if (!a || !a.target || !a.target.committedDate) {
+            return 1;
         }
+        if (!b || !b.target || !a.target.committedDate) {
+            return -1;
+        }
+        return -a.target.committedDate.localeCompare(b.target.committedDate)
+    });
+    console.log("Refs size after sort", refs.length);
+
+    for (let i = 0; i < refs.length; ++i) {
+        let branch = refs[i];
+        console.log("Considering: " + branch.name, i, branch.name.match(SONGEDITOR_BRANCH_REGEXP));
+        if (branch.name.match(SONGEDITOR_BRANCH_REGEXP)) {
+            console.log("Processing: " + branch.name, i);
+            diffs.set(branch.name, octokit.rest.repos.compareCommitsWithBasehead({
+                owner: 'wdw21',
+                repo: 'songbook',
+                basehead: `main...${user}:songbook:${branch.name}`
+            }));
+        }
+    }
+
+    console.log('1',refs);
+    return {refs, diffs, user, octokit, r};
+}
+
+export async function listChanges(req, res) {
+    try {
+        const {refs, diffs, user, r} = await getRefs(req, res);
+        console.log('2',refs);
 
         htmlPrefix(res);
         res.write(`
@@ -138,34 +171,15 @@ export async function listChanges(req, res) {
             }
         }
 
-        // Let's delete empty & merged branches.
-        for (let i = 0; i < refs.length; ++i) {
-            let branch = refs[i];
-            if (branch.name.match(SONGEDITOR_BRANCH_REGEXP)) {
-                const diff = await diffs.get(branch.name);
-                if (diff.data.files.length === 0) {
-                    octokit.rest.git.deleteRef({owner: user, repo: 'songbook', "ref": "heads/" + branch.name});
-                    continue;
-                }
-                if (branch.associatedPullRequests.edges.length > 0) {
-                    let merged = true;
-                    for (const edge of branch.associatedPullRequests.edges) {
-                        if (!edge.node.closed || !edge.node.merged) {
-                            merged = false;
-                        }
-                    }
-                    if (merged) {
-                        octokit.rest.git.deleteRef({owner: user, repo: 'songbook', "ref": "heads/" + branch.name});
-                    }
-                }
-            }
-        }
-
         res.write(`
     </table>
 
-    <a id="newChange" href="/users/${user}/changes:new">[Nowa zmiana]</a>
-
+    <a id="newChange" href="/users/${user}/changes:new"><span class="material-icons">add_circle</span>[Nowa zmiana]</a>
+    
+    <form method="post" action="/users/${user}/changes:cleanup">
+        <input type="submit" value="Usuń puste edycje"></input>
+    </form>
+    
     <details>
       <summary>[Magia pod spodem]</summary>
       <pre>${util.inspect(r, false, null, false)}</pre>`);
