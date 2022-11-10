@@ -32,7 +32,10 @@
                 // to distinguish user's changes from automatic format change.
                 const title = songEditor.getAttribute("title");
                 const msg = `Piosenka ${title}: Initial`;
-                commitInternal(songEditor, txt, msg);
+                const ser = songEditor.Serialize();
+                if (txt !== ser) {
+                  commitInternal(songEditor, ser, msg);
+                }
               }
             })
       } else {
