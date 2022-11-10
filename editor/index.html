@@ -24,6 +24,7 @@
             .then((response) => response.text())
             .then((txt) => {
               if (!songEditor.Load(txt)) {
+                songEditor.setAttribute("title", "Wczytywanie się nie powiodło :(");
                 return;
               }
               if (commitOnLoad) {

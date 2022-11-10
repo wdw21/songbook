@@ -306,6 +306,7 @@ export class SongEditor extends HTMLElement {
 
     const title = this.shadow.getElementById("title");
     document.title = title.value;
+    return true;
   }
 
   Serialize() {
