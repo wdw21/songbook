@@ -31,7 +31,7 @@
                 // to distinguish user's changes from automatic format change.
                 const title = songEditor.getAttribute("title");
                 const msg = `Piosenka ${title}: Initial`;
-                commitInternal(txt, msg);
+                commitInternal(songEditor, txt, msg);
               }
             })
       } else {
@@ -83,7 +83,7 @@
       }
     }
 
-    async function commitInternal(serialized, msg) {
+    async function commitInternal(songbook, serialized, msg) {
       try {
         const config = {
           method: 'POST',
@@ -128,7 +128,7 @@
           return false;
         }
         msg = `Piosenka ${title}: ` + msg;
-        return commitInternal(serialized, msg)
+        return commitInternal(songbook, serialized, msg)
       }
       return false;
     }
