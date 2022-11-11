@@ -1,4 +1,4 @@
-# Tworzy piosenki w html
+# Tworzy piosenki w xhtml
 import os
 from lxml import etree
 import src.html.read_song_xml as rsx
@@ -152,11 +152,15 @@ def xml2html(src_xml_path, path_out):  # tworzy piosenkę w wersji html
 
     song = rsx.parse_song_xml(src_xml_path)
     root_html = etree.Element(xhtml + "html", nsmap=nsmap)
+    root_html.attrib[etree.QName("lang")] = "pl-PL"
     head = etree.SubElement(root_html, "head")
     etree.SubElement(head, "link",
                      attrib={"rel": "stylesheet", "type": "text/css", "href": "CSS/song.css", "media": "screen"})
     _add_blocks(song, root_html)
+    title = etree.SubElement(head, "title")
+    title.text = song.title
     et = etree.ElementTree(root_html)
+
     et.write(path_out, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
 
 
@@ -177,6 +181,10 @@ def create_list_of_songs(song_set):
 
 def create_all_songs_html(list_of_songs, path_in, path_out):
     """Tworzy wszystkie piosenki z listy w formacie html w katalogu path_out"""
+
+    if not os.path.exists(path_out):
+        os.mkdir(path_out)
+
     list_of_songs = create_list_of_songs(list_of_songs)
     for song in list_of_songs:
-        xml2html(os.path.join(path_in, song + '.xml'), os.path.join(path_out, song + '.html'))
+        xml2html(os.path.join(path_in, song + '.xml'), os.path.join(path_out, song + '.xhtml'))
