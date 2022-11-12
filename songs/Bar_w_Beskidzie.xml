@@ -10,7 +10,7 @@
 	<lyric xmlns="http://21wdh.staszic.waw.pl">
 		<block type="other">
 			<bis times="2">
-				<row important_over="false">La la la...<ch a="G"/><ch a="D"/><ch a="C"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="C"/><ch a="D"/><ch a="G"/><ch a="-"/><ch a="C"/><ch a="D"/></row>
+				<row important_over="false">La la la...<ch a="G"/><ch a="D"/><ch a="C"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="C"/><ch a="D"/><ch a="G"/><ch a="C"/><ch a="D"/></row>
 			</bis>
 			<row important_over="true"><ch a="G"/> Jeśli chcesz z gardła k<ch a="D"/>urz wypłukać</row>
 			<row important_over="true">Tu k<ch a="C"/>ażdy wskaże ci dr<ch a="D"/>ogę</row>
@@ -30,7 +30,7 @@
 			</bis>
 		</block>
 		<block type="verse">
-			<row important_over="false">La la la...<ch a="G"/><ch a="D"/><ch a="C"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="C"/><ch a="D"/><ch a="G"/><ch a="-"/><ch a="C"/><ch a="D"/></row>
+			<row important_over="false">La la la...<ch a="G"/><ch a="D"/><ch a="C"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="C"/><ch a="D"/><ch a="G"/><ch a="C"/><ch a="D"/></row>
 			<row important_over="false"><ch a="G"/> W środku chłopaki rzuc<ch a="D"/>ają łaciną</row>
 			<row important_over="false">O s<ch a="C"/>ufit i o cztery ści<ch a="D"/>any</row>
 			<row important_over="false"><ch a="G"/> Dym z extra mocnych strz<ch a="D"/>ela jak szampan</row>
@@ -42,7 +42,7 @@
 		</block>
 		<blocklink blocknb="2"/>
 		<block type="verse">
-			<row important_over="false">La la la...<ch a="G"/><ch a="D"/><ch a="C"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="C"/><ch a="D"/><ch a="G"/><ch a="-"/><ch a="C"/><ch a="D"/></row>
+			<row important_over="false">La la la...<ch a="G"/><ch a="D"/><ch a="C"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="C"/><ch a="D"/><ch a="G"/><ch a="C"/><ch a="D"/></row>
 			<row important_over="false"><ch a="G"/> Kiedy chłopaki na n<ch a="D"/>ogach z waty</row>
 			<row important_over="false">Wrac<ch a="C"/>ają po mokrej kol<ch a="D"/>acji</row>
 			<row important_over="false"><ch a="G"/> Świat się jak okręt m<ch a="D"/>orski kołysze</row>
@@ -55,7 +55,7 @@
 		<blocklink blocknb="2"/>
 		<block type="other">
 			<bis times="2">
-				<row important_over="false">La la la...<ch a="G"/><ch a="D"/><ch a="C"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="C"/><ch a="D"/><ch a="G"/><ch a="-"/><ch a="C"/><ch a="D"/></row>
+				<row important_over="false">La la la...<ch a="G"/><ch a="D"/><ch a="C"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="C"/><ch a="D"/><ch a="G"/><ch a="C"/><ch a="D"/></row>
 			</bis>
 		</block>
 	</lyric>
