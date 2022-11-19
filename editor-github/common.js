@@ -47,6 +47,8 @@ export function htmlPrefix(res) {
         }
       }
     </script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/editor.css" rel="stylesheet">
   </head>
   <body>
     <div>
