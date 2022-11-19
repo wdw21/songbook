@@ -4,6 +4,10 @@
 
 \RequirePackage{conditionals}
 \RequirePackage{ifthen}
+\RequirePackage{xstring}
+\RequirePackage{booktabs}
+\RequirePackage{array}
+\RequirePackage{varwidth} % must be loaded after array
 
 \newcommand{\theSongTitle}{}
 \newcommand{\theSongLyricist}{}
@@ -18,11 +22,11 @@
 
 \newcommand{\ChBassFont}{\normalsize\bf\sf}     % = cmss12 at 12.0pt
 \newcommand{\SBChordRaise}       {2.25ex}
-\newcommand{\ChFontOn}{\scriptsize\fontfamily{\sfdefault}
+\newcommand{\ChFontOn}{\scriptsize\fontfamily{\sfdefault}%
   \fontseries{sbc}\fontshape{n}\selectfont}     %=cmssbc12 at 14.4pt
-\newcommand{\ChFontBh}{\fontfamily{\sfdefault}
+\newcommand{\ChFontBh}{\fontfamily{\sfdefault}%
   \fontseries{sbc}\fontshape{n}\selectfont}     %=cmssbc12 at 14.4pt
-\newcommand{\ChBkFont}{\ChFont\fontseries{m}
+\newcommand{\ChBkFont}{\ChFont\fontseries{m}%
   \selectfont}                                  % =cmssm12 at 14.4pt
 
 \newcommand{\bis}{\vrule}
@@ -67,21 +71,20 @@
     \setbox1=\hbox{\ChFontOn\sbChord{#1}\relax\strut}%
     \setbox0=\hbox{#2}%
     \ifdim\wd1<\wd0%
-      \strut\raise\SBChordRaise\copy1\kern-\wd1\copy0%
+      \strut\raise\SBChordRaise\copy1\kern-\wd1{#2}%
     \else%
-      \strut\copy0\kern-\wd0\strut\raise\SBChordRaise\copy1%
+      \strut{#2}\kern-\wd0\strut\raise\SBChordRaise\copy1%
     \fi%
   }{#2}%
  }%
 
-\newcommand{\ChordsBehind}[1]{
-   \ifthenelse{\boolean{PrintChordsBehind}}{
-     \if\blank{#1}{}\else{%\hskip 0.1cm 
-     \ChFontBh #1}\fi
-   }{
-   }
+\newcommand{\ChordsBehind}[1]{%
+\ifthenelse{\boolean{PrintChordsBehind}}{%
+\if\blank{#1}{}\else{%\hskip 0.1cm
+\ChFontBh #1}\fi%
+}{%
+}%
 }
-
 
 \newcommand{\AAndCAndA}[3]{%
    \vbox{%
@@ -90,7 +93,7 @@
        \if\blank{#1}{}\else{\textbf{Słowa:}\ #1 \\}\fi%
        \if\blank{#2}{}\else{\textbf{Muzyka:}\ #2 \\}\fi%
        \if\blank{#3}{}\else{\textbf{Wykonawca:}\ #3 \\}\fi%
-   \end{flushleft}%\\
+       \end{flushleft}%\\
    }%
 }
 
@@ -116,59 +119,34 @@
   \addcontentsline{toc}{section}{\hspace{-1.5em}#1}
   \STitle{\theSongTitle}
   \AAndCAndA{#2}{#3}{#4}
+  \parindent=0pt
   }{\vfill}
 
-\newcommand{\row}[5][M]{
+\newcommand{\row}[5][M]{%
 % #1:
 %     "F"  <=> (first line of verse (or chorus))
-%     "FS" <=> (first special)number and indent the verse or "Ch:" the chorus
 %     "L"  <=> (last line) don't try to nobreakline.
-%     "M"  <=> middleline
-%     "S"  <=> singleline   
+%     "I"  <=> instrumental line
+% - you can combine the lines
 % #2: "C"  <=> chorus
 %     "V"  <=> verse
-%     "I"  <=> instrumental 
+%     "O"  <=> not chorus and not numbered
 % #3: row_text
 % #4: bis_text
 % #5: chords
 %----------------------------------------------------------
-      \ifthenelse{\equal{#1}{L}}{\vspace{3 ex}}{}%
-      \ifthenelse{\equal{#1}{S}}{\vspace{3 ex}}{}%
-%      
-      \ifthenelse{\equal{#1}{FS}}%
-        { \ifthenelse{\equal{#2}{C}}%
-           {Ref.:}%
-           {\ifthenelse{\equal{#2}{V}}{%
-            \addtocounter{VerseCnt}{1}%
-            \theVerseCnt{}.%
-        }{}%
-           }%
-        }{}%
 %
-    \ifthenelse{\equal{#1}{S}}%
-        { \ifthenelse{\equal{#2}{C}}%
-           {Ref:}%
-           {\ifthenelse{\equal{#2}{V}}{%
-            \addtocounter{VerseCnt}{1}%
-            \theVerseCnt{}.%
-        }{}%
-           }%
-        }{} %
-        & %--------------------------------------------
-        \ifthenelse{\equal{#2}{C}}%
-           {\hskip 0.75 cm}%
-           {}%
-        #3 & %-----------------------------------------
-        \if\blank{#4}{}\else{% \hskip{1cm}
-          #4}\fi%
-        & %-----------------------------------------
-         \ChordsBehind{#5}%
-        %---------------------------------------
-        \ifthenelse{\equal{#1}{L}}%
-           {\\}%
-           {        \ifthenelse{\equal{#1}{S}}%
-           {\\}%
-           {\\*}}%
-
+    \IfSubStr{#1}{F}{%
+      \IfSubStr{#2}{C}{Ref:}{}%
+      \IfSubStr{#2}{V}{\addtocounter{VerseCnt}{1}\theVerseCnt{}.}{}%
+    }{}%
+    \IfSubStr{#1}{I}%
+        {&\multicolumn{2}{l}{\ChordsBehind{#5}} & }%
+        {&\ChordsBehind{#5} & %
+          \IfSubStr{#2}{C}{\hskip 1.5em}{} %
+          #3 & %
+        }%
+    \if\blank{#4}{}\else{#4}\fi%
+    \IfSubStr{#1}{L}{\IfSubStr{#1}{E}{\\}{\\\vtop{\vskip2ex minus 1ex}\\}}{\IfSubStr{#1}{P}{\\*}{\IfSubStr{#1}{F}{\\*}{\\}}} % optionally we could emit \\* on last-by-1 line to prevent 1-line tables.
 }{}
 

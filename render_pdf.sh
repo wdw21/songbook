@@ -32,3 +32,4 @@ cat ${__dir}/src/formats/${format}_${papersize}_s.tex >> ${tex_file}
 # Run pdflatex twice to recalculate longtables
 TEXINPUTS=.:${__dir}/src/latex: pdflatex -output-directory ${tex_dir} ${tex_file}
 TEXINPUTS=.:${__dir}/src/latex: pdflatex -output-directory ${tex_dir} ${tex_file}
+TEXINPUTS=.:${__dir}/src/latex: pdflatex -output-directory ${tex_dir} ${tex_file}
