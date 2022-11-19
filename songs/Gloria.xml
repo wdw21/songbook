@@ -11,16 +11,16 @@
     <block type="other">
       <row important_over="false" style="instr">
         <ch a="G"/>
-        <ch a="--"/>
+
         <ch a="G"/>
         <ch a="e"/>
-        <ch a="--"/>
+
         <ch a="G"/>
         <ch a="a"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="D"/>
-        <ch a="--"/>
+
         <ch a="G"/>
      </row>
     </block>
@@ -53,30 +53,30 @@
       <row important_over="false">
         <ch a="G"/>
         <ch a="e"/>
-        <ch a="--"/>
+
         <ch a="G"/>
         <ch a="a"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="D"/>
-        <ch a="--"/>
+
         <ch a="G"/>
         <ch a="G7"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="D"/>
-        <ch a="--"/>
+
         <ch a="e"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="D"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="D"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="D"/>
-        <ch a="--"/>
+
         <ch a="G"/>
      </row>
     </block>

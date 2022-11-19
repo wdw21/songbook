@@ -7,7 +7,7 @@ import crypto  from 'crypto';
 import cookieParser  from "cookie-parser";
 import cors  from 'cors';
 
-import {listChanges} from './listChanges.js';
+import {cleanupChanges, listChanges} from './listChanges.js';
 import {
   BASE_URL,
   EDITOR_DOMAIN,
@@ -55,7 +55,10 @@ app.get('/songs', async (req, res) => {
   res.redirect(`/users/${user}/songs`)
 } );
 
+app.use(express.static('static'));
+
 app.get('/users/:user/changes', listChanges);
+app.post('/users/:user/changes[:]cleanup', cleanupChanges);
 
 app.get('/users/:user/changes/:branch[:]edit', async (req, res) => {
   const branchName = req.params.branch;
