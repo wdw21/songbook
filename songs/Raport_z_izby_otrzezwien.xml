@@ -1,12 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl Song.xsd" title="Raport z izby otrzeźwień">
-  <alias/>
-  <comment/>
-  <text_author/>
-  <composer type="solo"/>
-  <artist type="solo"/>
-  <translator/>
-  <original_title/>
+<?xml version="1.0" encoding="UTF-8"?>
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Raport z izby otrzeźwień">
   <lyric>
     <block type="verse">
       <row important_over="false"><ch a="h"/>Wchodzi pierwszy zalany drzwi się zamykają<ch a="Fis7"/><ch a="h"/></row>
@@ -81,11 +74,12 @@
       <row important_over="false"><ch a="G7"/>Przez judasza głos doszedł: pijcie kolorowe<ch a="c"/></row>
     </block>
   </lyric>
-  <music metre="">
+  <music>
     <guitar barre="0"/>
   </music>
+  <keywords/>
   <status>
+    <done/>
     <verificators/>
-    <to_do/>
   </status>
 </song>
