@@ -9,8 +9,11 @@ export class SongVerse extends HTMLElement {
   <div class="verse_meta">
     <span id="nr"></span>
     <div>
-     <label><input id="blocklink" name="blocklink" type="checkbox"/>już było</label>
-      <label for="ref"><input type="checkbox" id="ref" value="refren" name="refren"/>refren</label>
+      <label><input id="blocklink" name="blocklink" type="checkbox"/>już było</label>
+      
+      <label for="bt_verse"><input type="radio" id="bt_verse" value="verse" name="block_type"/>zwrotka</label>
+      <label for="bt_chorus"><input type="radio" id="bt_chorus" value="chorus" name="block_type"/>refren</label>
+      <label for="bt_other"><input type="radio" id="bt_other" value="other" name="block_type"/>wstawka</label>
     </div>
   </div>
   <div id="verse_link" class="verse_link">
@@ -28,22 +31,25 @@ export class SongVerse extends HTMLElement {
     const shadow = this.attachShadow({ mode: "closed" });
     shadow.appendChild(template.content.cloneNode(true));
     this.nr=shadow.getElementById("nr");
-    this.ref=shadow.getElementById("ref");
     this.blocklink=shadow.getElementById("blocklink");
     this.main=shadow.getElementById("verse_main");
     this.link=shadow.getElementById("verse_link");
     this.linkSel=shadow.getElementById("verse_link_sel");
-    this.ref.addEventListener("input", (e) => this.refoninput(e, this));
     this.blocklink.addEventListener("input", (e) => this.blocklinkoninput(e, this));
     this.linkSel.addEventListener("input", (e) => this.inputLinkVerse(e, this));
+
+    this.btRadios={}
+    for (const bt_radio of shadow.querySelectorAll('input[name="block_type"]')) {
+      bt_radio.addEventListener("input", (e) => this.refoninput(e, this));
+      this.btRadios[bt_radio.value]=bt_radio;
+    }
   }
 
   refoninput(e, verse) {
-    if (verse.ref.checked) {
-      verse.setAttribute("type", "chorus");
-    } else {
-      verse.setAttribute("type", "verse");
-    }
+    if (this.btRadios.chorus.checked) { verse.setAttribute("type", "chorus"); }
+    if (this.btRadios.verse.checked) { verse.setAttribute("type", "verse"); }
+    if (this.btRadios.other.checked) { verse.setAttribute("type", "other"); }
+
     verse.updateClass()
     verse.updateVisibility();
   }
@@ -64,11 +70,11 @@ export class SongVerse extends HTMLElement {
     let r = document.getElementById(verse.linkSel.value);
     if (r) {
       verse.setAttribute("blocknb", r.id);
-      verse.ref.checked = r.isChorus();
     } else {
       verse.setAttribute("blocknb", "?");
-      verse.ref.checked = false;
     }
+    verse.setRadioToType(r.getAttribute('type'));
+
     this.refoninput(e, verse);
   }
 
@@ -86,11 +92,15 @@ export class SongVerse extends HTMLElement {
     if (this.getAttribute("blocknb")) {
       this.main.hidden = true;
       this.link.hidden = false;
-      this.ref.disabled = true;
+      this.btRadios.chorus.disabled = true;
+      this.btRadios.verse.disabled = true;
+      this.btRadios.other.disabled = true;
     } else {
       this.main.hidden = false;
       this.link.hidden = true;
-      this.ref.disabled = false;
+      this.btRadios.chorus.disabled = false;
+      this.btRadios.verse.disabled = false;
+      this.btRadios.other.disabled = false;
     }
   }
 
@@ -133,14 +143,14 @@ export class SongVerse extends HTMLElement {
     }
     verse.blocklink.disabled=!verse.previousSibling;
 
-    if (!verse.isChorus()) {
+    if (verse.isVerse()) {
       let j=0;
       for (let i=0; i < verse.parentNode.childNodes.length; ++i) {
         let v =verse.parentNode.childNodes[i];
         if (v.nodeName!=='SONG-VERSE') {
           continue;
         }
-        if (!v.isChorus()) {
+        if (v.isVerse()) {
           j=j+1;
         }
         if (v===this) {
@@ -148,8 +158,10 @@ export class SongVerse extends HTMLElement {
           break;
         }
       }
-    } else {
+    } else if (verse.isChorus()) {
       verse.nr.innerText='Ref:';
+    } else {
+      verse.nr.innerText='';
     }
 
     while(verse.linkSel.options.length>0) {
@@ -166,7 +178,7 @@ export class SongVerse extends HTMLElement {
       if (v.nodeName==='SONG-VERSE'&& !v.getAttribute("blocknb")) {
         verse.linkSel.add(new Option(v.shortRep(), v.id, false, v.id===verse.getAttribute("blocknb")));
         if (v.id===verse.getAttribute("blocknb")) {
-          verse.ref.checked=v.isChorus();
+          verse.setRadioToType(v.getAttribute('type'));
         }
       }
     }
@@ -178,7 +190,16 @@ export class SongVerse extends HTMLElement {
     if (r) {
       return r.isChorus();
     } else {
-      return this.getAttribute("type") !== 'verse';;
+      return this.getAttribute("type") == 'chorus';;
+    }
+  }
+
+  isVerse() {
+    let r=this.getReferred();
+    if (r) {
+      return r.isVerse();
+    } else {
+      return this.getAttribute("type") == 'verse';;
     }
   }
 
@@ -206,7 +227,7 @@ export class SongVerse extends HTMLElement {
   attributeChangedCallback(attr) {
     console.log("Attribute changed...", attr)
     if (attr=='type') {
-      this.ref.checked = this.isChorus();
+      this.refreshAttributes();
     }
     if (attr=="blocknb") {
       this.blocklink.checked = this.getAttribute("blocknb");
@@ -216,19 +237,15 @@ export class SongVerse extends HTMLElement {
   }
 
   refreshAttributes() {
-    if (this.getAttribute('type')==='chorus') {
-      this.ref.value="true"
-    } else {
-      this.ref.value="false"
-    }
+    this.setRadioToType(this.getAttribute("type"));
+  }
+
+  setRadioToType(t) {
+    this.btRadios.chorus.checked = t=='chorus';
+    this.btRadios.verse.checked = t=='verse' || t=='';
+    this.btRadios.other.checked = t=='other';
   }
 }
-
-
-
-
-
-
 
 
 export class SongBis extends HTMLElement {
@@ -270,7 +287,6 @@ export class SongBis extends HTMLElement {
     this.x.focus();
   }
 }
-
 
 
 export function SongVerseBisInit() {

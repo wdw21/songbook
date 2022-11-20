@@ -22,7 +22,7 @@ function setRandomId(node) {
 
 function createVerse(type="verse", blocknb=null) {
   let verse = document.createElement("song-verse");
-  if (!type || type!='chorus') {
+  if (!type || (type!='chorus' && type!='other')) {
     type = "verse"
   }
   verse.setAttribute("type", type);
