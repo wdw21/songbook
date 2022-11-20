@@ -1,6 +1,6 @@
 import {findAncestor, getRangeForCursor,nbsp,removeAllChildren,mergeNodeAfter,setCursorBefore} from './utils.js';
 import {createChord} from './ch.js'
-import {Sanitize, SplitVerseFromRow} from './sanitize.js'
+import {createVerse, Sanitize, SplitVerseFromRow} from './sanitize.js'
 
 function acceptsTextAndChords(element) {
   return element.nodeName=="SONG-ROW" && element.getAttribute("type")!=='instr';
@@ -108,7 +108,7 @@ export default class SongBody extends HTMLElement {
       <button id="buttonRedo"><i class="material-icons">redo</i>Ponów</button>
     </div>    
 </div>
-<div class="songbody" id="songbody"><slot/></div>`;
+<div class="songbody" id="songbody"><slot></slot><button id="appendVerse"><i class="material-icons">add</i>Dodaj zwrotkę</button></div>`;
 
     const shadow = this.attachShadow({ mode: "closed" });
     shadow.appendChild(template.content.cloneNode(true));
@@ -121,6 +121,8 @@ export default class SongBody extends HTMLElement {
     this.body.addEventListener("drop", (e) => {this.drop(e, this); });
   //  this.body.addEventListener("keydown", (e) => { this.keyDown(e, this); });
     this.body.addEventListener("focusout", (e) => {this.focusout(e, this); });
+
+    this.buttonAppendVerse=shadow.getElementById("appendVerse");
 
     this.buttonBis=shadow.getElementById("buttonBis");
     this.importantOver=shadow.getElementById("importantOver");
@@ -138,6 +140,8 @@ export default class SongBody extends HTMLElement {
     this.buttonInstr.addEventListener("click", (e) =>  { this.toggleInstrumental(); this.refreshToolbar(); });
     this.buttonChord.addEventListener("click", (e) =>  { insertChordHere(""); this.refreshToolbar(); });
     this.buttonSplit.addEventListener("click", (e) =>  { this.splitVerse(); this.refreshToolbar(); });
+
+    this.buttonAppendVerse.addEventListener("click", (e) => {this.appendVerse(); this.refreshToolbar(); });
 
     document.addEventListener('selectionchange', (event) => { this.refreshToolbar(); });
 
@@ -277,6 +281,17 @@ export default class SongBody extends HTMLElement {
     if (selRows.length > 0) {
       SplitVerseFromRow(selRows[selRows.length - 1]);
     }
+  }
+
+  appendVerse() {
+    const v = createVerse();
+    const rows = document.createElement("song-rows")
+    const row = document.createElement("song-row");
+    rows.appendChild(row);
+    v.appendChild(rows);
+    this.insertBefore(v, null);
+    v.focus();
+    document.getSelection().collapse(row);
   }
 
   toggleInstrumental() {

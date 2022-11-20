@@ -20,7 +20,7 @@ function setRandomId(node) {
   }
 }
 
-function createVerse(type="verse", blocknb=null) {
+export function createVerse(type="verse", blocknb=null) {
   let verse = document.createElement("song-verse");
   if (!type || type!='chorus') {
     type = "verse"
