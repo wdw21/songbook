@@ -72,6 +72,15 @@ div.toolbar button {
   vertical-align: middle;
 }
 
+button#appendVerse{
+  width: 13em;
+  text-align:left;
+  vertical-align: middle;
+  display: block;
+  margin-right:0em;
+  margin-left:auto;
+}
+
 div.toolbar button i {
   margin-right: 0.5em;
 }
