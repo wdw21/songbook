@@ -56,7 +56,6 @@
       <row important_over="false">Krótkie scherzo – bez nut.</row>
     </block>
     <block type="verse">
-      <row important_over="false"/>
       <row important_over="false">Nic już więcej z tego rymu nie wywiodę,</row>
       <row important_over="false">Mimochodem układając cierpką pieśń.</row>
       <row important_over="false">Pocieszenie tylko dodam na osłodę,</row>
@@ -65,7 +64,6 @@
       <row important_over="false">Wobec której trudno tak po prostu przejść</row>
     </block>
     <block type="chorus">
-      <row important_over="false"/>
       <row important_over="false">Mimochodem, mimochodem</row>
       <row important_over="false">Trudno tak po prostu przejś</row>
     </block>
