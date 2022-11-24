@@ -18,7 +18,6 @@
       <row important_over="false">Jakby strzepnął kroplę z piór.</row>
     </block>
     <block type="verse">
-      <row important_over="false"/>
       <row important_over="false">Tym pod nogi róż kobierzec, tamtym – kłodę,</row>
       <row important_over="false">Pozostałym, mimochodem – byle co.</row>
       <row important_over="false">Frustrat skargę śle, laureat pisze odę,</row>
@@ -41,19 +40,16 @@
       <row important_over="false">Jak złośliwie między psy rzucona kość –</row>
     </block>
     <block type="chorus">
-      <row important_over="false"/>
       <row important_over="false">Mimochodem, mimochodem</row>
       <row important_over="false">Między psy rzucona kość.</row>
     </block>
-    <block type="verse">
-      <row important_over="false"/>
+    <block type="chorus">
       <row important_over="false">Tańczą, walczą, zieją żarem, zioną chłodem,</row>
       <row important_over="false">Mimochodem spalą w pył, zetną w lód.</row>
       <row important_over="false">Swego Boga za słomianą szarpią brodę,</row>
       <row important_over="false">By im dał nadziei źdźbło, ładu łut.</row>
       <row important_over="false">Sen – za jawę biorą, karę – za nagrodę,</row>
       <row important_over="false">Odtwarzając krótkie scherzo swe – bez nut,</row>
-      <row important_over="false"/>
     </block>
     <block type="chorus">
       <row important_over="false">Mimochodem, mimochodem</row>
