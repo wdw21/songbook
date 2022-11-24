@@ -1,32 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="">
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Piosenka napisana mimochodem">
+  <alias>Mimochodem</alias>
+  <text_author type="solo">Jacek Kaczmarski</text_author>
+  <composer>Jacek Kaczmarski</composer>
+  <artist type="solo">Jacek Kaczmarski</artist>
   <lyric>
     <block type="verse">
-      <row important_over="true">
-        <ch a="D"/>
-      </row>
-      <row important_over="false">Słońce błyśnie między wschodem a zachodemMimochodem obrysuje miasto chmur.Jednych dziegciem dzień nakarmi, innych miodem,Temu głowę wzniesie, temu napnie sznur.</row>
-      <row important_over="false">Trochę starsze znów się stanie to, co młode,Jakby strzepnął ptak kolejną kroplę z piór –</row>
-      <row important_over="false">Mimochodem, mimochodemJakby strzepnął kroplę z piór.</row>
-      <row important_over="false">Tym pod nogi róż kobierzec, tamtym – kłodę,Pozostałym, mimochodem – byle co.Frustrat skargę śle, laureat pisze odę,Raz się dobro jawi złem, raz – dobrem zło.</row>
-      <row important_over="false">Słowo wpada w morze słów, jak kamień w wodę,Krążek myśli pozostawi, brnąc na dno –</row>
-      <row important_over="false">Mimochodem, mimochodemKrążek myśli, brnąc na dno.</row>
-      <row important_over="false">Cierpi syty, niepojętym zdjęty głodem,Zgłodniałego – mimochodem syci złość.Temu – mostu przęsło, temu – dom z ogrodem,Komuś o coś chodzi, za kimś – chodzi coś:</row>
-      <row important_over="false">Na stracenie, na pożytek i na szkodę,Jak złośliwie między psy rzucona kość –</row>
-      <row important_over="false">Mimochodem, mimochodemMiędzy psy rzucona kość.</row>
-      <row important_over="false">Tańczą, walczą, zieją żarem, zioną chłodem,Mimochodem spalą w pył, zetną w lód.Swego Boga za słomianą szarpią brodę,By im dał nadziei źdźbło, ładu łut.</row>
-      <row important_over="false">Sen – za jawę biorą, karę – za nagrodę,Odtwarzając krótkie scherzo swe – bez nut,</row>
-      <row important_over="false">Mimochodem, mimochodemKrótkie scherzo – bez nut.</row>
-      <row important_over="false">Nic już więcej z tego rymu nie wywiodę,Mimochodem układając cierpką pieśń.Pocieszenie tylko dodam na osłodę,Że w niej drzemie mimochodem ważka treść:</row>
-      <row important_over="false">Chwila światła między wschodem a zachodemWobec której trudno tak po prostu przejść</row>
-      <row important_over="false">Mimochodem, mimochodemTrudno tak po prostu przejść.</row>
-      <row important_over="false">Mimochodem…Mimochodem –Miasto chmur, chwile szczęść.</row>
-      <row important_over="false">
-        <ch a="G"/>
-      </row>
+      <row important_over="false">Słońce błyśnie między wschodem a zachodem</row>
+      <row important_over="false">Mimochodem obrysuje miasto chmur.</row>
+      <row important_over="false">Jednych dziegciem dzień nakarmi, innych miodem,</row>
+      <row important_over="false">Temu głowę wzniesie, temu napnie sznur.</row>
+      <row important_over="false">Trochę starsze znów się stanie to, co młode,</row>
+      <row important_over="false">Jakby strzepnął ptak kolejną kroplę z piór –</row>
+    </block>
+    <block type="chorus">
+      <row important_over="false">Mimochodem, mimochodem</row>
+      <row important_over="false">Jakby strzepnął kroplę z piór.</row>
+    </block>
+    <block type="verse">
+      <row important_over="false"/>
+      <row important_over="false">Tym pod nogi róż kobierzec, tamtym – kłodę,</row>
+      <row important_over="false">Pozostałym, mimochodem – byle co.</row>
+      <row important_over="false">Frustrat skargę śle, laureat pisze odę,</row>
+      <row important_over="false">Raz się dobro jawi złem, raz – dobrem zło.</row>
+      <row important_over="false">Słowo wpada w morze słów, jak kamień w wodę,</row>
+      <row important_over="false">Krążek myśli pozostawi, brnąc na dno –</row>
+    </block>
+    <block type="chorus">
+      <row important_over="false"/>
+      <row important_over="false">Mimochodem, mimochodem</row>
+      <row important_over="false">Krążek myśli, brnąc na dno.</row>
+    </block>
+    <block type="verse">
+      <row important_over="false"/>
+      <row important_over="false">Cierpi syty, niepojętym zdjęty głodem,</row>
+      <row important_over="false">Zgłodniałego – mimochodem syci złość.</row>
+      <row important_over="false">Temu – mostu przęsło, temu – dom z ogrodem,</row>
+      <row important_over="false">Komuś o coś chodzi, za kimś – chodzi coś:</row>
+      <row important_over="false">Na stracenie, na pożytek i na szkodę,</row>
+      <row important_over="false">Jak złośliwie między psy rzucona kość –</row>
+    </block>
+    <block type="chorus">
+      <row important_over="false"/>
+      <row important_over="false">Mimochodem, mimochodem</row>
+      <row important_over="false">Między psy rzucona kość.</row>
+      <row important_over="false"/>
+      <row important_over="false"> </row>
+    </block>
+    <block type="verse">
+      <row important_over="false"/>
+      <row important_over="false">Tańczą, walczą, zieją żarem, zioną chłodem,</row>
+      <row important_over="false">Mimochodem spalą w pył, zetną w lód.</row>
+      <row important_over="false">Swego Boga za słomianą szarpią brodę,</row>
+      <row important_over="false">By im dał nadziei źdźbło, ładu łut.</row>
+      <row important_over="false">Sen – za jawę biorą, karę – za nagrodę,</row>
+      <row important_over="false">Odtwarzając krótkie scherzo swe – bez nut,</row>
+      <row important_over="false"/>
+    </block>
+    <block type="chorus">
+      <row important_over="false">Mimochodem, mimochodem</row>
+      <row important_over="false">Krótkie scherzo – bez nut.</row>
+    </block>
+    <block type="verse">
+      <row important_over="false"/>
+      <row important_over="false">Nic już więcej z tego rymu nie wywiodę,</row>
+      <row important_over="false">Mimochodem układając cierpką pieśń.</row>
+      <row important_over="false">Pocieszenie tylko dodam na osłodę,</row>
+      <row important_over="false">Że w niej drzemie mimochodem ważka treść:</row>
+      <row important_over="false">Chwila światła między wschodem a zachodem</row>
+      <row important_over="false">Wobec której trudno tak po prostu przejść</row>
+    </block>
+    <block type="chorus">
+      <row important_over="false"/>
+      <row important_over="false">Mimochodem, mimochodem</row>
+      <row important_over="false">Trudno tak po prostu przejś</row>
+    </block>
+    <block type="chorus">
+      <row important_over="false">Mimochodem…M<ch a=""/>imochodem –</row>
+      <row important_over="false">Miasto ch<ch a=""/>m<ch a=""/><ch a=""/>ur<ch a=""/>, chwile szczęść.</row>
     </block>
   </lyric>
   <keywords/>
+  <genre>Poezja śpiewana</genre>
   <status>
     <done/>
     <verificators/>
