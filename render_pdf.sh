@@ -25,17 +25,12 @@ title=$3
 
 tex_dir=${__dir}/build/songs_tex/
 tex_file=${__dir}/build/songs_tex/output.tex
+mkdir -p ${tex_dir}
 
-#sed "s/:title:/${title}/" ${__dir}/src/formats/${format}_${papersize}_p.tex > ${tex_file}
-#for song in ${@:4}; do
-#    python3 ${__dir}/src/latex/song2tex.py $song >> ${tex_file}
-#done
+echo ${tex_file}
+python3 ${__dir}/src/latex/songs2tex.py "${format}" "${papersize}" "${title}" ${@:4} >${tex_file}
 
-python ${__dir}/src/latex/songs2tex.py $format $papersize "${title}" ${@:4} >>${tex_file}
-
-#cat ${__dir}/src/formats/${format}_${papersize}_s.tex >> ${tex_file}
-
-# Run pdflatex twice to recalculate longtables
-TEXINPUTS=.:${__dir}/src/latex: pdflatex -output-directory ${tex_dir} ${tex_file}
-TEXINPUTS=.:${__dir}/src/latex: pdflatex -output-directory ${tex_dir} ${tex_file}
-TEXINPUTS=.:${__dir}/src/latex: pdflatex -output-directory ${tex_dir} ${tex_file}
+# Run pdflatex three times to recalculate longtables and toc
+TEXINPUTS=.:${__dir}/src/latex: pdflatex -output-directory "${tex_dir}" "${tex_file}"
+TEXINPUTS=.:${__dir}/src/latex: pdflatex -output-directory "${tex_dir}" "${tex_file}"
+TEXINPUTS=.:${__dir}/src/latex: pdflatex -output-directory "${tex_dir}" "${tex_file}"

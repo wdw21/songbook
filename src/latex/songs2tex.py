@@ -1,13 +1,12 @@
 import os
-import icu  # for sorting polish signs
-import shutil
+import icu  # for sorting polish sign
 import sys
 
 from lxml import etree
 import song2tex as s2t
 
 
-def create_texs(source, target_dir, papersize, songbook, title_of_songbook):
+def create_ready_tex(songbook, source, papersize, title_of_songbook=""):
     """function create a pdf file in a4 or a5 size
         source - one file or list of files or directory path
         size - A4 or A5
@@ -65,28 +64,12 @@ def create_texs(source, target_dir, papersize, songbook, title_of_songbook):
     with open("src/formats/" + foot) as f:
         content += f.read()
 
-    path = os.path.join(target_dir, "output.tex")  # tex_song)
-    with open(path, "w") as f:
-        f.write(content)
-
-
-def create_ready_tex(songbook, list_of_songs, papersize="a5", title_of_songbook=""):
-    path_songs_tex = os.path.join("build", "songs_tex")
-    if os.path.exists(path_songs_tex):
-        shutil.rmtree(path_songs_tex)
-    os.mkdir(path_songs_tex)
-
-    create_texs(list_of_songs, path_songs_tex, papersize, songbook, title_of_songbook)  # title="Śpiewnik"
+    print(content)
 
 
 def main():
-    songbook = True
-
-    if sys.argv[1] == 'single':
-        songbook = False
-
-    create_ready_tex(songbook, list_of_songs=sys.argv[4:], papersize=sys.argv[2], title_of_songbook=sys.argv[3])
-    # create_ready_tex(True,  list_of_songs=["songs"], papersize="a4", title_of_songbook="Moj śpiewnik")
+    create_ready_tex(sys.argv[1] != 'single', source=sys.argv[4:], papersize=sys.argv[2],
+                     title_of_songbook=sys.argv[3])
 
 
 if __name__ == "__main__":
