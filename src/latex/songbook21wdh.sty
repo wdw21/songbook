@@ -19,6 +19,7 @@
 
 \newboolean{PrintChordsOn}
 \newboolean{PrintChordsBehind}
+\newboolean{PrintSongNum}
 
 \newcommand{\ChBassFont}{\normalsize\bf\sf}     % = cmss12 at 12.0pt
 \newcommand{\SBChordRaise}       {2.25ex}
@@ -100,8 +101,8 @@
 \newcommand{\STitle}[1]{%
    \vbox{%
    \begin{center}%
-    {\LARGE{\theSongCnt{}.\ {\bf #1}}\\}%
-   \end{center}    %
+    {\LARGE{\ifthenelse{\boolean{PrintSongNum}}{\theSongCnt{}.\ }{}{\bf #1}}\\}%
+   \end{center}%
   }%
   }
 

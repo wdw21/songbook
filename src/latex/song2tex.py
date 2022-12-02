@@ -1,9 +1,10 @@
 from lxml import etree
 from enum import Enum
 from distutils.util import strtobool
-import os, sys
+import sys
 import jinja2
 import re
+
 
 def tex_escape(text):
     """
@@ -26,10 +27,11 @@ def tex_escape(text):
         '...': r'{\ldots}'
     }
     if text:
-        regex = re.compile('|'.join(re.escape(str(key)) for key in sorted(conv.keys(), key = lambda item: - len(item))))
+        regex = re.compile('|'.join(re.escape(str(key)) for key in sorted(conv.keys(), key=lambda item: - len(item))))
         return regex.sub(lambda match: conv[match.group()], text)
     else:
         return text
+
 
 class RowChunk:
     def __init__(self, chord='', content=None):
@@ -39,12 +41,14 @@ class RowChunk:
         else:
             self.content = content.strip('\t\n')
 
+
 class RowType(Enum):
     FIRST = 'F'
     MIDDLE = 'M'
     LAST_BUT_ONE = 'P'
     LAST = 'L'
     INSTRUMENTAL = 'I'
+
 
 class Row:
     def __init__(self, row_type='', new_chords=False, bis=False, chunks=[]):
@@ -69,6 +73,7 @@ class Row:
           r.row_type+=RowType.INSTRUMENTAL.value
         return r
 
+
 class BlockType(Enum):
     VERSE = 'V'
     CHORUS = 'C'
@@ -82,11 +87,12 @@ class BlockType(Enum):
             'other': BlockType.OTHER
         }[s]
 
+
 class Block:
     def __init__(self, block_type=BlockType.VERSE, rows=[]):
         self.block_type = block_type
         self.rows = rows
-    
+
     @staticmethod
     def parseDOM(root, linked=False):
         block_type = BlockType.parse(root.attrib['type'])
@@ -109,6 +115,7 @@ class Block:
                 row.new_chords = False
         return Block(block_type=block_type, rows=rows)
 
+
 class Song:
     def __init__(self, title='', text_author='', composer='', artist='', blocks=[]):
         self.title = tex_escape(title) if title else ''
@@ -116,41 +123,75 @@ class Song:
         self.composer = tex_escape(composer) if composer else ''
         self.artist = tex_escape(artist) if artist else ''
         self.blocks = blocks
-    
+
     @staticmethod
     def parseDOM(root):
         # A child of 'lyric' element may either be a text block, a reference to a text block (e.g. to a chorus), or a tablature.
         text_blocks = root.findall('{*}lyric/{*}block')
-        flatten = lambda block: Block.parseDOM(block) if 'blocknb' not in block.attrib else Block.parseDOM(text_blocks[int(block.attrib['blocknb'])-1], linked=True)
-        blocks = [flatten(block) for block in root.find('{*}lyric').getchildren() if block.tag != '{http://21wdh.staszic.waw.pl}tabbs']
+        flatten = lambda block: Block.parseDOM(block) if 'blocknb' not in block.attrib else Block.parseDOM(
+            text_blocks[int(block.attrib['blocknb']) - 1], linked=True)
+        blocks = [flatten(block) for block in root.find('{*}lyric').getchildren() if
+                  block.tag != '{http://21wdh.staszic.waw.pl}tabbs']
         get_text = lambda elem: elem.text if elem is not None else None
         if blocks and blocks[-1].rows:
           blocks[-1].rows[-1].row_type += 'E' # end row
 
         return Song(
-            title = root.get('title'),
-            text_author = get_text(root.find('{*}text_author')),
-            composer = get_text(root.find('{*}composer')),
-            artist = get_text(root.find('{*}artist')),
-            blocks = blocks
+            title=root.get('title'),
+            text_author=get_text(root.find('{*}text_author')),
+            composer=get_text(root.find('{*}composer')),
+            artist=get_text(root.find('{*}artist')),
+            blocks=blocks
         )
 
-tree = etree.parse(sys.argv[1])
-song = Song.parseDOM(tree.getroot())
 
-latex_jinja_env = jinja2.Environment(
-    block_start_string = '\BLOCK{',
-    block_end_string = '}',
-    variable_start_string = '\VAR{',
-    variable_end_string = '}',
-    comment_start_string = '\#{',
-    comment_end_string = '}',
-    line_statement_prefix = '%%',
-    line_comment_prefix = '%#',
-    trim_blocks = True,
-    lstrip_blocks = True,
-    autoescape = False,
-    loader = jinja2.FileSystemLoader(sys.path[0])
-)
-template = latex_jinja_env.get_template('song_template.tex')
-print(template.render(song=song))
+def s2t(path):
+    path = "songs/" + path
+    tree = etree.parse(path)
+    song = Song.parseDOM(tree.getroot())
+
+    latex_jinja_env = jinja2.Environment(
+        block_start_string='\BLOCK{',
+        block_end_string='}',
+        variable_start_string='\VAR{',
+        variable_end_string='}',
+        comment_start_string='\#{',
+        comment_end_string='}',
+        line_statement_prefix='%%',
+        line_comment_prefix='%#',
+        trim_blocks=True,
+        lstrip_blocks=True,
+        autoescape=False,
+        loader=jinja2.FileSystemLoader(sys.path[0])
+    )
+    template = latex_jinja_env.get_template('song_template.tex')
+    return template.render(song=song)
+
+
+def main():
+    if len(sys.argv) < 2:
+        print("Wymagana nazwa pliku xml")
+        exit(1)
+    tree = etree.parse(sys.argv[1])
+    song = Song.parseDOM(tree.getroot())
+
+    latex_jinja_env = jinja2.Environment(
+        block_start_string='\BLOCK{',
+        block_end_string='}',
+        variable_start_string='\VAR{',
+        variable_end_string='}',
+        comment_start_string='\#{',
+        comment_end_string='}',
+        line_statement_prefix='%%',
+        line_comment_prefix='%#',
+        trim_blocks=True,
+        lstrip_blocks=True,
+        autoescape=False,
+        loader=jinja2.FileSystemLoader(sys.path[0])
+    )
+    template = latex_jinja_env.get_template('song_template.tex')
+    print(template.render(song=song))
+
+
+if __name__ == "__main__":
+    main()
