@@ -41,13 +41,13 @@ class RowChunk:
 
 class RowType(Enum):
     FIRST = 'F'
-    FIRST_SPECIAL = 'FS'
     MIDDLE = 'M'
+    LAST_BUT_ONE = 'P'
     LAST = 'L'
-    SINGLE = 'S'
+    INSTRUMENTAL = 'I'
 
 class Row:
-    def __init__(self, row_type=RowType.MIDDLE, new_chords=False, bis=False, chunks=[]):
+    def __init__(self, row_type='', new_chords=False, bis=False, chunks=[]):
         self.row_type = row_type
         self.new_chords = new_chords
         self.chunks = chunks
@@ -61,12 +61,17 @@ class Row:
             chunks = []
         for chunk in root.getchildren():
             chunks.append(RowChunk(chord=tex_escape(chunk.attrib['a']), content=tex_escape(chunk.tail)))
-        return Row(new_chords=strtobool(root.attrib.get('important_over', 'false')), bis=bis, chunks=chunks)
+        if len(chunks) > 0 and not(chunks[0].content.startswith(' ')):
+            chunks[0].content = ' ' + chunks[0].content
+
+        r = Row(new_chords=strtobool(root.attrib.get('important_over', 'false')), bis=bis, chunks=chunks)
+        if (root.attrib.get('style', 'normal')=='instr'):
+          r.row_type+=RowType.INSTRUMENTAL.value
+        return r
 
 class BlockType(Enum):
     VERSE = 'V'
     CHORUS = 'C'
-    INSTRUMENTAL = 'I'
     OTHER = 'O'
 
     @staticmethod
@@ -74,7 +79,6 @@ class BlockType(Enum):
         return {
             'verse': BlockType.VERSE,
             'chorus': BlockType.CHORUS,
-            'instrumental': BlockType.INSTRUMENTAL,
             'other': BlockType.OTHER
         }[s]
 
@@ -95,11 +99,11 @@ class Block:
                 rows += bis_rows
             else:
                 rows.append(Row.parseDOM(child))
-        if len(rows) == 1:
-            rows[0].row_type = RowType.SINGLE
-        elif len(rows) > 1:
-            rows[0].row_type = RowType.FIRST_SPECIAL
-            rows[-1].row_type = RowType.LAST
+        if len(rows)>0:
+            rows[0].row_type += RowType.FIRST.value
+            rows[-1].row_type += RowType.LAST.value
+        if len(rows)>=2:
+          rows[-2].row_type += RowType.LAST_BUT_ONE.value
         if linked:
             for row in rows:
                 row.new_chords = False
@@ -120,6 +124,9 @@ class Song:
         flatten = lambda block: Block.parseDOM(block) if 'blocknb' not in block.attrib else Block.parseDOM(text_blocks[int(block.attrib['blocknb'])-1], linked=True)
         blocks = [flatten(block) for block in root.find('{*}lyric').getchildren() if block.tag != '{http://21wdh.staszic.waw.pl}tabbs']
         get_text = lambda elem: elem.text if elem is not None else None
+        if blocks and blocks[-1].rows:
+          blocks[-1].rows[-1].row_type += 'E' # end row
+
         return Song(
             title = root.get('title'),
             text_author = get_text(root.find('{*}text_author')),
