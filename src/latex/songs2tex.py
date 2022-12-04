@@ -1,5 +1,5 @@
 import os
-import icu  # for sorting polish sign
+import icu  # for sorting polish signs
 import sys
 
 from lxml import etree
@@ -14,11 +14,11 @@ def create_ready_tex(songbook, source, papersize, title_of_songbook=""):
         songbook - True if we want songbook, False if we don't
     """
 
-    if (type(source)) == list and (os.path.splitext(source[0])[1] != ""):
+    if (os.path.splitext(source[0])[1] != ""):
         pass
 
     elif os.path.isdir(source[0]):
-        source = os.listdir(source[0])
+        source = ["songs/" + x for x in os.listdir(source[0])]
 
     else:
         print("Wrong name or type of source!")
@@ -26,15 +26,13 @@ def create_ready_tex(songbook, source, papersize, title_of_songbook=""):
 
     list_title_file = []
     for s in source:
-        tree = etree.parse('songs/' + s)
+        tree = etree.parse(s)
         song = s2t.Song.parseDOM(tree.getroot())
         title = song.title
-
         list_title_file.append((title, s))
 
     collator = icu.Collator.createInstance(icu.Locale('pl_PL.UTF-8'))
     list_title_file.sort(key=lambda x: collator.getSortKey(x[0]))
-
     # I define head (template of header of tex document) and foot (template of hooter of tex document)
     # depending on the papersize which we want
 
@@ -64,7 +62,7 @@ def create_ready_tex(songbook, source, papersize, title_of_songbook=""):
     with open("src/formats/" + foot) as f:
         content += f.read()
 
-    print(content)
+    return print(content)
 
 
 def main():

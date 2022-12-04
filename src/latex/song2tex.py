@@ -146,7 +146,7 @@ class Song:
 
 
 def s2t(path):
-    path = "songs/" + path
+    path = path
     tree = etree.parse(path)
     song = Song.parseDOM(tree.getroot())
 
