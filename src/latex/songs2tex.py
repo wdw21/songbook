@@ -1,5 +1,5 @@
 import os
-import icu  # for sorting polish signs
+import icu  # for sorting polish chars
 import sys
 
 from lxml import etree
@@ -14,31 +14,30 @@ def create_ready_tex(songbook, source, papersize, title_of_songbook=""):
         songbook - True if we want songbook, False if we don't
     """
 
-    if (os.path.splitext(source[0])[1] != ""):
-        pass
-
-    elif os.path.isdir(source[0]):
-        source = ["songs/" + x for x in os.listdir(source[0])]
-
-    else:
-        print("Wrong name or type of source!")
-        exit(1)
+    if os.path.isdir(source[0]):
+        source = [os.path.join(source[0], x) for x in os.listdir(source[0])]
 
     list_title_file = []
+
     for s in source:
-        tree = etree.parse(s)
-        song = s2t.Song.parseDOM(tree.getroot())
-        title = song.title
-        list_title_file.append((title, s))
+        if os.path.isfile(s):
+            tree = etree.parse(s)
+            song = s2t.Song.parseDOM(tree.getroot())
+            title = song.title
+            list_title_file.append((title, s))
+        else:
+            print(f"There is no such a file: {s}", file=sys.stderr)
+            exit(1)
 
     collator = icu.Collator.createInstance(icu.Locale('pl_PL.UTF-8'))
     list_title_file.sort(key=lambda x: collator.getSortKey(x[0]))
-    # I define head (template of header of tex document) and foot (template of hooter of tex document)
+
+    # I define head (template of header of tex document) and foot (template of footer of tex document)
     # depending on the papersize which we want
 
     if papersize != "a4":
         if papersize != "a5":
-            print("Wrong size of paper!")
+            print("Wrong size of paper!", file=sys.stderr)
             exit(1)
 
     if songbook:
@@ -66,6 +65,9 @@ def create_ready_tex(songbook, source, papersize, title_of_songbook=""):
 
 
 def main():
+    if len(sys.argv) <= 4:
+        print("Usage: python3 songs2tex.py <single|songbook> <a4|a5> TITLE XML_SONG_FILES...", file=sys.stderr)
+        exit(1)
     create_ready_tex(sys.argv[1] != 'single', source=sys.argv[4:], papersize=sys.argv[2],
                      title_of_songbook=sys.argv[3])
 

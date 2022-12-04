@@ -170,7 +170,7 @@ def s2t(path):
 
 def main():
     if len(sys.argv) < 2:
-        print("Wymagana nazwa pliku xml")
+        print("Wymagana nazwa pliku xml", file=sys.stderr)
         exit(1)
     tree = etree.parse(sys.argv[1])
     song = Song.parseDOM(tree.getroot())
