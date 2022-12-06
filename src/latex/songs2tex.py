@@ -1,3 +1,6 @@
+"""This code generate one tex plik from n>=1 songs in xml
+    and gives tex text on stdout"""
+
 import os
 import icu  # for sorting polish chars
 import sys
@@ -35,10 +38,9 @@ def create_ready_tex(songbook, source, papersize, title_of_songbook=""):
     # I define head (template of header of tex document) and foot (template of footer of tex document)
     # depending on the papersize which we want
 
-    if papersize != "a4":
-        if papersize != "a5":
-            print("Wrong size of paper!", file=sys.stderr)
-            exit(1)
+    if papersize not in ("a4", "a5"):
+        print("Wrong size of paper!", file=sys.stderr)
+        exit(1)
 
     if songbook:
         head = f"songbook_{papersize}_p.tex"
@@ -51,12 +53,9 @@ def create_ready_tex(songbook, source, papersize, title_of_songbook=""):
         content = f.read()
 
     if songbook:
-        p = content.find(":title:")
-        s = content[:p] + title_of_songbook + content[p + 7:]
-        content = s
+        content = content.replace(":title:", title_of_songbook)
 
-    for song in list_title_file:
-        content += s2t.s2t(song[1])
+    content += "".join([s2t.song2tex(file) for _, file in list_title_file])
 
     with open("src/formats/" + foot) as f:
         content += f.read()

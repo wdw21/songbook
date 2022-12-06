@@ -145,8 +145,7 @@ class Song:
         )
 
 
-def s2t(path):
-    path = path
+def song2tex(path):
     tree = etree.parse(path)
     song = Song.parseDOM(tree.getroot())
 
@@ -172,25 +171,7 @@ def main():
     if len(sys.argv) < 2:
         print("Wymagana nazwa pliku xml", file=sys.stderr)
         exit(1)
-    tree = etree.parse(sys.argv[1])
-    song = Song.parseDOM(tree.getroot())
-
-    latex_jinja_env = jinja2.Environment(
-        block_start_string='\BLOCK{',
-        block_end_string='}',
-        variable_start_string='\VAR{',
-        variable_end_string='}',
-        comment_start_string='\#{',
-        comment_end_string='}',
-        line_statement_prefix='%%',
-        line_comment_prefix='%#',
-        trim_blocks=True,
-        lstrip_blocks=True,
-        autoescape=False,
-        loader=jinja2.FileSystemLoader(sys.path[0])
-    )
-    template = latex_jinja_env.get_template('song_template.tex')
-    print(template.render(song=song))
+    song2tex(sys.argv[1])
 
 
 if __name__ == "__main__":

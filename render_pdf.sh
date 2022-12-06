@@ -27,7 +27,6 @@ tex_dir=${__dir}/build/songs_tex/
 tex_file=${__dir}/build/songs_tex/output.tex
 mkdir -p ${tex_dir}
 
-echo ${tex_file}
 python3 ${__dir}/src/latex/songs2tex.py "${format}" "${papersize}" "${title}" ${@:4} >${tex_file}
 
 # Run pdflatex three times to recalculate longtables and toc

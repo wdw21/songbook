@@ -44,7 +44,6 @@ def list_of_song(path_out):
             add_song(path, list_od_meta)
     collator = icu.Collator.createInstance(icu.Locale('pl_PL.UTF-8'))
     list_od_meta.sort(key=lambda x: collator.getSortKey(x.title))
-    print(list_od_meta[-10].title)
 
     return list_od_meta
 
@@ -145,7 +144,6 @@ def create_full_epub(src_of_songs, src, target_dir):
     path_out = os.path.join(target_dir, "epub", "OEBPS")
     cash.create_all_songs_html(src_of_songs, src, path_out)
     los = list_of_song(path_out)
-    print(los)
     create_content_opf(los, target_dir)
     create_toc_ncx(los, target_dir)
     create_toc_xhtml(los, target_dir)
