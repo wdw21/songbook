@@ -23,7 +23,7 @@ format=$1
 papersize=$2
 title=$3
 
-tex_dir=${__dir}/build/songs_tex/
+tex_dir=${__dir}/build/songs_tex
 tex_file=${__dir}/build/songs_tex/output.tex
 mkdir -p ${tex_dir}
 
