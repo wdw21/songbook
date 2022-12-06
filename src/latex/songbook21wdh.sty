@@ -19,6 +19,7 @@
 
 \newboolean{PrintChordsOn}
 \newboolean{PrintChordsBehind}
+\newboolean{PrintSongNum}
 
 \newcommand{\ChBassFont}{\normalsize\bf\sf}     % = cmss12 at 12.0pt
 \newcommand{\SBChordRaise}       {2.25ex}
@@ -100,8 +101,8 @@
 \newcommand{\STitle}[1]{%
    \vbox{%
    \begin{center}%
-    {\LARGE{\theSongCnt{}.\ {\bf #1}}\\}%
-   \end{center}    %
+    {\LARGE{\ifthenelse{\boolean{PrintSongNum}}{\theSongCnt{}.\ }{}{\bf #1}}\\}%
+   \end{center}%
   }%
   }
 
@@ -116,11 +117,14 @@
   \renewcommand{\theSongArtist}{#4}
 
   \addtocounter{SongCnt}{1}
-  \addcontentsline{toc}{section}{\hspace{-1.5em}#1}
+  \addcontentsline{toc}{section}{\theSongCnt{}. #1}
+%  \addcontentsline{toc}{section}{alias title}
   \STitle{\theSongTitle}
   \AAndCAndA{#2}{#3}{#4}
   \parindent=0pt
-  }{\vfill}
+  }{}
+
+\newcommand{\calb}[0]{\vline width 2pt {}}%
 
 \newcommand{\row}[5][M]{%
 % #1:
@@ -136,16 +140,20 @@
 % #5: chords
 %----------------------------------------------------------
 %
+%    \IfSubStr{#2}{C}{}{}
     \IfSubStr{#1}{F}{%
-      \IfSubStr{#2}{C}{Ref:}{}%
-      \IfSubStr{#2}{V}{\addtocounter{VerseCnt}{1}\theVerseCnt{}.}{}%
+      \IfSubStr{#2}{C}{ Ref:}{}%
+      \IfSubStr{#2}{V}{ \addtocounter{VerseCnt}{1}\theVerseCnt{}.}{}%
     }{}%
-    \IfSubStr{#1}{I}%
-        {&\multicolumn{2}{l}{\ChordsBehind{#5}} & }%
-        {&\ChordsBehind{#5} & %
-          \IfSubStr{#2}{C}{\hskip 1.5em}{} %
-          #3 & %
-        }%
+    \IfSubStr{#2}{C}{%
+       \IfSubStr{#1}{I}%
+          {&\multicolumn{2}{||l}{\ChordsBehind{#5}} & }%
+          {&\multicolumn{1}{||l}{\ChordsBehind{#5}} & \hskip 2em #3 & }%
+    }{%
+       \IfSubStr{#1}{I}%
+          {&\multicolumn{2}{l}{\ChordsBehind{#5}} & }%
+          {&\multicolumn{1}{l}{\ChordsBehind{#5}} & #3 & }%
+    }%
     \if\blank{#4}{}\else{#4}\fi%
     \IfSubStr{#1}{L}{\IfSubStr{#1}{E}{\\}{\\\vtop{\vskip2ex minus 1ex}\\}}{\IfSubStr{#1}{P}{\\*}{\IfSubStr{#1}{F}{\\*}{\\}}} % optionally we could emit \\* on last-by-1 line to prevent 1-line tables.
 }{}
