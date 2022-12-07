@@ -65,12 +65,12 @@ class Row:
             chunks = []
         for chunk in root.getchildren():
             chunks.append(RowChunk(chord=tex_escape(chunk.attrib['a']), content=tex_escape(chunk.tail)))
-        if len(chunks) > 0 and not(chunks[0].content.startswith(' ')):
+        if len(chunks) > 0 and not (chunks[0].content.startswith(' ')):
             chunks[0].content = ' ' + chunks[0].content
 
         r = Row(new_chords=strtobool(root.attrib.get('important_over', 'false')), bis=bis, chunks=chunks)
-        if (root.attrib.get('style', 'normal')=='instr'):
-          r.row_type+=RowType.INSTRUMENTAL.value
+        if (root.attrib.get('style', 'normal') == 'instr'):
+            r.row_type += RowType.INSTRUMENTAL.value
         return r
 
 
@@ -105,11 +105,11 @@ class Block:
                 rows += bis_rows
             else:
                 rows.append(Row.parseDOM(child))
-        if len(rows)>0:
+        if len(rows) > 0:
             rows[0].row_type += RowType.FIRST.value
             rows[-1].row_type += RowType.LAST.value
-        if len(rows)>=2:
-          rows[-2].row_type += RowType.LAST_BUT_ONE.value
+        if len(rows) >= 2:
+            rows[-2].row_type += RowType.LAST_BUT_ONE.value
         if linked:
             for row in rows:
                 row.new_chords = False
@@ -134,7 +134,7 @@ class Song:
                   block.tag != '{http://21wdh.staszic.waw.pl}tabbs']
         get_text = lambda elem: elem.text if elem is not None else None
         if blocks and blocks[-1].rows:
-          blocks[-1].rows[-1].row_type += 'E' # end row
+            blocks[-1].rows[-1].row_type += 'E'  # end row
 
         return Song(
             title=root.get('title'),
