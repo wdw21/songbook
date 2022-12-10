@@ -1,0 +1,12 @@
+installing on OSX:
+
+  brew install pkg-config icu4c python-build
+  export PATH="/usr/local/opt/icu4c/bin:$PATH"
+  pip3 install -r requirements.txt
+  Install mactex: https://www.tug.org/mactex/mactex-download.html
+
+installing on Linux:
+
+  sudo apt-get install python3-lxml
+  pip3 install -r requirements.txt
+  sudo apt-get install texlive texlive-latex-extra texlive-lang-polish

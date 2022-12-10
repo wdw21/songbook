@@ -88,23 +88,19 @@
 }
 
 \newcommand{\AAndCAndA}[3]{%
-   \vbox{%
-   \begin{flushleft}%
-   \small%
+ {%
+       \small%
        \if\blank{#1}{}\else{\textbf{Słowa:}\ #1 \\}\fi%
        \if\blank{#2}{}\else{\textbf{Muzyka:}\ #2 \\}\fi%
        \if\blank{#3}{}\else{\textbf{Wykonawca:}\ #3 \\}\fi%
-       \end{flushleft}%\\
-   }%
+  }%
 }
 
 \newcommand{\STitle}[1]{%
-   \vbox{%
-   \begin{center}%
-    {\LARGE{\ifthenelse{\boolean{PrintSongNum}}{\theSongCnt{}.\ }{}{\bf #1}}\\}%
-   \end{center}%
-  }%
-  }
+  {\LARGE\centering%
+    {\ifthenelse{\boolean{PrintSongNum}}{\theSongCnt{}.\ }{}{\bf #1\\}}}%
+}%
+
 
 \newenvironment{song}[4]{
   \clearpage 
@@ -126,10 +122,23 @@
 
 \newcommand{\calb}[0]{\vline width 2pt {}}%
 
+% #1 - whether row is instrumental 'I' or/and it's chorus 'C'
+% #2 - intended row prefix (|| - for (not short chorus))
+% #3 - verse text
+% #4 - chords
+\newcommand{\ChordsContext}[4]{%
+  \IfSubStr{#1}{I}%
+    {&\multicolumn{2}{#2l}{\ChordsBehind{#4}} & }%
+    {&\multicolumn{1}{#2l}{\ChordsBehind{#4}} & \IfSubStr{#1}{C}{\hskip 2em}{} #3 & }%
+}%
+
+
 \newcommand{\row}[5][M]{%
 % #1:
 %     "F"  <=> (first line of verse (or chorus))
+%     "P"  <=> (last but 1 line - we don't page split after it)
 %     "L"  <=> (last line) don't try to nobreakline.
+%     'E'  <=> The very last verse of the song
 %     "I"  <=> instrumental line
 % - you can combine the lines
 % #2: "C"  <=> chorus
@@ -140,21 +149,18 @@
 % #5: chords
 %----------------------------------------------------------
 %
-%    \IfSubStr{#2}{C}{}{}
     \IfSubStr{#1}{F}{%
       \IfSubStr{#2}{C}{ Ref:}{}%
       \IfSubStr{#2}{V}{ \addtocounter{VerseCnt}{1}\theVerseCnt{}.}{}%
     }{}%
-    \IfSubStr{#2}{C}{%
-       \IfSubStr{#1}{I}%
-          {&\multicolumn{2}{||l}{\ChordsBehind{#5}} & }%
-          {&\multicolumn{1}{||l}{\ChordsBehind{#5}} & \hskip 2em #3 & }%
-    }{%
-       \IfSubStr{#1}{I}%
-          {&\multicolumn{2}{l}{\ChordsBehind{#5}} & }%
-          {&\multicolumn{1}{l}{\ChordsBehind{#5}} & #3 & }%
-    }%
+    \IfSubStr{#2}{C}%
+      {%
+      \IfSubStr{#1}{S}%
+        {\ChordsContext{#1#2}{}{#3}{#5}}%
+        {\ChordsContext{#1#2}{||}{#3}{#5}}%
+      }%
+      {\ChordsContext{#1#2}{}{#3}{#5}}%
     \if\blank{#4}{}\else{#4}\fi%
-    \IfSubStr{#1}{L}{\IfSubStr{#1}{E}{\\}{\\\vtop{\vskip2ex minus 1ex}\\}}{\IfSubStr{#1}{P}{\\*}{\IfSubStr{#1}{F}{\\*}{\\}}} % optionally we could emit \\* on last-by-1 line to prevent 1-line tables.
+    \IfSubStr{#1}{L}{\IfSubStr{#1}{E}{\\}{\\\vtop{\vskip1.5ex minus 1ex}\\}}{\IfSubStr{#1}{P}{\\*}{\IfSubStr{#1}{F}{\\*}{\\}}} % optionally we could emit \\* on last-by-1 line to prevent 1-line tables.
 }{}
 
