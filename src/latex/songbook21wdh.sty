@@ -88,23 +88,19 @@
 }
 
 \newcommand{\AAndCAndA}[3]{%
-   \vbox{%
-   \begin{flushleft}%
-   \small%
+ {%
+       \small%
        \if\blank{#1}{}\else{\textbf{Słowa:}\ #1 \\}\fi%
        \if\blank{#2}{}\else{\textbf{Muzyka:}\ #2 \\}\fi%
        \if\blank{#3}{}\else{\textbf{Wykonawca:}\ #3 \\}\fi%
-       \end{flushleft}%\\
-   }%
+  }%
 }
 
 \newcommand{\STitle}[1]{%
-   \vbox{%
-   \begin{center}%
-    {\LARGE{\ifthenelse{\boolean{PrintSongNum}}{\theSongCnt{}.\ }{}{\bf #1}}\\}%
-   \end{center}%
-  }%
-  }
+  {\LARGE\centering%
+    {\ifthenelse{\boolean{PrintSongNum}}{\theSongCnt{}.\ }{}{\bf #1\\}}}%
+}%
+
 
 \newenvironment{song}[4]{
   \clearpage 
@@ -165,6 +161,6 @@
       }%
       {\ChordsContext{#1#2}{}{#3}{#5}}%
     \if\blank{#4}{}\else{#4}\fi%
-    \IfSubStr{#1}{L}{\IfSubStr{#1}{E}{\\}{\\\vtop{\vskip2ex minus 1ex}\\}}{\IfSubStr{#1}{P}{\\*}{\IfSubStr{#1}{F}{\\*}{\\}}} % optionally we could emit \\* on last-by-1 line to prevent 1-line tables.
+    \IfSubStr{#1}{L}{\IfSubStr{#1}{E}{\\}{\\\vtop{\vskip1.5ex minus 1ex}\\}}{\IfSubStr{#1}{P}{\\*}{\IfSubStr{#1}{F}{\\*}{\\}}} % optionally we could emit \\* on last-by-1 line to prevent 1-line tables.
 }{}
 
