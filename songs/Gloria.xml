@@ -50,7 +50,7 @@
       <row important_over="false"><ch a="D"/>Gloria gloria in excelsis eoli<ch a="G"/></row>
     </block>
     <block type="other" style="instr">
-      <row important_over="false">
+      <row important_over="false"  style="instr">
         <ch a="G"/>
         <ch a="e"/>
 

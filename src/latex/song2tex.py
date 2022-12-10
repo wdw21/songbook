@@ -44,10 +44,11 @@ class RowChunk:
 
 class RowType(Enum):
     FIRST = 'F'
-    MIDDLE = 'M'
     LAST_BUT_ONE = 'P'
     LAST = 'L'
     INSTRUMENTAL = 'I'
+    SHORT = 'S'  # This is shortened chorus usually
+    END = 'E'    # The very last row of the song
 
 
 class Row:
@@ -73,6 +74,9 @@ class Row:
             r.row_type += RowType.INSTRUMENTAL.value
         return r
 
+    def clone(self):
+        return Row(row_type=self.row_type, new_chords=self.new_chords, bis=self.bis, chunks=self.chunks[:])
+
 
 class BlockType(Enum):
     VERSE = 'V'
@@ -89,10 +93,11 @@ class BlockType(Enum):
 
 
 class Block:
-    def __init__(self, block_type=BlockType.VERSE, rows=[]):
+    def __init__(self, block_type=BlockType.VERSE, rows=[], effective_rows=[]):
         self.block_type = block_type
         self.rows = rows
-
+        self.effective_rows = effective_rows
+    
     @staticmethod
     def parseDOM(root, linked=False):
         block_type = BlockType.parse(root.attrib['type'])
@@ -110,10 +115,24 @@ class Block:
             rows[-1].row_type += RowType.LAST.value
         if len(rows) >= 2:
             rows[-2].row_type += RowType.LAST_BUT_ONE.value
+        effective_rows=[]
         if linked:
             for row in rows:
                 row.new_chords = False
-        return Block(block_type=block_type, rows=rows)
+            for row in rows:
+                if not(RowType.INSTRUMENTAL.value in row.row_type):
+                  if len(effective_rows) == 0:
+                    rowclone = row.clone()
+                    rowclone.row_type=RowType.FIRST.value + RowType.LAST.value + RowType.SHORT.value
+                    effective_rows = [rowclone]
+                  else:
+                    effective_rows[0].chunks.append(RowChunk(content=" \ldots"))
+                    break
+            if len(effective_rows)==0:
+                effective_rows = rows
+        else:
+            effective_rows=rows
+        return Block(block_type=block_type, rows=rows, effective_rows=effective_rows)
 
 
 class Song:
@@ -133,8 +152,8 @@ class Song:
         blocks = [flatten(block) for block in root.find('{*}lyric').getchildren() if
                   block.tag != '{http://21wdh.staszic.waw.pl}tabbs']
         get_text = lambda elem: elem.text if elem is not None else None
-        if blocks and blocks[-1].rows:
-            blocks[-1].rows[-1].row_type += 'E'  # end row
+        if blocks and blocks[-1].effective_rows:
+          blocks[-1].effective_rows[-1].row_type += RowType.END.value # end row
 
         return Song(
             title=root.get('title'),
