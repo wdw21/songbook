@@ -71,7 +71,9 @@
 	<music>
 		<guitar barre="0"/>
 	</music>
-	<keywords/>
+	<keywords>
+		<keyword>Bimber</keyword>
+	</keywords>
 	<album>Stare and Nowe</album>
 	<genre>Piosenka kabaretowa</genre>
 	<status>
