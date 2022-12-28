@@ -1,6 +1,9 @@
 name: Generate Song Artifact on Push
 run-name: Generating song
-on: [pull_request_target]
+on:
+  pull_request:
+    paths:
+      - '**.xml'
 
 jobs:
   Generate-artifacts:
@@ -58,12 +61,21 @@ jobs:
           echo "link=${LINK}" >> $GITHUB_ENV
           curl -v --data-binary  '@${{ github.workspace }}/build/songs_tex/output.pdf' "${LINK}" -H 'Content-Type: application/pdf'
 
-      - name: Comment PR
-        uses: thollander/actions-comment-pull-request@v2
-        if: steps.changed-xml-files.outputs.any_changed == 'true'
+      - name: Comment PR proxy
+        uses: mshick/add-pr-comment@v2
         with:
           message: |
             [New PDF](${{ env.link }}?alt=media) is ready, my lord (available for ~14 days).
             
             Cieplutkiego [PDFa](${{ env.link }}?alt=media) podano.
+          proxy-url: https://editor-github-pr-proxy-2tnk3uvmqq-ey.a.run.app
+
+#      - name: Comment PR
+#        uses: thollander/actions-comment-pull-request@v2
+#        if: steps.changed-xml-files.outputs.any_changed == 'true'
+#        with:
+#          message: |
+#            [New PDF](${{ env.link }}?alt=media) is ready, my lord (available for ~14 days).
+#
+#            Cieplutkiego [PDFa](${{ env.link }}?alt=media) podano.
       - run: echo "DONE"
