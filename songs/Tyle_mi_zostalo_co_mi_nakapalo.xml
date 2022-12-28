@@ -64,7 +64,7 @@
 			<row important_over="false"><ch a="H"/>By mieć dwa baniaki<ch a="E"/></row>
 		</block>
 		<blocklink blocknb="2"/>
-		<block type="verse">
+		<block type="other">
 			<row style="instr"><ch a="A"/><ch a="E"/><ch a="H"/><ch a="E"/> </row>
 		</block>
 	</lyric>
