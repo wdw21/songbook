@@ -1,0 +1,69 @@
+name: Generate Song Artifact on Push
+run-name: Generating song
+on: [pull_request_target]
+
+jobs:
+  Generate-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "release_name=$(date +'%Y-%m-%dT%H_%M_%S')" >> $GITHUB_ENV
+      - run: echo "Generating a songbook PDF triggered by ${{ github.event_name }} release:${{ env.release_name }}"
+      - run: |
+          echo "DUMP: ${{ github }}"
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip' # caching pip dependencies
+      - run: sudo apt-get install python3-lxml
+      - run: pip3 install -r ${{ github.workspace }}/requirements.txt
+      - run: pip install lxml
+
+      - name: Get changed files
+        id: changed-xml-files
+        uses: tj-actions/changed-files@v34
+        with:
+          fetch_depth: 500
+          files: |
+            songs/*.xml
+
+      - name: List all changed files
+        run: |
+          for file in "${{ steps.changed-xml-files.outputs.all_changed_files }}"; do
+            echo "$file was changed"
+          done
+
+      - if: steps.changed-xml-files.outputs.any_changed == 'true'
+        run: sudo apt-get install texlive texlive-latex-extra texlive-lang-polish
+
+      - name: Generate PDF
+        if: steps.changed-xml-files.outputs.any_changed == 'true'
+        run: |
+          chmod 755 ./render_pdf.sh
+          cd  ${{ github.workspace }} && ./render_pdf.sh single a4 "$(date +'%Y-%m-%d')" ${{ steps.changed-xml-files.outputs.all_changed_files }}
+
+      - name: Save artifact
+        if: steps.changed-xml-files.outputs.any_changed == 'true'
+        uses: actions/upload-artifact@v3
+        with:
+          name: songbooks
+          path: ${{ github.workspace }}/build/songs_tex/*.pdf
+
+      - name: Upload artifact
+        if: steps.changed-xml-files.outputs.any_changed == 'true'
+        run: |
+          FILENAME=$(echo "${{github.repository}}/${{github.sha}}_a5.pdf" | sed 's|/|%2F|g' )
+          LINK="https://firebasestorage.googleapis.com/v0/b/wdw-21.appspot.com/o/${FILENAME}"
+          echo "link=${LINK}" >> $GITHUB_ENV
+          curl -v --data-binary  '@${{ github.workspace }}/build/songs_tex/output.pdf' "${LINK}" -H 'Content-Type: application/pdf'
+
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@v2
+        if: steps.changed-xml-files.outputs.any_changed == 'true'
+        with:
+          message: |
+            [New PDF](${{ env.link }}?alt=media) is ready, my lord (available for ~14 days).
+            
+            Cieplutkiego [PDFa](${{ env.link }}?alt=media) podano.
+      - run: echo "DONE"
