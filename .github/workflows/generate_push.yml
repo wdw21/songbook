@@ -1,6 +1,6 @@
 name: Generate Song Artifact on Push
 run-name: Generating song
-on: [pull_request]
+on: [pull_request_target]
 
 jobs:
   Generate-artifacts:
