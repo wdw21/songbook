@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Gdańsk">
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Pogodne popołudnie kapitana białej floty">
+	<alias>Transatlantyki</alias>
+	<text_author type="solo">Andrzej Waligórski</text_author>
+	<composer type="solo">Aleksander Grotowski</composer>
+	<artist type="solo">Aleksander Grotowski, Małgorzata Zwierzchowska</artist>
 	<lyric>
 		<block type="verse">
 			<row important_over="false">W Gdańska mewy, wiatr i gotyk</row>
