@@ -104,7 +104,7 @@ def create_full_epub(src_of_songs, src, target_dir):
     create_template_epub(target_dir)
     path_out = os.path.join(target_dir, "epub", "OEBPS")
     cash.create_all_songs_html(src_of_songs, src, path_out)
-    los = loslib.list_of_song(path_out)
+    los = loslib.list_of_song(src_of_songs)
     create_content_opf(los, target_dir)
     create_toc_ncx(los, target_dir)
     create_toc_xhtml(los, target_dir)
