@@ -1,6 +1,5 @@
 import os
 import zipfile
-import icu #do sortowania po polskich znakach
 
 from lxml import etree
 import shutil
@@ -8,45 +7,7 @@ from zipfile import ZipFile
 from datetime import datetime
 
 import src.html.create_songs_html as cash
-
-
-class SongMeta:
-    def __init__(self, title='', alias='', plik=''):
-        self.title = title if title else ''
-        self.alias = alias if alias else ''
-        self.plik = plik
-
-    @staticmethod
-    def parseDOM(root, plik):
-        def elementTextOrNone(elem):
-            return elem.text if elem is not None else None
-
-        return SongMeta(
-            title=root.get('title'),
-            alias=elementTextOrNone(root.find('{*}alias')),
-            plik=plik
-        )
-
-
-def add_song(path, lista):
-    tree = etree.parse(path + ".xml")
-    plik = path + ".xml"
-    song = SongMeta.parseDOM(tree.getroot(), plik)
-    lista.append(song)
-
-
-def list_of_song(path_out):
-    songs_list = os.listdir(path_out)
-    list_od_meta = []
-    for song in songs_list:
-        if os.path.splitext(song)[1] == '.xhtml':
-            path = "../../songs/" + os.path.splitext(song)[0]
-            add_song(path, list_od_meta)
-    collator = icu.Collator.createInstance(icu.Locale('pl_PL.UTF-8'))
-    list_od_meta.sort(key=lambda x: collator.getSortKey(x.title))
-
-    return list_od_meta
-
+import src.lib.list_of_songs as loslib
 
 def actual_date():
     return str(datetime.now().strftime("%d/%m/%Y %H:%M"))
@@ -143,7 +104,7 @@ def create_full_epub(src_of_songs, src, target_dir):
     create_template_epub(target_dir)
     path_out = os.path.join(target_dir, "epub", "OEBPS")
     cash.create_all_songs_html(src_of_songs, src, path_out)
-    los = list_of_song(path_out)
+    los = loslib.list_of_song(path_out)
     create_content_opf(los, target_dir)
     create_toc_ncx(los, target_dir)
     create_toc_xhtml(los, target_dir)
