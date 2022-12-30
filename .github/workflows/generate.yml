@@ -23,9 +23,32 @@ on:
         required: false
         type: boolean
         default: true
+  workflow_call:
+    inputs:
+      epub:
+        description: 'Generate epub'
+        required: false
+        type: boolean
+        default: true
+      pdf:
+        description: 'Generate pdf'
+        required: false
+        type: boolean
+        default: true
+      html:
+        description: 'Generate htmls'
+        required: false
+        type: boolean
+        default: true
+      release:
+        description: 'Create release'
+        required: false
+        type: boolean
+        default: true
+
 permissions:
-  content: write
-  
+  contents: write
+
 jobs:
   Generate-artifacts:
     runs-on: ubuntu-latest
