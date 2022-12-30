@@ -17,6 +17,5 @@ def main():
     path_tmp_css_song = os.path.join('..', 'epub', 'templates', "song.css")
     shutil.copyfile(path_tmp_css_song, os.path.join(path_css, "song.css"))
 
-
 if __name__ == "__main__":
     main()
