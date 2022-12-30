@@ -23,7 +23,9 @@ on:
         required: false
         type: boolean
         default: true
-
+permissions:
+  content: write
+  
 jobs:
   Generate-artifacts:
     runs-on: ubuntu-latest
