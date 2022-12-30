@@ -1,7 +1,7 @@
 # Tworzy piosenki w xhtml
 import os
 from lxml import etree
-import src.html.read_song_xml as rsx
+import src.lib.read_song_xml as rsx
 
 
 def _add_chunk(chunk, parent, position):

@@ -21,5 +21,6 @@ fi
 
 cd "${__dir}/src/html/"
 PYTHONPATH="${__dir}" python3 htmls_generator.py
+PYTHONPATH="${__dir}" python3 index_generator.py
 cd "${__dir}/build/"
 zip -r songs_html.zip songs_html

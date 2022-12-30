@@ -49,7 +49,6 @@ jobs:
 
       - name: Prepare _site
         run: |
-          mkdir _site
           unzip -o _generated/*.zip -d _site/
           mv _generated/*.pdf _site/
           mv _generated/*.epub _site/
