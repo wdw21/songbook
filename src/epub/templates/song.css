@@ -62,21 +62,22 @@ span.chords > span.ch {
 
 div.verse {
   display: table;
-   width: 100%;
+   /*width: 100%; */
   align-items: stretch;
   margin-top: 1.2em;
 }
 
 div.chorus {
   display: table;
-   width: 100%;
+   /*width: 100%;*/
   align-items: stretch;
   margin-top: 1.2em;
+  padding-left: 1.2em;
 }
 
 div.other {
   display: table;
-   width: 100%;
+   /*width: 100%;*/
   align-items: stretch;
   margin-top: 1.2em;
 }
@@ -88,12 +89,12 @@ div.row {
 div.row > span.lyric {
   display: table-cell;
   padding-right: 2em;
-  width: 85%;
+  /*width: 85%;*/
 }
 div.row > span.chords_ins {
   display: table-cell;
   padding-right: 2em;
-  width: 85%;
+  /*width: 85%;*/
 }
 
 div.row > span.chords {
