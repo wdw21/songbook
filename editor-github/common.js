@@ -163,7 +163,7 @@ export async function prepareBranch(octokit, user, branchName) {
     return fetchBranch(octokit, user, branchName);
 }
 
-export function editorLink(user, branchName, file, autocommit) {
+export function editorLink(user, branchName, file, autocommit, maybeNew) {
     let url = new URL(EDITOR_BASE_URL);
     url.searchParams.set('baseUrl', BASE_URL);
     url.searchParams.set('branch', branchName);
@@ -171,6 +171,9 @@ export function editorLink(user, branchName, file, autocommit) {
     url.searchParams.set('user', user);
     if (autocommit) {
         url.searchParams.set('commitOnLoad', 'true');
+    }
+    if (maybeNew) {
+        url.searchParams.set('new', 'maybe');
     }
     return url.href;
 }
