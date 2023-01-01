@@ -42,7 +42,7 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/changes', async (req, res) => {
-    const {octokit, mygraphql, user} =
+    const {octokit, user} =
         await newUserOctokit(req, res);
     if (!octokit) {
         return;
@@ -52,7 +52,7 @@ app.get('/changes', async (req, res) => {
 
 
 app.get('/songs', async (req, res) => {
-    const {octokit, mygraphql, user} = await newUserOctokit(req, res);
+    const {octokit, user} = await newUserOctokit(req, res);
     if (!octokit) return;
     res.redirect(`/users/${user}/songs`)
 });
@@ -64,7 +64,7 @@ app.post('/users/:user/changes[:]cleanup', cleanupChanges);
 
 app.get('/users/:user/changes/:branch[:]edit', async (req, res) => {
     const branchName = req.params.branch;
-    const {octokit, _, user} = await newUserOctokit(req, res);
+    const {octokit,  user} = await newUserOctokit(req, res);
     if (!octokit) return;
     let file = await getFileFromBranch(octokit, user, branchName);
     res.redirect(editorLink(user, branchName, file, false, false));
@@ -72,7 +72,7 @@ app.get('/users/:user/changes/:branch[:]edit', async (req, res) => {
 
 app.delete('/users/:user/changes/:branch', async (req, res) => {
     const branchName = req.params.branch;
-    const {octokit, mygraphql, user} = await newUserOctokit(req, res);
+    const {octokit, user} = await newUserOctokit(req, res);
     if (!octokit) return;
 
     await octokit.rest.git.deleteRef({owner: user, repo: 'songbook', "ref": "heads/" + branchName});
@@ -81,7 +81,7 @@ app.delete('/users/:user/changes/:branch', async (req, res) => {
 
 async function publish(req, res) {
     const branchName = req.params.branch;
-    const {octokit, mygraphql, user} = await newUserOctokit(req, res);
+    const {octokit, user} = await newUserOctokit(req, res);
     let file = await getFileFromBranch(octokit, user, branchName);
     let link = editorLink(user, branchName, file, false);
     let body = `{Opisz zmiany w piosence i kliknij "Create pull request". }\n\n\n[Link do edytora](${link})`;
@@ -90,7 +90,7 @@ async function publish(req, res) {
 }
 
 app.get('/users/:user/changes/:branch[:]publish', async (req, res) => {
-    publish(req, res);
+    await publish(req, res);
 });
 
 
@@ -112,7 +112,7 @@ async function getSongs(octokit, user) {
 app.get('/users/:user/changes[:]new', async (req, res) => {
     try {
         console.log("Starting request /users/:user/changes[:]new");
-        const {octokit, mygraphql, user} = await newUserOctokit(req, res);
+        const {octokit, user} = await newUserOctokit(req, res);
         if (!octokit) {
             return;
         }
@@ -149,7 +149,7 @@ app.get('/users/:user/changes[:]new', async (req, res) => {
 });
 
 function sanitizeBranchName(br) {
-    return br.replaceAll(/[^a-zA-Z0-9\.\-_]/g, "_");
+    return br.replaceAll(/[^a-zA-Z0-9.\-_]/g, "_");
 }
 
 async function newChange(file, req, res) {
@@ -158,7 +158,7 @@ async function newChange(file, req, res) {
     let branchName = sanitizeBranchName("se-" + today + "-" + rand + "-" + file);
 
     const {octokit, user} = await newUserOctokit(req, res);
-    const _ = await prepareBranch(octokit, user, branchName)
+    await prepareBranch(octokit, user, branchName)
 
     res.redirect(editorLink(user, branchName, "songs/" + file, true, true));
 }
@@ -169,18 +169,18 @@ app.post('/users/:user/changes[:]new', express.urlencoded({extended: true}), asy
     if (!file.toLowerCase().endsWith(".xml")) {
         file = file + ".xml";
     }
-    newChange(file, req, res)
+    return newChange(file, req, res)
 });
 
 app.post('/users/:user/changes/:file[:]new', async (req, res) => {
     let file = req.params.trim();
-    newChange(file, req, res)
+    return newChange(file, req, res)
 });
 
 app.get('/users/:user/songs', async (req, res) => {
     try {
         console.log("Starting request /songs");
-        const {octokit, mygraphql, user} = await newUserOctokit(req, res);
+        const {octokit, user} = await newUserOctokit(req, res);
         if (!octokit) {
             return;
         }
@@ -215,17 +215,17 @@ app.get('/users/:user/songs', async (req, res) => {
 });
 
 app.get('/config', async (req, res) => {
-    const {octokit, mygraphql, authuser} = await newUserOctokit(req, res);
+    const {octokit, authuser} = await newUserOctokit(req, res);
 
     try {
-        const repo = await octokit.rest.repos.get({owner: authuser, repo: "songbook"});
+        await octokit.rest.repos.get({owner: authuser, repo: "songbook"});
     } catch (e) {
-        const newFork = octokit.rest.repos.createFork({owner: "wdw21", repo: "songbook"});
+        await octokit.rest.repos.createFork({owner: "wdw21", repo: "songbook"});
         const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
         await delay(3000);
     }
 
-    prepareMainBranch(octokit, authuser);
+    await prepareMainBranch(octokit, authuser);
     res.redirect(`/users/${authuser}/changes`);
 });
 
@@ -329,18 +329,24 @@ app.post('/users/:user/changes/:branchName/:file([^$]+)[:]commitAndPublish', asy
 
 app.get('/users/:user/changes/:branchName/:file([^$]+)', async (req, res) => {
     try {
-        let effectiveUser=req.params.user;
+        const {octokit, user} = await newUserOctokit(req, res);
+        if (!octokit) return;
 
-        if (effectiveUser=="me") {
-            const {octokit, user} = await newUserOctokit(req, res);
-            if (!octokit) return;
-            effectiveUser = user;
-        }
-        let red = `https://api.github.com/repos/${effectiveUser}/songbook/contents/${req.params.file}?ref=${branchName}`
-        console.log("Redirecting to: " + red)
-        res.redirect(red)
+        const branchName = req.params.branchName;
+        console.log(branchName);
+        let cont = await octokit.rest.repos.getContent(
+            {owner: user, repo: 'songbook', path: req.params.file, ref: branchName});
+
+        // res.setHeader('Content-disposition', 'attachment; filename='+req.params.file);
+        res.setHeader('Content-type', 'text/xml')
+        res.send(new Buffer.from(cont.data.content, "base64").toString('utf-8'));
     } catch (e) {
-        HandleError(e, res);
+       if (e instanceof RequestError && e.status===404) {
+           res.status(404);
+           res.send("Document not found");
+       } else {
+           HandleError(e, res);
+       }
     } finally {
         res.end();
     }

@@ -53,9 +53,9 @@ export function htmlPrefix(res) {
   </head>
   <body>
     <div>
-      <a href="/changes">[Edycje]</a>
-      <a href="/users/me/changes:new">[Nowa]</a>
       <a href="${EDITOR_DOMAIN}">[Piosenki]</a>
+      <a href="/users/me/changes:new">[Nowa]</a>
+      <a href="/changes">>[Inne rozpoczęte edycje]</a>
     </div>
 `);
 }
@@ -187,7 +187,7 @@ export function HandleError(e, res) {
     }
     if (!res.responsesSent) {
         res.send(`<hr/><detail><summery>Error</summery><pre>`);
-        res.send(util.inspect(e, false, null, false));
+       // res.send(util.inspect(e, false, null, false));
         res.end(`</pre></detail></body></html>`);
     }
 }
