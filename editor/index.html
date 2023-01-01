@@ -16,17 +16,22 @@
       const loadUrl = urlParams.get('load') ? urlParams.get('load') : baseUrl ? `${baseUrl}/users/${user}/changes/${branch}/${file}` : null;
 
       const commitOnLoad = urlParams.get('commitOnLoad');
+      const newFile = urlParams.get('new');
       const songEditor = document.getElementsByTagName("song-editor")[0];
       songEditor.setAttribute("git", branch && branch.trim() != '');
       if (loadUrl) {
         songEditor.setAttribute("title", "Wczytywanie ...");
         fetch(loadUrl, {credentials: 'include', method: 'GET', redirect: 'follow'})
-            .then((response) => response.text())
+            .then( (response) => {
+              console.log("Fetched: " + JSON.stringify(response));
+              response.text()
+            })
             .then((txt) => {
               if (!songEditor.Load(txt)) {
                 songEditor.setAttribute("title", "Wczytywanie się nie powiodło :(");
                 return;
               }
+              if ()
               if (commitOnLoad) {
                 // The goal is to mark the file that is being touched to prevent deletion and
                 // to distinguish user's changes from automatic format change.
