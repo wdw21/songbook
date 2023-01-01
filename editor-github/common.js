@@ -13,6 +13,7 @@ export const OAUTH_CLIENT_ID = process.env.OAUTH_CLIENT_ID;
 export const BASE_URL = process.env.BASE_URL;
 export const EDITOR_DOMAIN = process.env.EDITOR_DOMAIN;
 export const EDITOR_PATH = process.env.EDITOR_PATH;
+export const PARENT_DOMAIN = process.env.PARENT_DOMAIN;
 
 
 export const EDITOR_BASE_URL = EDITOR_DOMAIN + EDITOR_PATH
@@ -54,7 +55,7 @@ export function htmlPrefix(res) {
     <div>
       <a href="/changes">[Edycje]</a>
       <a href="/users/me/changes:new">[Nowa]</a>
-      <a href="/songs">[Piosenki]</a>
+      <a href="${EDITOR_DOMAIN}">[Piosenki]</a>
     </div>
 `);
 }
@@ -103,7 +104,7 @@ export async function newUserOctokit(req,res) {
         res.cookie("session", {
             "access_token": access_token,
             "user": authuser},
-            { maxAge: 3*24*60*60*1000, httpOnly: true, sameSite:'none', secure: true });
+            { maxAge: 3*24*60*60*1000, httpOnly: true, sameSite:'none', secure: true, domain: PARENT_DOMAIN });
         res.cookie("new", "false", { maxAge: 31536000});
     }
     const usr = (!req.params.user || req.params.user === 'me') ? authuser : req.params.user;
