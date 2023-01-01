@@ -24,14 +24,24 @@
         fetch(loadUrl, {credentials: 'include', method: 'GET', redirect: 'follow'})
             .then( (response) => {
               console.log("Fetched: " + JSON.stringify(response));
-              response.text()
+              if (response.status == 404 && newFile == "maybe") {
+                songEditor.New();
+                return null;
+              }
+              if (response.status != 200) {
+                songEditor.setAttribute("title", "Nie udało się otworzyć pliku do edycji.");
+                return null;
+              }
+              return response.text();
             })
             .then((txt) => {
+              if (txt == null) {
+                return;
+              }
               if (!songEditor.Load(txt)) {
                 songEditor.setAttribute("title", "Wczytywanie się nie powiodło :(");
                 return;
               }
-              if ()
               if (commitOnLoad) {
                 // The goal is to mark the file that is being touched to prevent deletion and
                 // to distinguish user's changes from automatic format change.
@@ -57,7 +67,7 @@
       const topNav = document.getElementById("topnav");
       for (const nav of [document.getElementById("topnav"), document.getElementById("bottomnav")]) {
         if (baseUrl) {
-          nav.innerHTML = `<a href="${baseUrl}/users/me/changes">[Zmiany]</a> <a href="${baseUrl}/users/me/songs">[Piosenki]</a>`;
+          nav.innerHTML = `<a href="/">[Piosenki]</a> <a href="${baseUrl}/users/me/changes">[Inne rozpoczęte edycje]</a>`;
           nav.hidden = false;
         } else {
           nav.innerHTML = '';
