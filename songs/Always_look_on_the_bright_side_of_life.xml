@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Always look on the bright side of life">
-	<artist type="solo">Monthy Python</artist>
+	<alias>Bright Side of Life</alias>
+	<text_author type="solo">Eric Idle</text_author>
+	<artist type="band">Monthy Python</artist>
 	<lyric>
 		<block type="verse">
 			<row important_over="false">Some <ch a="a"/>things in life are <ch a="D"/>bad they can <ch a="G"/>really make you <ch a="e"/>mad</row>
@@ -42,7 +44,7 @@
 			<row important_over="false">And always look on the bright side of life</row>
 			<row important_over="false">Always look on the right side of life</row>
 		</block>
-		<block type="verse">
+		<block type="other">
 			<row important_over="false">(Come on guys, cheer up)</row>
 		</block>
 		<block type="chorus">
@@ -51,11 +53,17 @@
 		</block>
 	</lyric>
 	<keywords/>
+	<album>Brian</album>
+	<genre>Piosenka kabaretowa</genre>
 	<status>
-		<done/>
+		<done>
+			<authors/>
+		</done>
 		<verificators>
 			<verificator>Poprawiony tekst</verificator>
 			<verificator>Krzysiek Cz. poprawione literówki</verificator>
+			<verificator>Twórcy na bazie wikipedii:</verificator>
+			<verificator>https://en.wikipedia.org/wiki/Always_Look_on_the_Bright_Side_of_Life</verificator>
 		</verificators>
 	</status>
 </song>
