@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Nocny kawboy">
-  <artist type="solo">Aktorzy łódzkiej szkoły filmowej</artist>
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Nocny kamboj">
+  <text_author type="band">Aktorzy łódzkiej szkoły filmowej</text_author>
+  <artist type="solo">Jacek Kaczmarski</artist>
   <lyric>
-    <block type="verse">
+    <block type="other">
       <row important_over="false">wersja polska</row>
     </block>
     <block type="verse">
       <bis times="2">
-        <row important_over="false">Kiedy kawboy nie ma konia</row>
-        <row important_over="false">Kiedy kawboy nie ma konia</row>
+        <row important_over="false">Kiedy kamboj nie ma konia</row>
+        <row important_over="false">Kiedy kamboj nie ma konia</row>
         <row important_over="false">Nie wie po co żyje, po co je</row>
       </bis>
     </block>
     <block type="verse">
       <row important_over="false">Jedź do miasta wielkiego</row>
       <row important_over="false">Do wielkiego miasta jedź</row>
-      <row important_over="false">Tam kawboyom bez konia łatwiej żyć</row>
+      <row important_over="false">Tam kambojom bez konia łatwiej żyć</row>
     </block>
     <block type="verse">
       <bis times="2">
-        <row important_over="false">Zapytają Cię ludzie -- gdzie jest twój koń</row>
+        <row important_over="false">Zapytają Cię ludzie - gdzie jest twój koń</row>
         <row important_over="false">Powiedz by się nie przypierdalali doń</row>
       </bis>
     </block>
-    <block type="verse">
+    <block type="other">
       <row important_over="false">wersja angielska</row>
     </block>
     <block type="verse">
       <bis times="2">
-        <row important_over="false">When the cowboy has no horses</row>
-        <row important_over="false">When the cowboy has no horses</row>
+        <row important_over="false">When the kamboj has no horses</row>
+        <row important_over="false">When the kamboj has no horses</row>
         <row important_over="false">He doesn't know to be or not to be</row>
       </bis>
     </block>
@@ -39,10 +40,21 @@
       <row important_over="false">There without horses easier to live</row>
     </block>
     <block type="verse">
-      <row important_over="false">And the people'll ask you -- where is your horse</row>
-      <row important_over="false">And you answer -- kiss my ass</row>
+      <row important_over="false">And the people'll ask you - where is your horse</row>
+      <row important_over="false">And you answer - kiss my ass</row>
+    </block>
+    <block type="other">
+      <row important_over="false">wersja rosyjska</row>
+    </block>
+    <block type="other">
+      <row important_over="false">Niet łoszadi u kamboja,</row>
+      <row important_over="false">Niet łoszadi u kamboja,</row>
+      <row important_over="false">On nie znajet kak jemu żyt’</row>
     </block>
     <block type="verse">
+      <row important_over="false"/>
+    </block>
+    <block type="other">
       <row important_over="false">wersja łódzka</row>
     </block>
     <block type="verse">
@@ -53,7 +65,7 @@
     <block type="verse">
       <row important_over="false">Kiedy aktor nie ma roli</row>
       <row important_over="false">Lub gdy rolę swą spierdoli</row>
-      <row important_over="false">Nie wie po co żyje po co je</row>
+      <row important_over="false">Nie wie po co żyje, po co je</row>
     </block>
     <block type="verse">
       <row important_over="false">Jedź do miasta małego</row>
@@ -63,7 +75,7 @@
     <block type="verse">
       <bis times="2">
         <row important_over="false">Zapytają koledzy gdzie sukces twój</row>
-        <row important_over="false">Sukces mój biznes mój i...</row>
+        <row important_over="false">"Sukces mój, biznes mój i..."</row>
       </bis>
     </block>
   </lyric>
