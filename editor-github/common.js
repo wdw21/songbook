@@ -55,7 +55,7 @@ export function htmlPrefix(res) {
     <div>
       <a href="${EDITOR_DOMAIN}">[Piosenki]</a>
       <a href="/users/me/changes:new">[Nowa]</a>
-      <a href="/changes">>[Inne rozpoczęte edycje]</a>
+      <a href="/changes">[Inne rozpoczęte edycje]</a>
     </div>
 `);
 }

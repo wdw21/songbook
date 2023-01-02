@@ -79,18 +79,73 @@ app.delete('/users/:user/changes/:branch', async (req, res) => {
     res.send("Deleted");
 });
 
-async function publish(req, res) {
-    const branchName = req.params.branch;
-    const {octokit, user} = await newUserOctokit(req, res);
+async function getPullRequest(octokit, user, branchName) {
+    const res = await octokit.request('GET /repos/{owner}/{repo}/pulls{?state,head,base,sort,direction,per_page,page}', {
+        owner: 'wdw21',
+        repo: 'songbook',
+        head: `${user}:${branchName}`,
+    })
+    console.log("getPullRequest: " + JSON.stringify(res))
+    console.log("getPullRequest (no stringify): ", res);
+    return res.status=200 && res.data.length>0 ? res.data[0] : null
+}
+
+async function getCommitsDifferenceMsg(octokit, user, branchName) {
+    const commits = await octokit.request('GET /repos/{owner}/{repo}/compare/{basehead}{?page,per_page}', {
+        owner: user,
+        repo: 'songbook',
+        basehead: `songeditor-main...${branchName}`
+    })
+    let msg="";
+    for (let commit of commits.data.commits) {
+        msg+=commit.commit.message + "\n"
+    }
+    return msg;
+}
+
+async function prDescription(octokit, user, branchName) {
     let file = await getFileFromBranch(octokit, user, branchName);
     let link = editorLink(user, branchName, file, false);
-    let body = `{Opisz zmiany w piosence i kliknij "Create pull request". }\n\n\n[Link do edytora](${link})`;
+    let msg = await getCommitsDifferenceMsg(octokit, user, branchName);
+    let body = `[Link do edytora](${link})\n\n${msg}\n\nZa kilka minut pojawi się tu wyrenderowana piosenka (PDF).
+    Ktoś też zrecenzuje/zaakceptuje Twoje zmiany. Może też mieć tutaj dodatkowe komentarze/pytania.\n
+    Możesz zawsze wrócić do [edytora](${link}) by nanieść dodatkowe poprawki.`;
+    return { body, file }
+}
+
+// We prepare a form, such that user can do final commit.
+async function publishByGet(req, res) {
+    const {octokit, user} = await newUserOctokit(req, res);
+    const branchName = req.params.branch;
+    const {body, file} = prDescription(octokit, user, branchName)
     let url = `https://github.com/wdw21/songbook/compare/main...${user}:songbook:${branchName}?title=Piosenka: ${encodeURIComponent(file)}&expand=1&body=${encodeURIComponent(body)}`
     res.redirect(url);
 }
 
+async function publishByPost(req, res) {
+    const {octokit, user} = await newUserOctokit(req, res);
+    const branchName = req.params.branch;
+    const existingPr = await getPullRequest(octokit, user, branchName);
+    if (existingPr != null) {
+        res.redirect(existingPr.html_url);
+        return
+    }
+    const {body, file} = await prDescription(octokit, user, branchName)
+    const response = await octokit.request('POST /repos/{owner}/{repo}/pulls', {
+        owner: 'wdw21',
+        repo:  'songbook',
+        title: `Piosenka: ${file}`,
+        body: body,
+        head: `${user}:${branchName}`,
+        base: 'main'
+    })
+    console.log("Creation of PULL request returned:" + JSON.stringify(response))
+    res.redirect(response.data.html_url);
+}
+
+
 app.get('/users/:user/changes/:branch[:]publish', async (req, res) => {
-    await publish(req, res);
+    await publishByPost(req, res);
 });
 
 
