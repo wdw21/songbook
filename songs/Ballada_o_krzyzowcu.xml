@@ -19,10 +19,10 @@
 			<row important_over="false"><ch a="D"/> Żebyś przybył doń z daleka.</row>
 		</block>
 		<block type="chorus">
-			<row important_over="false"> N<ch a="e"/>a na na</row>
-			<row important_over="false"> Na na na na n<ch a="A"/>a na na na</row>
-			<row important_over="false"> Na na na na n<ch a="C"/>a na na na</row>
-			<row important_over="false"> Na na na na n<ch a="D"/>a na na na na na na na</row>
+			<row important_over="false">N<ch a="e"/>a na na</row>
+			<row important_over="false">Na na na na n<ch a="A"/>a na na na</row>
+			<row important_over="false">Na na na na n<ch a="C"/>a na na na</row>
+			<row important_over="false">Na na na na n<ch a="D"/>a na na na na na na na</row>
 		</block>
 		<block type="verse">
 			<row important_over="false"><ch a="e"/> Wolniej, wolniej, wstrzymaj konia.</row>

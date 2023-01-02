@@ -11,18 +11,18 @@
     <block type="other">
       <row important_over="false" style="instr">
         <ch a="G"/>
-        <ch a="--"/>
+
         <ch a="G"/>
         <ch a="e"/>
-        <ch a="--"/>
+
         <ch a="G"/>
         <ch a="a"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="D"/>
-        <ch a="--"/>
+
         <ch a="G"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="G"/>Chwała najsampierw komu, komu gloria<ch a="e"/><ch a="G"/><ch a="a"/></row>
@@ -50,35 +50,35 @@
       <row important_over="false"><ch a="D"/>Gloria gloria in excelsis eoli<ch a="G"/></row>
     </block>
     <block type="other" style="instr">
-      <row important_over="false">
+      <row important_over="false"  style="instr">
         <ch a="G"/>
         <ch a="e"/>
-        <ch a="--"/>
+
         <ch a="G"/>
         <ch a="a"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="D"/>
-        <ch a="--"/>
+
         <ch a="G"/>
         <ch a="G7"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="D"/>
-        <ch a="--"/>
+
         <ch a="e"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="D"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="D"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="D"/>
-        <ch a="--"/>
+
         <ch a="G"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="G"/>Z wiatrem pochwalonym teraz pędzimy społem<ch a="e"/><ch a="G"/><ch a="a"/></row>

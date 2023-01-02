@@ -1,0 +1,66 @@
+span.cho {
+  display: inline-block;
+  position: relative;
+  left: 0px;
+  width:0px;
+  top: -1.3em;
+  margin-top: 1.5em;
+  overflow-wrap: normal;
+  hyphens: none;
+}
+
+:host-context(song-row[important_over="true"]) span.cho {
+  top: -1.6em;
+  width: revert;
+}
+
+/*:host-context(song-row[style="instr"]) span.cho {
+  display: inline-block;
+  position: static;
+  top: revert;
+}*/
+
+span.cho span.ch {
+  display: inline-block;
+  position: absolute;
+  left: 0px;
+  font-size: xx-small;
+  /*//width:30px;*/
+  font-weight: lighter;
+  overflow-wrap: normal;
+  hyphens: none;
+  user-select: all;
+  cursor: grab;
+  width: fit-content;
+  overflow-wrap: normal;
+  font-weight: lighter;
+  background: rgba(255,255,255,0.5);;
+  white-space:nowrap;
+  font-family: Arial;
+}
+
+
+:host-context(song-row[important_over="true"]) span.cho span.ch {
+  font-weight: bold;
+  font-size: x-small;
+}
+
+
+/*:host-context(song-row[style="instr"]) span.cho span.ch {
+  position: static;
+}*/
+
+span.cho input.ch {
+  width: 6em;
+  font-size: xx-small;
+  display: inline-block;
+  position: absolute;
+  left: 0px;
+  top: -0.12em;
+  font-weight: bold;
+  overflow-wrap: normal;
+  hyphens: none;
+  z-index: 5;
+  background-color: rgba(255,255,0,0.5);
+  border-width: 0px;
+}

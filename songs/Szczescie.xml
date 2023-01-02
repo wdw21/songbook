@@ -12,27 +12,27 @@
       <row important_over="false" style="instr">
         <ch a="C"/>
         <ch a="e"/>
-        <ch a="--"/>
+
         <ch a="F"/>
         <ch a="C"/>
-        <ch a="--"/>
+
         <ch a="e"/>
         <ch a="F"/>
-        <ch a="--"/>
+
         <ch a="G"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="e"/>
-        <ch a="--"/>
+
         <ch a="F"/>
         <ch a="C"/>
-        <ch a="--"/>
+
         <ch a="e"/>
         <ch a="F"/>
-        <ch a="--"/>
+
         <ch a="G"/>
         <ch a="C"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="C"/>Coś srebrnego dzieje się w chmur dali<ch a="e"/><ch a="F"/><ch a="C"/></row>
@@ -50,27 +50,27 @@
       <row important_over="false" style="instr">
         <ch a="C"/>
         <ch a="e"/>
-        <ch a="--"/>
+
         <ch a="F"/>
         <ch a="C"/>
-        <ch a="--"/>
+
         <ch a="e"/>
         <ch a="F"/>
-        <ch a="--"/>
+
         <ch a="G"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="e"/>
-        <ch a="--"/>
+
         <ch a="F"/>
         <ch a="C"/>
-        <ch a="--"/>
+
         <ch a="e"/>
         <ch a="F"/>
-        <ch a="--"/>
+
         <ch a="G"/>
         <ch a="C"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="C"/>Czemóż ono w mroku szuka treści<ch a="e"/><ch a="F"/><ch a="C"/></row>
@@ -82,27 +82,27 @@
       <row important_over="false" style="instr">
         <ch a="C"/>
         <ch a="e"/>
-        <ch a="--"/>
+
         <ch a="F"/>
         <ch a="C"/>
-        <ch a="--"/>
+
         <ch a="e"/>
         <ch a="F"/>
-        <ch a="--"/>
+
         <ch a="G"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="e"/>
-        <ch a="--"/>
+
         <ch a="F"/>
         <ch a="C"/>
-        <ch a="--"/>
+
         <ch a="e"/>
         <ch a="F"/>
-        <ch a="--"/>
+
         <ch a="G"/>
         <ch a="C"/>
-      </row>
+     </row>
     </block>
   </lyric>
   <music metre="">

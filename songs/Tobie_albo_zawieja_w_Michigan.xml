@@ -12,21 +12,21 @@
       <row important_over="false" style="instr">
         <ch a="G"/>
         <ch a="C"/>
-        <ch a="--"/>
+
         <ch a="G"/>
         <ch a="a"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="G"/>
-        <ch a="--"/>
+
         <ch a="D"/>
         <ch a="e"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="D"/>
-        <ch a="--"/>
+
         <ch a="D"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false">Zawieja w Michigan</row>
@@ -46,21 +46,21 @@
       <row important_over="false" style="instr">
         <ch a="G"/>
         <ch a="C"/>
-        <ch a="--"/>
+
         <ch a="G"/>
         <ch a="a"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="G"/>
-        <ch a="--"/>
+
         <ch a="D"/>
         <ch a="e"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="D"/>
-        <ch a="--"/>
+
         <ch a="D"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false">Miłości nasze tam</row>
@@ -74,26 +74,26 @@
       <row important_over="false" style="instr">
         <ch a="G"/>
         <ch a="C"/>
-        <ch a="--"/>
+
         <ch a="G"/>
         <ch a="a"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="G"/>
-        <ch a="--"/>
+
         <ch a="D"/>
         <ch a="e"/>
-        <ch a="--"/>
+
         <ch a="C"/>
         <ch a="D"/>
-        <ch a="--"/>
+
         <ch a="D"/>
-        <ch a="--"/>
+
         <ch a="G"/>
         <ch a="C"/>
-        <ch a="--"/>
+
         <ch a="G"/>
-      </row>
+     </row>
     </block>
   </lyric>
   <music metre="">

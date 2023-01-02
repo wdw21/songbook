@@ -9,7 +9,7 @@
 	<original_title></original_title>
 	<lyric xmlns="http://21wdh.staszic.waw.pl">
 		<block type="other">
-			<row style="instr"><ch a="C"/><ch a="G"/><ch a="--"/><ch a="a"/><ch a="G"/><ch a="--"/><ch a="C"/><ch a="G"/><ch a="--"/><ch a="H7"/><ch a="--"/><ch a="C"/><ch a="G"/><ch a="--"/><ch a="a"/><ch a="G"/><ch a="--"/><ch a="C"/><ch a="G"/><ch a="--"/><ch a="H7"/></row>
+			<row style="instr"><ch a="C"/><ch a="G"/><ch a="a"/><ch a="G"/><ch a="C"/><ch a="G"/><ch a="H7"/><ch a="C"/><ch a="G"/><ch a="a"/><ch a="G"/><ch a="C"/><ch a="G"/><ch a="H7"/></row>
 		</block>
 		<block type="verse">
 			<row important_over="false"><ch a="e"/>Zrozum to co powiem, spróbuj to zrozumieć dobrze<ch a="H7"/><ch a="G"/><ch a="D"/></row>
@@ -29,7 +29,7 @@
 			</bis>
 		</block>
 		<block type="other">
-			<row style="instr"><ch a="C"/><ch a="G"/><ch a="--"/><ch a="a"/><ch a="G"/><ch a="--"/><ch a="C"/><ch a="G"/><ch a="--"/><ch a="H7"/><ch a="--"/><ch a="C"/><ch a="G"/><ch a="--"/><ch a="a"/><ch a="G"/><ch a="--"/><ch a="C"/><ch a="G"/><ch a="--"/><ch a="H7"/></row>
+			<row style="instr"><ch a="C"/><ch a="G"/><ch a="a"/><ch a="G"/><ch a="C"/><ch a="G"/><ch a="H7"/><ch a="C"/><ch a="G"/><ch a="a"/><ch a="G"/><ch a="C"/><ch a="G"/><ch a="H7"/></row>
 		</block>
 		<block type="verse">
 			<row important_over="false"><ch a="e"/> Nie myśl, że nie kocham lub, że tylko trochę<ch a="H7"/><ch a="G"/><ch a="D"/></row>

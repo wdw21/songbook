@@ -30,7 +30,7 @@
 			<bis times="2">
 				<row important_over="true">
 					<ch a="G"/>Ac<ch a="e"/>h.<ch a="C"/>..Tak <ch a="D"/>chciałbym z<ch a="G"/>nó<ch a="e"/>w <ch a="C"/> biał<ch a="D"/>y k<ch a="G"/>aftanik mi<ch a="e"/>eć <ch a="C"/></row>
-				<row important_over="true"> I l<ch a="D"/>eczyć si<ch a="G"/>ę, leczyć si<ch a="e"/>ę, leczyć si<ch a="C"/>ę, na m<ch a="D"/>ózg</row>
+				<row important_over="true">I l<ch a="D"/>eczyć si<ch a="G"/>ę, leczyć si<ch a="e"/>ę, leczyć si<ch a="C"/>ę, na m<ch a="D"/>ózg</row>
 			</bis>
 		</block>
 		<block type="verse">
@@ -61,7 +61,7 @@
 				<ch a="G"/>Ty wciąż jesteś w<ch a="e"/>ariat <ch a="C"/>lekarz się posta<ch a="D"/>rzał</row>
 			<row important_over="false">
 				<ch a="G"/>Nie rozumiesz t<ch a="e"/>ego <ch a="C"/>bo ci myśleć str<ch a="D"/>ach</row>
-			<row important_over="false"> I p<ch a="G"/>ójdziesz przed s<ch a="e"/>iebie w a<ch a="C"/>syście psychiatrów<ch a="D"/></row>
+			<row important_over="false">I p<ch a="G"/>ójdziesz przed s<ch a="e"/>iebie w a<ch a="C"/>syście psychiatrów<ch a="D"/></row>
 			<row important_over="false">
 				<ch a="G"/>Twą drogę wyznacz<ch a="e"/>y <ch a="C"/>korytarzy szlak<ch a="D"/></row>
 			<row important_over="false">
@@ -72,7 +72,7 @@
 <block 	type="chorus">		
 <bis times="2">
 				<row important_over="true">
-					<ch a="G"/>Ac<ch a="e"/>h.<ch a="C"/>.. Jak d<ch a="D"/>obrze z<ch a="G"/>nó<ch a="e"/>w <ch a="C"/> biał<ch a="D"/>y k<ch a="G"/>aftanik mi<ch a="e"/>eć <ch a="C"/></row> <row important_over="true"> I l<ch a="D"/>eczyć si<ch a="G"/>ę, leczyć si<ch a="e"/>ę, leczyć si<ch a="C"/>ę, na m<ch a="D"/>ózg</row>
+					<ch a="G"/>Ac<ch a="e"/>h.<ch a="C"/>.. Jak d<ch a="D"/>obrze z<ch a="G"/>nó<ch a="e"/>w <ch a="C"/> biał<ch a="D"/>y k<ch a="G"/>aftanik mi<ch a="e"/>eć <ch a="C"/></row> <row important_over="true">I l<ch a="D"/>eczyć si<ch a="G"/>ę, leczyć si<ch a="e"/>ę, leczyć si<ch a="C"/>ę, na m<ch a="D"/>ózg</row>
 			</bis>
 </block>
 	</lyric>

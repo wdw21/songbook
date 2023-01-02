@@ -14,9 +14,9 @@
 			<row important_over="true"><ch a="C"/> Ubrany czarno ni<ch a="a"/>edorzeczny</row>
 			<row important_over="true"><ch a="d"/> W kwitnącym zn<ch a="G"/>alazł si<ch a="d"/>ę ogr<ch a="G"/>odzie</row>
 			<row important_over="true"><ch a="C"/> Przepłoszył dłonią ptasie śpi<ch a="G"/>ewy</row>
-			<row important_over="true"> Zat<ch a="a"/>oczył się od mocnych w<ch a="e"/>oni</row>
-			<row important_over="true"> A ki<ch a="F"/>edy róży dojrzał kr<ch a="C"/>zewy</row>
-			<row important_over="true"> Bardzo głęb<ch a="G"/>oko się ukł<ch a="C"/>onił</row>
+			<row important_over="true">Zat<ch a="a"/>oczył się od mocnych w<ch a="e"/>oni</row>
+			<row important_over="true">A ki<ch a="F"/>edy róży dojrzał kr<ch a="C"/>zewy</row>
+			<row important_over="true">Bardzo głęb<ch a="G"/>oko się ukł<ch a="C"/>onił</row>
 		</block>
 		<block type="verse">
 			<row important_over="false"><ch a="C"/> Patrzał i oto <ch a="a"/>od spojrzenia</row>
@@ -24,9 +24,9 @@
 			<row important_over="false"><ch a="C"/> I z ciszy liścia z t<ch a="a"/>ego cienia</row>
 			<row important_over="false"><ch a="d"/> Pąsowa n<ch a="G"/>agle p<ch a="d"/>opatrz<ch a="G"/>ała</row>
 			<row important_over="false"><ch a="C"/> Dwa pąki dwojga piersi strz<ch a="G"/>egły</row>
-			<row important_over="false"> <ch a="a"/>Uśmiech jak róża się rozw<ch a="e"/>inął</row>
-			<row important_over="false"> W<ch a="F"/>argi gorąco krwią nabi<ch a="C"/>egły</row>
-			<row important_over="false"> I rosę z pł<ch a="G"/>atków spił jak w<ch a="C"/>ino</row>
+			<row important_over="false"><ch a="a"/>Uśmiech jak róża się rozw<ch a="e"/>inął</row>
+			<row important_over="false">W<ch a="F"/>argi gorąco krwią nabi<ch a="C"/>egły</row>
+			<row important_over="false">I rosę z pł<ch a="G"/>atków spił jak w<ch a="C"/>ino</row>
 		</block>
 		<block type="verse">
 			<row important_over="false"><ch a="C"/> Drapieżnie bronią k<ch a="a"/>olce dzikie</row>
@@ -35,9 +35,9 @@
 			<row important_over="false"><ch a="d"/> W mięsistość pł<ch a="G"/>onnie si<ch a="d"/>ę zanur<ch a="G"/>zył</row>
 			<bis times="2">
 				<row important_over="false"><ch a="C"/> Trwało to dłużej od westchni<ch a="G"/>enia</row>
-				<row important_over="false"> A p<ch a="a"/>otem umknął niby zł<ch a="e"/>odziej</row>
-				<row important_over="false"> Zg<ch a="F"/>inął jak plama w światłoci<ch a="C"/>eniach</row>
-				<row important_over="false"> Dziwny nieb<ch a="G"/>oszczyk czy przech<ch a="C"/>odzień</row>
+				<row important_over="false">A p<ch a="a"/>otem umknął niby zł<ch a="e"/>odziej</row>
+				<row important_over="false">Zg<ch a="F"/>inął jak plama w światłoci<ch a="C"/>eniach</row>
+				<row important_over="false">Dziwny nieb<ch a="G"/>oszczyk czy przech<ch a="C"/>odzień</row>
 			</bis>
 		</block>
 	</lyric>

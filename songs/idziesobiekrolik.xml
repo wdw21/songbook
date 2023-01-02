@@ -11,9 +11,9 @@
 		<block type="verse">
 			<row important_over="true">
 				<ch a="h"/>Idzie sobie królik, sł<ch a="e"/>ychać kroki Bolka,</row>
-			<row important_over="true"> B<ch a="h"/>olo idzie z nożem, b<ch a="Fis7"/>ędzie rozpierdolka.</row>
-			<row important_over="false"> J<ch a="h"/>uż przyleciał Bolek <ch a="e"/>i w króliku dłubie,</row>
-			<row important_over="false"> Kr<ch a="h"/>ólik już nie żyje, B<ch a="Fis7"/>olo ma to w dupie.</row>
+			<row important_over="true">B<ch a="h"/>olo idzie z nożem, b<ch a="Fis7"/>ędzie rozpierdolka.</row>
+			<row important_over="false">J<ch a="h"/>uż przyleciał Bolek <ch a="e"/>i w króliku dłubie,</row>
+			<row important_over="false">Kr<ch a="h"/>ólik już nie żyje, B<ch a="Fis7"/>olo ma to w dupie.</row>
 		</block>
 		<block type="chorus">
 			<row important_over="true">
@@ -26,25 +26,25 @@
 				<ch a="e"/>A<ch a="A"/>a, f<ch a="Fis7"/>ajnie, co?</row>
 		</block>
 		<block type="verse">
-			<row important_over="false"> Sł<ch a="h"/>ońce raźniej świeci, sw<ch a="e"/>ąd się w polu snuje,</row>
-			<row important_over="false"> B<ch a="h"/>olo dalej pruje, kr<ch a="Fis7"/>ólik już się psuje.</row>
-			<row important_over="false"> Spr<ch a="h"/>óbował go Bolo, j<ch a="e"/>uż zielony wszędzie,</row>
+			<row important_over="false">Sł<ch a="h"/>ońce raźniej świeci, sw<ch a="e"/>ąd się w polu snuje,</row>
+			<row important_over="false">B<ch a="h"/>olo dalej pruje, kr<ch a="Fis7"/>ólik już się psuje.</row>
+			<row important_over="false">Spr<ch a="h"/>óbował go Bolo, j<ch a="e"/>uż zielony wszędzie,</row>
 			<row important_over="false">
 				<ch a="h"/>Uwaga, uwaga, B<ch a="Fis7"/>olo bekać będzie.</row>
 		</block>
 		<blocklink blocknb="2"/>
 		<block type="verse">
-			<row important_over="false"> Mn<ch a="h"/>oża się króliki, p<ch a="e"/>atroszyć je można,</row>
-			<row important_over="false"> S<ch a="h"/>ytuacja niezła, t<ch a="Fis7"/>ylko trochę gorzej z rytmem.</row>
-			<row important_over="false"> Kr<ch a="h"/>óliki na polu, j<ch a="e"/>uż się cieszy Bolek,</row>
-			<row important_over="false"> B<ch a="h"/>o dla niego mięso, dl<ch a="Fis7"/>a nas zaś rosołek.</row>
+			<row important_over="false">Mn<ch a="h"/>oża się króliki, p<ch a="e"/>atroszyć je można,</row>
+			<row important_over="false">S<ch a="h"/>ytuacja niezła, t<ch a="Fis7"/>ylko trochę gorzej z rytmem.</row>
+			<row important_over="false">Kr<ch a="h"/>óliki na polu, j<ch a="e"/>uż się cieszy Bolek,</row>
+			<row important_over="false">B<ch a="h"/>o dla niego mięso, dl<ch a="Fis7"/>a nas zaś rosołek.</row>
 		</block>
 		<blocklink blocknb="2"/>
 		<block type="verse">
-			<row important_over="false"> P<ch a="h"/>atroszyć króliki w m<ch a="e"/>yśl ludowych przysłów</row>
-			<row important_over="false"> T<ch a="h"/>o jeden z największych, l<ch a="Fis7"/>udzkich idiotyzmów.</row>
-			<row important_over="false"> Sk<ch a="h"/>ończył się już królik, fl<ch a="e"/>aków nie ma prawie,</row>
-			<row important_over="false"> B<ch a="h"/>olo niedomyty z<ch a="Fis7"/>aczął dłubać w trawie.</row>
+			<row important_over="false">P<ch a="h"/>atroszyć króliki w m<ch a="e"/>yśl ludowych przysłów</row>
+			<row important_over="false">T<ch a="h"/>o jeden z największych, l<ch a="Fis7"/>udzkich idiotyzmów.</row>
+			<row important_over="false">Sk<ch a="h"/>ończył się już królik, fl<ch a="e"/>aków nie ma prawie,</row>
+			<row important_over="false">B<ch a="h"/>olo niedomyty z<ch a="Fis7"/>aczął dłubać w trawie.</row>
 		</block>
 		<blocklink blocknb="2"/>
 	</lyric>

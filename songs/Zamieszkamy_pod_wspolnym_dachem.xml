@@ -14,7 +14,7 @@
         <ch a="D"/>
         <ch a="E"/>
         <ch a="A"/>
-      </row>
+     </row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="A"/>Zamieszkamy pod wspólnym dachem<ch a="D"/><ch a="E"/><ch a="fis"/></row>
@@ -41,13 +41,13 @@
         <ch a="D"/>
         <ch a="E"/>
         <ch a="fis"/>
-        <ch a="--"/>
+
         <ch a="E"/>
         <ch a="H7"/>
         <ch a="E"/>
-        <ch a="--"/>
+
         <ch a="A"/>
-      </row>
+     </row>
     </block>
   </lyric>
   <music metre="">
