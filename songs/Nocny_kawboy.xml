@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Nocny kamboj">
   <text_author type="band">Aktorzy łódzkiej szkoły filmowej</text_author>
-  <composer>na motywach ścieżki dźwiękowej autorstwa Johna Barry'ego</composer>
+  <composer type="solo">na motywach ścieżki dźwiękowej autorstwa Johna Barry'ego</composer>
   <artist type="solo">Jacek Kaczmarski</artist>
   <lyric>
     <block type="other">
@@ -98,7 +98,11 @@
   </music>
   <keywords/>
   <status>
-    <done/>
-    <verificators/>
+    <done>
+      <text/>
+    </done>
+    <verificators>
+      <verificator>Kasia Tabor</verificator>
+    </verificators>
   </status>
 </song>
