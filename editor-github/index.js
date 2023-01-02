@@ -107,9 +107,10 @@ async function prDescription(octokit, user, branchName) {
     let file = await getFileFromBranch(octokit, user, branchName);
     let link = editorLink(user, branchName, file, false);
     let msg = await getCommitsDifferenceMsg(octokit, user, branchName);
-    let body = `[Link do edytora](${link})\n\n${msg}\n\nZa kilka minut pojawi się tu wyrenderowana piosenka (PDF).
-    Ktoś też zrecenzuje/zaakceptuje Twoje zmiany. Może też mieć tutaj dodatkowe komentarze/pytania.\n
-    Możesz zawsze wrócić do [edytora](${link}) by nanieść dodatkowe poprawki.`;
+    let body = `
+[Link do edytora](${link})\n\n${msg}\n\nZa kilka minut pojawi się tu wyrenderowana piosenka (PDF).
+Ktoś też zrecenzuje/zaakceptuje Twoje zmiany. Może też mieć tutaj dodatkowe komentarze/pytania.\n
+Możesz zawsze wrócić do [edytora](${link}) by nanieść dodatkowe poprawki.`;
     return { body, file }
 }
 
