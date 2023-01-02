@@ -40,14 +40,14 @@
       <row important_over="false"><ch a="E"/>Czy to dla cie<ch a="H"/>bie coś znaczy</row>
       <row important_over="false">Że k<ch a="Fis"/>ocham Cię jak Irl<ch a="Cis"/>andię</row>
     </block>
-    <block type="verse">
+    <block type="chorus">
       <bis times="2">
         <row important_over="false">A t<ch a="Fis"/>y się temu nie dz<ch a="G"/>iwisz</row>
         <row important_over="false">Wiesz d<ch a="Fis7"/>obrze co byłoby d<ch a="gis"/>alej</row>
         <row important_over="false">Jakb<ch a="E"/>yśmy byli szczęś<ch a="H"/>liwi</row>
         <row important_over="false">Gd<ch a="Fis"/>ybym nie kochał Cię w<ch a="Cis"/>cale</row>
       </bis>
-      <row important_over="false">Cię w<ch a="Fis"/>cale</row>
+      <row important_over="true">Cię w<ch a="Fis"/>cale</row>
     </block>
   </lyric>
   <music>
