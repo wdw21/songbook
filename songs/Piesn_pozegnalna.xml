@@ -1,12 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl Song.xsd" title="Pieśń pożegnalna">
-  <alias/>
-  <text_author/>
-  <comment/>
-  <composer type="solo"/>
-  <artist type="solo"/>
-  <translator/>
-  <original_title/>
+<?xml version="1.0" encoding="UTF-8"?>
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Pieśń pożegnalna">
   <lyric>
     <block type="verse">
       <row important_over="false"><ch a="D"/>Ogniska już dogasa blask<ch a="A"/></row>
@@ -28,11 +21,12 @@
     </block>
     <blocklink blocknb="2"/>
   </lyric>
-  <music metre="">
+  <music>
     <guitar barre="2"/>
   </music>
+  <keywords/>
   <status>
+    <done/>
     <verificators/>
-    <to_do/>
   </status>
 </song>
