@@ -1,12 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl Song.xsd" title="Kocham Cię jak Irlandię">
-  <alias/>
-  <text_author/>
-  <comment/>
-  <composer type="solo"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Kocham Cię jak Irlandię">
   <artist type="solo">Kobranocka</artist>
-  <translator/>
-  <original_title/>
   <lyric>
     <block type="verse">
       <row important_over="false">Znikn<ch a="D"/>ęłaś gdzieś w domu nad W<ch a="fis"/>isłą</row>
@@ -46,7 +40,7 @@
       <row important_over="false">Że k<ch a="Fis"/>ocham Cię jak Irl<ch a="Cis"/>andię</row>
     </block>
     <block type="verse">
-      <bis>
+      <bis times="2">
         <row important_over="false">A t<ch a="Fis"/>y się temu nie dz<ch a="G"/>iwisz</row>
         <row important_over="false">Wiesz d<ch a="Fis7"/>obrze co byłoby d<ch a="gis"/>alej</row>
         <row important_over="false">Jakb<ch a="E"/>yśmy byli szczęś<ch a="H"/>liwi</row>
@@ -55,11 +49,12 @@
       <row important_over="false">Cię w<ch a="Fis"/>cale</row>
     </block>
   </lyric>
-  <music metre="">
+  <music>
     <guitar barre="0"/>
   </music>
+  <keywords/>
   <status>
+    <done/>
     <verificators/>
-    <to_do/>
   </status>
 </song>
