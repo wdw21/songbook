@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Kocham Cię jak Irlandię">
-  <text_author type="solo">Andrzej Michorzewski</text_author>
+  <text_author type="solo">Andrzej Marek Michorzewski</text_author>
+  <composer type="solo">Andrzej Kraiński</composer>
   <artist type="band">Kobranocka</artist>
   <lyric>
     <block type="verse">
