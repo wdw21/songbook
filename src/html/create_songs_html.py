@@ -156,7 +156,7 @@ def xml2html(src_xml_path, path_out):  # tworzy piosenkę w wersji html
     head = etree.SubElement(root_html, "head")
     etree.SubElement(head, "link",
                      attrib={"rel": "stylesheet", "type": "text/css", "href": "CSS/song.css", "media": "screen"})
-    etree.SubElement(head, "script", attrib={"src": "./song.js"})
+   # etree.SubElement(head, "script", attrib={"src": "./song.js"})
     _add_blocks(song, root_html)
     title = etree.SubElement(head, "title")
     title.text = song.title
