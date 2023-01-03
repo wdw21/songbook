@@ -21,7 +21,7 @@ import {
     MAIN_BRANCH_NAME,
     prepareBranch, editorLink,
     prepareMainBranch,
-    HandleError, EDITOR_BASE_URL,
+    HandleError, EDITOR_BASE_URL, PARENT_DOMAIN,
 } from './common.js';
 
 const app = express();
@@ -411,7 +411,7 @@ app.get('/users/:user/changes/:branchName/:file([^$]+)', async (req, res) => {
 // TODO(ptab): - it should redirect back to origin, not to the 'changes' page
 app.get('/auth', async (req, res) => {
     const state = crypto.randomUUID();
-    res.clearCookie("session");
+    res.clearCookie("session", {domain: PARENT_DOMAIN});
     res.cookie("state", state);
 
     const {url} =
@@ -419,7 +419,7 @@ app.get('/auth', async (req, res) => {
             clientType: "oauth-app",
             clientId: OAUTH_CLIENT_ID,
             redirectUrl: CONFIG_BASE_URL,
-            scopes: ["repo"],
+            scopes: ["public_repo"],
             state: state,
         });
     res.redirect(url);
