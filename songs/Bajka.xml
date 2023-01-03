@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Bajka">
-	<comment>Piosenka pochodzi z 19 Ogólnopolskiego Studenckiego Przeglądu Piosenki Turystycznej Yapa '94.Gość spiewał ją przygrywając sobie na bembenku.Proszę nie spodziewać się akprdów :)</comment>
+	<comment>Piosenka pochodzi z 19 Ogólnopolskiego Studenckiego Przeglądu Piosenki Turystycznej Yapa '94.Gość spiewał ją przygrywając sobie na bembenku.Proszę nie spodziewać się akordów :)</comment>
 	<artist type="solo">Paweł Nowaczyk</artist>
 	<lyric>
 		<block type="verse">
@@ -13,7 +13,7 @@
 			<row important_over="false">Posłał więc król po dwóch swoich synów</row>
 			<row important_over="false">A gdy stanęli przed nim do starszeg rzekł:</row>
 		</block>
-		<block type="verse">
+		<block type="chorus">
 			<bis times="2">
 				<row important_over="false">Gdzieś na krańcach świata są wysokie góry</row>
 				<row important_over="false">Idź tam i powiedz mi co za nimi jest</row>
@@ -29,7 +29,7 @@
 			<row important_over="false">A gdy zdyszany syn powiedział co jest za górami</row>
 			<row important_over="false">Do drugiego z nich rzecze ojciec tak</row>
 		</block>
-		<block type="verse">
+		<block type="chorus">
 			<bis times="2">
 				<row important_over="false">Tam gdzie kończy się świat jest ogromne morze</row>
 				<row important_over="false">Płyń tam i powiedz mi co też za nim jest</row>
