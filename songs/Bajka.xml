@@ -1,12 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl Song.xsd" title="Bajka">
-	<alias/>
-	<text_author type="solo"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Bajka">
 	<comment>Piosenka pochodzi z 19 Ogólnopolskiego Studenckiego Przeglądu Piosenki Turystycznej Yapa '94.Gość spiewał ją przygrywając sobie na bembenku.Proszę nie spodziewać się akprdów :)</comment>
-	<composer type="solo"/>
 	<artist type="solo">Paweł Nowaczyk</artist>
-	<translator/>
-	<original_title/>
 	<lyric>
 		<block type="verse">
 			<row important_over="false">Żył raz kiedyś król o wzroku jak nikt na świecie</row>
@@ -19,7 +14,7 @@
 			<row important_over="false">A gdy stanęli przed nim do starszeg rzekł:</row>
 		</block>
 		<block type="verse">
-			<bis>
+			<bis times="2">
 				<row important_over="false">Gdzieś na krańcach świata są wysokie góry</row>
 				<row important_over="false">Idź tam i powiedz mi co za nimi jest</row>
 			</bis>
@@ -35,7 +30,7 @@
 			<row important_over="false">Do drugiego z nich rzecze ojciec tak</row>
 		</block>
 		<block type="verse">
-			<bis>
+			<bis times="2">
 				<row important_over="false">Tam gdzie kończy się świat jest ogromne morze</row>
 				<row important_over="false">Płyń tam i powiedz mi co też za nim jest</row>
 			</bis>
@@ -52,20 +47,18 @@
 		</block>
 		<blocklink blocknb="2"/>
 	</lyric>
-	<music metre="">
+	<music>
 		<guitar barre="0"/>
 	</music>
+	<keywords/>
+	<album>Yapa '94</album>
 	<status>
-		<verificators><verificator>Adam</verificator>
-		</verificators>
-		<to_do>Tekst i muzyka najprawdopodobniej należą do wykonawcy.Ale tego się pewnie nigdy nie dowiemy :(</to_do>
 		<done>
 			<text/>
 			<chords>chord positioning</chords>
 		</done>
+		<verificators>
+			<verificator>Adam</verificator>
+		</verificators>
 	</status>
-	<keywords/>
-	<music_source/>
-	<album>Yapa '94</album>
-	<genre/>
 </song>
