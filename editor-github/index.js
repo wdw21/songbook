@@ -26,12 +26,15 @@ import {
 
 const app = express();
 
-console.info("Registering songbook", "baseUrl:" + BASE_URL);
-http('songbook', app);
-console.info("Registered songbook", "baseUrl:" + BASE_URL);
-
 app.use(cookieParser());
 app.use(cors({origin: EDITOR_DOMAIN, credentials: true}));
+//app.use(logRequest)
+//app.use(errorHandleWrapper)
+//app.use(errorHandle)
+// app.use((err, req, res, next) => {
+//
+//     next(res);
+// })
 
 app.get('/', async (req, res) => {
     if (req.cookies.new === 'false') {
@@ -86,7 +89,6 @@ async function getPullRequest(octokit, user, branchName) {
         head: `${user}:${branchName}`,
     })
     console.log("getPullRequest: " + JSON.stringify(res))
-    console.log("getPullRequest (no stringify): ", res);
     return res.status=200 && res.data.length>0 ? res.data[0] : null
 }
 
@@ -209,23 +211,35 @@ function sanitizeBranchName(br) {
 }
 
 async function newChange(file, req, res) {
-    let today = new Date().toISOString().slice(0, 10);
-    let rand = Math.floor(Math.random() * 10000);
-    let branchName = sanitizeBranchName("se-" + today + "-" + rand + "-" + file);
+    try {
+        console.log("newChange started")
+        let today = new Date().toISOString().slice(0, 10);
+        let rand = Math.floor(Math.random() * 10000);
+        let branchName = sanitizeBranchName("se-" + today + "-" + rand + "-" + file);
+        console.log("[newChange] getting octokit...")
+        const {octokit, user} = await newUserOctokit(req, res);
+        console.log("[newChange] got octokit. Preparing branch ...")
+        await prepareBranch(octokit, user, branchName)
 
-    const {octokit, user} = await newUserOctokit(req, res);
-    await prepareBranch(octokit, user, branchName)
-
-    res.redirect(editorLink(user, branchName, "songs/" + file, true, true));
+        res.redirect(editorLink(user, branchName, "songs/" + file, true, true));
+    } catch (e) {
+        console.log("newChange EXCEPTION", JSON.stringify(e))
+        // Don't know why generic handler is not executed.
+        myErrorHandle(e, res);
+        res.end();
+        throw e;
+    }
 }
 
 app.post('/users/:user/changes[:]new', express.urlencoded({extended: true}), async (req, res) => {
-    console.log("BODY", req.body);
+    console.log("BODY", JSON.stringify(req.body));
     let file = req.body.file.trim();
     if (!file.toLowerCase().endsWith(".xml")) {
         file = file + ".xml";
     }
-    return newChange(file, req, res)
+    let nc = await newChange(file, req, res)
+    console.log("users/:user/changes[:]new exited");
+    return nc;
 });
 
 app.post('/users/:user/changes/:file[:]new', async (req, res) => {
@@ -285,22 +299,55 @@ app.get('/config', async (req, res) => {
     res.redirect(`/users/${authuser}/changes`);
 });
 
-function logRequest(req, res, next) {
-    console.log("V=============================================================V");
-    console.log("REQUEST", req.url)
-    next();
-    console.log("^=============================================================^");
+// function logRequest(req, res, next) {
+//     console.log("V=============================================================V");
+//     console.log("REQUEST", req)
+//     next();
+//     console.log("^=============================================================^");
+// }
+
+function myErrorHandle(e, res) {
+    if (e instanceof RequestError && e.status===404) {
+        console.log("Returning 404")
+        res.status(404);
+        res.send("Document not found");
+    } if (e instanceof RequestError && e.status===401) {
+        console.log("Got 401 -> Redirecting to /auth")
+        res.redirect("/auth")
+    } else {
+        HandleError(e, res);
+    }
 }
 
-app.use(logRequest)
+// function errorHandleWrapper(req, res, next) {
+//     console.log("V errorHandleWrapper =============================================================^");
+//     try {
+//         console.log("NEXT is NOT DONE for: " + req.url)
+//         next()
+//         console.log("NEXT is DONE for: " + req.url)
+//     } catch (e) {
+//         myErrorHandle(e, res)
+//     } finally {
+//         res.end();
+//     }
+//     console.log("^ errorHandleWrapper===================================================^");
+// }
 
-app.use((err, req, res, next) => {
-    console.error("Failed request", req.url, util.inspect(err, false, null, false));
-    if (err instanceof RequestError) {
-        console.log("RequestError");
-    }
-    next(res);
-})
+// function errorHandle(e, req, res, next) {
+//     console.log("Error handle for request", req.url)
+//     if (e instanceof RequestError && e.status===404) {
+//         console.log("Returning 404")
+//         res.status(404);
+//         res.send("Document not found");
+//     } if (e instanceof RequestError && e.status===401) {
+//         console.log("Got 401 -> Redirecting to /auth")
+//         res.redirect("/auth")
+//     } else {
+//         HandleError(e, res);
+//         res.end();
+//     }
+// }
+
 
 async function commit(branchName, file, msg, payload, req, res) {
     const {octokit, mygraphql, user} = await newUserOctokit(req, res);
@@ -465,3 +512,7 @@ app.get('/intro', async (req, res) => {
       `);
     htmlSuffix(res);
 });
+
+console.info("Registering songbook", "baseUrl:" + BASE_URL);
+http('songbook', app);
+console.info("Registered songbook", "baseUrl:" + BASE_URL);
