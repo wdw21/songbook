@@ -71,7 +71,7 @@ export async function newUserOctokit(req,res) {
     let access_token = req.cookies.session ? req.cookies.session.access_token
         : null;
     let authuser = req.cookies.session ? req.cookies.session.user : null;
-    console.log("access token from cookie: ", access_token)
+   // console.log("access token from cookie: ", access_token)
     if (!access_token || !authuser) {
         //TODO(ptab): Compare secret with the cookie.
         const authData = {
@@ -128,16 +128,17 @@ export async function newUserOctokit(req,res) {
 
 export async function fetchBranch(octokit, user, branchName) {
     try {
+        console.log("fetchingBranch", user, branchName)
         return await octokit.rest.repos.getBranch(
             {owner: user, repo: 'songbook', 'branch': branchName});
     } catch (e) {
-   //     if (!(e instanceof HttpError) || (e.code !== 404)) {
-            console.error(util.inspect(e,false,null,false), e instanceof RequestError);
-            
-            
-   //     }
+        if (e instanceof RequestError && e.status===404) {
+            console.log("fetchBranch returning null (due to 404)")
+            return null;
+        }
+        console.log("Rethrowing e", JSON.stringify(e))
+        throw e;
     }
-    return null;
 }
 
 export async function prepareMainBranch(octokit, user) {
@@ -168,12 +169,13 @@ export async function prepareMainBranch(octokit, user) {
 }
 
 export async function prepareBranch(octokit, user, branchName) {
+    console.log("prepareBranch")
     let branch = await fetchBranch(octokit, user, branchName);
     if (branch) {
         return branch;
     }
     let mainBranch = await prepareMainBranch(octokit, user);
-    console.log(util.inspect(mainBranch, false, null, false));
+    console.log("prepareBranch (main): ", JSON.stringify(mainBranch));
 
     await octokit.rest.git.createRef({owner: user, repo: 'songbook', "ref": "refs/heads/" + branchName, "sha": mainBranch.data.commit.sha});
     return fetchBranch(octokit, user, branchName);
@@ -195,7 +197,7 @@ export function editorLink(user, branchName, file, autocommit, maybeNew) {
 }
 
 export function HandleError(e, res) {
-    console.log("HttpError", util.inspect(e, false, null, false) );
+    console.log("HttpError", e);
     if (!res.headersSent && e instanceof RequestError && e.status===401) {
         // HttpError RequestError [HttpError]: Bad credentials
         res.redirect('/auth');
