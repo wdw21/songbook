@@ -143,9 +143,25 @@ export async function fetchBranch(octokit, user, branchName) {
 export async function prepareMainBranch(octokit, user) {
     let branch = await fetchBranch(octokit, user, MAIN_BRANCH_NAME);
     if (!branch) {
-        let originBranch = await fetchBranch(octokit, 'wdw21', 'main');
-        console.log(util.inspect(originBranch, false, null, false));
-        await octokit.rest.git.createRef({owner: user, repo: 'songbook', "ref": "refs/heads/" + MAIN_BRANCH_NAME, "sha": originBranch.data.commit.sha});
+        // let originBranch = await fetchBranch(octokit, 'wdw21', 'main');
+        // console.log(util.inspect(originBranch, false, null, false));
+        // We use really old commit as (originBranch.data.commit.sha) was sometimes not pulled from the repository.
+        await octokit.rest.git.createRef({owner: user, repo: 'songbook', "ref": "refs/heads/" + MAIN_BRANCH_NAME, "sha": 'c21af496c93eecd96902d8ee01c994b9ec2e8157'});
+        const res = await octokit.request('POST /repos/{owner}/{repo}/pulls', {
+            owner: user,
+            repo: 'songbook',
+            title: 'Automated creation of songbook-main branch.',
+            body: 'Should get automatically merged.',
+            head: 'wdw21:songbook:main',
+            base: MAIN_BRANCH_NAME
+        })
+        console.log("Creating pull request", JSON.stringify(res));
+        const merge = await octokit.request('PUT /repos/{owner}/{repo}/pulls/{pull_number}/merge', {
+            owner: user,
+            repo: 'songbook',
+            pull_number: res.data.number
+        })
+        console.log("Merging", JSON.stringify(merge));
     }
     await octokit.rest.repos.mergeUpstream({owner: user, repo: 'songbook', 'branch': MAIN_BRANCH_NAME});
     return fetchBranch(octokit, user, MAIN_BRANCH_NAME);

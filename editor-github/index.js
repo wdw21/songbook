@@ -21,7 +21,7 @@ import {
     MAIN_BRANCH_NAME,
     prepareBranch, editorLink,
     prepareMainBranch,
-    HandleError, EDITOR_BASE_URL,
+    HandleError, EDITOR_BASE_URL, PARENT_DOMAIN,
 } from './common.js';
 
 const app = express();
@@ -107,9 +107,10 @@ async function prDescription(octokit, user, branchName) {
     let file = await getFileFromBranch(octokit, user, branchName);
     let link = editorLink(user, branchName, file, false);
     let msg = await getCommitsDifferenceMsg(octokit, user, branchName);
-    let body = `[Link do edytora](${link})\n\n${msg}\n\nZa kilka minut pojawi się tu wyrenderowana piosenka (PDF).
-    Ktoś też zrecenzuje/zaakceptuje Twoje zmiany. Może też mieć tutaj dodatkowe komentarze/pytania.\n
-    Możesz zawsze wrócić do [edytora](${link}) by nanieść dodatkowe poprawki.`;
+    let body = `
+[Link do edytora](${link})\n\n${msg}\n\nZa kilka minut pojawi się tu wyrenderowana piosenka (PDF).
+Ktoś też zrecenzuje/zaakceptuje Twoje zmiany. Może też mieć tutaj dodatkowe komentarze/pytania.\n
+Możesz zawsze wrócić do [edytora](${link}) by nanieść dodatkowe poprawki.`;
     return { body, file }
 }
 
@@ -410,7 +411,7 @@ app.get('/users/:user/changes/:branchName/:file([^$]+)', async (req, res) => {
 // TODO(ptab): - it should redirect back to origin, not to the 'changes' page
 app.get('/auth', async (req, res) => {
     const state = crypto.randomUUID();
-    res.clearCookie("session");
+    res.clearCookie("session", {domain: PARENT_DOMAIN});
     res.cookie("state", state);
 
     const {url} =
@@ -418,7 +419,7 @@ app.get('/auth', async (req, res) => {
             clientType: "oauth-app",
             clientId: OAUTH_CLIENT_ID,
             redirectUrl: CONFIG_BASE_URL,
-            scopes: ["repo"],
+            scopes: ["public_repo"],
             state: state,
         });
     res.redirect(url);
