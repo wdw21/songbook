@@ -10,7 +10,7 @@
   <lyric>
     <block type="verse">
       <bis>
-        <row important_over="false"><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="h"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="Fis7"/> La, la, la...</row>
+        <row important_over="false"><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="h"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="Fis7"/> La, la, la…</row>
       </bis>
     </block>
     <block type="verse">
@@ -26,7 +26,7 @@
       <row important_over="false"><ch a="G"/>Daj mi wreszcie spokój — dosyć mam już słów<ch a="D"/><ch a="Fis7"/></row>
     </block>
     <block type="other">
-      <row important_over="false" style="instr"><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="h"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="Fis7"/> La, la, la...</row>
+      <row important_over="false" style="instr"><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="h"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="Fis7"/> La, la, la…</row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="h"/>Wrócę tu na pewno, gdy nadejdzie pora<ch a="Fis7"/><ch a="Gzm"/><ch a="h"/></row>
@@ -42,7 +42,7 @@
     </block>
     <block type="verse">
       <bis>
-        <row important_over="false"><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="h"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="Fis7"/> La, la, la...</row>
+        <row important_over="false"><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="h"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="Fis7"/> La, la, la…</row>
       </bis>
     </block>
   </lyric>

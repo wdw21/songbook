@@ -2,7 +2,7 @@
 <song title="Prawo dżungli" xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl Song.xsd">
 	<alias></alias>
 	<text_author type="solo">Rudyard Kipling</text_author>
-	<comment>Na potrzeby młodszoharcerskie...</comment>
+	<comment>Na potrzeby młodszoharcerskie…</comment>
 	<composer type="solo">Michał Korch</composer>
 	<artist type="solo"></artist>
 	<translator>Józef Birkenmajer</translator>
@@ -62,7 +62,7 @@
 			<row important_over="false">On st<ch a="e"/>arszy, mocniejszy i m<ch a="H7"/>ędrszy — więc jego przepisów się dzi<ch a="e"/>erżcie!</row>
 			<row important_over="false">T<ch a="e"/>akie są Pr<ch a="H7"/>awa Puszcz<ch a="e"/>ańskie. Wyl<ch a="e"/>iczyć j<ch a="H7"/>e — niepodobi<ch a="C"/>eństwo!</row>
 			<bis times="2">
-				<row important_over="false">Lecz s<ch a="e"/>ercem Pr<ch a="H7"/>awa, gł<ch a="C"/>ową i k<ch a="D"/>oścem j<ch a="e"/>est... p<ch a="D"/>osłusz<ch a="e"/>eństwo!</row>
+				<row important_over="false">Lecz s<ch a="e"/>ercem Pr<ch a="H7"/>awa, gł<ch a="C"/>ową i k<ch a="D"/>oścem j<ch a="e"/>est… p<ch a="D"/>osłusz<ch a="e"/>eństwo!</row>
 			</bis>
 		</block>
 	</lyric>

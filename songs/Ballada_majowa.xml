@@ -27,7 +27,7 @@
         <row important_over="true">A teraz m<ch a="D"/>aj i maj i m<ch a="A"/>aj</row>
         <row important_over="true">Dok<ch a="G0"/>oła się świ<ch a="h"/>ęci</row>
         <row important_over="true">Od wonnych b<ch a="G"/>zów szalonych bz<ch a="fis"/>ów</row>
-        <row important_over="true">Wprost w gł<ch a="G"/>owie się kr<ch a="A"/>ęci...<ch a="D"/></row>
+        <row important_over="true">Wprost w gł<ch a="G"/>owie się kr<ch a="A"/>ęci…<ch a="D"/></row>
       </bis>
     </block>
     <block type="verse">
@@ -58,6 +58,6 @@
     <verificators>
       <verificator>ADAM</verificator>
     </verificators>
-    <to_do>Ble... a kapodaster i metrum</to_do>
+    <to_do>Ble… a kapodaster i metrum</to_do>
   </status>
 </song>

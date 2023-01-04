@@ -71,10 +71,10 @@
 			<row important_over="false">Świt zn<ch a="F"/>ajdzie nas znowu za mi<ch a="a"/>astem na stoku,</row>
 			<row important_over="false">Gdzie n<ch a="E9"/>ikt tak napr<ch a="E"/>awdę nic ni<ch a="E9"/>e ma na wł<ch a="E"/>asność,</row>
 			<row important_over="false">A w<ch a="F"/>am pozostanie pi<ch a="E"/>osenka i sny:</row>
-			<row important_over="false">-- My dzi<ch a="F"/>eci wolności, bezd<ch a="E"/>omne my psy...</row>
-			<row important_over="true"><ch a="a"/> Dzieci wolności...</row>
+			<row important_over="false">-- My dzi<ch a="F"/>eci wolności, bezd<ch a="E"/>omne my psy…</row>
+			<row important_over="true"><ch a="a"/> Dzieci wolności…</row>
 			<bis times="3">
-				<row important_over="true"><ch a="a"/> Dzieci wolności, psy...</row>
+				<row important_over="true"><ch a="a"/> Dzieci wolności, psy…</row>
 			</bis>
 		</block>
 	</lyric>

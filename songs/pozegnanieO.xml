@@ -62,14 +62,14 @@
 			<row important_over="true">Ach, świ<ch a="A7"/>at przebrzmiałych dźwi<ch a="d"/>ęków</row>
 			<row important_over="true">J<ch a="G"/>akąż melodię wi<ch a="C"/>ó<ch a="E7"/>dł!</row>
 			<row important_over="true">J<ch a="a"/>uż jej nie wskrzesisz r<ch a="H7"/>ęką,</row>
-			<row important_over="true">Już ni<ch a="E"/>e ma tamtych n<ch a="a"/>ut...</row>
+			<row important_over="true">Już ni<ch a="E"/>e ma tamtych n<ch a="a"/>ut…</row>
 		</block>
 		<block type="verse">
 			<row important_over="false">Ach, z t<ch a="A7"/>ego, czego już ni<ch a="d"/>e ma</row>
 			<row important_over="false">J<ch a="G"/>akiż by mógł być świ<ch a="C"/>a<ch a="E7"/>t!</row>
 			<bis times="2">
 				<row important_over="false"><ch a="a"/>Ale to inny t<ch a="H7"/>emat —</row>
-				<row important_over="false">N<ch a="E"/>am już nie starczy l<ch a="a"/>at...</row>
+				<row important_over="false">N<ch a="E"/>am już nie starczy l<ch a="a"/>at…</row>
 			</bis>
 		</block>
 	</lyric>

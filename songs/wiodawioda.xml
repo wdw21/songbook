@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Wiodą, wiodą drogi w świat...">
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Wiodą, wiodą drogi w świat…">
 	<text_author type="solo">John Ronald Ruel Tolkien</text_author>
 	<comment>Wiersz zaczerpnięty z książki ,,Hobbit, czyli tam i z powrotem''.
 
@@ -30,7 +30,7 @@ Na potrzeby obrzędowości obozu 21 WDHy "Żbiki". </comment>
 		</block>
 		<block type="verse">
 			<bis times="4">
-				<row important_over="false">Wi<ch a="a"/>odą, wiodą dr<ch a="E"/>ogi w świ<ch a="a"/>at...</row>
+				<row important_over="false">Wi<ch a="a"/>odą, wiodą dr<ch a="E"/>ogi w świ<ch a="a"/>at…</row>
 			</bis>
 		</block>
 	</lyric>
