@@ -2,7 +2,7 @@
 <song title="Dwie skały" xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl Song.xsd">
 	<alias>Two Rocks</alias>
 	<text_author type="solo">Jacek Kaczmarski</text_author>
-	<comment>Refren -- agresywnie, zwrotki -- łagodnie, w ostatniej o jeden ton w górę.</comment>
+	<comment>Refren — agresywnie, zwrotki — łagodnie, w ostatniej o jeden ton w górę.</comment>
 	<composer type="solo">Jacek Kaczmarski</composer>
 	<artist type="solo">Jacek Kaczmarski</artist>
 	<translator></translator>
@@ -12,14 +12,14 @@
 			<row style="instr"><ch a="a"/><ch a="F0"/><ch a="a"/><ch a="F0"/></row>
 			<row important_over="true">Po szt<ch a="a"/>ormach, burzach, nawałn<ch a="F0"/>icach, szkw<ch a="a"/>ałach<ch a="F0"/></row>
 			<row important_over="false">Na dw<ch a="a"/>óch bliźniaczych zamieszk<ch a="F0"/>ałem skał<ch a="a"/>ach.</row>
-			<row important_over="true">Trzymam się <ch a="G"/>obu w ciszy i zawi<ch a="C"/>ei --</row>
+			<row important_over="true">Trzymam się <ch a="G"/>obu w ciszy i zawi<ch a="C"/>ei —</row>
 			<row important_over="true">Skały rozp<ch a="d"/>aczy i sk<ch a="H7"/>ały nadzi<ch a="E"/>ei.</row>
 		</block>
 		<block type="verse">
 			<row important_over="true">Obie pr<ch a="a"/>astare i <ch a="F0"/>obie rzeźbi<ch a="a"/>one<ch a="F0"/></row>
 			<row important_over="true">Siłą żywi<ch a="F"/>ołów ni<ch a="F0"/>eświadomych zn<ch a="a"/>aczeń;</row>
-			<row important_over="true">Skałą rozp<ch a="C"/>aczy -- nadzi<ch a="G"/>eje strac<ch a="C"/>one,</row>
-			<row important_over="true">Skałą nadzi<ch a="H7"/>ei -- przetrw<ch a="E"/>ane rozp<ch a="a"/>acze.<ch a="F0"/><ch a="a"/><ch a="F0"/></row>
+			<row important_over="true">Skałą rozp<ch a="C"/>aczy — nadzi<ch a="G"/>eje strac<ch a="C"/>one,</row>
+			<row important_over="true">Skałą nadzi<ch a="H7"/>ei — przetrw<ch a="E"/>ane rozp<ch a="a"/>acze.<ch a="F0"/><ch a="a"/><ch a="F0"/></row>
 		</block>
 		<block type="chorus">
 			<row important_over="false">Po szt<ch a="a"/>ormach, burzach, nawałn<ch a="F0"/>icach, szkw<ch a="a"/>ałach<ch a="F0"/></row>

@@ -14,7 +14,7 @@
         <ch a="e"/>
      </row>
       <bis times="4">
-        <row important_over="false"><ch a="G"/>A, a, a...<ch a="D"/><ch a="e"/></row>
+        <row important_over="false"><ch a="G"/>A, a, a…<ch a="D"/><ch a="e"/></row>
       </bis>
       <row important_over="false"><ch a="e"/>Wędrówką jedną życie jest człowieka<ch a="G"/></row>
       <row important_over="false"><ch a="D"/>Idzie wciąż dalej wciąż<ch a="e"/></row>
@@ -48,7 +48,7 @@
       </bis>
     </block>
     <block type="verse">
-      <row important_over="false">A, a, a...</row>
+      <row important_over="false">A, a, a…</row>
     </block>
   </lyric>
   <music metre="">

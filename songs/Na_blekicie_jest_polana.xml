@@ -10,7 +10,7 @@
 	<lyric xmlns="http://21wdh.staszic.waw.pl">
 		<block type="verse">
 			<row important_over="true"><ch a="D"/> Powiedz m<ch a="G"/>i, p<ch a="D"/>owiedz co byś chci<ch a="A"/>ała,</row>
-			<row important_over="true"><ch a="D"/> Cuda ja cz<ch a="G"/>ynię, c<ch a="D"/>uda moja m<ch a="A"/>ała --</row>
+			<row important_over="true"><ch a="D"/> Cuda ja cz<ch a="G"/>ynię, c<ch a="D"/>uda moja m<ch a="A"/>ała —</row>
 			<row important_over="true"><ch a="e"/> Martwe zami<ch a="A"/>eniam w żywe,</row>
 			<row important_over="true"><ch a="D"/> Zgasłe w płon<ch a="H7"/>ącą grzywę,</row>
 			<row important_over="true"><ch a="e"/> Powiedz m<ch a="A"/>i co byś chciał<ch a="D"/>a.</row>
@@ -34,7 +34,7 @@
 			<row important_over="false"><ch a="D"/> Powiedz m<ch a="G"/>i, p<ch a="D"/>owiedz co byś chci<ch a="A"/>ała,</row>
 			<row important_over="false"><ch a="D"/> Cuda ja cz<ch a="G"/>ynię, c<ch a="D"/>uda moja m<ch a="A"/>ała.</row>
 			<row important_over="false"><ch a="e"/> Masz chęć na l<ch a="A"/>ody może</row>
-			<row important_over="false"><ch a="D"/> Albo na mł<ch a="H7"/>ode zboże --</row>
+			<row important_over="false"><ch a="D"/> Albo na mł<ch a="H7"/>ode zboże —</row>
 			<row important_over="false"><ch a="e"/> Wszystko dla ci<ch a="A"/>ebie dziś zr<ch a="D"/>obię,</row>
 			<row important_over="false"><ch a="e"/> Mój ty m<ch a="A"/>ały wielki b<ch a="D"/>oże.</row>
 		</block>

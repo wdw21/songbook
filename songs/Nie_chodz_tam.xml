@@ -2,7 +2,7 @@
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl Song.xsd" title="Nie chodź tam">
 	<alias></alias>
 	<text_author type="solo">Jerzy Reiser</text_author>
-	<comment>Nie jestem na bank pewien, czy ta piosenka jest na "Jaworzynie", acz jest to jedyny album wydany przez Browar Żywiec, więc pewnie tak...&lt;br&gt;Nie jestem również pewien akordów - te dla mnie pasują, acz zdarza się sporo modyfikacji w różnych źródłach.</comment>
+	<comment>Nie jestem na bank pewien, czy ta piosenka jest na "Jaworzynie", acz jest to jedyny album wydany przez Browar Żywiec, więc pewnie tak…&lt;br&gt;Nie jestem również pewien akordów - te dla mnie pasują, acz zdarza się sporo modyfikacji w różnych źródłach.</comment>
 	<composer type="solo">Jerzy Reiser</composer>
 	<artist type="band">Browar Żywiec</artist>
 	<translator></translator>
@@ -35,7 +35,7 @@
 			<row important_over="false"><ch a="a7"/> A kiedy przyjdziesz do mnie znów poj<ch a="e7"/>utrze</row>
 			<row important_over="false"><ch a="F"/> Popatrzysz smutno przez okno otw<ch a="C"/>arte</row>
 			<row important_over="false"><ch a="F"/> Wsłuchasz się w miasta prz<ch a="d"/>edwieczorny sz<ch a="D"/>um</row>
-			<row important_over="false">Powiem C<ch a="a7"/>i -- nie chodź t<ch a="F"/>am gdzie <ch a="G"/>obcy tł<ch a="C"/>um</row>
+			<row important_over="false">Powiem C<ch a="a7"/>i — nie chodź t<ch a="F"/>am gdzie <ch a="G"/>obcy tł<ch a="C"/>um</row>
 		</block>
 		<block type="chorus">
 			<row important_over="false">Si<ch a="C"/>ądziesz tu <ch a="F"/>obok mni<ch a="G"/>e w fot<ch a="C"/>elu</row>

@@ -18,7 +18,7 @@
 			<row important_over="true">Me świ<ch a="a"/>aty są obce bez n<ch a="E"/>ocy i dnia</row>
 			<row important_over="true">Tam wi<ch a="G"/>ersze z obłędu powst<ch a="F"/>ają</row>
 			<row important_over="false"><ch a="C"/> Lecz póki tu j<ch a="G"/>estem, proszę, kochaj mni<ch a="F"/>e,</row>
-			<row important_over="false">Dotykaj mni<ch a="C"/>e...</row>
+			<row important_over="false">Dotykaj mni<ch a="C"/>e…</row>
 		</block>
 		<block type="chorus">
 			<row important_over="true">Dot<ch a="F"/>ykaj delik<ch a="d"/>atnie, bezszel<ch a="B"/>estnie, ci<ch a="C"/>epłem palców</row>
@@ -38,7 +38,7 @@
 			<row important_over="false">Me świ<ch a="a"/>aty są obce bez n<ch a="E"/>ocy i dnia</row>
 			<row important_over="false">Tam wi<ch a="G"/>ersze z obłędu powst<ch a="F"/>ają</row>
 			<row important_over="false"><ch a="C"/> Lecz póki tu j<ch a="G"/>estem, proszę, kochaj mni<ch a="F"/>e,</row>
-			<row important_over="false">Dotykaj mni<ch a="C"/>e...</row>
+			<row important_over="false">Dotykaj mni<ch a="C"/>e…</row>
 		</block>
 		<blocklink blocknb="3"/>
 		<block type="verse">
@@ -53,12 +53,12 @@
 			<row important_over="false"><ch a="C"/> Kochaniem sam<ch a="G"/>otność można wypić do dn<ch a="F"/>a</row>
 			<row important_over="false">Ch<ch a="G"/>oć to trudne</row>
 			<row important_over="false"><ch a="C"/> Więcej nic ni<ch a="G"/>e mów, tylko przytul si<ch a="F"/>ę</row>
-			<row important_over="false">Dotykaj mni<ch a="C"/>e...</row>
+			<row important_over="false">Dotykaj mni<ch a="C"/>e…</row>
 		</block>
 		<blocklink blocknb="3"/>
 		<block type="verse">
 			<row important_over="false"><ch a="C"/> I więcej nic ni<ch a="G"/>e mów, tylko kochaj mni<ch a="F"/>e</row>
-			<row important_over="false">Jestem Tw<ch a="C"/>ój...</row>
+			<row important_over="false">Jestem Tw<ch a="C"/>ój…</row>
 		</block>
 	</lyric>
 	<music metre="4/4">

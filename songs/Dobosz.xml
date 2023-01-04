@@ -2,7 +2,7 @@
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl Song.xsd" title="Dobosz">
 	<alias/>
 	<text_author type="solo"/>
-	<comment>Nie mam pojęcia, czyj jest ten tekst i ta muzyka. Wysyłam maila z zapytaniem do Rzeszowa, może tam wiedzą...</comment>
+	<comment>Nie mam pojęcia, czyj jest ten tekst i ta muzyka. Wysyłam maila z zapytaniem do Rzeszowa, może tam wiedzą…</comment>
 	<composer type="solo"/>
 	<artist type="solo"/>
 	<translator/>
@@ -55,7 +55,7 @@
 			<row important_over="false">Pod krz<ch a="D"/>yżem na rozst<ch a="G"/>ajach</row>
 			<row important_over="false">I tylko n<ch a="a"/>ocą poprzez śnieg</row>
 			<row important_over="false">Dwa b<ch a="H7"/>ębny werblem grają</row>
-			<row important_over="false">Jednaki odzew grają...</row>
+			<row important_over="false">Jednaki odzew grają…</row>
 		</block>
 		<blocklink blocknb="2"/>
 	</lyric>

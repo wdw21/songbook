@@ -18,7 +18,7 @@
 		<block type="chorus">
 			<bis times="2">
 				<row important_over="true">A Ty, m<ch a="D"/>iły, szukasz czegoś st<ch a="A"/>ale,</row>
-				<row important_over="true">Na końcu świ<ch a="e"/>ata, albo jeszcze dalej -- w ni<ch a="h"/>ebie,</row>
+				<row important_over="true">Na końcu świ<ch a="e"/>ata, albo jeszcze dalej — w ni<ch a="h"/>ebie,</row>
 				<row important_over="true">Przemierz<ch a="G"/>ając morza c<ch a="D"/>ałe,</row>
 				<row important_over="true">A to c<ch a="A"/>oś jest obok Ciebie.</row>
 			</bis>
@@ -34,14 +34,14 @@
 		<block type="verse">
 			<row important_over="false">Ni<ch a="h"/>e chcą się spełniać wi<ch a="G"/>elkie marzenia,</row>
 			<row important_over="false">Ch<ch a="e"/>odzę po ziemi więc m<ch a="A"/>ocno, mój k<ch a="Fis7"/>otku,</row>
-			<row important_over="false">Kr<ch a="h"/>ótki jest opis moj<ch a="G"/>ego szczęścia --</row>
+			<row important_over="false">Kr<ch a="h"/>ótki jest opis moj<ch a="G"/>ego szczęścia —</row>
 			<row important_over="false">T<ch a="e"/>o łajba z Tobą w śr<ch a="Fis7"/>odku.</row>
 		</block>
 		<block type="chorus">
 			<bis times="2">
 				<row important_over="false">
 					<ch a="D"/>A Ty, miły, szukasz czegoś st<ch a="A"/>ale,</row>
-				<row important_over="false">Na końcu świ<ch a="e"/>ata, albo jeszcze dalej -- w ni<ch a="h"/>ebie,</row>
+				<row important_over="false">Na końcu świ<ch a="e"/>ata, albo jeszcze dalej — w ni<ch a="h"/>ebie,</row>
 				<row important_over="false">Przemierz<ch a="G"/>ając morza c<ch a="D"/>ałe,</row>
 				<row important_over="false">A ten kt<ch a="A"/>oś jest obok Ciebie.</row>
 			</bis>
