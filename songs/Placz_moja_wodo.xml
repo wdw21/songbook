@@ -10,7 +10,7 @@
   <lyric>
     <block type="verse">
       <row important_over="false"><ch a="A"/>Powiedz jak można tak długo wytrzymać<ch a="E"/></row>
-      <row important_over="false"><ch a="D"/>Gdy zima i mrozy i mrozy i zima<ch a="A"/></row>
+      <row important_over="false"><ch a="D"/>Gdy zima i mrozy, i mrozy i zima<ch a="A"/></row>
       <row important_over="false"><ch a="D"/>A ty znowu jesteś za wodą za rzeką<ch a="A"/></row>
       <row important_over="false"><ch a="h"/>I nie wiem znów nie wiem jak bardzo daleko<ch a="E"/></row>
       <row important_over="false"><ch a="A"/>Stoję na brzegu a przepaść jest blisko<ch a="E"/></row>
@@ -19,8 +19,8 @@
       <row important_over="false"><ch a="h"/>I po co też mają kamienie u szyi<ch a="E"/></row>
     </block>
     <block type="chorus">
-      <row important_over="false"><ch a="A"/>Bo kto mnie pożegna gdy tylu nas jest<ch a="fis"/></row>
-      <row important_over="false"><ch a="h"/>Płacz moja wodo rzeko łez<ch a="E"/><ch a="A"/></row>
+      <row important_over="false"><ch a="A"/>Bo kto mnie pożegna, gdy tylu nas jest<ch a="fis"/></row>
+      <row important_over="false"><ch a="h"/>Płacz moja wodo rzeką łez<ch a="E"/><ch a="A"/></row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="A"/>Stoi kolejka szeregiem dalekim<ch a="E"/></row>
@@ -33,13 +33,13 @@
       <row important_over="false"><ch a="h"/>I przyszedł i stanął i też był znużony<ch a="E"/></row>
     </block>
     <block type="chorus">
-      <row important_over="false"><ch a="A"/>Więc mu nie wierzył choć tylu nas jest<ch a="fis"/></row>
-      <row important_over="false"><ch a="h"/>Płacz moja wodo rzeko łez<ch a="E"/><ch a="A"/></row>
+      <row important_over="false"><ch a="A"/>Wiec nikt go nie witał, choć tylu nas jest<ch a="fis"/></row>
+      <row important_over="false"><ch a="h"/>Płacz moja wodo rzeką łez<ch a="E"/><ch a="A"/></row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="A"/>Wtedy na brzegu pojawił się diabeł<ch a="E"/></row>
       <row important_over="false"><ch a="D"/>Do ciebie nad wodą zbudował przeprawę<ch a="A"/></row>
-      <row important_over="false"><ch a="D"/>Tłumacząc się skromnie przed smutnym -------<ch a="A"/></row>
+      <row important_over="false"><ch a="D"/>Tłumacząc się skromnie przed smutnym Mesjaszem<ch a="A"/></row>
       <row important_over="false"><ch a="h"/>Że w tej sytuacji nie będzie Judaszem<ch a="E"/></row>
       <row important_over="false"><ch a="A"/>I każdy z nas ruszył przez most ten nad rzeką<ch a="E"/></row>
       <row important_over="false"><ch a="D"/>Lecz ciebie nie było a świat za daleko<ch a="A"/></row>
@@ -47,8 +47,8 @@
       <row important_over="false"><ch a="h"/>I każdy powrócił z kamieniem do domu<ch a="E"/></row>
     </block>
     <block type="chorus">
-      <row important_over="false"><ch a="A"/>Lecz nikt nas nie witał choć tylu nas jest<ch a="fis"/></row>
-      <row important_over="false"><ch a="h"/>Płacz moja wodo rzeko łez<ch a="E"/><ch a="A"/></row>
+      <row important_over="false"><ch a="A"/>Lecz nikt nas nie witał, choć tylu nas jest<ch a="fis"/></row>
+      <row important_over="false"><ch a="h"/>Płacz moja wodo rzeką łez<ch a="E"/><ch a="A"/></row>
     </block>
   </lyric>
   <music metre="">

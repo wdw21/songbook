@@ -15,10 +15,10 @@
 			<row important_over="true">Z<ch a="A4"/>anim obejrzysz się już mnie nie będzie wcale.<ch a="d"/><ch a="C"/></row>
 		</block>
 		<block type="verse">
-			<row important_over="false"><ch a="A4"/>Psotniku -- wietrze, gdzie znów ukryłeś się?<ch a="d"/><ch a="C"/></row>
-			<row important_over="false"><ch a="A4"/>Poczekaj chwilę -- pstro masz tylko w głowie.<ch a="d"/><ch a="C"/></row>
+			<row important_over="false"><ch a="A4"/>Psotniku — wietrze, gdzie znów ukryłeś się?<ch a="d"/><ch a="C"/></row>
+			<row important_over="false"><ch a="A4"/>Poczekaj chwilę — pstro masz tylko w głowie.<ch a="d"/><ch a="C"/></row>
 			<row important_over="false"><ch a="A4"/>Wciąż dokądś pędzisz, o nic nie martwisz się.<ch a="d"/><ch a="C"/></row>
-			<row important_over="false"><ch a="A4"/>Przysiądź na chwilę tu -- smutno mi przecież samej.<ch a="d"/><ch a="C"/></row>
+			<row important_over="false"><ch a="A4"/>Przysiądź na chwilę tu — smutno mi przecież samej.<ch a="d"/><ch a="C"/></row>
 		</block>
 		<block type="verse">
 			<row important_over="false"><ch a="A4"/>Zakręcę w głowie, obsypię liśćmi twarz,<ch a="d"/><ch a="C"/></row>
@@ -28,7 +28,7 @@
 		</block>
 		<block type="verse">
 			<row important_over="false"><ch a="A4"/>Szaleńcze, zwolnij, proszę, bo tchu mi brak!<ch a="d"/><ch a="C"/></row>
-			<row important_over="false"><ch a="A4"/>Mój panie, hola -- ręce precz ode mnie!<ch a="d"/><ch a="C"/></row>
+			<row important_over="false"><ch a="A4"/>Mój panie, hola — ręce precz ode mnie!<ch a="d"/><ch a="C"/></row>
 			<row important_over="false"><ch a="A4"/>Twych palców dotyk rozpala moją twarz,<ch a="d"/><ch a="C"/></row>
 			<row important_over="false"><ch a="A4"/>Po plecach biegnie dreszcz, cała już się rumienię.<ch a="d"/><ch a="C"/></row>
 		</block>
@@ -40,15 +40,15 @@
 		</block>
 		<block type="verse">
 			<row important_over="false"><ch a="A4"/>Za brodę złapię, tupnę, ugryzę w nos!<ch a="d"/><ch a="C"/></row>
-			<row important_over="false"><ch a="A4"/>Dotrzymam w tańcu kroku -- aż się zdziwisz!<ch a="d"/><ch a="C"/></row>
+			<row important_over="false"><ch a="A4"/>Dotrzymam w tańcu kroku — aż się zdziwisz!<ch a="d"/><ch a="C"/></row>
 			<row important_over="false"><ch a="A4"/>Nakręcę uszu, przytrzymam cię za wąs.<ch a="d"/><ch a="C"/></row>
 			<row important_over="false"><ch a="A4"/>Zwiodę, uwiodę w las, wplączę cię w pajęczynę.<ch a="d"/><ch a="C"/></row>
 		</block>
 		<block type="verse">
 			<row important_over="false"><ch a="A4"/>Splątani w jedno czmychniemy w leśny gąszcz,<ch a="d"/><ch a="C"/></row>
-			<row important_over="false"><ch a="A4"/>Wszak życie nasze -- jeno oka mgnienie.<ch a="d"/><ch a="C"/></row>
+			<row important_over="false"><ch a="A4"/>Wszak życie nasze — jeno oka mgnienie.<ch a="d"/><ch a="C"/></row>
 			<row important_over="false"><ch a="A4"/>W strumieniu, w trawie nasz zwariowany pląs,<ch a="d"/><ch a="C"/></row>
-			<row important_over="false"><ch a="A4"/>W krzaku dzikiego bzu cisza -- już po spełnieniu...<ch a="d"/><ch a="C"/></row>
+			<row important_over="false"><ch a="A4"/>W krzaku dzikiego bzu cisza — już po spełnieniu...<ch a="d"/><ch a="C"/></row>
 		</block>
 	</lyric>
 	<music metre="4/4">
@@ -63,8 +63,8 @@
 			<verificator>Onufry</verificator>
 			
 		</verificators>
-		<to_do>Tekst wg kasety "Baśń". Na razie za słabo to gram, żeby rozmieszczać akordy. -- Onufry
-Zespół Krążek (http://krazek.art.pl/) uważa swoją drugą nazwę Tak czy Owak za przejściową i nietrafioną, respektujemy to -- Alek
+		<to_do>Tekst wg kasety "Baśń". Na razie za słabo to gram, żeby rozmieszczać akordy. — Onufry
+Zespół Krążek (http://krazek.art.pl/) uważa swoją drugą nazwę Tak czy Owak za przejściową i nietrafioną, respektujemy to — Alek
 </to_do>
 	</status>	<keywords/>
 	<music_source/>

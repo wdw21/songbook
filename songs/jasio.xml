@@ -13,18 +13,18 @@
 			<row important_over="true">Sz<ch a="d"/>ukać Wody Życia rad nierad.</row>
 			<row important_over="true">St<ch a="E"/>opy ścisnął swym niedobrym braciom,</row>
 			<row important_over="true">Kt<ch a="a"/>órzy siłą g<ch a="E"/>o wysłali w świ<ch a="a"/>at.</row>
-			<row important_over="true">Sch<ch a="G7"/>edę jego wezmą i zmarn<ch a="C"/>ują --</row>
+			<row important_over="true">Sch<ch a="G7"/>edę jego wezmą i zmarn<ch a="C"/>ują —</row>
 			<row important_over="true">N<ch a="A7"/>ic powiedzieć nie móg<ch a="d"/>ł, choćby chciał,</row>
-			<row important_over="true">Wi<ch a="H7"/>ęc wyruszył w drogę pogwizd<ch a="E"/>ując --</row>
+			<row important_over="true">Wi<ch a="H7"/>ęc wyruszył w drogę pogwizd<ch a="E"/>ując —</row>
 			<row important_over="true">St<ch a="F"/>arczy mu, że mowę zwierząt zn<ch a="E"/>ał,</row>
 			<row important_over="true">St<ch a="E7"/>arczy mu, że mowę zwierząt zn<ch a="a"/>ał.</row>
 		</block>
 		<block type="chorus">
-			<row important_over="true">-- Gł<ch a="d"/>upi Jasiu, głupi Jasiu --</row>
+			<row important_over="true">-- Gł<ch a="d"/>upi Jasiu, głupi Jasiu —</row>
 			<row important_over="true">Śmi<ch a="a"/>ał się w lesie szczebiot ptasi</row>
 			<row important_over="true">-- Pr<ch a="E"/>awda to, że ci rozumu br<ch a="a"/>ak!</row>
 			<row important_over="true">W<ch a="d"/>oda Życia nie istnieje,</row>
-			<row important_over="true"><ch a="a"/>A w obczyźnie nam zmarniejesz --</row>
+			<row important_over="true"><ch a="a"/>A w obczyźnie nam zmarniejesz —</row>
 			<row important_over="true"><ch a="H7"/>Ale on przed siebie szedł i t<ch a="E"/>ak,</row>
 			<row important_over="true"><ch a="E7"/>Ale on przed siebie szedł i t<ch a="a"/>ak.</row>
 		</block>
@@ -33,18 +33,18 @@
 			<row important_over="false">P<ch a="d"/>od stopami chrzęścił złoty żwir.</row>
 			<row important_over="false"><ch a="E"/>Ale złoto Jasia nie olśniło,</row>
 			<row important_over="false">Wsł<ch a="a"/>uchał się w wiecz<ch a="E"/>orny ptaków tr<ch a="a"/>yl.</row>
-			<row important_over="false">-- <ch a="G7"/>Idź -- ćwierkały ptaki -- do stol<ch a="C"/>icy,</row>
+			<row important_over="false">-- <ch a="G7"/>Idź — ćwierkały ptaki — do stol<ch a="C"/>icy,</row>
 			<row important_over="false">Gdzi<ch a="A7"/>e umiera Król na łożu z pi<ch a="d"/>ór.</row>
 			<row important_over="false"><ch a="H7"/>Uzdrów go wywarem z ziarn pszen<ch a="E"/>icy,</row>
 			<row important_over="false"><ch a="F"/>On ci władzę da i jedną z c<ch a="E"/>ór,</row>
 			<row important_over="false"><ch a="E7"/>On ci władzę da i jedną z c<ch a="a"/>ór.</row>
 		</block>
 		<block type="chorus">
-			<row important_over="false">-- Gł<ch a="d"/>upi Jasiu, głupi Jasiu --</row>
+			<row important_over="false">-- Gł<ch a="d"/>upi Jasiu, głupi Jasiu —</row>
 			<row important_over="false">W<ch a="a"/>abił w lesie szczebiot ptasi</row>
 			<row important_over="false">-- Wsz<ch a="E"/>ak bogactwo lepsze jest od bi<ch a="a"/>edy!</row>
 			<row important_over="false">Ni<ch a="d"/>e istnieje Woda Życia,</row>
-			<row important_over="false">Wi<ch a="a"/>ęc przynajmniej miej coś z życia --</row>
+			<row important_over="false">Wi<ch a="a"/>ęc przynajmniej miej coś z życia —</row>
 			<row important_over="false"><ch a="H7"/>Ale on i tak przed siebie sz<ch a="E"/>edł,</row>
 			<row important_over="false"><ch a="E7"/>Ale on i tak przed siebie sz<ch a="a"/>edł.</row>
 		</block>
@@ -75,7 +75,7 @@
 			<row important_over="false">B<ch a="a"/>o nie takie str<ch a="E"/>achy z domu zn<ch a="a"/>ał.</row>
 			<row important_over="false">W<ch a="G7"/>idzi już na szczycie, jak ze źr<ch a="C"/>ódła</row>
 			<row important_over="false">W<ch a="A7"/>oda Życia tryska srebrną mgł<ch a="d"/>ą,</row>
-			<row important_over="false"><ch a="H7"/>A przy źródle jeden z braci mr<ch a="E"/>uga --</row>
+			<row important_over="false"><ch a="H7"/>A przy źródle jeden z braci mr<ch a="E"/>uga —</row>
 			<row important_over="false">P<ch a="F"/>opatrz Jasiu w dół, tam jest twój d<ch a="E"/>om,</row>
 			<row important_over="false">P<ch a="E7"/>opatrz Jasiu w dół, tam jest twój d<ch a="a"/>om.</row>
 		</block>
@@ -102,7 +102,7 @@
 		<block type="chorus">
 			<row important_over="false">Gł<ch a="d"/>upi Jasiu, głupi Jasiu,</row>
 			<row important_over="false">R<ch a="a"/>ozumiałeś mowę ptasią,</row>
-			<row important_over="false"><ch a="E"/>Ale więcej już rozumiesz dz<ch a="a"/>iś --</row>
+			<row important_over="false"><ch a="E"/>Ale więcej już rozumiesz dz<ch a="a"/>iś —</row>
 			<bis times="2">
 				<row important_over="false">W b<ch a="d"/>aśniach śpią prawdziwe dzieje,</row>
 				<row important_over="false">W<ch a="a"/>oda Życia nie istnieje,</row>

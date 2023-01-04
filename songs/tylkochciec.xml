@@ -10,7 +10,7 @@
 	<lyric xmlns="http://21wdh.staszic.waw.pl">
 		<block type="verse">
 			<row important_over="true">Że sp<ch a="e"/>adnie z nieba to co chc<ch a="Fis"/>esz,</row>
-			<row important_over="true">M<ch a="H7"/>ylisz się bracie i na p<ch a="e"/>ewno --</row>
+			<row important_over="true">M<ch a="H7"/>ylisz się bracie i na p<ch a="e"/>ewno —</row>
 			<row important_over="false">Nie cz<ch a="e"/>ekaj cudów, przecież wi<ch a="Fis"/>esz:</row>
 			<row important_over="false">Ż<ch a="H7"/>ycie upływa, a masz j<ch a="e"/>edno.</row>
 		</block>
@@ -25,7 +25,7 @@
 		</block>
 		<block type="verse">
 			<row important_over="false">Nie p<ch a="e"/>ójdziesz dalej nawet kr<ch a="Fis"/>ok,</row>
-			<row important_over="false">Gdy st<ch a="H7"/>oisz w miejscu -- to na p<ch a="e"/>ewno.</row>
+			<row important_over="false">Gdy st<ch a="H7"/>oisz w miejscu — to na p<ch a="e"/>ewno.</row>
 			<row important_over="false">Nie cz<ch a="e"/>ekaj cudów, przecież wi<ch a="Fis"/>esz:</row>
 			<row important_over="false">Ż<ch a="H7"/>ycie upływa, a masz j<ch a="e"/>edno.</row>
 		</block>

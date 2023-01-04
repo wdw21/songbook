@@ -10,7 +10,7 @@
 	<lyric xmlns="http://21wdh.staszic.waw.pl">
 		<block type="verse">
 			<row important_over="true">
-				<ch a="e"/>Oto jest zbiór praw dż<ch a="H7"/>ungli -- jak niebo wieczysty, niem<ch a="e"/>ylny,</row>
+				<ch a="e"/>Oto jest zbiór praw dż<ch a="H7"/>ungli — jak niebo wieczysty, niem<ch a="e"/>ylny,</row>
 			<row important_over="true">G<ch a="e"/>inie wilk, co je łamie; w<ch a="H7"/>ilk, co ich słucha jest szczęśl<ch a="e"/>iwy i silny.</row>
 			<row important_over="true">Jak pn<ch a="e"/>ącza, co pi<ch a="H7"/>eń opas<ch a="e"/>ują, tak Pr<ch a="e"/>awo wkoło nas się w<ch a="H7"/>ini<ch a="C"/>e,</row>
 			<bis times="2">
@@ -22,7 +22,7 @@
 			<row important_over="false">A p<ch a="e"/>omnij, że dzień jest od sp<ch a="H7"/>ania, a noc przeznaczona na ł<ch a="e"/>owy.</row>
 			<row important_over="false">Ni<ch a="e"/>echaj się sz<ch a="H7"/>akal łasi tygr<ch a="e"/>ysom! Lecz t<ch a="e"/>y, gdy wyr<ch a="H7"/>ośniesz, o, szcz<ch a="C"/>enię,</row>
 			<bis times="2">
-				<row important_over="false">Pami<ch a="e"/>ętaj, że w<ch a="H7"/>ilk jest ł<ch a="C"/>owc<ch a="D"/>ą -- i s<ch a="e"/>am ma zdob<ch a="D"/>ywać jedz<ch a="e"/>enie.</row>
+				<row important_over="false">Pami<ch a="e"/>ętaj, że w<ch a="H7"/>ilk jest ł<ch a="C"/>owc<ch a="D"/>ą — i s<ch a="e"/>am ma zdob<ch a="D"/>ywać jedz<ch a="e"/>enie.</row>
 			</bis>
 		</block>
 		<block type="verse">
@@ -34,7 +34,7 @@
 			</bis>
 		</block>
 		<block type="verse">
-			<row important_over="false">Gdyś z<ch a="e"/>aczął łów przed półn<ch a="H7"/>ocą, milcz -- nie budź lasu szczek<ch a="e"/>aniem,</row>
+			<row important_over="false">Gdyś z<ch a="e"/>aczął łów przed półn<ch a="H7"/>ocą, milcz — nie budź lasu szczek<ch a="e"/>aniem,</row>
 			<row important_over="false">Bo spł<ch a="e"/>oszysz nam wszelką zwierz<ch a="H7"/>ynę i my bez łupu zost<ch a="e"/>aniem.</row>
 			<row important_over="false">P<ch a="e"/>oluj dla si<ch a="H7"/>ebie, dla szcz<ch a="e"/>eniąt, dla druhów. Kr<ch a="e"/>ew t<ch a="H7"/>aka nie br<ch a="C"/>udzi!</row>
 			<bis times="2">
@@ -51,16 +51,16 @@
 		</block>
 		<block type="verse">
 			<row important_over="false">Wilcz<ch a="e"/>yca ma prawo do l<ch a="H7"/>eża. Gdy samcom powiodą się ł<ch a="e"/>owy,</row>
-			<row important_over="false">W<ch a="e"/>olno jej żądać dziesi<ch a="H7"/>ęcin dla wilcząt -- i nigdy nie dozna odm<ch a="e"/>owy!</row>
-			<row important_over="false">Wilk -- <ch a="e"/>ojciec jest p<ch a="H7"/>anem w swej n<ch a="e"/>orze. To w<ch a="e"/>olny myśl<ch a="H7"/>iwiec włócz<ch a="C"/>ęga!</row>
+			<row important_over="false">W<ch a="e"/>olno jej żądać dziesi<ch a="H7"/>ęcin dla wilcząt — i nigdy nie dozna odm<ch a="e"/>owy!</row>
+			<row important_over="false">Wilk — <ch a="e"/>ojciec jest p<ch a="H7"/>anem w swej n<ch a="e"/>orze. To w<ch a="e"/>olny myśl<ch a="H7"/>iwiec włócz<ch a="C"/>ęga!</row>
 			<bis times="2">
 				<row important_over="false">S<ch a="e"/>ądzi go j<ch a="H7"/>eno R<ch a="C"/>ad<ch a="D"/>a, a wł<ch a="e"/>adza dr<ch a="D"/>użyny go nie dosi<ch a="e"/>ęga.</row>
 			</bis>
 		</block>
 		<block type="verse">
 			<row important_over="false">Gdy Pr<ch a="e"/>awo jest w czymś niedokł<ch a="H7"/>adne, szukajcie pomocy w swym h<ch a="e"/>erszcie:</row>
-			<row important_over="false">On st<ch a="e"/>arszy, mocniejszy i m<ch a="H7"/>ędrszy -- więc jego przepisów się dzi<ch a="e"/>erżcie!</row>
-			<row important_over="false">T<ch a="e"/>akie są Pr<ch a="H7"/>awa Puszcz<ch a="e"/>ańskie. Wyl<ch a="e"/>iczyć j<ch a="H7"/>e -- niepodobi<ch a="C"/>eństwo!</row>
+			<row important_over="false">On st<ch a="e"/>arszy, mocniejszy i m<ch a="H7"/>ędrszy — więc jego przepisów się dzi<ch a="e"/>erżcie!</row>
+			<row important_over="false">T<ch a="e"/>akie są Pr<ch a="H7"/>awa Puszcz<ch a="e"/>ańskie. Wyl<ch a="e"/>iczyć j<ch a="H7"/>e — niepodobi<ch a="C"/>eństwo!</row>
 			<bis times="2">
 				<row important_over="false">Lecz s<ch a="e"/>ercem Pr<ch a="H7"/>awa, gł<ch a="C"/>ową i k<ch a="D"/>oścem j<ch a="e"/>est... p<ch a="D"/>osłusz<ch a="e"/>eństwo!</row>
 			</bis>

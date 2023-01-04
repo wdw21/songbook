@@ -22,7 +22,7 @@
 			<row important_over="true">A wsz<ch a="D"/>ystkim się rzuca na sz<ch a="G"/>yję!</row>
 			<row important_over="false">Nie l<ch a="C"/>ubię wampirów, bo ryje to brzydkie</row>
 			<row important_over="false">A z<ch a="F"/>ęby ma gorsze od zwi<ch a="C"/>erzy</row>
-			<row important_over="false">Te z<ch a="E"/>ęby wystają --- zah<ch a="A"/>aczy w tramwaju</row>
+			<row important_over="false">Te z<ch a="E"/>ęby wystają — zah<ch a="A"/>aczy w tramwaju</row>
 			<row important_over="false">I r<ch a="D"/>obią się dziury w odzi<ch a="G"/>eży!</row>
 		</block>
 		<block type="chorus">
@@ -61,7 +61,7 @@
 			
 			
 		</verificators>
-		<to_do>Poprawiłem jedną literówkę i dodałem istotne linijki. -- nie-Alek</to_do>
+		<to_do>Poprawiłem jedną literówkę i dodałem istotne linijki. — nie-Alek</to_do>
 	</status>
 	<music_source/>
 </song>
