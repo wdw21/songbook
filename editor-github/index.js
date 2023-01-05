@@ -476,34 +476,34 @@ app.get('/intro', async (req, res) => {
     htmlPrefix(res);
     res.write(`
       <h1>O edytowaniu piosenek w śpiewniku</h1>
-      <p>Zachęcamy wszystkich do poprawiania piosenek w naszym śpiewniki i dopisywania nowych.
-      Staramy się by było to jak najwygodniejsze, a rezultaty mogły być drukowane (PDF A4 i A5), czytane jako ebook 
+      <p>Zachęcamy wszystkich do poprawiania piosenek w naszym śpiewniku i dopisywania nowych.
+      Staramy się, by było to jak najwygodniejsze, a rezultaty mogły być drukowane (PDF A4 i A5), czytane jako ebook 
       (EPUB) lub <a href="${EDITOR_DOMAIN}">przeglądane na stronie</a>.  
-      Gdy twoje propozycje zmian zostaną zatwiedzone (dbamy o jakość), nowa wersja plików (wygenerowana w kilka minut), 
+      Gdy twoje propozycje zmian zostaną zatwiedzone (dbamy o jakość), nowa wersja plików (wygenerowana w kilka minut)
       będzie zawierała te poprawki.
       </p>
       
       <p>Dlatego przygotowaliśmy narzędzie umożliwiające wygodne edytowanie piosenek i dodawanie ich do śpiewnika.
-      Jedyny wymaganiem jest założenie bezpłatnego konta w serwisie <a href="https://github.com">github</a>, 
+      Jedyny wymaganiem jest założenie bezpłatnego konta w serwisie <a href="https://github.com/">github</a>, 
       bo nasza baza piosenek jest przechowywana <a href="https://github.com/wdw21/songbook/tree/main/songs">właśnie tam</a>.
       </p>
-      <p>Jeśli chcesz spróbować - <b>przejdź do <a href="/auth">edycji</a></b> - zostaniesz poproszeony o zalogowanie lub/i przyznanie uprawnień naszej aplikacji.</p>
+      <p>Jeśli chcesz spróbować - <b>przejdź do <a href="/auth">edycji</a></b> – zostaniesz poproszony o zalogowanie lub przyznanie uprawnień naszej aplikacji.</p>
       
       <details>
         <summary>O bezpieczeństwie</summary>
         Możesz odczuwać uzasadniony dyskomfort (w szczególności jeśli masz swoje własne repozytoria githubowe),
-        by upoważniać jakąś aplikację by miała do nich dostęp. Mogę Cię tylko zapewnić (ale musisz mi zaufać),
+        by upoważniać jakąś aplikację, by miała do nich dostęp. Mogę Cię tylko zapewnić (ale musisz mi zaufać),
         że ta aplikacja tylko: 
         <ul>
-            <li>Tworzy roboczą kopię (fork) repozytorium <a href="https://github.com/wdw21/songbook">wdw21/songbook</a>, jeśli go jeszcze nieposiadasz.</li>
-            <li>Dotyka wyłącznie twojej roboczej kopi repozytorium 'songbook'</li>
+            <li>Tworzy roboczą kopię (fork) repozytorium <a href="https://github.com/wdw21/songbook">wdw21/songbook</a>, jeśli go jeszcze nie posiadasz.</li>
+            <li>Dotyka wyłącznie Twojej roboczej kopi repozytorium 'songbook'</li>
             <li>Tworzy i kasuje gałęzie (branches) w repozytorium 'songbook' o nazwie zaczynającej się od 'se-'</li>
             <li>Tworzy zapisy (commits) w tych gałęziach, gdy zapisujesz zmiany piosenek.</li>
         </ul>
       </details>
       <details>
         <summary>Tryb samodzielny</summary>
-         <p>Jeżeli chcesz użyć lub zapoznać się z samym edytorem piosenek to przejdź do: <a href="${EDITOR_BASE_URL}">samodzielnego edytora</a>. 
+         <p>Jeżeli chcesz użyć lub zapoznać się z samym edytorem piosenek, to przejdź do: <a href="${EDITOR_BASE_URL}">samodzielnego edytora</a>. 
          Będziesz mógł/mogła tworzyć nowe piosenki lub otwierać pliki z Twojego dysku lub je zapisywać do plików. Możesz wtedy je przesłać mailem
          lub samodzielnie użyć narzędzia 'git'.
       </p>
