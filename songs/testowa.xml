@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Testowa piosenka">
+  <alias>Co to ma być za alternatywa</alias>
   <text_author type="solo">Artur Autorski</text_author>
+  <comment>Bez komentarza...</comment>
+  <composer type="solo">Frederic Chłopin</composer>
   <artist type="band">The Wykonawcy Band</artist>
+  <translator>Google Translate</translator>
+  <original_title>Testing in the drain</original_title>
   <lyric>
     <block type="verse">
       <row important_over="true"><ch a="D"/>Herbata stygn<ch a="G"/>ie zapa<ch a="A"/>da mrok</row>
@@ -28,7 +33,7 @@
       </bis>
     </block>
     <block type="verse">
-      <row important_over="false">Znowu zwrotka... ale krótka</row>
+      <row important_over="false">Znowu zwrotka...(3.) ale krótka</row>
     </block>
     <block type="other">
       <row style="instr"><ch a="Cis"/><ch a="Gis"/><ch a="Pis"/> </row>
@@ -41,14 +46,29 @@
     </block>
     <block type="verse">
       <row important_over="false">Czas na czwartą (4.) zwrotkę</row>
-      <row important_over="false"><ch a="A"/>A<ch a="A"/>a<ch a="A"/>a....Go<ch a="Fis"/>ory</row>
+      <row important_over="false"><ch a="A"/>A<ch a="A"/>a<ch a="A"/>a....G<ch a="Fis"/><ch a="Gis"/><ch a="Ais"/>ooryla się strzeż też</row>
     </block>
+    <blocklink blocknb="3"/>
   </lyric>
-  <keywords/>
+  <music metre="3/14">
+    <guitar barre="5"/>
+  </music>
+  <keywords>
+    <keyword>Testowanie</keyword>
+    <keyword>Błąd systemu</keyword>
+    <keyword>Pomidor</keyword>
+  </keywords>
+  <album>Boom</album>
+  <genre>Inna</genre>
   <status>
-    <done/>
+    <done>
+      <text/>
+      <chords>chord positioning</chords>
+    </done>
     <verificators>
-      <verificator>Gis</verificator>
+      <verificator>Piotrek</verificator>
     </verificators>
+    <todo>Chyba wszystko jest wypełnione.</todo>
   </status>
+  <music_source>Kajet</music_source>
 </song>
