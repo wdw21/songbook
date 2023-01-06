@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <xsl:stylesheet version="1.0"
-    xmlns="http://21wdh.staszic.waw.pl"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xhtml="http://www.w3.org/1999/xhtml">
+                xmlns="http://21wdh.staszic.waw.pl"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://21wdh.staszic.waw.pl http://21wdh.staszic.waw.pl/song.xsd">
   <xsl:output method="xml" indent="yes" omit-xml-declaration="no" standalone="no"/>
 
   <xsl:template match="@*|node()">
@@ -14,7 +15,9 @@
 
   <xsl:template match="xhtml:song-editor">
     <song>
-      <xsl:attribute name="title"><xsl:value-of select="@title"/></xsl:attribute>
+      <xsl:attribute name="title">
+        <xsl:value-of select="@title"/>
+      </xsl:attribute>
       <xsl:apply-templates select="@alias"/>
       <xsl:apply-templates select="@text_author"/>
       <xsl:apply-templates select="@comment"/>
@@ -26,9 +29,17 @@
 
       <xsl:if test="(@metre != '') or (@guitar_barre != '')">
         <music>
-          <xsl:if test="@metre != ''"><xsl:attribute name="metre"><xsl:value-of select="@metre"/></xsl:attribute></xsl:if>
+          <xsl:if test="@metre != ''">
+            <xsl:attribute name="metre">
+              <xsl:value-of select="@metre"/>
+            </xsl:attribute>
+          </xsl:if>
           <xsl:if test="@guitar_barre != ''">
-            <guitar><xsl:attribute name="barre"><xsl:value-of select="@guitar_barre"/></xsl:attribute></guitar>
+            <guitar>
+              <xsl:attribute name="barre">
+                <xsl:value-of select="@guitar_barre"/>
+              </xsl:attribute>
+            </guitar>
           </xsl:if>
         </music>
       </xsl:if>
@@ -43,9 +54,17 @@
       <xsl:apply-templates select="@genre"/>
       <status>
         <done>
-          <xsl:if test="@done_text"><text/></xsl:if>
-          <xsl:if test="@done_authors"><authors/></xsl:if>
-          <xsl:if test="@done_chords"><chords><xsl:value-of select="@done_chords"/></chords></xsl:if>
+          <xsl:if test="@done_text">
+            <text/>
+          </xsl:if>
+          <xsl:if test="@done_authors">
+            <authors/>
+          </xsl:if>
+          <xsl:if test="@done_chords">
+            <chords>
+              <xsl:value-of select="@done_chords"/>
+            </chords>
+          </xsl:if>
         </done>
         <verificators>
           <xsl:call-template name="splitIntoElements">
@@ -53,7 +72,7 @@
             <xsl:with-param name="element" select="'verificator'"/>
           </xsl:call-template>
         </verificators>
-        <xsl:apply-templates select="@todo"/>
+        <xsl:apply-templates select="@to_do"/>
       </status>
       <xsl:apply-templates select="@music_source"/>
     </song>
@@ -67,7 +86,9 @@
       <xsl:when test="contains($datalist,$delim)">
         <xsl:if test="substring-before($datalist,$delim)">
           <xsl:if test="normalize-space(substring-before($datalist,$delim)) != ''">
-            <xsl:element name="{$element}"><xsl:value-of select="normalize-space(substring-before($datalist,$delim))"/></xsl:element>
+            <xsl:element name="{$element}">
+              <xsl:value-of select="normalize-space(substring-before($datalist,$delim))"/>
+            </xsl:element>
           </xsl:if>
         </xsl:if>
         <xsl:call-template name="splitIntoElements">
@@ -78,7 +99,9 @@
       </xsl:when>
       <xsl:when test="string-length($datalist)>0">
         <xsl:if test="$datalist and normalize-space($datalist)!=''">
-          <xsl:element name="{$element}"><xsl:value-of select="$datalist"/></xsl:element>
+          <xsl:element name="{$element}">
+            <xsl:value-of select="$datalist"/>
+          </xsl:element>
         </xsl:if>
       </xsl:when>
     </xsl:choose>
@@ -102,14 +125,30 @@
     </xsl:call-template>
   </xsl:template>
 
-  <xsl:template match="@alias"><xsl:call-template name="attr2field"/></xsl:template>
-  <xsl:template match="@original_title"><xsl:call-template name="attr2field"/></xsl:template>
-  <xsl:template match="@translator"><xsl:call-template name="attr2field"/></xsl:template>
-  <xsl:template match="@album"><xsl:call-template name="attr2field"/></xsl:template>
-  <xsl:template match="@music_source"><xsl:call-template name="attr2field"/></xsl:template>
-  <xsl:template match="@genre"><xsl:call-template name="attr2field"/></xsl:template>
-  <xsl:template match="@comment"><xsl:call-template name="attr2field"/></xsl:template>
-  <xsl:template match="@todo"><xsl:call-template name="attr2field"/></xsl:template>
+  <xsl:template match="@alias">
+    <xsl:call-template name="attr2field"/>
+  </xsl:template>
+  <xsl:template match="@original_title">
+    <xsl:call-template name="attr2field"/>
+  </xsl:template>
+  <xsl:template match="@translator">
+    <xsl:call-template name="attr2field"/>
+  </xsl:template>
+  <xsl:template match="@album">
+    <xsl:call-template name="attr2field"/>
+  </xsl:template>
+  <xsl:template match="@music_source">
+    <xsl:call-template name="attr2field"/>
+  </xsl:template>
+  <xsl:template match="@genre">
+    <xsl:call-template name="attr2field"/>
+  </xsl:template>
+  <xsl:template match="@comment">
+    <xsl:call-template name="attr2field"/>
+  </xsl:template>
+  <xsl:template match="@to_do">
+    <xsl:call-template name="attr2field"/>
+  </xsl:template>
 
   <xsl:template name="attr2field">
     <xsl:if test=". != ''">
@@ -125,7 +164,9 @@
     <xsl:if test=". != ''">
       <xsl:element name="{name()}">
         <xsl:if test="$type != ''">
-          <xsl:attribute name="type"><xsl:value-of select="$type"/></xsl:attribute>
+          <xsl:attribute name="type">
+            <xsl:value-of select="$type"/>
+          </xsl:attribute>
         </xsl:if>
         <xsl:value-of select="."/>
       </xsl:element>
@@ -133,9 +174,9 @@
   </xsl:template>
 
   <xsl:template match="xhtml:song-body">
-      <lyric>
-        <xsl:apply-templates select="xhtml:song-verse"/>
-      </lyric>
+    <lyric>
+      <xsl:apply-templates select="xhtml:song-verse"/>
+    </lyric>
   </xsl:template>
 
   <xsl:template match="xhtml:song-verse">
@@ -148,7 +189,8 @@
       <blocklink>
         <xsl:variable name="bn" select="@blocknb"/>
         <xsl:attribute name="blocknb">
-          <xsl:value-of select='count(//xhtml:song-verse[@id=$bn]/preceding-sibling::xhtml:song-verse[not(@blocknb)])+1'/>
+          <xsl:value-of
+                  select='count(//xhtml:song-verse[@id=$bn]/preceding-sibling::xhtml:song-verse[not(@blocknb)])+1'/>
         </xsl:attribute>
       </blocklink>
     </xsl:if>
@@ -157,7 +199,9 @@
 
   <xsl:template match="xhtml:song-bis">
     <bis>
-      <xsl:attribute name="times"><xsl:value-of select="@x"/></xsl:attribute>
+      <xsl:attribute name="times">
+        <xsl:value-of select="@x"/>
+      </xsl:attribute>
       <xsl:apply-templates select="xhtml:song-rows"/>
     </bis>
   </xsl:template>
@@ -173,7 +217,9 @@
   <xsl:template match="xhtml:song-row">
     <row>
       <xsl:if test="@type">
-        <xsl:attribute name='style'><xsl:value-of select="@type"/></xsl:attribute>
+        <xsl:attribute name='style'>
+          <xsl:value-of select="@type"/>
+        </xsl:attribute>
       </xsl:if>
       <xsl:if test="@type='instr'">
         <xsl:call-template name="splitInstrumental">
@@ -182,7 +228,9 @@
         <xsl:text> </xsl:text> <!--prevent line breaks within row when formatting-->
       </xsl:if>
       <xsl:if test="not(@type='instr')">
-        <xsl:attribute name="important_over"><xsl:value-of select="@important_over='true'"/></xsl:attribute>
+        <xsl:attribute name="important_over">
+          <xsl:value-of select="@important_over='true'"/>
+        </xsl:attribute>
         <xsl:apply-templates select="node()"/>
       </xsl:if>
     </row>
@@ -190,7 +238,9 @@
 
   <xsl:template match="xhtml:song-ch">
     <ch>
-      <xsl:attribute name="a"><xsl:value-of select="@a"/></xsl:attribute>
+      <xsl:attribute name="a">
+        <xsl:value-of select="@a"/>
+      </xsl:attribute>
     </ch>
   </xsl:template>
 
@@ -200,7 +250,11 @@
     <xsl:choose>
       <xsl:when test="contains($datalist,'&#160;')">
         <xsl:if test="substring-before($datalist,'&#160;')">
-          <ch><xsl:attribute name="a"><xsl:value-of select="substring-before($datalist,'&#160;')"/></xsl:attribute></ch>
+          <ch>
+            <xsl:attribute name="a">
+              <xsl:value-of select="substring-before($datalist,'&#160;')"/>
+            </xsl:attribute>
+          </ch>
         </xsl:if>
         <xsl:call-template name="splitInstrumental">
           <xsl:with-param name="datalist" select="substring-after($datalist,'&#160;')"/>
@@ -208,7 +262,11 @@
       </xsl:when>
       <xsl:when test="string-length($datalist)=1">
         <xsl:if test="$datalist">
-          <ch><xsl:attribute name="a"><xsl:value-of select="$datalist"/></xsl:attribute></ch>
+          <ch>
+            <xsl:attribute name="a">
+              <xsl:value-of select="$datalist"/>
+            </xsl:attribute>
+          </ch>
         </xsl:if>
       </xsl:when>
     </xsl:choose>
