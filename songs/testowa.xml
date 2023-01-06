@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xhtml="http://www.w3.org/1999/xhtml" title="Testowa piosenka">
+  <text_author type="solo">Artur Autorski</text_author>
+  <artist type="band">The Wykonawcy Band</artist>
+  <lyric>
+    <block type="verse">
+      <row important_over="true"><ch a="D"/>Herbata stygn<ch a="G"/>ie zapa<ch a="A"/>da mrok</row>
+      <row important_over="true">A p<ch a="D"/>od piór<ch a="G"/>em ciąg<ch a="A"/>le nic</row>
+      <row important_over="false">Ob<ch a="D"/>owiązek ob<ch a="G"/>owiązkie<ch a="A"/>m jest</row>
+      <row important_over="false">Piosenka musi p<ch a="D"/>osiadać teks<ch a="A"/>t <ch a="G"/></row>
+    </block>
+    <block type="verse">
+      <row important_over="false"><ch a="P"/> Ten wiersz ma akord przed T</row>
+      <row important_over="false"><ch a="Nis"/>Ten wiersz ma akord nad T </row>
+      <row important_over="false">Ten wiersz nie ma akordów</row>
+      <row important_over="false">Ten wiersz <ch a="A1"/><ch a="A2"/><ch a="A3"/>ma kilka akordów w jednym miejscu</row>
+      <row important_over="false">Ten wiersz nie ma akordów</row>
+      <row important_over="false">A teraz po kilka<ch a="A1"/><ch a="A2"/><ch a="A3"/></row>
+    </block>
+    <block type="chorus">
+      <row important_over="false">Ale to już było (wszyscy razem śpiewają Refren)</row>
+      <bis times="3">
+        <row important_over="false">To było już 3 razy (bis)</row>
+      </bis>
+      <bis times="2">
+        <row important_over="false">A to tylko 2</row>
+        <row important_over="false">Ale tylko 2 linijki</row>
+      </bis>
+    </block>
+    <block type="verse">
+      <row important_over="false">Znowu zwrotka... ale krótka</row>
+    </block>
+    <block type="other">
+      <row style="instr"><ch a="Cis"/><ch a="Gis"/><ch a="Pis"/> </row>
+      <row style="instr"><ch a="Pis"/><ch a="Gis"/><ch a="Cis"/><ch a="C"/><ch a="D"/><ch a="E"/><ch a="G"/><ch a="B"/><ch a="A"/><ch a="B"/><ch a="C"/> </row>
+    </block>
+    <blocklink blocknb="3"/>
+    <block type="other">
+      <row important_over="false">Everybody clap jor hent </row>
+      <row important_over="false">(wstawka nie numerowana)</row>
+    </block>
+    <block type="verse">
+      <row important_over="false">Czas na czwartą (4.) zwrotkę</row>
+      <row important_over="false"><ch a="A"/>A<ch a="A"/>a<ch a="A"/>a....Go<ch a="Fis"/>ory</row>
+    </block>
+  </lyric>
+  <keywords/>
+  <status>
+    <done/>
+    <verificators>
+      <verificator>Gis</verificator>
+    </verificators>
+  </status>
+</song>
