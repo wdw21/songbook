@@ -6,10 +6,9 @@
 	<composer type="solo">Krzysztof Myszkowski</composer>
 	<artist type="band">Stare Dobre Małżeństwo</artist>
 	<translator></translator>
-	<original_title></original_title>
-	<short_title>Kim właciwie…</short_title>
+	<original_title>Kim byłaś...</original_title>
 	<lyric xmlns="http://21wdh.staszic.waw.pl">
-		<block type="verse">
+		<block type="other">
 			<bis times="2">
 				<row important_over="true"><ch a="a"/> Lalalala l<ch a="G"/>alalalala,<ch a="e"/> lalalala l<ch a="a"/>alalala,<ch a="d"/> lalala,<ch a="C"/> lalala,<ch a="G"/> lalala</row>
 			</bis>

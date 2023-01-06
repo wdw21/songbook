@@ -22,7 +22,7 @@
       <row important_over="false"><ch a="d"/>Nie żyje stary Stormy już<ch a="A7"/><ch a="d"/></row>
       <row important_over="false"><ch a="B"/>Hej mister Stormalong<ch a="A"/><ch a="d"/></row>
     </block>
-    <block type="other" style="instr">
+    <block type="other">
       <row important_over="false">
         <ch a="d"/>
         <ch a="A7"/>

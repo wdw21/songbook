@@ -32,7 +32,7 @@
       <row>Pieściły ręce dziesiątki razy</row>
       <row>W poranki świeżym chlebem pachnące</row>
     </block>
-    <blockref blocknb="3"/>
+    <blocklink blocknb="3"/>
     <block type="verse">
       <row>nikt takich słów jak miasto miastem</row>
       <row>nie znał i źle się dzieje mówili</row>
@@ -45,6 +45,6 @@
       <row>i nie wie nikt co Cześka wzięło</row>
       <row>lecz śpiewa każdy jak miasto miastem</row>
     </block>
-    <blockref blocknb="3"/>
+    <blocklink blocknb="3"/>
   </lyric>
 </song>

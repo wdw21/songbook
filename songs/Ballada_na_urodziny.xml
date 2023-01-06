@@ -54,7 +54,7 @@
 				<ch a="G"/><ch a="h"/><ch a="C"/><ch a="D"/><ch a="h"/><ch a="e"/><ch a="a"/><ch a="D"/><ch a="G"/><ch a="h"/><ch a="C"/><ch a="D"/><ch a="h"/><ch a="e"/><ch a="a"/><ch a="D"/><ch a="G"/><ch a="G"/></row>
 		</block>
 	</lyric>
-	<status done="unknown">
+	<status>
 		<verificators><verificator>Adam</verificator>
 		</verificators>
 		<to_do/>
