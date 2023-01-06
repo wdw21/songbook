@@ -23,7 +23,12 @@ export function Serialize(songeditor) {
       .replaceAll(nbsp," ");
 
   if (songeditor.tabs) {
-    txt = txt.replaceAll(/(?<=^ *)  /gm,"\t");
+    // Not supported on Safarii (https://github.com/tc39/proposal-regexp-lookbehind)
+    // txt = txt.replaceAll(/(?<=^ *)  /gm,"\t");
+    // So we do naive replaces multiple times
+    for (let i=0; i<10; ++i) {
+      txt = txt.replaceAll(/^  /gm,"\t");
+    }
   }
 
   txt = txt + "\n";
