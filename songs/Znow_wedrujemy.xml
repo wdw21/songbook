@@ -45,8 +45,8 @@
       <row important_over="false"><ch a="e"/> Kr<ch a="h"/>ajem</row>
       <row important_over="false">Malachit<ch a="C"/>ową łąką m<ch a="D"/>orza</row>
     </block>
-    <block type="other" style="instr">
-      <row>
+    <block type="other">
+      <row style="instr">
         <ch a="e"/>
         <ch a="h"/>
         <ch a="C"/>

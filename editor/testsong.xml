@@ -28,7 +28,7 @@ aż tyle.</comment>
     <blocklink blocknb="2"/>
   </lyric>
   <music metre="12/8">
-    <guitar barre="3.15"/>
+    <guitar barre="13"/>
   </music>
   <keywords>
     <keyword>Testy</keyword>
@@ -46,7 +46,7 @@ aż tyle.</comment>
       <verificator>Piotr Tabor</verificator>
       <verificator>Ktoś jeszcze</verificator>
     </verificators>
-    <todo>Skasować to</todo>
+    <to_do>Skasować to</to_do>
   </status>
   <music_source>Internet</music_source>
 </song>

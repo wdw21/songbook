@@ -12,7 +12,7 @@ const attrs=["title", "alias","text_author", "text_author_type","comment",
   "album",
   "music_source", "metre", "guitar_barre", "genre",
   "keywords",  "done_text", "done_authors", "done_chords",
-  "verificators", "todo"];
+  "verificators", "to_do"];
 
 export class SongEditor extends HTMLElement {
   constructor() {
@@ -130,7 +130,7 @@ export class SongEditor extends HTMLElement {
        </select>
      <label for="done_authors">Sprawdzono twórców</label> <input type="checkbox" id="done_authors"/>
      <label for="verificators">Sprawdzający</label> <textarea id="verificators"></textarea>
-     <label for="todo">Do zrobienia</label> <textarea id="todo"></textarea>
+     <label for="to_do">Do zrobienia</label> <textarea id="to_do"></textarea>
   </div>
 </div>
 <div class="gitToolbar">
@@ -299,7 +299,7 @@ export class SongEditor extends HTMLElement {
     this.readAttributeList(song, "keywords", "keyword");
     this.readAttributeList(song, "verificators", "verificator");
 
-    this.readAttribute(song, "todo", "todo");
+    this.readAttribute(song, "to_do", "to_do");
 
     this.tabs = xmlContent.includes("\t");
     this.serialized = xmlContent;

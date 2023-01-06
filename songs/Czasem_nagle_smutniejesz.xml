@@ -40,16 +40,13 @@
 		<guitar barre="0"/>
 	</music>
 	<status>
-		<authors/>
-		<text/>
-		<chords>chord positioning</chords>
 		<verificators><verificator>Taboret wg. Onufrego</verificator><verificator>Alek</verificator>
-			
-			
 		</verificators>
 		<to_do/>
 		<done>
-			<chords>chords</chords>
+			<authors/>
+			<text/>
+			<chords>chord positioning</chords>
 		</done>
 	</status>
 	<keywords/>

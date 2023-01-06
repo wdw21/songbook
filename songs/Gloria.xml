@@ -49,7 +49,7 @@
       <row important_over="false"><ch a="D"/>Łagodnie kołysz tych co są na morzu<ch a="C"/></row>
       <row important_over="false"><ch a="D"/>Gloria gloria in excelsis eoli<ch a="G"/></row>
     </block>
-    <block type="other" style="instr">
+    <block type="other">
       <row important_over="false"  style="instr">
         <ch a="G"/>
         <ch a="e"/>
