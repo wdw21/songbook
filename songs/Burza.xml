@@ -1,13 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Burza">
-	<alias></alias>
 	<text_author type="solo">Maciej Służała</text_author>
-	<comment></comment>
 	<composer type="solo">Maciej Służała</composer>
 	<artist type="band">Krążek</artist>
-	<translator></translator>
-	<original_title></original_title>
-	<lyric xmlns="http://21wdh.staszic.waw.pl">
+	<lyric>
 		<block type="verse">
 			<row important_over="true">Znów chm<ch a="a"/>ury zmęczone przysiadły na grani</row>
 			<row important_over="true">Ciężk<ch a="G"/>imi brzuchami pieszczą górskie grzbiety</row>
@@ -28,8 +24,7 @@
 		</block>
 		<block type="verse">
 			<row important_over="false">N<ch a="a"/>owa srebrna nić przecięła czerń nieba</row>
-			<row important_over="false">
-				<ch a="G"/>Echo przerażone ryczy dzikim grzmotem</row>
+			<row important_over="false"><ch a="G"/>Echo przerażone ryczy dzikim grzmotem</row>
 			<row important_over="false">Drz<ch a="F"/>ewa w wiatru graniu szamoczą się z deszczem</row>
 			<row important_over="false">Jak ryc<ch a="E"/>erze antyczni zmagając się z sobą</row>
 		</block>
@@ -42,10 +37,8 @@
 		<block type="verse">
 			<row important_over="false">I f<ch a="a"/>ala za falą i w dół jak lawina,</row>
 			<row important_over="false">Lecz s<ch a="G"/>ił już nie starcza ni kroplom ni wiatrom</row>
-			<row important_over="false">
-				<ch a="F"/>I nagle blask słońca przez chmury przenika</row>
-			<row important_over="false">
-				<ch a="E"/>I tęcza w deszczowych drobinkach jak flaga</row>
+			<row important_over="false"><ch a="F"/>I nagle blask słońca przez chmury przenika</row>
+			<row important_over="false"><ch a="E"/>I tęcza w deszczowych drobinkach jak flaga</row>
 		</block>
 		<block type="verse">
 			<bis times="3">
@@ -60,19 +53,19 @@
 	<music metre="4/4">
 		<guitar barre="0"/>
 	</music>
+	<keywords/>
+	<album>Baśn</album>
+	<genre>Poezja śpiewana</genre>
 	<status>
-		<verificators><verificator>Onufry</verificator><verificator>Krzysiek</verificator>
-			
-			
-		</verificators>
-		<to_do>Sprawdzono wg tekstu ze strony krążka</to_do>
-		<done>	<text/>
+		<done>
+			<text/>
 			<authors/>
 			<chords>chord positioning</chords>
 		</done>
+		<verificators>
+			<verificator>Onufry</verificator>
+			<verificator>Krzysiek</verificator>
+		</verificators>
+		<to_do>Sprawdzono wg tekstu ze strony krążka</to_do>
 	</status>
-	<keywords/>
-	<music_source></music_source>
-	<album>Baśn</album>
-	<genre>Poezja śpiewana</genre>
 </song>
