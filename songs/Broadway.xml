@@ -1,17 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Broadway">
-	<alias></alias>
 	<text_author type="solo">Krzysztof Daukszewicz</text_author>
 	<comment>W śpiewniku Daukszewicza ciut inne chwyty, ale tam chwyty nawet nie zgadzają się ze sobą (te nad tekstem inne niż te nad nutami), że nie wspomnę o melodii, więc zostawiam tak, jak u nas się śpiewa.
-Ponoć refreny są różne, np. zaczynają się od słów ,,Cały Broadway'', ,,Ach ten Broadway'' itp., trzeba by je sprawdzić ze śpiewnikiem — Alek</comment>
+Ponoć refreny są różne, np. zaczynają się od słów ,,Cały Broadway&#039;&#039;, ,,Ach ten Broadway&#039;&#039; itp., trzeba by je sprawdzić ze śpiewnikiem — Alek</comment>
 	<composer type="solo">Krzysztof Daukszewicz</composer>
 	<artist type="solo">Krzysztof Daukszewicz</artist>
-	<translator></translator>
-	<original_title></original_title>
-	<lyric xmlns="http://21wdh.staszic.waw.pl">
+	<lyric>
 		<block type="verse">
 			<row important_over="true">Po ul<ch a="e"/>icy przetaczał się bajecznie barwny tłum</row>
-			<row important_over="true">Migo<ch a="C"/>tała reklama jakiejś wody ,,Silver moon''</row>
+			<row important_over="true">Migo<ch a="C"/>tała reklama jakiejś wody ,,Silver moon&#039;&#039;</row>
 			<row important_over="true">I drap<ch a="a"/>acze drapały wierzchołkami brzuchy chmur</row>
 			<row important_over="true">Kiedy d<ch a="e"/>ołem przejeżdżał gigantyczny wozów sznur</row>
 		</block>
@@ -44,34 +41,35 @@ Ponoć refreny są różne, np. zaczynają się od słów ,,Cały Broadway'', ,,
 		</block>
 		<blocklink blocknb="4"/>
 		<block type="other">
-			<row style="instr"><ch a="e"/><ch a="C"/><ch a="a"/><ch a="e"/><ch a="H7"/><ch a="C"/><ch a="e"/></row>
+			<row style="instr"><ch a="e"/><ch a="C"/><ch a="a"/><ch a="e"/><ch a="H7"/><ch a="C"/><ch a="e"/> </row>
 		</block>
 		<block type="verse">
 			<row important_over="false">A gdy sk<ch a="e"/>ończył się koncert stary Murzyn go zaprosił</row>
 			<row important_over="false">Na kol<ch a="C"/>ejne popołudnie i te bluesy na dwa głosy</row>
 			<row important_over="false">Potem sp<ch a="a"/>ytał go jeszcze skąd znasz me niedole</row>
-			<row important_over="false">I usł<ch a="e"/>yszał odpowiedź ,,bracie I'm from Poland''</row>
+			<row important_over="false">I usł<ch a="e"/>yszał odpowiedź ,,bracie I&#039;m from Poland&#039;&#039;</row>
 		</block>
 		<blocklink blocknb="4"/>
 	</lyric>
 	<music metre="4/4">
 		<guitar barre="0"/>
 	</music>
-	
 	<keywords/>
 	<album>Bieda</album>
-	<genre></genre>
 	<status>
-		<done>	<text/>
+		<done>
+			<text/>
 			<authors/>
 			<chords>chord positioning</chords>
 		</done>
 		<verificators>
-			<verificator>Onufry</verificator><verificator>Adam</verificator><verificator>Alek</verificator><verificator>Krzysiek</verificator>
+			<verificator>Onufry</verificator>
+			<verificator>Adam</verificator>
+			<verificator>Alek</verificator>
+			<verificator>Krzysiek</verificator>
 		</verificators>
-		<to_do>Adam--&gt;Różne tam takie słówka, żeby dało się po ludzku śpiewać.
+		<to_do>Adam-->Różne tam takie słówka, żeby dało się po ludzku śpiewać.
 
 			Sprawdzane wg śpiewnika Daukszewicza, ale ten śpiewnik jest tragiczny...Refreny mają różne początki, czasem występuje jakieś Ech, albo coś, ale chyba nie warto mówić, że to nie refren i pisać za każdym razem.</to_do>
 	</status>
-	<music_source></music_source>
 </song>
