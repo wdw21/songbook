@@ -323,6 +323,7 @@ export default class SongBody extends HTMLElement {
     let selRows = this.selectedRows();
     let allImportant=true;
     for (let i=0; i<selRows.length; ++i) {
+     // console.log("allSelectedImportant: considering", selRows[i])
       allImportant &&= selRows[i].getAttribute("important_over")==="true";
     }
     return allImportant;
@@ -380,6 +381,7 @@ export default class SongBody extends HTMLElement {
           && document.getSelection().type === 'Caret') {
         let r = document.getSelection().getRangeAt(0);
         if (r.collapsed && r.startContainer.nodeName==='#text' && r.startOffset >= r.startContainer.nodeValue.length
+            && r.startContainer.nextSibling
             && r.startContainer.nextSibling.nodeName==='SONG-CH') {
           let ch = r.startContainer.nextSibling;
           while (ch && ch.nodeName==='SONG-CH') {
@@ -399,6 +401,7 @@ export default class SongBody extends HTMLElement {
           && document.getSelection().type === 'Caret') {
         let r = document.getSelection().getRangeAt(0);
         if (r.collapsed && r.startContainer.nodeName==='#text' && r.startOffset == 0
+            && r.startContainer.previousSibling
             && r.startContainer.previousSibling.nodeName==='SONG-CH') {
           let ch = r.startContainer.previousSibling;
           while (ch && ch.nodeName==='SONG-CH') {
@@ -578,10 +581,11 @@ export default class SongBody extends HTMLElement {
         }
 
         r= document.getSelection().getRangeAt(0);
-        if (r.startContainer.nodeName === 'SONG-ROWS'
+        if ((r.startContainer.nodeName === 'SONG-ROWS'
             || r.startContainer.nodeName === 'SONG-VERSE'
             || r.startContainer.nodeName === 'SONG-BIS'
-            || r.startContainer.nodeName === 'SONG-BODY') {
+            || r.startContainer.nodeName === 'SONG-BODY')
+           && r.startContainer.childNodes.length > 0) {
           console.log("Preventing deletion of whole: ", r);
           if (r.startContainer.childNodes[r.startOffset] != null
             && r.startContainer.childNodes[r.startOffset].firstChild != null) {
@@ -602,6 +606,38 @@ export default class SongBody extends HTMLElement {
         songbody.changePostprocess();
         return;
       }
+    }
+
+    if (e.inputType == "insertParagraph"
+        && e.target == songbody) {
+      let r= document.getSelection().getRangeAt(0);
+      // console.log(r);
+      // console.log(r.startContainer);
+
+      let parentRow=findAncestor(r.startContainer, 'SONG-ROW');
+      let newNode = parentRow.cloneNode(false);
+      parentRow.parentNode.insertBefore(newNode, parentRow.nextSibling);
+      if (r.startContainer.nodeName=='#text' && r.startOffset<r.startContainer.nodeValue.length) {
+        newNode.appendChild(document.createTextNode(r.startContainer.nodeValue.slice(r.startOffset)));
+        r.startContainer.nodeValue=r.startContainer.nodeValue.slice(0, r.startOffset);
+      }
+      let st = r.startContainer.nodeName=='SONG-ROW' ? r.startContainer.childNodes[r.startOffset].previousSibling : r.startContainer ;
+      while(st.nextSibling != null) {
+        console.log("Adding: ", st.nextSibling)
+        newNode.appendChild(st.nextSibling)
+      }
+      console.log("newNode.textContent:" + newNode.textContent)
+      const curPos = newNode.firstChild;
+      if (!newNode.textContent.startsWith(" ")) {
+        console.log("WSTAWIAM PRZED");
+        newNode.insertBefore(document.createTextNode(nbsp), newNode.firstChild);
+      }
+      setCursorBefore(curPos);
+      if (parentRow.childNodes.length==0) {
+        parentRow.appendChild(document.createTextNode(nbsp));
+      }
+      e.preventDefault();
+      this.changePostprocess()
     }
 
     // Without this pressing any key when there is selection... removing all content.
@@ -653,7 +689,10 @@ export default class SongBody extends HTMLElement {
     console.log("postprocessing");
     Sanitize(this);
     this.recomputeChordsOffsets();
-    this.undo.push(this.cloneNode(true));
+    let lastState=this.cloneNode(true);
+    if (this.undo.length==0 || !this.undo[this.undo.length-1].isEqualNode(lastState)) {
+      this.undo.push(lastState);
+    }
     console.log("Postprocessed. Undo len: ", this.undo.length);
   }
 
@@ -670,22 +709,23 @@ export default class SongBody extends HTMLElement {
   input(e, songbody) {
     console.log("input", e);
      if (e.target == songbody) {
+       console.log("postprocessing...")
        songbody.changePostprocess();
 //    Avoid keeping cursor before the artifical space:
-       if (document.getSelection().isCollapsed
-           && document.getSelection().rangeCount == 1) {
-         let r = document.getSelection().getRangeAt(0);
-         //console.log("ON INPUT", document.getSelection(), r.startContainer.nodeName, r.startOffset, r.startContainer);
-         if (r.startContainer.nodeName === "#text"
-             && r.startOffset == 0
-             && r.startContainer.nodeValue.startsWith(nbsp)
-             && r.startContainer.previousSibling == null) {
-           let newr = document.createRange();
-           newr.setStart(r.startContainer, 1);
-           document.getSelection().removeAllRanges();
-           document.getSelection().addRange(newr);
-         }
-       }
+//        if (document.getSelection().isCollapsed
+//            && document.getSelection().rangeCount == 1) {
+//          let r = document.getSelection().getRangeAt(0);
+//          //console.log("ON INPUT", document.getSelection(), r.startContainer.nodeName, r.startOffset, r.startContainer);
+//          if (r.startContainer.nodeName === "#text"
+//              && r.startOffset == 0
+//              && r.startContainer.nodeValue.startsWith(nbsp)
+//              && r.startContainer.previousSibling == null) {
+//            let newr = document.createRange();
+//            newr.setStart(r.startContainer, 1);
+//            document.getSelection().removeAllRanges();
+//            document.getSelection().addRange(newr);
+//          }
+//        }
      }
   }
 
