@@ -41,7 +41,7 @@ span.cho span.ch {
 
 
 :host-context(song-row[important_over="true"]) span.cho span.ch {
-  font-weight: bold;
+  font-weight: 900; /*bold is like 700*/
   font-size: x-small;
 }
 
