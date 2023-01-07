@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<song title="Nadaremność" xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl Song.xsd">
+<song title="Nadaremność" xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd">
 	<alias></alias>
 	<text_author type="solo">Bolesław Leśmian</text_author>
 	<comment></comment>
@@ -13,7 +13,7 @@
 			<row important_over="false">Rozgrzanych płotów chrust.<ch a="B"/><ch a="F"/><ch a="CD"/></row>
 			<row important_over="false">Pocałunek sam siebie składa mi na skroni,<ch a="e"/><ch a="D"/></row>
 			<bis times="2">
-				<row important_over="false">Sam - bez pomocy ust…<ch a="G" p="1"/><ch a="D" p="2"/><ch a="C"/><ch a="B"/><ch a="C" p="1"/><ch a="G" p="2"/></row>
+				<row important_over="false">Sam - bez pomocy ust...<ch a="G"/><ch a="D"/><ch a="C"/><ch a="B"/><ch a="C"/><ch a="G"/></row>
 			</bis>
 		</block>
 		<block type="verse">
@@ -21,7 +21,7 @@
 			<row important_over="false">Jaskółek płacz i śmiech -<ch a="B"/><ch a="F"/><ch a="CD"/></row>
 			<row important_over="false">Do pokoju, spłowiałe wzdymając kotary,<ch a="e"/><ch a="D"/></row>
 			<bis times="2">
-				<row important_over="false">Wyrywa się wiosny dech!<ch a="G" p="1"/><ch a="D" p="2"/><ch a="C"/><ch a="B"/><ch a="C" p="1"/><ch a="G" p="2"/></row>
+				<row important_over="false">Wyrywa się wiosny dech!<ch a="G"/><ch a="D"/><ch a="C"/><ch a="B"/><ch a="C"/><ch a="G"/></row>
 			</bis>
 		</block>
 		<block type="verse">
@@ -29,7 +29,7 @@
 			<row important_over="false">Wonny rozkwiecił bez,<ch a="B"/><ch a="F"/><ch a="CD"/></row>
 			<row important_over="false">Przebacz, że wbrew twej wiedzy i przed czasem ginę <ch a="e"/><ch a="D"/></row>
 			<bis times="2">
-				<row important_over="false">Z woli mych własnych łez!…<ch a="G" p="1"/><ch a="D" p="2"/><ch a="C"/><ch a="B"/><ch a="C" p="1"/><ch a="G" p="2"/></row>
+				<row important_over="false">Z woli mych własnych łez!...<ch a="G"/><ch a="D"/><ch a="C"/><ch a="B"/><ch a="C"/><ch a="G"/></row>
 			</bis>
 		</block>
 	</lyric>

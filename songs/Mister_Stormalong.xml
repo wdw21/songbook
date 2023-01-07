@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl Song.xsd" title="Mister Stormalong">
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Mister Stormalong">
   <alias/>
   <text_author/>
   <comment/>
@@ -22,7 +22,7 @@
       <row important_over="false"><ch a="d"/>Nie żyje stary Stormy już<ch a="A7"/><ch a="d"/></row>
       <row important_over="false"><ch a="B"/>Hej mister Stormalong<ch a="A"/><ch a="d"/></row>
     </block>
-    <block type="other" style="instr">
+    <block type="other">
       <row important_over="false">
         <ch a="d"/>
         <ch a="A7"/>

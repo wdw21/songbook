@@ -640,11 +640,13 @@ export default class SongBody extends HTMLElement {
 
   doRedo() {
     const redo = this.redo.pop();
-    this.undo.push(redo);
+    if (redo) {
+      this.undo.push(redo);
 
-    const cn = redo.cloneNode(true).childNodes;
-    this.textContent='';
-    this.append(...cn);
+      const cn = redo.cloneNode(true).childNodes;
+      this.textContent = '';
+      this.append(...cn);
+    }
   }
 
   changePostprocess() {

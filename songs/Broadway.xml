@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl Song.xsd" title="Broadway">
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Broadway">
 	<alias></alias>
 	<text_author type="solo">Krzysztof Daukszewicz</text_author>
 	<comment>W śpiewniku Daukszewicza ciut inne chwyty, ale tam chwyty nawet nie zgadzają się ze sobą (te nad tekstem inne niż te nad nutami), że nie wspomnę o melodii, więc zostawiam tak, jak u nas się śpiewa.
@@ -57,7 +57,6 @@ Ponoć refreny są różne, np. zaczynają się od słów ,,Cały Broadway'', ,,
 	<music metre="4/4">
 		<guitar barre="0"/>
 	</music>
-	<music_author>Krzysztof Daukszewicz</music_author>
 	
 	<keywords/>
 	<album>Bieda</album>
@@ -69,14 +68,10 @@ Ponoć refreny są różne, np. zaczynają się od słów ,,Cały Broadway'', ,,
 		</done>
 		<verificators>
 			<verificator>Onufry</verificator><verificator>Adam</verificator><verificator>Alek</verificator><verificator>Krzysiek</verificator>
-			
-			
-			
-			
 		</verificators>
-		<to_do>Adam--&gt;Różne tam takie słówka, żeby dało się po ludzku śpiewać</to_do>
-		<to_do>Sprawdzane wg śpiewnika Daukszewicza, ale ten śpiewnik jest tragiczny…Refreny mają różne początki, czasem występuje jakieś Ech, albo coś, ale chyba nie warto mówić, że to nie refren i pisać za każdym razem.</to_do>
-		<done>On</done>
+		<to_do>Adam--&gt;Różne tam takie słówka, żeby dało się po ludzku śpiewać.
+
+			Sprawdzane wg śpiewnika Daukszewicza, ale ten śpiewnik jest tragiczny...Refreny mają różne początki, czasem występuje jakieś Ech, albo coś, ale chyba nie warto mówić, że to nie refren i pisać za każdym razem.</to_do>
 	</status>
 	<music_source></music_source>
 </song>

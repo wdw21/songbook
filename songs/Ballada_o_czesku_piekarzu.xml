@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl Song.xsd" title="Ballada o cześku piekarzu">
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Ballada o cześku piekarzu">
   <artist>Wolna Grupa Bukowina</artist>
   <lyric>
     <block type="other">
@@ -32,7 +32,7 @@
       <row>Pieściły ręce dziesiątki razy</row>
       <row>W poranki świeżym chlebem pachnące</row>
     </block>
-    <blockref blocknb="3"/>
+    <blocklink blocknb="3"/>
     <block type="verse">
       <row>nikt takich słów jak miasto miastem</row>
       <row>nie znał i źle się dzieje mówili</row>
@@ -45,6 +45,6 @@
       <row>i nie wie nikt co Cześka wzięło</row>
       <row>lecz śpiewa każdy jak miasto miastem</row>
     </block>
-    <blockref blocknb="3"/>
+    <blocklink blocknb="3"/>
   </lyric>
 </song>

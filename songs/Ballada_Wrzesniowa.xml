@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<song title="Ballada wrześniowa" xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl Song.xsd">
+<song title="Ballada wrześniowa" xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd">
 	<alias></alias>
 	<text_author type="solo">Jacek Kaczmarski</text_author>
 	<comment></comment>
@@ -26,7 +26,7 @@
 			<row important_over="true"><ch a="G"/> Zdumiona spyta Europa,</row>
 			<bis times="2">
 				<row important_over="true">J<ch a="a"/>ak to? To chłopcy M<ch a="e"/>ołotowa</row>
-				<row important_over="true"><ch a="H" p="1"/> I sojuszn<ch a="H7"/>icy R<ch a="e"/>ibbentr<ch a="E7"/>oppa.</row>
+				<row important_over="true"><ch a="H"/> I sojuszn<ch a="H7"/>icy R<ch a="e"/>ibbentr<ch a="E7"/>oppa.</row>
 			</bis>
 		</block>
 		<block type="verse">
@@ -46,7 +46,7 @@
 			<row important_over="false">We wspólną pięść co dech zapiera<ch a="G"/></row>
 			<bis times="2">
 				<row important_over="false">Nieprzeliczone dzieci Soso,<ch a="a"/><ch a="e"/></row>
-				<row important_over="false">Niezwyciężony miot Hitlera.<ch a="H" p="1"/><ch a="H7"/><ch a="e"/><ch a="E7"/></row>
+				<row important_over="false">Niezwyciężony miot Hitlera.<ch a="H"/><ch a="H7"/><ch a="e"/><ch a="E7"/></row>
 			</bis>
 		</block>
 		<block type="verse">
@@ -66,7 +66,7 @@
 			<row important_over="false">Gdy stary ląd w zdumieniu zastygł<ch a="G"/></row>
 			<bis times="2">
 				<row important_over="false">I święcić będą nam potomni<ch a="a"/><ch a="e"/></row>
-				<row important_over="false">Po pierwszym września - siedemnasty.<ch a="H" p="1"/><ch a="H7"/><ch a="e"/><ch a="E7"/></row>
+				<row important_over="false">Po pierwszym września - siedemnasty.<ch a="H"/><ch a="H7"/><ch a="e"/><ch a="E7"/></row>
 			</bis>
 		</block>
 	</lyric>

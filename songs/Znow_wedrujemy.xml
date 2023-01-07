@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl Song.xsd" title="Znów wędrujemy">
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Znów wędrujemy">
   <alias/>
   <text_author>Krzysztof Kamil Baczyński</text_author>
   <comment/>
@@ -45,8 +45,8 @@
       <row important_over="false"><ch a="e"/> Kr<ch a="h"/>ajem</row>
       <row important_over="false">Malachit<ch a="C"/>ową łąką m<ch a="D"/>orza</row>
     </block>
-    <block type="other" style="instr">
-      <row>
+    <block type="other">
+      <row style="instr">
         <ch a="e"/>
         <ch a="h"/>
         <ch a="C"/>

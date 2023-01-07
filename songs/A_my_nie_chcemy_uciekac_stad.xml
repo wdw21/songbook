@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl Song.xsd" title="A my nie chcemy uciekać stąd">
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="A my nie chcemy uciekać stąd">
 	<alias/>
 	<text_author type="solo">Jacek Kaczmarski</text_author>
 	<comment>Zwrotka 'Dym w dziurce od klucza' nie pojawia się w oficjalnych wersjach, które przeglądałem.</comment>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl Song.xsd" title="Piosenka wiosenna">
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Piosenka wiosenna">
 	<alias/>
 	<text_author type="solo">Wojciech Bellon</text_author>
 	<comment/>
@@ -26,8 +26,8 @@
 			<row important_over="true">Z<ch a="G"/>atańcz<ch a="C9/5"/>ymy się w sobie do l<ch a="G"/>a<ch a="h"/>t<ch a="C9/5"/>a</row>
 			<row important_over="true">Z<ch a="G"/>atańcz<ch a="D4"/>ymy się w sobie bez k<ch a="C"/>o<ch a="D"/>ńc<ch a="G"/>a</row>
 		</block>
-		<block type="other" style="instr">
-			<row important_over="false">
+		<block type="other">
+			<row important_over="false" style="instr">
 				<ch a="G"/><ch a="D"/><ch a="C"/><ch a="G"/><ch a="D"/><ch a="C"/><ch a="G"/><ch a="h"/></row>
 		</block>
 		<block type="verse">
@@ -46,8 +46,8 @@
 				<row important_over="false">Z<ch a="G"/>atańcz<ch a="D4"/>ymy się w sobie bez k<ch a="C"/>o<ch a="D"/>ńc<ch a="G"/>a</row>
 			</bis>
 		</block>
-		<block type="other" style="instr">
-			<row important_over="false">
+		<block type="other">
+			<row important_over="false" style="instr">
 				<ch a="G"/><ch a="D"/><ch a="C"/><ch a="G"/><ch a="D"/><ch a="C"/><ch a="G"/></row>
 		</block>
 	</lyric>

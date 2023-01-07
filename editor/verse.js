@@ -5,6 +5,7 @@ export class SongVerse extends HTMLElement {
     const template = document.createElement('template');
     template.innerHTML = `
 <link rel="stylesheet" href="./verse.css"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <div class="verse">
   <div class="verse_meta">
     <span id="nr"></span>
@@ -14,6 +15,8 @@ export class SongVerse extends HTMLElement {
       <label for="bt_verse"><input type="radio" id="bt_verse" value="verse" name="block_type"/>zwrotka</label>
       <label for="bt_chorus"><input type="radio" id="bt_chorus" value="chorus" name="block_type"/>refren</label>
       <label for="bt_other"><input type="radio" id="bt_other" value="other" name="block_type"/>wstawka</label>
+      
+      <button id="delete" class="material-icons">delete</button>
     </div>
   </div>
   <div id="verse_link" class="verse_link">
@@ -35,9 +38,10 @@ export class SongVerse extends HTMLElement {
     this.main=shadow.getElementById("verse_main");
     this.link=shadow.getElementById("verse_link");
     this.linkSel=shadow.getElementById("verse_link_sel");
+    this.buttonDelete=shadow.getElementById("delete");
     this.blocklink.addEventListener("input", (e) => this.blocklinkoninput(e, this));
     this.linkSel.addEventListener("input", (e) => this.inputLinkVerse(e, this));
-
+    this.buttonDelete.addEventListener("click", (e) => this.remove());
     this.btRadios={}
     for (const bt_radio of shadow.querySelectorAll('input[name="block_type"]')) {
       bt_radio.addEventListener("input", (e) => this.refoninput(e, this));

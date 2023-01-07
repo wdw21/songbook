@@ -19,6 +19,10 @@ div.verse_meta {
   margin: auto;*/
 }
 
+div.verse_meta button {
+  font-size: medium;
+}
+
 div.verse_main {
   grid-row: 1;
   grid-column: 2/2;
