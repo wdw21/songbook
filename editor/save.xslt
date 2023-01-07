@@ -5,7 +5,7 @@
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd">
-  <xsl:output method="xml" indent="yes" omit-xml-declaration="no" standalone="no"/>
+  <xsl:output method="xml" indent="yes" omit-xml-declaration="no" standalone="yes"/>
 
   <xsl:template match="@*|node()">
     <xsl:copy>
@@ -15,6 +15,7 @@
 
   <xsl:template match="xhtml:song-editor">
     <song>
+      <xsl:attribute name="xsi:schemaLocation">http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd</xsl:attribute>
       <xsl:attribute name="title">
         <xsl:value-of select="@title"/>
       </xsl:attribute>

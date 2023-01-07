@@ -1,5 +1,59 @@
 import {loadXMLDoc, nbsp} from './utils.js';
 
+function escapeAttrib(unsafe)
+{
+  return unsafe
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+}
+
+function escapeText(unsafe)
+{
+  return unsafe
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+}
+
+function serializeElement(indent, elem) { // returns { out: '   ', breakClosing: true/false}
+  if (elem.nodeName=='#text'){
+    return  { out: escapeText(elem.parentNode.nodeName != 'row' ? elem.nodeValue.trim() : elem.nodeValue), breakClosing: false};
+  } else {
+    let attrs=''
+    for (const a of elem.attributes) {
+      if (a.nodeName != 'xmlns:xhtml') {
+        attrs = `${attrs} ${a.nodeName}="${escapeAttrib(a.nodeValue)}"`
+      }
+    }
+    if (elem.nodeName=='song' && !attrs.includes('xmlns:xsi=')) {
+      attrs=` xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"` + attrs
+    }
+    if (elem.nodeName=='song' && !attrs.includes('xmlns=\"'+elem.namespaceURI)) {
+      attrs=` xmlns="${elem.namespaceURI}"` + attrs
+    }
+    if (elem.nodeName==='ch') {
+      return { out: `<${elem.nodeName}${attrs}/>`, breakClosing: false }
+    } else {
+      const {out, breakClosing} = serializeElements(indent + "\t", elem.childNodes)
+      return { out: `\n${indent}<${elem.nodeName}${attrs}>${out}${breakClosing ? "\n"+indent : ""}</${elem.nodeName}>`, breakClosing: true }
+    }
+  }
+}
+
+function serializeElements(indent, children) {
+   let o="";
+   let br = false;
+   for (let child of children) {
+     const {out, breakClosing} = serializeElement(indent, child)
+     o += out;
+     br |= breakClosing
+   }
+   return {out: o, breakClosing: br};
+}
+
+function serializeDocument(doc) {
+  return `<?xml version="1.0" encoding="utf-8"?>${serializeElements("", doc.childNodes).out}`
+}
+
 export function Serialize(songeditor) {
   let xsltProcessor = new XSLTProcessor()
   let xslt = loadXMLDoc('./save.xslt');
@@ -14,24 +68,22 @@ export function Serialize(songeditor) {
   if (!resultDocument) {
     alert("XSLT transformation failed")
   }
-  const pi = resultDocument.createProcessingInstruction('xml', 'version="1.0" encoding="UTF-8"');
-  resultDocument.insertBefore(pi, resultDocument.firstChild);
-  console.log(resultDocument);
 
-  let txt=new XMLSerializer().serializeToString(resultDocument);;
-  txt = txt.replaceAll("?><song","?>\n<song")
-      .replaceAll(nbsp," ");
+  // Does not work well on Mozilla:
+  // https://stackoverflow.com/questions/51989864/undefined-undefined-error-when-calling-xsltprocessor-prototype-importstylesheet
+  //new XMLSerializer().serializeToString(resultDocument);;
 
-  if (songeditor.tabs) {
+  let txt=serializeDocument(resultDocument)
+  txt = txt.replaceAll(nbsp," ");
+
+  if (!songeditor.tabs) {
     // Not supported on Safarii (https://github.com/tc39/proposal-regexp-lookbehind)
     // txt = txt.replaceAll(/(?<=^ *)  /gm,"\t");
     // So we do naive replaces multiple times
     for (let i=0; i<10; ++i) {
-      txt = txt.replaceAll(/^  /gm,"\t");
+      txt = txt.replaceAll(/^\t/gm,"  ");
     }
   }
-
-  txt = txt + "\n";
 
   if (songeditor.shadow.getElementById("lastSerialized")) {
     songeditor.shadow.getElementById("lastSerialized").innerText=txt;
