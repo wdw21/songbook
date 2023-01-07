@@ -14,7 +14,7 @@ function escapeText(unsafe)
       .replace(/'/g, "&#039;");
 }
 
-function serializeElement(indent, elem) { // returns { out: '   ', breakClosing: true/false}
+function serializeElement(indent, elem, sep) { // returns { out: '   ', breakClosing: true/false}
   if (elem.nodeName=='#text'){
     return  { out: escapeText(elem.parentNode.nodeName != 'row' ? elem.nodeValue.trim() : elem.nodeValue), breakClosing: false};
   } else {
@@ -33,25 +33,29 @@ function serializeElement(indent, elem) { // returns { out: '   ', breakClosing:
     if (elem.nodeName==='ch') {
       return { out: `<${elem.nodeName}${attrs}/>`, breakClosing: false }
     } else {
-      const {out, breakClosing} = serializeElements(indent + "\t", elem.childNodes)
-      return { out: `\n${indent}<${elem.nodeName}${attrs}>${out}${breakClosing ? "\n"+indent : ""}</${elem.nodeName}>`, breakClosing: true }
+      const {out, breakClosing} = serializeElements(indent + sep, elem.childNodes, sep)
+      if (out!="") {
+        return { out: `\n${indent}<${elem.nodeName}${attrs}>${out}${breakClosing ? "\n"+indent : ""}</${elem.nodeName}>`, breakClosing: true }
+      } else {
+        return { out: `\n${indent}<${elem.nodeName}${attrs}/>`, breakClosing: true }
+      }
     }
   }
 }
 
-function serializeElements(indent, children) {
+function serializeElements(indent, children, sep) {
    let o="";
    let br = false;
    for (let child of children) {
-     const {out, breakClosing} = serializeElement(indent, child)
+     const {out, breakClosing} = serializeElement(indent, child, sep)
      o += out;
      br |= breakClosing
    }
    return {out: o, breakClosing: br};
 }
 
-function serializeDocument(doc) {
-  return `<?xml version="1.0" encoding="utf-8"?>${serializeElements("", doc.childNodes).out}`
+function serializeDocument(doc, sep) {
+  return `<?xml version="1.0" encoding="utf-8"?>${serializeElements("", doc.childNodes, sep).out}`
 }
 
 export function Serialize(songeditor) {
@@ -73,17 +77,8 @@ export function Serialize(songeditor) {
   // https://stackoverflow.com/questions/51989864/undefined-undefined-error-when-calling-xsltprocessor-prototype-importstylesheet
   //new XMLSerializer().serializeToString(resultDocument);;
 
-  let txt=serializeDocument(resultDocument)
+  let txt=serializeDocument(resultDocument, songeditor.tabs ? "\t" : "  ")
   txt = txt.replaceAll(nbsp," ");
-
-  if (!songeditor.tabs) {
-    // Not supported on Safarii (https://github.com/tc39/proposal-regexp-lookbehind)
-    // txt = txt.replaceAll(/(?<=^ *)  /gm,"\t");
-    // So we do naive replaces multiple times
-    for (let i=0; i<10; ++i) {
-      txt = txt.replaceAll(/^\t/gm,"  ");
-    }
-  }
 
   if (songeditor.shadow.getElementById("lastSerialized")) {
     songeditor.shadow.getElementById("lastSerialized").innerText=txt;

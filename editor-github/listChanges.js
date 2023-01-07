@@ -4,7 +4,7 @@ import util from "util";
 const SONGEDITOR_BRANCH_REGEXP=/^se-.*/g;
 
 export async function cleanupChanges(req, res) {
-    const {refs, diffs, user} = await getRefs(req, res);
+    const {refs, diffs, user, octokit} = await getRefs(req, res);
     // Let's delete empty & merged branches.
     for (let i = 0; i < refs.length; ++i) {
         let branch = refs[i];
@@ -120,7 +120,6 @@ async function getRefs(req, res) {
         }
     }
 
-    console.log('1',refs);
     return {refs, diffs, user, octokit, r};
 }
 
