@@ -238,11 +238,13 @@
   </xsl:template>
 
   <xsl:template match="xhtml:song-ch">
-    <ch>
-      <xsl:attribute name="a">
-        <xsl:value-of select="@a"/>
-      </xsl:attribute>
-    </ch>
+    <xsl:if test="string-length(@a) > 0">
+      <ch>
+        <xsl:attribute name="a">
+          <xsl:value-of select="@a"/>
+        </xsl:attribute>
+      </ch>
+    </xsl:if>
   </xsl:template>
 
 

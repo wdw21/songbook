@@ -364,10 +364,12 @@ function lightTraverse(node) {
         console.log("Misplaced", node);
         return false;
       }
-      if (node.getAttribute("editor") === "false"
+      if (node.getAttribute("editor") != "true"
           && node.getAttribute("a").trim().length == 0) {
         node.remove();
+        return false;
       }
+
       if (node.parentNode.getAttribute("type") === 'instr') {
         node.parentNode.replaceChild(
             document.createTextNode(nbsp + node.getAttribute("a") + nbsp),
@@ -375,12 +377,13 @@ function lightTraverse(node) {
       }
       const chords = node.getAttribute("a").trim().split(' ');
       if (chords.length > 1) {
-
         const df = document.createDocumentFragment();
         for (const ch of chords) {
           df.appendChild(createChord(ch));
         }
         node.parentNode.replaceChild(df, node);
+      } else if (chords.length == 0) {
+        node.remove();
       }
       break;
     }
