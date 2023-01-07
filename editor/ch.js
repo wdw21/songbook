@@ -63,7 +63,7 @@ export default class SongCh extends HTMLElement {
 
     this.onkeydown = (e) => {
       if (e.key == 'Enter' || e.key == 'Escape' || e.key == 'Tab') {
-        if (this.che.value.trim() == '') {
+        if (this.che.value.trim() == '' && this.parentNode) {
           this.remove();
           return;
         }
