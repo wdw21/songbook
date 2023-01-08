@@ -1,28 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Panna kminkowa">
-  <alias/>
-  <text_author/>
-  <comment/>
-  <composer type="solo"/>
-  <artist type="solo"/>
-  <translator/>
-  <original_title/>
   <lyric>
-    <block type="other">
-      <row important_over="false" style="instr">
-        <ch a="G"/>
-        <ch a="D"/>
-        <ch a="G"/>
-        <ch a="C"/>
-        <ch a="D"/>
-        <ch a="G"/>
-        <ch a="D"/>
-        <ch a="G"/>
-        <ch a="C"/>
-        <ch a="D"/>
-        <ch a="C"/>
-        <ch a="D"/>
-     </row>
+    <block type="verse">
+      <row style="instr"><ch a="G"/><ch a="D"/><ch a="G"/><ch a="C"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="C"/><ch a="D"/><ch a="C"/><ch a="D"/> </row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="G"/>Obróciła się wiosna na pięcie<ch a="D"/><ch a="G"/></row>
@@ -39,68 +19,52 @@
       <row important_over="false"><ch a="C"/>I w tym graniu tak biegłaś bez tchu<ch a="D"/></row>
     </block>
     <block type="chorus">
-      <row important_over="false"><ch a="G"/>Panno kminkowa, panno lipcowa<ch a="D"/><ch a="e"/><ch a="D"/></row>
-      <row important_over="false"><ch a="G"/>Twoje są łąki twoje skowronki wszystkich łąk<ch a="D"/></row>
-      <row important_over="false"><ch a="e"/>Idziesz polami w palcach łodyżkę masz<ch a="C"/><ch a="D"/><ch a="G"/><ch a="C"/></row>
-      <row important_over="false"><ch a="G"/>I gryziesz kminek czarny przecinek nasz<ch a="D"/><ch a="G"/></row>
-      <row important_over="false"><ch a="G"/>Panna kminkowa panna lipcowa<ch a="D"/><ch a="e"/><ch a="D"/></row>
-      <row important_over="false"><ch a="G"/>Śmiać się gotowa letnia królow kwietnych łąk<ch a="D"/></row>
-      <row important_over="false"><ch a="e"/>Idzie polami w palcach łodyżkę ma<ch a="C"/><ch a="D"/><ch a="G"/><ch a="C"/></row>
-      <row important_over="false"><ch a="G"/>I gryzie kminek czarny przecinek dnia<ch a="D"/><ch a="G"/></row>
+      <row important_over="false"><ch a="G"/>Panno kminkowa<ch a="D"/>, <ch a="e"/>panno lipcowa<ch a="D"/></row>
+      <row important_over="false"><ch a="G"/>Twoje są łąki twoje skowronki <ch a="D"/>wszystkich łąk</row>
+      <row important_over="false"><ch a="e"/>Idziesz polami <ch a="C"/><ch a="D"/><ch a="G"/>w palcach łodyżkę <ch a="C"/>masz</row>
+      <row important_over="false"><ch a="G"/>I gryziesz kminek <ch a="D"/>czarny przecinek <ch a="G"/>nasz <ch a="C"/><ch a="D"/></row>
+      <row important_over="false"><ch a="G"/>Panna kminkowa<ch a="D"/><ch a="e"/>panna lipcowa<ch a="D"/></row>
+      <row important_over="false"><ch a="G"/>Śmiać się gotowa letnia królowa <ch a="D"/>kwietnych łąk</row>
+      <row important_over="false"><ch a="e"/>Idzie polami <ch a="C"/><ch a="D"/><ch a="G"/>w palcach łodyżkę <ch a="C"/>ma</row>
+      <row important_over="false"><ch a="G"/>I gryzie kminek <ch a="D"/>czarny przecinek <ch a="G"/>dnia  <ch a="C"/><ch a="D"/></row>
     </block>
     <block type="verse">
-      <row important_over="false"><ch a="G"/>Noce śniły budziły się ranki<ch a="D"/><ch a="G"/></row>
-      <row important_over="false"><ch a="C"/>Koniczyny poczwórny był liść<ch a="G"/><ch a="D"/></row>
-      <row important_over="false"><ch a="G"/>Rwałaś groszek zielony przed gankiem<ch a="D"/><ch a="G"/></row>
-      <row important_over="false"><ch a="C"/>Kiedy przyszło polami nam iść<ch a="G"/><ch a="D"/><ch a="G"/><ch a="H7"/></row>
-      <row important_over="false"><ch a="e"/>Trwało lato i trwała muzyka<ch a="H7"/><ch a="e"/></row>
-      <row important_over="false"><ch a="C"/>Rumieniłaś się wiśnią z mych ust<ch a="C7+"/><ch a="a"/><ch a="D"/></row>
-      <row important_over="false"><ch a="G"/>Las na wzgórzu horyzont zamykał<ch a="C"/><ch a="G"/></row>
-      <row important_over="false"><ch a="C"/>A ty biegłaś ku niemu bez tchu<ch a="D"/></row>
+      <row important_over="false"><ch a="G"/>Noce śniły <ch a="D"/>budziły się <ch a="G"/>ranki</row>
+      <row important_over="false"><ch a="C"/>Koniczyny <ch a="G"/>poczwórny był<ch a="D"/> liść</row>
+      <row important_over="false"><ch a="G"/>Rwałaś groszek <ch a="D"/>zielony przed <ch a="G"/>gankiem</row>
+      <row important_over="false"><ch a="C"/>Kiedy <ch a="G"/>przyszło <ch a="D"/>polami nam <ch a="G"/>iść <ch a="H7"/></row>
+      <row important_over="false"><ch a="e"/>Trwało lato i <ch a="H7"/>trwała <ch a="e"/>muzyka</row>
+      <row important_over="false"><ch a="C"/>Rumie<ch a="C7+"/>niłaś się <ch a="a"/>wiśnią z mych <ch a="D"/>ust<ch a="D"/></row>
+      <row important_over="false"><ch a="G"/>Las na wzgórzu <ch a="C"/>horyzont<ch a="G"/> zamykał</row>
+      <row important_over="false"><ch a="C"/>A ty biegłaś ku <ch a="D"/>niemu bez tchu</row>
     </block>
     <blocklink blocknb="3"/>
     <block type="verse">
-      <row important_over="false"><ch a="G"/>A gdy lipiec się w drogę spakował<ch a="D"/><ch a="G"/></row>
-      <row important_over="false"><ch a="C"/>Oddał skrzypce i poszedł gdzieś w świat<ch a="G"/><ch a="D"/></row>
-      <row important_over="false"><ch a="G"/>Ty zostałaś mi panno kminkowa<ch a="D"/><ch a="G"/></row>
-      <row important_over="false"><ch a="C"/>I łodyżki rzucone na wiatr<ch a="G"/><ch a="D"/><ch a="G"/><ch a="H7"/></row>
-      <row important_over="false"><ch a="e"/>Jesień deszczem twe łąki przemoczy<ch a="H7"/><ch a="e"/></row>
-      <row important_over="false"><ch a="C"/>Zima śniegiem okryje na mróz<ch a="C7+"/><ch a="a"/><ch a="D"/></row>
-      <row important_over="false"><ch a="G"/>A gdy lipiec zaglądnie ci w oczy<ch a="C"/><ch a="G"/></row>
-      <row important_over="false"><ch a="C"/>Znowu będziesz tak biegła bez tchu<ch a="D"/></row>
+      <row important_over="false"><ch a="G"/>A gdy lipiec się w <ch a="D"/>drogę <ch a="G"/>spakował</row>
+      <row important_over="false"><ch a="C"/>Oddał skrzypce i <ch a="G"/>poszedł gdzieś <ch a="D"/>w świat</row>
+      <row important_over="false"><ch a="G"/>Ty zostałaś mi <ch a="D"/>panno <ch a="G"/>kminkowa</row>
+      <row important_over="false"><ch a="C"/>I łod<ch a="G"/>yżki rzuc<ch a="D"/>ane na <ch a="G"/>wiatr <ch a="H7"/></row>
+      <row important_over="false"><ch a="e"/>Jesień deszczem twe <ch a="H7"/>łąki <ch a="e"/>przemoczy</row>
+      <row important_over="false"><ch a="C"/>Zima<ch a="C7+"/> śniegiem <ch a="a"/>okryje na <ch a="D"/>mróz</row>
+      <row important_over="false"><ch a="G"/>A gdy lipiec zagl<ch a="C"/>ądnie ci w <ch a="G"/>oczy</row>
+      <row important_over="false"><ch a="C"/>Znowu będziesz tak <ch a="D"/>biegła bez tchu</row>
     </block>
-    <block type="chorus">
-      <row important_over="false"><ch a="G"/>Panno kminkowa, panno lipcowa<ch a="D"/><ch a="e"/><ch a="D"/></row>
-      <row important_over="false"><ch a="G"/>Twoje są łąki twoje skowronki wszystkich łąk<ch a="D"/></row>
-      <row important_over="false"><ch a="e"/>Idziesz polami w palcach łodyżkę masz<ch a="C"/><ch a="D"/><ch a="G"/><ch a="C"/></row>
-      <row important_over="false"><ch a="G"/>I gryziesz kminek czarny przecinek nasz<ch a="D"/><ch a="G"/></row>
-      <row important_over="false"><ch a="G"/>Panna kminkowa panna lipcowa<ch a="D"/><ch a="e"/><ch a="D"/></row>
-      <row important_over="false"><ch a="G"/>Śmiać się gotowa letnia królow kwietnych łąk<ch a="D"/></row>
-      <row important_over="false"><ch a="e"/>Idzie polami w palcach łodyżkę ma<ch a="C"/><ch a="D"/><ch a="G"/><ch a="C"/></row>
-      <row important_over="false"><ch a="G"/>I gryzie kminek czarny przecinek dnia<ch a="D"/><ch a="G"/></row>
-      <row important_over="false" style="instr">
-        <ch a="G"/>
-        <ch a="D"/>
-        <ch a="C"/>
-        <ch a="e"/>
-        <ch a="a"/>
-     </row>
-      <row important_over="false"><ch a="G"/>I gryzie kminek czarny przecinek dnia<ch a="D"/><ch a="G"/></row>
-      <row important_over="false" style="instr">
-        <ch a="G"/>
-        <ch a="D"/>
-        <ch a="G"/>
-        <ch a="C"/>
-        <ch a="D"/>
-        <ch a="G"/>
-     </row>
+    <blocklink blocknb="3"/>
+    <block type="other">
+      <row important_over="false">I gryzie kminek <ch a="D"/>czarny przecinek <ch a="G"/>dnia  <ch a="C"/><ch a="G"/> </row>
     </block>
   </lyric>
-  <music metre="">
+  <music>
     <guitar barre="2"/>
   </music>
+  <keywords/>
   <status>
-    <verificators/>
-    <to_do/>
+    <done>
+      <text/>
+      <chords>true</chords>
+    </done>
+    <verificators>
+      <verificator>Adam Foland</verificator>
+    </verificators>
   </status>
 </song>
