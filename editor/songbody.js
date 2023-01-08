@@ -622,7 +622,7 @@ export default class SongBody extends HTMLElement {
         r.startContainer.nodeValue=r.startContainer.nodeValue.slice(0, r.startOffset);
       }
       let st = r.startContainer.nodeName=='SONG-ROW' ? r.startContainer.childNodes[r.startOffset].previousSibling : r.startContainer ;
-      while(st.nextSibling != null) {
+      while(st && st.nextSibling != null) {
         console.log("Adding: ", st.nextSibling)
         newNode.appendChild(st.nextSibling)
       }

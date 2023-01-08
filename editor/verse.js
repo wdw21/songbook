@@ -25,18 +25,22 @@ export class SongVerse extends HTMLElement {
         <option>Bar</option>
       </select>
   </div>
+  <div id="verse_sidechords"></div>
   <div id="verse_main" class="verse_main">
-    <slot/>
+    <slot id="slot0"/>
   </div>
 </div>
   `;
 
     const shadow = this.attachShadow({ mode: "closed" });
     shadow.appendChild(template.content.cloneNode(true));
+    this.myShadowRoot=shadow;
     this.nr=shadow.getElementById("nr");
+    this.slot0 = shadow.getElementById("slot0");
     this.blocklink=shadow.getElementById("blocklink");
     this.main=shadow.getElementById("verse_main");
     this.link=shadow.getElementById("verse_link");
+    this.sidechords=shadow.getElementById("verse_sidechords");
     this.linkSel=shadow.getElementById("verse_link_sel");
     this.buttonDelete=shadow.getElementById("delete");
     this.blocklink.addEventListener("input", (e) => this.blocklinkoninput(e, this));
@@ -46,6 +50,23 @@ export class SongVerse extends HTMLElement {
     for (const bt_radio of shadow.querySelectorAll('input[name="block_type"]')) {
       bt_radio.addEventListener("input", (e) => this.refoninput(e, this));
       this.btRadios[bt_radio.value]=bt_radio;
+    }
+    this.slot0.addEventListener("slotchange", (e) => { this.slotChange(); });
+  }
+
+  slotChange() {
+    this.sidechords=this.myShadowRoot.getElementById("verse_sidechords");
+    // console.log("slotChange")
+    // while(this.sidechords.firstChild) { this.sidechords.firstChild.remove()};
+    let rows = this.getElementsByTagName("song-row");
+    console.log("Detected rows", rows)
+    for (let r of rows) {
+      const ed = document.createElement("div")
+      ed.contentEditable='true';
+      ed.appendChild(document.createTextNode(r.textContent));
+      console.log("Adding", ed)
+      this.sidechords.appendChild(ed);
+      console.log("After adding", this.sidechords)
     }
   }
 

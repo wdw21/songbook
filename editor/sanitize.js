@@ -9,7 +9,7 @@ function  nestToBody(parent) {
   let p = findAncestor(parent, "SONG-BODY");
   if (p) { return p; }
   let body = document.createElement("song-body");
-  body.contentEditable=true;
+  body.contentEditable='true';
   parent.appendChild(body);
   return body;
 }

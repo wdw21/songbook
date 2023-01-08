@@ -6,7 +6,7 @@ div.verse {
 }
 
 div.verse_meta {
-  grid-column: 1 / 2;
+  grid-column: 1;
   grid-row: 1;
 /*  writing-mode: vertical-rl;
   text-orientation: mixed;*/
@@ -23,9 +23,19 @@ div.verse_meta button {
   font-size: medium;
 }
 
+div#verse_sidechords {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+div#verse_sidechords div {
+  font-family: sans-serif;
+  font-size: large;
+}
+
 div.verse_main {
   grid-row: 1;
-  grid-column: 2/2;
+  grid-column: 3;
   margin-left: 1em;
 }
 
