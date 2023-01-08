@@ -5,6 +5,7 @@
   <artist type="solo">Jacek Kaczmarski</artist>
   <lyric>
     <block type="verse">
+      <row style="instr"><ch a="e"/><ch a="eA"/><ch a="e"/><ch a="eA"/> </row>
       <row important_over="false">D<ch a="e"/>ałeś mi P<ch a="D"/>anie zbr<ch a="e"/>oję</row>
       <row important_over="false">D<ch a="e"/>awny kuł pł<ch a="D"/>atnerz j<ch a="e"/>ą</row>
       <row important_over="false">W w<ch a="e"/>ielu pog<ch a="D"/>ięta b<ch a="e"/>ojach</row>
@@ -18,7 +19,7 @@
       <row important_over="false">L<ch a="D"/>ecz ch<ch a="G"/>oć zaginął hełm i m<ch a="D"/>iecz</row>
       <row important_over="false">Dla c<ch a="D"/>iała ż<ch a="a"/>adna w niej ost<ch a="G"/>oja</row>
       <row important_over="false">To prz<ch a="a"/>ecież w k<ch a="H7"/>ońcu ważna rz<ch a="C"/>e<ch a="a"/>cz</row>
-      <row important_over="false">Zb<ch a="e"/>r<ch a="H7"/>o<ch a="e"/>j<ch a="A"/>a<ch a="e"/></row>
+      <row important_over="false">Zb<ch a="e"/>r<ch a="H7"/>o<ch a="e"/>j<ch a="A"/>a      <ch a="e"/></row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="e"/>Magicznych na niej rytów<ch a="D"/><ch a="e"/></row>
