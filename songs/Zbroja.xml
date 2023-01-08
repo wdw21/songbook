@@ -6,20 +6,20 @@
   <lyric>
     <block type="verse">
       <row style="instr"><ch a="e"/><ch a="eA"/><ch a="e"/><ch a="eA"/> </row>
-      <row important_over="false">D<ch a="e"/>ałeś mi P<ch a="D"/>anie zbr<ch a="e"/>oję</row>
-      <row important_over="false">D<ch a="e"/>awny kuł pł<ch a="D"/>atnerz j<ch a="e"/>ą</row>
-      <row important_over="false">W w<ch a="e"/>ielu pog<ch a="D"/>ięta b<ch a="e"/>ojach</row>
-      <row important_over="false">W w<ch a="e"/>ielu ochrzcz<ch a="D"/>ona krw<ch a="e"/>ią</row>
-      <row important_over="false">W wyk<ch a="G"/>utej dla gig<ch a="e"/>anta</row>
-      <row important_over="false">Pot<ch a="e"/>ykam si<ch a="A"/>ę co kr<ch a="H"/>ok</row>
-      <row important_over="false">Bo ja<ch a="G"/>k sum<ch a="Fis"/>ienia sz<ch a="F"/>ant<ch a="e"/>aż</row>
-      <row important_over="false">Uc<ch a="e"/>iska l<ch a="D"/>ewy b<ch a="e"/>ok</row>
+      <row important_over="true">D<ch a="e"/>ałeś mi P<ch a="D"/>anie zbr<ch a="e"/>oję</row>
+      <row important_over="true">D<ch a="e"/>awny kuł pł<ch a="D"/>atnerz j<ch a="e"/>ą</row>
+      <row important_over="true">W w<ch a="e"/>ielu pog<ch a="D"/>ięta b<ch a="e"/>ojach</row>
+      <row important_over="true">W w<ch a="e"/>ielu ochrzcz<ch a="D"/>ona krw<ch a="e"/>ią</row>
+      <row important_over="true">W wyk<ch a="G"/>utej dla gig<ch a="e"/>anta</row>
+      <row important_over="true">Pot<ch a="e"/>ykam si<ch a="A"/>ę co kr<ch a="H"/>ok</row>
+      <row important_over="true">Bo ja<ch a="G"/>k sum<ch a="Fis"/>ienia sz<ch a="F"/>ant<ch a="e"/>aż</row>
+      <row important_over="true">Uc<ch a="e"/>iska l<ch a="D"/>ewy b<ch a="e"/>ok</row>
     </block>
     <block type="chorus">
-      <row important_over="false">L<ch a="D"/>ecz ch<ch a="G"/>oć zaginął hełm i m<ch a="D"/>iecz</row>
-      <row important_over="false">Dla ciała ż<ch a="a"/>adna w niej ost<ch a="G"/>oja</row>
-      <row important_over="false">To prz<ch a="a"/>ecież w k<ch a="H7"/>ońcu ważna rz<ch a="C"/>e<ch a="a"/>cz</row>
-      <row important_over="false">Zb<ch a="e"/>r<ch a="H7"/>o<ch a="e"/>ja    <ch a="A"/>  </row>
+      <row important_over="true">L<ch a="D"/>ecz ch<ch a="G"/>oć zaginął hełm i m<ch a="D"/>iecz</row>
+      <row important_over="true">Dla ciała ż<ch a="a"/>adna w niej ost<ch a="G"/>oja</row>
+      <row important_over="true">To prz<ch a="a"/>ecież w k<ch a="H7"/>ońcu ważna rz<ch a="C"/>e<ch a="a"/>cz</row>
+      <row important_over="true">Zb<ch a="e"/>r<ch a="H7"/>o<ch a="e"/>ja    <ch a="A"/></row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="e"/>Magicznych na niej rytów<ch a="D"/><ch a="e"/></row>
@@ -110,10 +110,15 @@
     <guitar barre="0"/>
   </music>
   <keywords/>
+  <album>Live (1990)</album>
   <status>
     <done>
       <text/>
+      <authors/>
+      <chords>chord positioning</chords>
     </done>
-    <verificators/>
+    <verificators>
+      <verificator>Adam Foland</verificator>
+    </verificators>
   </status>
 </song>
