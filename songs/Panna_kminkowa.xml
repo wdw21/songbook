@@ -1,28 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Panna kminkowa">
-  <alias/>
-  <text_author/>
-  <comment/>
-  <composer type="solo"/>
-  <artist type="solo"/>
-  <translator/>
-  <original_title/>
   <lyric>
-    <block type="other">
-      <row important_over="false" style="instr">
-        <ch a="G"/>
-        <ch a="D"/>
-        <ch a="G"/>
-        <ch a="C"/>
-        <ch a="D"/>
-        <ch a="G"/>
-        <ch a="D"/>
-        <ch a="G"/>
-        <ch a="C"/>
-        <ch a="D"/>
-        <ch a="C"/>
-        <ch a="D"/>
-     </row>
+    <block type="verse">
+      <row style="instr"><ch a="G"/><ch a="D"/><ch a="G"/><ch a="C"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="C"/><ch a="D"/><ch a="C"/><ch a="D"/> </row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="G"/>Obróciła się wiosna na pięcie<ch a="D"/><ch a="G"/></row>
@@ -78,29 +58,17 @@
       <row important_over="false"><ch a="G"/>Śmiać się gotowa letnia królow kwietnych łąk<ch a="D"/></row>
       <row important_over="false"><ch a="e"/>Idzie polami w palcach łodyżkę ma<ch a="C"/><ch a="D"/><ch a="G"/><ch a="C"/></row>
       <row important_over="false"><ch a="G"/>I gryzie kminek czarny przecinek dnia<ch a="D"/><ch a="G"/></row>
-      <row important_over="false" style="instr">
-        <ch a="G"/>
-        <ch a="D"/>
-        <ch a="C"/>
-        <ch a="e"/>
-        <ch a="a"/>
-     </row>
+      <row style="instr"><ch a="G"/><ch a="D"/><ch a="C"/><ch a="e"/><ch a="a"/> </row>
       <row important_over="false"><ch a="G"/>I gryzie kminek czarny przecinek dnia<ch a="D"/><ch a="G"/></row>
-      <row important_over="false" style="instr">
-        <ch a="G"/>
-        <ch a="D"/>
-        <ch a="G"/>
-        <ch a="C"/>
-        <ch a="D"/>
-        <ch a="G"/>
-     </row>
+      <row style="instr"><ch a="G"/><ch a="D"/><ch a="G"/><ch a="C"/><ch a="D"/><ch a="G"/> </row>
     </block>
   </lyric>
-  <music metre="">
+  <music>
     <guitar barre="2"/>
   </music>
+  <keywords/>
   <status>
+    <done/>
     <verificators/>
-    <to_do/>
   </status>
 </song>
