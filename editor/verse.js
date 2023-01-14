@@ -1,3 +1,5 @@
+import {nbsp} from "./utils.js";
+
 export class SongVerse extends HTMLElement {
   constructor() {
     super();
@@ -51,22 +53,33 @@ export class SongVerse extends HTMLElement {
       bt_radio.addEventListener("input", (e) => this.refoninput(e, this));
       this.btRadios[bt_radio.value]=bt_radio;
     }
-    this.slot0.addEventListener("slotchange", (e) => { this.slotChange(); });
+    const observer = new MutationObserver(()=> {this.refreshSidechords();});
+    observer.observe(this, { attributes: false, childList: true, subtree: true, characterData:true });
+
+    this.resizeObserver = new ResizeObserver( (entries) => {
+      for (const e of entries) {
+        if (e.target.siblingSide) {
+          e.target.siblingSide.style.height = e.contentRect.height + "px";
+        }
+      }
+    });
   }
 
-  slotChange() {
-    this.sidechords=this.myShadowRoot.getElementById("verse_sidechords");
-    // console.log("slotChange")
-    // while(this.sidechords.firstChild) { this.sidechords.firstChild.remove()};
+  refreshSidechords() {
+    this.resizeObserver.disconnect();
+    while(this.sidechords.firstChild) { this.sidechords.firstChild.remove()};
+    console.log("INITIAL sidechords:" + this.sidechords)
     let rows = this.getElementsByTagName("song-row");
     console.log("Detected rows", rows)
     for (let r of rows) {
       const ed = document.createElement("div")
       ed.contentEditable='true';
-      ed.appendChild(document.createTextNode(r.textContent));
+      ed.textContent=getChordsFromRow(r);
       console.log("Adding", ed)
       this.sidechords.appendChild(ed);
       console.log("After adding", this.sidechords)
+      r.siblingSide=ed;
+      this.resizeObserver.observe(r);
     }
   }
 
@@ -157,7 +170,6 @@ export class SongVerse extends HTMLElement {
   }
 
   disconnectedCallback() {
-    console.log("DISCONNECTED");
     this.observer.disconnect();
   }
 
@@ -313,6 +325,16 @@ export class SongBis extends HTMLElement {
   }
 }
 
+export function getChordsFromRow(row) {
+  let text="";
+  for (let i=0; i < row.childNodes.length; ++i) {
+    let n = row.childNodes[i];
+    if (n.nodeName==='SONG-CH') {
+      text+=n.getAttribute("a") + nbsp;
+    }
+  }
+  return text
+}
 
 export function SongVerseBisInit() {
   customElements.define("song-verse", SongVerse);

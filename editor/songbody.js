@@ -1,6 +1,7 @@
 import {findAncestor, getRangeForCursor,nbsp,removeAllChildren,mergeNodeAfter,setCursorBefore} from './utils.js';
 import {createChord} from './ch.js'
 import {createVerse, Sanitize, SplitVerseFromRow} from './sanitize.js'
+import {getChordsFromRow} from "./verse.js";
 
 function acceptsTextAndChords(element) {
   return element.nodeName=="SONG-ROW" && element.getAttribute("type")!=='instr';
@@ -50,14 +51,9 @@ export function makeRowNotInstrumental(row) {
   row.normalize();
 }
 
+
 export function makeRowInstrumental(row) {
-  let text=nbsp;
-  for (let i=0; i < row.childNodes.length; ++i) {
-    let n = row.childNodes[i];
-    if (n.nodeName==='SONG-CH') {
-      text+=n.getAttribute("a") + nbsp;
-    }
-  }
+  let text=nbsp + getChordsFromRow(row);
   row.setAttribute("type", "instr");
   row.innerText=text;
 }
@@ -462,8 +458,7 @@ export default class SongBody extends HTMLElement {
     if (d != null && d != "") {
       console.log("Special!!!", e.dataTransfer.dropEffect);
 
-      if ((e.dataTransfer.dropEffect === 'move'
-              || !e.altKey) &&
+      if ((e.dataTransfer.dropEffect === 'move' || !e.altKey) &&
           songbody.toRemoveWhenDropped != null) {
         songbody.toRemoveWhenDropped.deleteContents();
       }
@@ -577,7 +572,6 @@ export default class SongBody extends HTMLElement {
             mergeNodeAfter(r.startContainer.parentNode.parentNode.parentNode.parentNode.parentNode.previousSibling.childNodes[0], r.startContainer.parentNode.parentNode.parentNode.parentNode);
             e.preventDefault();
           }
-
         }
 
         r= document.getSelection().getRangeAt(0);
@@ -665,12 +659,9 @@ export default class SongBody extends HTMLElement {
 
   doUndo() {
     const last = this.undo.pop();
-    this.redo.push(last);
-
-    if (this.undo.length > 0) {
-      const cn = this.undo[this.undo.length - 1].cloneNode(true).childNodes;
-      this.textContent='';
-      this.append(...cn);
+    if (last) {
+      this.redo.push(last);
+      this.innerHTML=last;
     }
   }
 
@@ -679,9 +670,7 @@ export default class SongBody extends HTMLElement {
     if (redo) {
       this.undo.push(redo);
 
-      const cn = redo.cloneNode(true).childNodes;
-      this.textContent = '';
-      this.append(...cn);
+      this.innerHTML=redo;
     }
   }
 
@@ -689,8 +678,8 @@ export default class SongBody extends HTMLElement {
     console.log("postprocessing");
     Sanitize(this);
     this.recomputeChordsOffsets();
-    let lastState=this.cloneNode(true);
-    if (this.undo.length==0 || !this.undo[this.undo.length-1].isEqualNode(lastState)) {
+    let lastState=this.innerHTML;
+    if (this.undo.length==0 || this.undo[this.undo.length-1]!==lastState) {
       this.undo.push(lastState);
     }
     console.log("Postprocessed. Undo len: ", this.undo.length);
