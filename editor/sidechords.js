@@ -10,7 +10,8 @@
 
 //const sidechordstemplate = document.createElement('template');
 
-import {getChordsFromRow} from "./verse.js";
+import {getChordsFromRow, getSideChordsForRow, setSideChordsForRow} from "./verse.js";
+import {nbsp} from "./utils.js";
 
 export default class SideChordsRow extends HTMLElement {
     constructor() {
@@ -31,7 +32,7 @@ export default class SideChordsRow extends HTMLElement {
       </select>
   </div>
   <input type="text" id="sch"/>
-  <button class="material-icons">sync_alt</button>
+  <button class="material-icons" id="sync_to_side">keyboard_double_arrow_left</button>
 </div>
   `;
 
@@ -48,11 +49,15 @@ export default class SideChordsRow extends HTMLElement {
         // });
         this.selectType.addEventListener("change", () => {
             this.pushRowType();
-
-          //  this.chordsType.style.display = "inline";
-          //   this.selectType.style.display = "none";
-          //   this.selectType.hidden=true;
         });
+        this.chinput.addEventListener("change", ()=> {
+            this.pushSideChords();
+        })
+
+        shadow.getElementById("sync_to_side").addEventListener("click", () => {
+            this.chinput.value = getChordsFromRow(this.row);
+            this.pushSideChords();
+        })
     }
 
     setRow(row) {
@@ -77,8 +82,13 @@ export default class SideChordsRow extends HTMLElement {
         }
     }
 
+    pushSideChords() {
+        setSideChordsForRow(this.row, this.chinput.value.trim())
+        this.refreshSync()
+    }
+
     loadRow() {
-        this.chinput.value = getChordsFromRow(this.row);
+        this.chinput.value = getSideChordsForRow(this.row);
         let impOver=this.row.getAttribute("important_over");
         if (impOver=="true") {
             this.selectType.value="important"
@@ -87,7 +97,26 @@ export default class SideChordsRow extends HTMLElement {
         } if (impOver=="never") {
             this.selectType.value="never"
         }
+        this.pushSideChords()
   //      this.refreshRowType();
+    }
+
+    normalizeChords(ch) {
+        return ch
+            .trim()
+            .replaceAll(nbsp,"").replaceAll(" ","")
+            .replaceAll("(","").replaceAll(")","")
+            .replaceAll("[","").replaceAll("]","")
+            .replaceAll("<","").replaceAll(">","")
+            .replaceAll("|","").replaceAll("!","")
+    }
+
+    refreshSync() {
+        if (this.normalizeChords(this.chinput.value) === this.normalizeChords(getChordsFromRow(this.row))) {
+            this.chinput.style.backgroundColor='#E0FFE0' // light green
+        } else {
+            this.chinput.style.backgroundColor='#FFCCCB' // light red
+        }
     }
 
     // getSongBody() {

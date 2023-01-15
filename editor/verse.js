@@ -325,10 +325,30 @@ export function getChordsFromRow(row) {
   for (let i=0; i < row.childNodes.length; ++i) {
     let n = row.childNodes[i];
     if (n.nodeName==='SONG-CH') {
-      text+=n.getAttribute("a") + nbsp;
+      text+=n.getAttribute("a") + " ";
     }
   }
-  return text
+  return text.trim().replaceAll(nbsp, " ")
+}
+
+export function setSideChordsForRow(row, ch) {
+  const chr=getChordsFromRow(row);
+  if (chr===ch.trim()) {
+    console.log("Side and main back in sync")
+    row.removeAttribute("sidechords");
+  } else {
+    console.log(`Side and main not in sync: '${chr}'!='${ch.trim()}'`)
+    row.setAttribute("sidechords", ch.trim());
+  }
+}
+
+export function getSideChordsForRow(row) {
+  let sch = row.getAttribute("sidechords");
+  if (sch && sch.trim()!="") {
+    return sch.trim();
+  } else {
+    return getChordsFromRow(row);
+  }
 }
 
 export function SongVerseBisInit() {
