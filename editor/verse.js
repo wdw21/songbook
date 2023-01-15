@@ -1,4 +1,5 @@
 import {nbsp} from "./utils.js";
+import {SideChordsInit} from "./sidechords.js";
 
 export class SongVerse extends HTMLElement {
   constructor() {
@@ -36,7 +37,6 @@ export class SongVerse extends HTMLElement {
 
     const shadow = this.attachShadow({ mode: "closed" });
     shadow.appendChild(template.content.cloneNode(true));
-    this.myShadowRoot=shadow;
     this.nr=shadow.getElementById("nr");
     this.slot0 = shadow.getElementById("slot0");
     this.blocklink=shadow.getElementById("blocklink");
@@ -68,16 +68,11 @@ export class SongVerse extends HTMLElement {
   refreshSidechords() {
     this.resizeObserver.disconnect();
     while(this.sidechords.firstChild) { this.sidechords.firstChild.remove()};
-    console.log("INITIAL sidechords:" + this.sidechords)
     let rows = this.getElementsByTagName("song-row");
-    console.log("Detected rows", rows)
     for (let r of rows) {
-      const ed = document.createElement("div")
-      ed.contentEditable='true';
-      ed.textContent=getChordsFromRow(r);
-      console.log("Adding", ed)
+      const ed = document.createElement("song-side-chords")
+      ed.setRow(r);
       this.sidechords.appendChild(ed);
-      console.log("After adding", this.sidechords)
       r.siblingSide=ed;
       this.resizeObserver.observe(r);
     }
@@ -337,6 +332,7 @@ export function getChordsFromRow(row) {
 }
 
 export function SongVerseBisInit() {
+  SideChordsInit();
   customElements.define("song-verse", SongVerse);
   customElements.define("song-bis", SongBis);
 }
