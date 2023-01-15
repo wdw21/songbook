@@ -92,7 +92,7 @@ export default class SideChordsRow extends HTMLElement {
         let impOver=this.row.getAttribute("important_over");
         if (impOver=="true") {
             this.selectType.value="important"
-        } else if (impOver=="false") {
+        } else if (impOver=="false" || !impOver || impOver.trim()=="") {
             this.selectType.value="available"
         } if (impOver=="never") {
             this.selectType.value="never"

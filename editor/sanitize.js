@@ -49,11 +49,14 @@ function  nestToVerseOrBis(parent) {
   return nestToVerse(parent);
 }
 
-function createRow(important_over=false, instrumental=false) {
+function createRow(important_over="false", instrumental=false, sidechords) {
   let row = document.createElement("song-row");
   if (!instrumental) {
-    if (!important_over) { important_over=false; }
-    row.setAttribute("important_over", important_over.toString());
+    if (!important_over) { important_over="false"; }
+    row.setAttribute("important_over", important_over);
+    if (sidechords) {
+      row.setAttribute("sidechords", sidechords);
+    }
   } else {
     row.setAttribute("type", "instr");
   }
@@ -216,7 +219,8 @@ function traverse(parent, node) {
       let newParent = nestToRows(parent);
       let newRow = createRow(
           node.getAttribute("important_over"),
-          node.getAttribute("type")==="instr");
+          node.getAttribute("type")==="instr",
+          node.getAttribute("sidechords"));
       newParent.appendChild(newRow);
       traverseChilds(newRow, node.childNodes);
       node.remove();

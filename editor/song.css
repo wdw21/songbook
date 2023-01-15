@@ -9,6 +9,7 @@ song-verse {
 song-row {
   display: block;
   font-size: large;
+  padding-top: 0.5ex; /* We would prefer here margin, but padding works with the size observer.*/
 }
 
 song-row[type="instr"] {

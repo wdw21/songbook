@@ -230,8 +230,14 @@
       </xsl:if>
       <xsl:if test="not(@type='instr')">
         <xsl:attribute name="important_over">
-          <xsl:value-of select="@important_over"/>
+          <xsl:if test="@important_over"><xsl:value-of select="@important_over"/></xsl:if>
+          <xsl:if test="not(@important_over)">false</xsl:if>
         </xsl:attribute>
+        <xsl:if test="boolean(@sidechords) and string-length(@sidechords)>0">
+          <xsl:attribute name="sidechords">
+            <xsl:value-of select="normalize-space(@sidechords)"/>
+          </xsl:attribute>
+        </xsl:if>
         <xsl:apply-templates select="node()"/>
       </xsl:if>
     </row>

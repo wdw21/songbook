@@ -59,7 +59,7 @@ export class SongVerse extends HTMLElement {
     this.resizeObserver = new ResizeObserver( (entries) => {
       for (const e of entries) {
         if (e.target.siblingSide) {
-          e.target.siblingSide.style.height = e.contentRect.height + "px";
+          e.target.siblingSide.style.height = e.borderBoxSize[0].blockSize + "px";
         }
       }
     });
