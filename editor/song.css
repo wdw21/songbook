@@ -12,13 +12,18 @@ song-row {
   padding-top: 0.5ex; /* We would prefer here margin, but padding works with the size observer.*/
 }
 
+song-row[type="instr"]:before {
+  content: '[wers instrumentalny]';
+}
 song-row[type="instr"] {
-  overflow-wrap: normal;
-  font-weight: bold;
-  background: white;
-  white-space:nowrap;
-  font-family: Arial;
-  margin-top: 0.6em;
+  /*overflow-wrap: normal;*/
+  /*font-weight: bold;*/
+  /*background: white;*/
+  /*white-space:nowrap;*/
+  /*font-family: Arial;*/
+  /*margin-top: 0.6em;*/
+  color: gray;
+  font-style: italic;
 }
 
 song-rows {

@@ -54,7 +54,7 @@ export class SongVerse extends HTMLElement {
       this.btRadios[bt_radio.value]=bt_radio;
     }
     const observer = new MutationObserver(()=> {this.refreshSidechords();});
-    observer.observe(this, { attributes: false, childList: true, subtree: true, characterData:true });
+    observer.observe(this, { attributes: false, childList: true, subtree: true, characterData:false });
 
     this.resizeObserver = new ResizeObserver( (entries) => {
       for (const e of entries) {
@@ -65,17 +65,28 @@ export class SongVerse extends HTMLElement {
     });
   }
 
+  onChangedChord() {
+    this.refreshSidechords()
+  }
+
   refreshSidechords() {
     this.resizeObserver.disconnect();
-    while(this.sidechords.firstChild) { this.sidechords.firstChild.remove()};
+
+    // Trick to not jump too much
+    this.sidechords.style.width = this.sidechords.getBoundingClientRect().width + "px";
+
+    let newsc = document.createDocumentFragment()
     let rows = this.getElementsByTagName("song-row");
     for (let r of rows) {
       const ed = document.createElement("song-side-chords")
       ed.setRow(r);
-      this.sidechords.appendChild(ed);
+      newsc.appendChild(ed);
       r.siblingSide=ed;
       this.resizeObserver.observe(r);
     }
+
+    this.sidechords.replaceChildren(newsc)
+    this.sidechords.style.removeProperty("width");
   }
 
   refoninput(e, verse) {

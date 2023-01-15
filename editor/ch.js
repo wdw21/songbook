@@ -29,6 +29,7 @@ export default class SongCh extends HTMLElement {
     };
     this.che.onchange = (event) => {
       this.setAttribute("a", this.che.value);
+      this.verse.onChangedChord();
     };
     this.che.onblur = (event) => {
       let storedParent = this.parentNode;
@@ -104,6 +105,8 @@ export default class SongCh extends HTMLElement {
 
   connectedCallback() {
     const songBody = findAncestor(this, "SONG-BODY");
+    this.row = findAncestor(this, "SONG-ROW");
+    this.verse = findAncestor(this, "SONG-VERSE");
     new ResizeObserver(() => songBody.recomputeChordsOffsets()).observe(this.ch);
   }
 

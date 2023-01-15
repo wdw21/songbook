@@ -13,30 +13,13 @@
 import {getChordsFromRow, getSideChordsForRow, setSideChordsForRow} from "./verse.js";
 import {nbsp} from "./utils.js";
 
+const template = document.createElement('template');
+
 export default class SideChordsRow extends HTMLElement {
     constructor() {
         super();
 
-        const template = document.createElement('template');
-        template.innerHTML = `
-<link rel="stylesheet" href="./sidechords.css"/>
-<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round"
-      rel="stylesheet"/>
-<div id="sidechords">
-  <div id="type">
-<!--      <span id="chords_type"  class="material-icons">auto_awesome</span>-->
-      <select id="select_type">
-          <option value="important">Kluczowe nad</option><!--First chorus only-->
-          <option value="available">Dostępne nad</option><-- Szkoda miejsca-->
-          <option value="never">Tylko z boku</option><!-- never - np. nie ustawione prawidłowo-->
-      </select>
-  </div>
-  <input type="text" id="sch"/>
-  <button class="material-icons" id="sync_to_side">keyboard_double_arrow_left</button>
-</div>
-  `;
-
-        const shadow = this.attachShadow({ mode: "closed" });
+        const shadow = this.attachShadow({mode: "closed"});
         shadow.appendChild(template.content.cloneNode(true));
 
         // this.chordsType = shadow.getElementById("chords_type");
@@ -50,7 +33,7 @@ export default class SideChordsRow extends HTMLElement {
         this.selectType.addEventListener("change", () => {
             this.pushRowType();
         });
-        this.chinput.addEventListener("change", ()=> {
+        this.chinput.addEventListener("change", () => {
             this.pushSideChords();
         })
 
@@ -61,7 +44,7 @@ export default class SideChordsRow extends HTMLElement {
     }
 
     setRow(row) {
-        this.row=row;
+        this.row = row;
     }
 
     connectedCallback() {
@@ -89,137 +72,55 @@ export default class SideChordsRow extends HTMLElement {
 
     loadRow() {
         this.chinput.value = getSideChordsForRow(this.row);
-        let impOver=this.row.getAttribute("important_over");
-        if (impOver=="true") {
-            this.selectType.value="important"
-        } else if (impOver=="false" || !impOver || impOver.trim()=="") {
-            this.selectType.value="available"
-        } if (impOver=="never") {
-            this.selectType.value="never"
+        let impOver = this.row.getAttribute("important_over");
+        if (impOver == "true") {
+            this.selectType.value = "important"
+        } else if (impOver == "false" || !impOver || impOver.trim() == "") {
+            this.selectType.value = "available"
+        }
+        if (impOver == "never") {
+            this.selectType.value = "never"
         }
         this.pushSideChords()
-  //      this.refreshRowType();
     }
 
     normalizeChords(ch) {
         return ch
             .trim()
-            .replaceAll(nbsp,"").replaceAll(" ","")
-            .replaceAll("(","").replaceAll(")","")
-            .replaceAll("[","").replaceAll("]","")
-            .replaceAll("<","").replaceAll(">","")
-            .replaceAll("|","").replaceAll("!","")
+            .replaceAll(nbsp, "").replaceAll(" ", "")
+            .replaceAll("(", "").replaceAll(")", "")
+            .replaceAll("[", "").replaceAll("]", "")
+            .replaceAll("<", "").replaceAll(">", "")
+            .replaceAll("|", "").replaceAll("!", "")
     }
 
     refreshSync() {
         if (this.normalizeChords(this.chinput.value) === this.normalizeChords(getChordsFromRow(this.row))) {
-            this.chinput.style.backgroundColor='#E0FFE0' // light green
+            this.chinput.style.backgroundColor = '#E0FFE0' // light green
         } else {
-            this.chinput.style.backgroundColor='#FFCCCB' // light red
+            this.chinput.style.backgroundColor = '#FFCCCB' // light red
         }
     }
-
-    // getSongBody() {
-    //     return this.closest('song-body');
-    // }
-    //
-    // isEditing() {
-    //     return this.getAttribute("editing")==="true";
-    // }
-    //
-    // select(row, toSelect) {
-    //     row.focus();
-    //     let r = document.createRange();
-    //     if (!toSelect) {
-    //         let t=document.createTextNode(nbsp);
-    //         row.appendChild(t);
-    //         r.selectNodeContents(t);
-    //     } else {
-    //         r.setStartBefore(toSelect);
-    //     }
-    //     document.getSelection().removeAllRanges();
-    //     document.getSelection().addRange(r);
-    // }
-    //
-    // selectParent(storedParent) {
-    //     this.select(storedParent, this.nextSibling);
-    // }
-    //
-    // connectedCallback() {
-    //     const songBody = findAncestor(this, "SONG-BODY");
-    //     new ResizeObserver(() => songBody.recomputeChordsOffsets()).observe(this.ch);
-    // }
-    //
-    // recomputeOffset() {
-    //     if (this.offset) {
-    //         return this.offset;
-    //     }
-    //     if (this.previousSibling && this.previousSibling.nodeName==='SONG-CH') {
-    //         this.offset = this.previousSibling.recomputeOffset() + this.previousSibling.ch.getBoundingClientRect().width + 1;
-    //     } else {
-    //         this.offset = 0;
-    //     }
-    //     this.cho.style.left = this.offset + "px";
-    //     return this.offset;
-    // }
-    //
-    // resetOffset() {
-    //     this.offset=null;
-    // }
-    //
-    // updateEditing() {
-    //     this.che.hidden=!this.isEditing();
-    //     this.che.style.display = this.isEditing() ? 'inline' : 'none';
-    //     this.ch.hidden=this.isEditing();
-    //     this.ch.style.display = !this.isEditing() ? 'inline' : 'none';
-    //     if (this.isEditing()) {
-    //         this.che.value = this.getAttribute("a");
-    //         //    this.che.select();
-    //         this.che.focus();
-    //     }
-    // }
-    //
-    // focus(options) {
-    //     //super.focus(options);
-    //     if (this.isEditing()) {
-    //         this.che.focus();
-    //     }
-    // }
-    //
-    // static get observedAttributes() {
-    //     return ['a', "editing"];
-    // }
-    //
-    // attributeChangedCallback() {
-    //     this.updateChord();
-    //     this.updateEditing();
-    // }
-    //
-    // updateChord() {
-    //     this.ch.innerText=this.getAttribute("a");
-    //     this.che.value=this.getAttribute("a");
-    // }
 }
-//
-// function predefinedChordsList() {
-//     let dl = document.createElement("datalist");
-//     dl.id = "predefinedChords";
-//     predefinedChords.forEach(
-//         (ch) => {
-//             let opt = document.createElement("option");
-//             opt.value = ch;
-//             dl.appendChild(opt);
-//         }
-//     );
-//     return dl;
-// }
 
 export function SideChordsInit() {
+    template.innerHTML = `
+<link rel="stylesheet" href="./sidechords.css"/>
+<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round"
+      rel="stylesheet"/>
+<div id="sidechords">
+  <div id="type">
+<!--      <span id="chords_type"  class="material-icons">auto_awesome</span>-->
+      <select id="select_type">
+          <option value="important">Kluczowe nad</option><!--First chorus only-->
+          <option value="available">Dostępne nad</option><-- Szkoda miejsca-->
+          <option value="never">Tylko z boku</option><!-- never - np. nie ustawione prawidłowo-->
+      </select>
+  </div>
+  <input type="text" id="sch"/>
+  <button class="material-icons" id="sync_to_side">keyboard_double_arrow_left</button>
+</div>
+  `;
+
     customElements.define("song-side-chords", SideChordsRow);
 }
-//
-// export function createChord(chord) {
-//     let ch = document.createElement("song-ch");
-//     ch.setAttribute('a', chord);
-//     return ch;
-// }
