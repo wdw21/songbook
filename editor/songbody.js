@@ -40,22 +40,59 @@ function canInsertChord() {
 }
 
 export function makeRowNotInstrumental(row) {
-  let chords = row.innerText.replaceAll(' ', nbsp).split(nbsp);
-  console.log(chords);
-  row.removeAttribute("type");
-  removeAllChildren(row);
+  // let chords = row.innerText.replaceAll(' ', nbsp).split(nbsp);
+  // console.log(chords);
+  if (row.getAttribute('type')=='instr') {
+    row.removeAttribute("type");
+    // removeAllChildren(row);
+    // for (let i=0; i<chords.length; ++i) {
+    //   row.appendChild(createChord(chords[i]));
+    //   row.appendChild(document.createTextNode(nbsp + nbsp));
+    // }
+    // row.normalize();
+    if (row.siblingSide) {
+      row.siblingSide.loadRow();
+    }
+  }
+}
+
+export function pushRowChords(row, text) {
+  let chords = text.replaceAll(' ', nbsp).split(nbsp);
+  // console.log(chords);
+  // if (row.getAttribute('type')=='instr') {
+  //   row.removeAttribute("type");
+  let c = row.firstChild;
+  while (c != null) {
+    let n=c.nextSibling
+    if (c.nodeName=='SONG-CH') {
+      c.remove()
+    }
+    c=n
+  }
   for (let i=0; i<chords.length; ++i) {
-    row.appendChild(createChord(chords[i]));
-    row.appendChild(document.createTextNode(nbsp + nbsp));
+    if (chords[i] != '|' && chords[i] != '(' && chords[i] != '!' && chords[i] != ')') {
+      row.appendChild(createChord(chords[i]));
+    }
+  //  row.appendChild(document.createTextNode(nbsp + nbsp));
   }
   row.normalize();
 }
 
 
 export function makeRowInstrumental(row) {
-  let text=nbsp + getChordsFromRow(row);
   row.setAttribute("type", "instr");
-  row.innerText=text;
+  row.removeAttribute('important_over');
+  let it=row.firstChild;
+  while (it != null) {
+    let n=it.nextSibling;
+    if (it.nodeName=='#text') {
+      it.remove();
+    }
+    it = n;
+  }
+  if (row.siblingSide) {
+    row.siblingSide.loadRow();
+  }
 }
 
 
@@ -111,6 +148,7 @@ export default class SongBody extends HTMLElement {
     this.body=shadow.getElementById("songbody");
 
     this.body.addEventListener("mousedown", this.mouseDown);
+    this.body.addEventListener("click", this.click);
     this.body.addEventListener("dragover", (e) => {this.dragOver(e, this); });
     this.body.addEventListener("dragstart", (e) => {this.dragStart(e, this); });
     this.body.addEventListener("dragend", (e) => {this.dragEnd(e, this); });
@@ -349,6 +387,17 @@ export default class SongBody extends HTMLElement {
         e.preventDefault();
       }
     }
+  }
+
+  click(e) {
+    console.log("click", e);
+    if (e.target.nodeName==='SONG-ROW' && e.target.getAttribute('type')=='instr') {
+      makeRowNotInstrumental(e.target);
+    }
+    //   if (insertChordHere("")) {
+    //     e.preventDefault();
+    //   }
+    // }
   }
 
   keyDown(e,songBook) {

@@ -14,7 +14,11 @@ song-row {
 
 song-row[type="instr"]:before {
   content: '[wers instrumentalny]';
+  color: gray;
+  font-style: italic;
+  visibility: visible;
 }
+
 song-row[type="instr"] {
   /*overflow-wrap: normal;*/
   /*font-weight: bold;*/
@@ -22,9 +26,10 @@ song-row[type="instr"] {
   /*white-space:nowrap;*/
   /*font-family: Arial;*/
   /*margin-top: 0.6em;*/
-  color: gray;
-  font-style: italic;
+ visibility: hidden;
 }
+
+/*:host-context(song-row[type="instr"]) {*/
 
 song-rows {
   display: contents;

@@ -1,5 +1,6 @@
 import {nbsp} from "./utils.js";
 import {SideChordsInit} from "./sidechords.js";
+import {pushRowChords} from "./songbody.js";
 
 export class SongVerse extends HTMLElement {
   constructor() {
@@ -344,6 +345,9 @@ export function getChordsFromRow(row) {
 
 export function setSideChordsForRow(row, ch) {
   const chr=getChordsFromRow(row);
+  if (row.getAttribute('type')=='instr') {
+    pushRowChords(row, ch)
+  }
   if (chr===ch.trim()) {
     console.log("Side and main back in sync")
     row.removeAttribute("sidechords");

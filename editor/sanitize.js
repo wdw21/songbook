@@ -248,9 +248,12 @@ function sanitizeRow(row) {
 }
 
 function isEmptyRow(el) {
-  return el != null
-    && el.nodeName==='SONG-ROW'
-    && (el.textContent==='' || el.textContent===nbsp);
+  const empty = el != null &&
+      el.nodeName==='SONG-ROW' &&
+      el.getElementsByTagName("song-ch").length==0 &&
+      (el.textContent.trim()==='' || el.textContent.trim()===nbsp);
+  console.log("Row", el, "is empty:", empty)
+  return empty
 }
 
 export function SplitVerseFromRow(row) {
@@ -374,11 +377,11 @@ function lightTraverse(node) {
         return false;
       }
 
-      if (node.parentNode.getAttribute("type") === 'instr') {
-        node.parentNode.replaceChild(
-            document.createTextNode(nbsp + node.getAttribute("a") + nbsp),
-            node);
-      }
+      // if (node.parentNode.getAttribute("type") === 'instr') {
+      //   node.parentNode.replaceChild(
+      //       document.createTextNode(nbsp + node.getAttribute("a") + nbsp),
+      //       node);
+      // }
       const chords = node.getAttribute("a").trim().split(' ');
       if (chords.length > 1) {
         const df = document.createDocumentFragment();

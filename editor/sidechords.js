@@ -12,6 +12,7 @@
 
 import {getChordsFromRow, getSideChordsForRow, setSideChordsForRow} from "./verse.js";
 import {nbsp} from "./utils.js";
+import {makeRowInstrumental, makeRowNotInstrumental, pushRowChords} from "./songbody.js";
 
 const template = document.createElement('template');
 
@@ -37,10 +38,20 @@ export default class SideChordsRow extends HTMLElement {
             this.pushSideChords();
         })
 
-        shadow.getElementById("sync_to_side").addEventListener("click", () => {
+        this.buttonSyncToSide = shadow.getElementById("sync_to_side");
+        this.buttonSyncToLyric = shadow.getElementById("sync_to_lyric");
+
+        this.buttonSyncToSide.addEventListener("click", () => {
             this.chinput.value = getChordsFromRow(this.row);
             this.pushSideChords();
         })
+
+        this.buttonSyncToLyric.addEventListener("click", () => {
+            pushRowChords(this.row, this.chinput.value)
+            //this.pushSideChords();
+        })
+
+        //sync_to_lyric
     }
 
     setRow(row) {
@@ -55,13 +66,19 @@ export default class SideChordsRow extends HTMLElement {
         switch (this.selectType.value) {
             case "important":
                 this.row.setAttribute('important_over', 'true');
+                makeRowNotInstrumental(this.row);
                 break;
             case "available":
                 this.row.setAttribute('important_over', 'false');
+                makeRowNotInstrumental(this.row);
                 break;
             case "never":
                 this.row.setAttribute('important_over', 'never');
+                makeRowNotInstrumental(this.row);
                 break;
+            case "instr":
+                makeRowInstrumental(this.row)
+                break
         }
     }
 
@@ -72,6 +89,16 @@ export default class SideChordsRow extends HTMLElement {
 
     loadRow() {
         this.chinput.value = getSideChordsForRow(this.row);
+        let rowType = this.row.getAttribute("type");
+        if (rowType == 'instr') {
+            this.selectType.value = "instr"
+            this.buttonSyncToLyric.style.display='none';
+            this.buttonSyncToSide.style.display='none';
+            return
+        } else {
+            this.buttonSyncToLyric.style.display='inline-block';
+            this.buttonSyncToSide.style.display='inline-block';
+        }
         let impOver = this.row.getAttribute("important_over");
         if (impOver == "true") {
             this.selectType.value = "important"
@@ -81,6 +108,7 @@ export default class SideChordsRow extends HTMLElement {
         if (impOver == "never") {
             this.selectType.value = "never"
         }
+
         this.pushSideChords()
     }
 
@@ -95,6 +123,10 @@ export default class SideChordsRow extends HTMLElement {
     }
 
     refreshSync() {
+        if (this.row.getAttribute('type')=='instr') {
+            this.chinput.style.backgroundColor = 'white' // light green
+            return
+        }
         if (this.normalizeChords(this.chinput.value) === this.normalizeChords(getChordsFromRow(this.row))) {
             this.chinput.style.backgroundColor = '#E0FFE0' // light green
         } else {
@@ -115,10 +147,12 @@ export function SideChordsInit() {
           <option value="important">Kluczowe nad</option><!--First chorus only-->
           <option value="available">Dostępne nad</option><-- Szkoda miejsca-->
           <option value="never">Tylko z boku</option><!-- never - np. nie ustawione prawidłowo-->
+          <option value="instr">Wers instrumentalny</option>
       </select>
   </div>
   <input type="text" id="sch"/>
   <button class="material-icons" id="sync_to_side">keyboard_double_arrow_left</button>
+  <button class="material-icons" id="sync_to_lyric">keyboard_double_arrow_right</button>
 </div>
   `;
 
