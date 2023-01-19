@@ -13,9 +13,9 @@
             \bis
         \BLOCK{- elif row.bis > 0 -}
             \bisl{\VAR{row.bis}}
-        \BLOCK{- endif }}{\BLOCK{ for chunk in row.chunks -}
+        \BLOCK{- endif }}{\BLOCK{ if row.sidechords -}\VAR{row.sidechords}\BLOCK{- else -}\BLOCK{ for chunk in row.chunks -}
             \BLOCK{ if chunk.chord }\VAR{chunk.chord} \BLOCK{ endif }
-        \BLOCK{- endfor }}%
+        \BLOCK{- endfor }\BLOCK{- endif }}%
     \BLOCK{ endfor }
 \BLOCK{ endfor }
 \end{longtable}
