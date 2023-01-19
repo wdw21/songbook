@@ -1,13 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Kim właściwie była ta piękna pani, która pewnego wieczoru w mojej samotni mnie odwiedziła">
 	<alias>Madame</alias>
 	<text_author type="solo">Edward Stachura</text_author>
-	<comment></comment>
 	<composer type="solo">Krzysztof Myszkowski</composer>
 	<artist type="band">Stare Dobre Małżeństwo</artist>
-	<translator></translator>
 	<original_title>Kim byłaś...</original_title>
-	<lyric xmlns="http://21wdh.staszic.waw.pl">
+	<lyric>
 		<block type="other">
 			<bis times="2">
 				<row important_over="true"><ch a="a"/> Lalalala l<ch a="G"/>alalalala,<ch a="e"/> lalalala l<ch a="a"/>alalala,<ch a="d"/> lalala,<ch a="C"/> lalala,<ch a="G"/> lalala</row>
@@ -57,19 +55,18 @@
 	<music metre="4/4">
 		<guitar barre="0"/>
 	</music>
+	<keywords/>
+	<album>Dla wszystkch starczy miejsca</album>
+	<genre>Poezja śpiewana</genre>
 	<status>
-		<verificators><verificator>Onufry</verificator><verificator>Krzysiek Cz.</verificator>
-			
-			
-		</verificators>
-		<to_do></to_do>
-		<done>	<text/>
+		<done>
+			<text/>
 			<authors/>
 			<chords>chord positioning</chords>
 		</done>
+		<verificators>
+			<verificator>Onufry</verificator>
+			<verificator>Krzysiek Cz.</verificator>
+		</verificators>
 	</status>
-	<keywords/>
-	<music_source></music_source>
-	<album>Dla wszystkch starczy miejsca</album>
-	<genre>Poezja śpiewana</genre>
 </song>
