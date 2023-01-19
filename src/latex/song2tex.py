@@ -1,3 +1,4 @@
+# noinspection PyInterpreter
 from lxml import etree
 from enum import Enum
 from distutils.util import strtobool
@@ -52,11 +53,13 @@ class RowType(Enum):
 
 
 class Row:
-    def __init__(self, row_type='', new_chords=False, bis=False, chunks=[]):
+    def __init__(self, row_type='', new_chords=False, bis=False, chunks=[], instr=False, sidechords=None):
         self.row_type = row_type
         self.new_chords = new_chords
         self.chunks = chunks
         self.bis = bis
+        self.instr = instr
+        self.sidechords = sidechords
 
     @staticmethod
     def parseDOM(root, bis=False):
@@ -69,13 +72,14 @@ class Row:
         if len(chunks) > 0 and not (chunks[0].content.startswith(' ')):
             chunks[0].content = ' ' + chunks[0].content
 
-        r = Row(new_chords=strtobool(root.attrib.get('important_over', 'false')), bis=bis, chunks=chunks)
-        if (root.attrib.get('style', 'normal') == 'instr'):
+        instr = root.attrib.get('style', 'normal') == 'instr'
+        r = Row(new_chords=strtobool(root.attrib.get('important_over', 'false')), bis=bis, chunks=chunks, instr=instr, sidechords=root.attrib.get('sidechords', None))
+        if instr:
             r.row_type += RowType.INSTRUMENTAL.value
         return r
 
     def clone(self):
-        return Row(row_type=self.row_type, new_chords=self.new_chords, bis=self.bis, chunks=self.chunks[:])
+        return Row(row_type=self.row_type, new_chords=self.new_chords, bis=self.bis, chunks=self.chunks[:], instr=self.instr, sidechords=self.sidechords)
 
 
 class BlockType(Enum):
