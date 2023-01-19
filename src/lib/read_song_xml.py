@@ -23,11 +23,13 @@ class RowType(Enum):
 
 
 class Row:
-    def __init__(self, row_type=RowType.MIDDLE, new_chords=False, bis=False, chunks=None):
+    def __init__(self, row_type=RowType.MIDDLE, new_chords=False, bis=False, chunks=None, instr=False, sidechords=None):
         self.row_type = row_type
         self.new_chords = new_chords
         self.chunks = [] if chunks is None else chunks
         self.bis = bis
+        self.instr = instr
+        self.sidechords = sidechords
 
     @staticmethod
     def parseDOM(root, bis=False):
@@ -37,7 +39,12 @@ class Row:
             chunks = []
         for chunk in root.getchildren():
             chunks.append(RowChunk(chord=chunk.attrib['a'], content=chunk.tail))
-        return Row(new_chords=bool(strtobool(root.attrib.get('important_over', 'false'))), bis=bis, chunks=chunks)
+        return Row(
+            new_chords=bool(strtobool(root.attrib.get('important_over', 'false'))),
+            bis=bis,
+            chunks=chunks,
+            instr=(root.attrib.get('style', '')=='instr'),
+            sidechords=root.attrib.get('sidechords', None))
 
 
 class BlockType(Enum):

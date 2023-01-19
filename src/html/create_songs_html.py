@@ -30,10 +30,15 @@ def _add_lyric(row, parent):
 def _add_chords(row, parent, class_name):
     """class chords -> html span ch"""
     span_chords = etree.SubElement(parent, "span", attrib={"class": class_name})
-    for chunk in row.chunks:
-        if len(chunk.chord) > 0:
+    if row.sidechords:
+        for chunk in row.sidechords.split(" "):
             span_ch = etree.SubElement(span_chords, "span", attrib={"class": "ch"})
-            span_ch.text = chunk.chord
+            span_ch.text = chunk
+    else:
+        for chunk in row.chunks:
+            if len(chunk.chord) > 0:
+                span_ch = etree.SubElement(span_chords, "span", attrib={"class": "ch"})
+                span_ch.text = chunk.chord
 
 
 def _add_bis(row, div_row):
@@ -90,7 +95,7 @@ def _add_verse(block, parent, block_type):
     """class verse -> html div verse/chorus/other with content"""
     div_verse = etree.SubElement(parent, "div", attrib={"class": block_type})
     for ro in block.rows:
-        if block_type == "other":
+        if ro.instr:
             _add_instrumental_row(ro, div_verse)
         else:
             _add_row(ro, div_verse)
