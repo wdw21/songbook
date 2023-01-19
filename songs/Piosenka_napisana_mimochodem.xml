@@ -6,14 +6,14 @@
 	<artist type="solo">Jacek Kaczmarski</artist>
 	<lyric>
 		<block type="verse">
-			<row important_over="true">Słońce bł<ch a="a"/>yśnie między wsch<ch a="d"/>odem a zach<ch a="a"/>odem,<ch a="d"/></row>
+			<row important_over="true" sidechords="Fis Cis (A) | Co">Słońce bł<ch a="a"/>yśnie między wsch<ch a="d"/>odem a zach<ch a="a"/>odem,<ch a="d"/></row>
 			<row important_over="true">Mimoch<ch a="a"/>odem obrys<ch a="e7"/>uje miasto chm<ch a="a"/>ur.</row>
 			<row important_over="false">Jednych dzi<ch a="a"/>egciem dzień nak<ch a="d"/>armi, innych mi<ch a="a"/>odem,<ch a="d"/></row>
 			<row important_over="false">Temu gł<ch a="a"/>owę wzniesie, t<ch a="e7"/>emu napnie szn<ch a="a"/>ur.</row>
 			<row important_over="true">Trochę st<ch a="C"/>arsze znów się st<ch a="F"/>anie to, co mł<ch a="C"/>ode,<ch a="d"/></row>
 			<row important_over="true">Jakby strz<ch a="C"/>epnął ptak kol<ch a="d"/>ejną kroplę z pi<ch a="e"/>ór —</row>
 			<row important_over="true">Mimoch<ch a="a"/>od<ch a="d"/>em, mimoch<ch a="a"/>od<ch a="d"/>em,</row>
-			<row important_over="true">Jakby strz<ch a="a"/>epnął kr<ch a="e"/>oplę z pi<ch a="a"/>ór.</row>
+			<row important_over="true" sidechords="Co to się dzieje">Jak<ch a="a"/>by strzep<ch a="b"/>nął krop<ch a="Cis"/>lę z piór.</row>
 		</block>
 		<block type="verse">
 			<row important_over="false">Tym pod n<ch a="a"/>ogi róż kobi<ch a="d"/>erzec, tamtym - kł<ch a="a"/>odę,<ch a="d"/></row>
