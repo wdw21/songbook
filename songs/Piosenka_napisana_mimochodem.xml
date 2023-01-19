@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<song title="Piosenka napisana mimochodem" xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd">
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Piosenka napisana mimochodem">
 	<alias>Mimochodem</alias>
 	<text_author type="solo">Jacek Kaczmarski</text_author>
-	<comment></comment>
 	<composer type="solo">Jacek Kaczmarski</composer>
 	<artist type="solo">Jacek Kaczmarski</artist>
-	<translator></translator>
-	<original_title></original_title>
-	<lyric xmlns="http://21wdh.staszic.waw.pl">
+	<lyric>
 		<block type="verse">
 			<row important_over="true">Słońce bł<ch a="a"/>yśnie między wsch<ch a="d"/>odem a zach<ch a="a"/>odem,<ch a="d"/></row>
 			<row important_over="true">Mimoch<ch a="a"/>odem obrys<ch a="e7"/>uje miasto chm<ch a="a"/>ur.</row>
@@ -61,18 +58,9 @@
 			<row important_over="false">Miasto chm<ch a="d"/>ur, chw<ch a="a"/>ile szcz<ch a="d"/>ęść.</row>
 		</block>
 	</lyric>
-	
-	
-	
-	
-	
-	
-	<music metre="4/4">
-		<guitar/>
-	</music>
-	<keywords></keywords>
+	<music metre="4/4"/>
+	<keywords/>
 	<album>Mimochodem</album>
-	<genre></genre>
 	<status>
 		<done>
 			<text/>
@@ -81,9 +69,6 @@
 		</done>
 		<verificators>
 			<verificator>Michał Korch</verificator>
-			
 		</verificators>
-		<to_do></to_do>
 	</status>
-	<music_source></music_source>
 </song>
