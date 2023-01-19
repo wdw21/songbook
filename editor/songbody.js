@@ -1,6 +1,7 @@
 import {findAncestor, getRangeForCursor,nbsp,removeAllChildren,mergeNodeAfter,setCursorBefore} from './utils.js';
 import {createChord} from './ch.js'
 import {createVerse, Sanitize, SplitVerseFromRow} from './sanitize.js'
+import {getChordsFromRow} from "./verse.js";
 
 function acceptsTextAndChords(element) {
   return element.nodeName=="SONG-ROW" && element.getAttribute("type")!=='instr';
@@ -39,27 +40,59 @@ function canInsertChord() {
 }
 
 export function makeRowNotInstrumental(row) {
-  let chords = row.innerText.replaceAll(' ', nbsp).split(nbsp);
-  console.log(chords);
-  row.removeAttribute("type");
-  removeAllChildren(row);
+  // let chords = row.innerText.replaceAll(' ', nbsp).split(nbsp);
+  // console.log(chords);
+  if (row.getAttribute('type')=='instr') {
+    row.removeAttribute("type");
+    // removeAllChildren(row);
+    // for (let i=0; i<chords.length; ++i) {
+    //   row.appendChild(createChord(chords[i]));
+    //   row.appendChild(document.createTextNode(nbsp + nbsp));
+    // }
+    // row.normalize();
+    if (row.siblingSide) {
+      row.siblingSide.loadRow();
+    }
+  }
+}
+
+export function pushRowChords(row, text) {
+  let chords = text.replaceAll(' ', nbsp).split(nbsp);
+  // console.log(chords);
+  // if (row.getAttribute('type')=='instr') {
+  //   row.removeAttribute("type");
+  let c = row.firstChild;
+  while (c != null) {
+    let n=c.nextSibling
+    if (c.nodeName=='SONG-CH') {
+      c.remove()
+    }
+    c=n
+  }
   for (let i=0; i<chords.length; ++i) {
-    row.appendChild(createChord(chords[i]));
-    row.appendChild(document.createTextNode(nbsp + nbsp));
+    if (chords[i] != '|' && chords[i] != '(' && chords[i] != '!' && chords[i] != ')') {
+      row.appendChild(createChord(chords[i]));
+    }
+  //  row.appendChild(document.createTextNode(nbsp + nbsp));
   }
   row.normalize();
 }
 
+
 export function makeRowInstrumental(row) {
-  let text=nbsp;
-  for (let i=0; i < row.childNodes.length; ++i) {
-    let n = row.childNodes[i];
-    if (n.nodeName==='SONG-CH') {
-      text+=n.getAttribute("a") + nbsp;
-    }
-  }
   row.setAttribute("type", "instr");
-  row.innerText=text;
+  row.removeAttribute('important_over');
+  let it=row.firstChild;
+  while (it != null) {
+    let n=it.nextSibling;
+    if (it.nodeName=='#text') {
+      it.remove();
+    }
+    it = n;
+  }
+  if (row.siblingSide) {
+    row.siblingSide.loadRow();
+  }
 }
 
 
@@ -115,6 +148,7 @@ export default class SongBody extends HTMLElement {
     this.body=shadow.getElementById("songbody");
 
     this.body.addEventListener("mousedown", this.mouseDown);
+    this.body.addEventListener("click", this.click);
     this.body.addEventListener("dragover", (e) => {this.dragOver(e, this); });
     this.body.addEventListener("dragstart", (e) => {this.dragStart(e, this); });
     this.body.addEventListener("dragend", (e) => {this.dragEnd(e, this); });
@@ -355,6 +389,17 @@ export default class SongBody extends HTMLElement {
     }
   }
 
+  click(e) {
+    console.log("click", e);
+    if (e.target.nodeName==='SONG-ROW' && e.target.getAttribute('type')=='instr') {
+      makeRowNotInstrumental(e.target);
+    }
+    //   if (insertChordHere("")) {
+    //     e.preventDefault();
+    //   }
+    // }
+  }
+
   keyDown(e,songBook) {
     console.log("keydown...",e, document.getSelection());
     if (e.key == '`' && canInsertChord()) {
@@ -462,8 +507,7 @@ export default class SongBody extends HTMLElement {
     if (d != null && d != "") {
       console.log("Special!!!", e.dataTransfer.dropEffect);
 
-      if ((e.dataTransfer.dropEffect === 'move'
-              || !e.altKey) &&
+      if ((e.dataTransfer.dropEffect === 'move' || !e.altKey) &&
           songbody.toRemoveWhenDropped != null) {
         songbody.toRemoveWhenDropped.deleteContents();
       }
@@ -577,7 +621,6 @@ export default class SongBody extends HTMLElement {
             mergeNodeAfter(r.startContainer.parentNode.parentNode.parentNode.parentNode.parentNode.previousSibling.childNodes[0], r.startContainer.parentNode.parentNode.parentNode.parentNode);
             e.preventDefault();
           }
-
         }
 
         r= document.getSelection().getRangeAt(0);
@@ -622,7 +665,7 @@ export default class SongBody extends HTMLElement {
         r.startContainer.nodeValue=r.startContainer.nodeValue.slice(0, r.startOffset);
       }
       let st = r.startContainer.nodeName=='SONG-ROW' ? r.startContainer.childNodes[r.startOffset].previousSibling : r.startContainer ;
-      while(st.nextSibling != null) {
+      while(st && st.nextSibling != null) {
         console.log("Adding: ", st.nextSibling)
         newNode.appendChild(st.nextSibling)
       }
@@ -665,12 +708,9 @@ export default class SongBody extends HTMLElement {
 
   doUndo() {
     const last = this.undo.pop();
-    this.redo.push(last);
-
-    if (this.undo.length > 0) {
-      const cn = this.undo[this.undo.length - 1].cloneNode(true).childNodes;
-      this.textContent='';
-      this.append(...cn);
+    if (last) {
+      this.redo.push(last);
+      this.innerHTML=last;
     }
   }
 
@@ -679,9 +719,7 @@ export default class SongBody extends HTMLElement {
     if (redo) {
       this.undo.push(redo);
 
-      const cn = redo.cloneNode(true).childNodes;
-      this.textContent = '';
-      this.append(...cn);
+      this.innerHTML=redo;
     }
   }
 
@@ -689,8 +727,8 @@ export default class SongBody extends HTMLElement {
     console.log("postprocessing");
     Sanitize(this);
     this.recomputeChordsOffsets();
-    let lastState=this.cloneNode(true);
-    if (this.undo.length==0 || !this.undo[this.undo.length-1].isEqualNode(lastState)) {
+    let lastState=this.innerHTML;
+    if (this.undo.length==0 || this.undo[this.undo.length-1]!==lastState) {
       this.undo.push(lastState);
     }
     console.log("Postprocessed. Undo len: ", this.undo.length);

@@ -1,3 +1,7 @@
+import {nbsp} from "./utils.js";
+import {SideChordsInit} from "./sidechords.js";
+import {pushRowChords} from "./songbody.js";
+
 export class SongVerse extends HTMLElement {
   constructor() {
     super();
@@ -25,8 +29,9 @@ export class SongVerse extends HTMLElement {
         <option>Bar</option>
       </select>
   </div>
+  <div id="verse_sidechords"></div>
   <div id="verse_main" class="verse_main">
-    <slot/>
+    <slot id="slot0"/>
   </div>
 </div>
   `;
@@ -34,9 +39,11 @@ export class SongVerse extends HTMLElement {
     const shadow = this.attachShadow({ mode: "closed" });
     shadow.appendChild(template.content.cloneNode(true));
     this.nr=shadow.getElementById("nr");
+    this.slot0 = shadow.getElementById("slot0");
     this.blocklink=shadow.getElementById("blocklink");
     this.main=shadow.getElementById("verse_main");
     this.link=shadow.getElementById("verse_link");
+    this.sidechords=shadow.getElementById("verse_sidechords");
     this.linkSel=shadow.getElementById("verse_link_sel");
     this.buttonDelete=shadow.getElementById("delete");
     this.blocklink.addEventListener("input", (e) => this.blocklinkoninput(e, this));
@@ -47,6 +54,40 @@ export class SongVerse extends HTMLElement {
       bt_radio.addEventListener("input", (e) => this.refoninput(e, this));
       this.btRadios[bt_radio.value]=bt_radio;
     }
+    const observer = new MutationObserver(()=> {this.refreshSidechords();});
+    observer.observe(this, { attributes: false, childList: true, subtree: true, characterData:false });
+
+    this.resizeObserver = new ResizeObserver( (entries) => {
+      for (const e of entries) {
+        if (e.target.siblingSide) {
+          e.target.siblingSide.style.height = e.borderBoxSize[0].blockSize + "px";
+        }
+      }
+    });
+  }
+
+  onChangedChord() {
+    this.refreshSidechords()
+  }
+
+  refreshSidechords() {
+    this.resizeObserver.disconnect();
+
+    // Trick to not jump too much
+    this.sidechords.style.width = this.sidechords.getBoundingClientRect().width + "px";
+
+    let newsc = document.createDocumentFragment()
+    let rows = this.getElementsByTagName("song-row");
+    for (let r of rows) {
+      const ed = document.createElement("song-side-chords")
+      ed.setRow(r);
+      newsc.appendChild(ed);
+      r.siblingSide=ed;
+      this.resizeObserver.observe(r);
+    }
+
+    this.sidechords.replaceChildren(newsc)
+    this.sidechords.style.removeProperty("width");
   }
 
   refoninput(e, verse) {
@@ -136,7 +177,6 @@ export class SongVerse extends HTMLElement {
   }
 
   disconnectedCallback() {
-    console.log("DISCONNECTED");
     this.observer.disconnect();
   }
 
@@ -292,8 +332,42 @@ export class SongBis extends HTMLElement {
   }
 }
 
+export function getChordsFromRow(row) {
+  let text="";
+  for (let i=0; i < row.childNodes.length; ++i) {
+    let n = row.childNodes[i];
+    if (n.nodeName==='SONG-CH') {
+      text+=n.getAttribute("a") + " ";
+    }
+  }
+  return text.trim().replaceAll(nbsp, " ")
+}
+
+export function setSideChordsForRow(row, ch) {
+  const chr=getChordsFromRow(row);
+  if (row.getAttribute('type')=='instr') {
+    pushRowChords(row, ch)
+  }
+  if (chr===ch.trim()) {
+    console.log("Side and main back in sync")
+    row.removeAttribute("sidechords");
+  } else {
+    console.log(`Side and main not in sync: '${chr}'!='${ch.trim()}'`)
+    row.setAttribute("sidechords", ch.trim());
+  }
+}
+
+export function getSideChordsForRow(row) {
+  let sch = row.getAttribute("sidechords");
+  if (sch && sch.trim()!="") {
+    return sch.trim();
+  } else {
+    return getChordsFromRow(row);
+  }
+}
 
 export function SongVerseBisInit() {
+  SideChordsInit();
   customElements.define("song-verse", SongVerse);
   customElements.define("song-bis", SongBis);
 }

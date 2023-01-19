@@ -78,7 +78,7 @@ export function Serialize(songeditor) {
   //new XMLSerializer().serializeToString(resultDocument);;
 
   let txt=serializeDocument(resultDocument, songeditor.tabs ? "\t" : "  ")
-  txt = txt.replaceAll(nbsp," ");
+  txt = txt.replaceAll(nbsp," ") + "\n";
 
   if (songeditor.shadow.getElementById("lastSerialized")) {
     songeditor.shadow.getElementById("lastSerialized").innerText=txt;

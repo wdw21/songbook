@@ -3,22 +3,33 @@ span.cho {
   position: relative;
   left: 0px;
   width:0px;
-  top: -1.3em;
-  margin-top: 1.5em;
+  top: -2.9ex;
+  margin-top: 3ex;
   overflow-wrap: normal;
   hyphens: none;
 }
 
 :host-context(song-row[important_over="true"]) span.cho {
-  top: -1.6em;
   width: revert;
 }
 
-/*:host-context(song-row[style="instr"]) span.cho {
-  display: inline-block;
-  position: static;
-  top: revert;
-}*/
+:host-context(song-row[important_over="true"]) span.cho span.ch {
+  font-weight: 900; /*bold is like 700*/
+  font-size: x-small;
+}
+
+:host-context(song-row[important_over="never"]) span.cho span.ch {
+  /*font-weight: 900; !*bold is like 700*!*/
+  /*font-size: x-small;*/
+  color: lightgray;
+}
+
+:host-context(song-row[type="instr"]) span.cho span.ch {
+  /*font-weight: 900; !*bold is like 700*!*/
+  /*font-size: x-small;*/
+  display: none; /*that's gets overriden by the javascript per element code*/
+  visibility: hidden;
+}
 
 span.cho span.ch {
   display: inline-block;
@@ -38,17 +49,6 @@ span.cho span.ch {
   white-space:nowrap;
   font-family: Arial;
 }
-
-
-:host-context(song-row[important_over="true"]) span.cho span.ch {
-  font-weight: 900; /*bold is like 700*/
-  font-size: x-small;
-}
-
-
-/*:host-context(song-row[style="instr"]) span.cho span.ch {
-  position: static;
-}*/
 
 span.cho input.ch {
   width: 6em;

@@ -39,9 +39,10 @@ export function findAncestor(p, nodeName) {
 }
 
 export function removeAllChildren(node) {
-  while(node.childNodes.length > 0) {
-    node.removeChild(node.childNodes[0]);
-  }
+  // while(node.childNodes.length > 0) {
+  //   node.removeChild(node.childNodes[0]);
+  // }
+  node.replaceChildren();
 }
 
 export function loadXMLDoc(filename)

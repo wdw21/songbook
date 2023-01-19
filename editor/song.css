@@ -9,16 +9,27 @@ song-verse {
 song-row {
   display: block;
   font-size: large;
+  padding-top: 0.5ex; /* We would prefer here margin, but padding works with the size observer.*/
+}
+
+song-row[type="instr"]:before {
+  content: '[wers instrumentalny]';
+  color: gray;
+  font-style: italic;
+  visibility: visible;
 }
 
 song-row[type="instr"] {
-  overflow-wrap: normal;
-  font-weight: bold;
-  background: white;
-  white-space:nowrap;
-  font-family: Arial;
-  margin-top: 0.6em;
+  /*overflow-wrap: normal;*/
+  /*font-weight: bold;*/
+  /*background: white;*/
+  /*white-space:nowrap;*/
+  /*font-family: Arial;*/
+  /*margin-top: 0.6em;*/
+ visibility: hidden;
 }
+
+/*:host-context(song-row[type="instr"]) {*/
 
 song-rows {
   display: contents;

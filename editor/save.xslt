@@ -217,23 +217,22 @@
 
   <xsl:template match="xhtml:song-row">
     <row>
+        <xsl:attribute name="important_over">
+          <xsl:if test="@important_over"><xsl:value-of select="@important_over"/></xsl:if>
+          <xsl:if test="not(@important_over)">false</xsl:if>
+        </xsl:attribute>
       <xsl:if test="@type">
         <xsl:attribute name='style'>
           <xsl:value-of select="@type"/>
         </xsl:attribute>
       </xsl:if>
-      <xsl:if test="@type='instr'">
-        <xsl:call-template name="splitInstrumental">
-          <xsl:with-param name="datalist" select="normalize-space(text())"/>
-        </xsl:call-template>
-        <xsl:text> </xsl:text> <!--prevent line breaks within row when formatting-->
-      </xsl:if>
-      <xsl:if test="not(@type='instr')">
-        <xsl:attribute name="important_over">
-          <xsl:value-of select="@important_over='true'"/>
-        </xsl:attribute>
+        <xsl:if test="boolean(@sidechords) and string-length(@sidechords)>0">
+          <xsl:attribute name="sidechords">
+            <xsl:value-of select="normalize-space(@sidechords)"/>
+          </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="@type='instr'"><xsl:text> </xsl:text></xsl:if>
         <xsl:apply-templates select="node()"/>
-      </xsl:if>
     </row>
   </xsl:template>
 
@@ -245,34 +244,6 @@
         </xsl:attribute>
       </ch>
     </xsl:if>
-  </xsl:template>
-
-
-  <xsl:template name="splitInstrumental">
-    <xsl:param name="datalist"/>
-    <xsl:choose>
-      <xsl:when test="contains($datalist,'&#160;')">
-        <xsl:if test="substring-before($datalist,'&#160;')">
-          <ch>
-            <xsl:attribute name="a">
-              <xsl:value-of select="substring-before($datalist,'&#160;')"/>
-            </xsl:attribute>
-          </ch>
-        </xsl:if>
-        <xsl:call-template name="splitInstrumental">
-          <xsl:with-param name="datalist" select="substring-after($datalist,'&#160;')"/>
-        </xsl:call-template>
-      </xsl:when>
-      <xsl:when test="string-length($datalist)=1">
-        <xsl:if test="$datalist">
-          <ch>
-            <xsl:attribute name="a">
-              <xsl:value-of select="$datalist"/>
-            </xsl:attribute>
-          </ch>
-        </xsl:if>
-      </xsl:when>
-    </xsl:choose>
   </xsl:template>
 
 </xsl:stylesheet>
