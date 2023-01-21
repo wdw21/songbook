@@ -128,10 +128,11 @@ export class SongVerse extends HTMLElement {
     let r = document.getElementById(verse.linkSel.value);
     if (r) {
       verse.setAttribute("blocknb", r.id);
+      verse.setRadioToType(r.getAttribute('type'));
     } else {
       verse.setAttribute("blocknb", "?");
+      verse.setRadioToType('?');
     }
-    verse.setRadioToType(r.getAttribute('type'));
 
     this.refoninput(e, verse);
   }
