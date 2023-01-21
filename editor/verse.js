@@ -77,13 +77,15 @@ export class SongVerse extends HTMLElement {
     this.sidechords.style.width = this.sidechords.getBoundingClientRect().width + "px";
 
     let newsc = document.createDocumentFragment()
-    let rows = this.getElementsByTagName("song-row");
-    for (let r of rows) {
-      const ed = document.createElement("song-side-chords")
-      ed.setRow(r);
-      newsc.appendChild(ed);
-      r.siblingSide=ed;
-      this.resizeObserver.observe(r);
+    if (!this.getAttribute("blocknb")) {
+      let rows = this.getElementsByTagName("song-row");
+      for (let r of rows) {
+        const ed = document.createElement("song-side-chords")
+        ed.setRow(r);
+        newsc.appendChild(ed);
+        r.siblingSide = ed;
+        this.resizeObserver.observe(r);
+      }
     }
 
     this.sidechords.replaceChildren(newsc)
@@ -91,13 +93,21 @@ export class SongVerse extends HTMLElement {
   }
 
   refoninput(e, verse) {
-    if (this.btRadios.chorus.checked) { verse.setAttribute("type", "chorus"); }
-    if (this.btRadios.verse.checked) { verse.setAttribute("type", "verse"); }
-    if (this.btRadios.other.checked) { verse.setAttribute("type", "other"); }
+    if (this.btRadios.chorus.checked) {
+      verse.setAttribute("type", "chorus");
+    }
+    if (this.btRadios.verse.checked) {
+      verse.setAttribute("type", "verse");
+    }
+    if (this.btRadios.other.checked) {
+      verse.setAttribute("type", "other");
+    }
 
     verse.updateClass()
     verse.updateVisibility();
+    verse.refreshSidechords();
   }
+
 
   blocklinkoninput(e, verse) {
     if (verse.blocklink.checked) {
@@ -108,6 +118,7 @@ export class SongVerse extends HTMLElement {
 
     verse.updateClass()
     verse.updateVisibility();
+    verse.refreshSidechords();
   }
 
 
