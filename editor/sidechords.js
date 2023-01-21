@@ -12,7 +12,7 @@
 
 import {getChordsFromRow, getSideChordsForRow, setSideChordsForRow} from "./verse.js";
 import {nbsp} from "./utils.js";
-import {makeRowInstrumental, makeRowNotInstrumental, pushRowChords} from "./songbody.js";
+import {makeRowInstrumental, makeRowNotInstrumental, notifyRowParentAboutChange, pushRowChords} from "./songbody.js";
 
 const template = document.createElement('template');
 
@@ -33,9 +33,11 @@ export default class SideChordsRow extends HTMLElement {
         // });
         this.selectType.addEventListener("change", () => {
             this.pushRowType();
+            notifyRowParentAboutChange(this.row);
         });
         this.chinput.addEventListener("change", () => {
             this.pushSideChords();
+            notifyRowParentAboutChange(this.row);
         })
 
         this.buttonSyncToSide = shadow.getElementById("sync_to_side");
@@ -44,10 +46,12 @@ export default class SideChordsRow extends HTMLElement {
         this.buttonSyncToSide.addEventListener("click", () => {
             this.chinput.value = getChordsFromRow(this.row);
             this.pushSideChords();
+            notifyRowParentAboutChange(this.row);
         })
 
         this.buttonSyncToLyric.addEventListener("click", () => {
             pushRowChords(this.row, this.chinput.value)
+            notifyRowParentAboutChange(this.row);
             //this.pushSideChords();
         })
 

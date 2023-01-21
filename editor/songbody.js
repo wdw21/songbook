@@ -66,6 +66,7 @@ export function makeRowNotInstrumental(row) {
     if (row.siblingSide) {
       row.siblingSide.loadRow();
     }
+    notifyRowParentAboutChange(row);
   }
 }
 
@@ -89,6 +90,7 @@ export function pushRowChords(row, text) {
   //  row.appendChild(document.createTextNode(nbsp + nbsp));
   }
   row.normalize();
+  notifyRowParentAboutChange(row);
 }
 
 function removeTextFromRow(row) {
@@ -112,8 +114,15 @@ export function makeRowInstrumental(row) {
   if (row.siblingSide) {
     row.siblingSide.loadRow();
   }
+  notifyRowParentAboutChange(row);
 }
 
+export function notifyRowParentAboutChange(row) {
+  const songbody = findAncestor(row, 'SONG-BODY');
+  if (songbody) {
+    songbody.changePostprocess();
+  }
+}
 
 function insertChordHere(ch) {
   if (canInsertChord()) {
@@ -751,6 +760,7 @@ export default class SongBody extends HTMLElement {
       this.redo.push(last);
       this.innerHTML=last;
     }
+    this.refresh();
   }
 
   doRedo() {
@@ -760,6 +770,14 @@ export default class SongBody extends HTMLElement {
 
       this.innerHTML=redo;
     }
+    this.refresh();
+  }
+
+  refresh() {
+    for (const verse of this.childNodes) {
+      verse.refresh();
+    }
+    this.refreshToolbar();
   }
 
   changePostprocess() {

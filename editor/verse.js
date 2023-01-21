@@ -103,9 +103,13 @@ export class SongVerse extends HTMLElement {
       verse.setAttribute("type", "other");
     }
 
-    verse.updateClass()
-    verse.updateVisibility();
-    verse.refreshSidechords();
+    verse.refresh();
+  }
+
+  refresh() {
+    this.updateClass()
+    this.updateVisibility();
+    this.refreshSidechords();
   }
 
 
@@ -116,9 +120,7 @@ export class SongVerse extends HTMLElement {
       verse.removeAttribute("blocknb");
     }
 
-    verse.updateClass()
-    verse.updateVisibility();
-    verse.refreshSidechords();
+    verse.refresh();
   }
 
 
