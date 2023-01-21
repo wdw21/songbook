@@ -1,4 +1,12 @@
-import {findAncestor, getRangeForCursor,nbsp,removeAllChildren,mergeNodeAfter,setCursorBefore} from './utils.js';
+import {
+  findAncestor,
+  getRangeForCursor,
+  nbsp,
+  removeAllChildren,
+  mergeNodeAfter,
+  setCursorBefore,
+  setCursorAfter
+} from './utils.js';
 import {createChord} from './ch.js'
 import {createVerse, Sanitize, SplitVerseFromRow} from './sanitize.js'
 import {getChordsFromRow} from "./verse.js";
@@ -702,7 +710,11 @@ export default class SongBody extends HTMLElement {
         console.log("WSTAWIAM PRZED");
         newNode.insertBefore(document.createTextNode(nbsp), newNode.firstChild);
       }
-      setCursorBefore(curPos);
+      if (curPos) {
+        setCursorBefore(curPos);
+      } else {
+        setCursorAfter(newNode.firstChild);
+      }
       if (parentRow.childNodes.length==0) {
         parentRow.appendChild(document.createTextNode(nbsp));
       }
