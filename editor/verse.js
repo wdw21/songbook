@@ -117,7 +117,11 @@ export class SongVerse extends HTMLElement {
     if (verse.blocklink.checked) {
       verse.setAttribute("blocknb", "?");
     } else {
+      const referred = this.getReferred();
       verse.removeAttribute("blocknb");
+      if (referred) {
+        verse.innerHTML=referred.innerHTML;
+      }
     }
 
     verse.refresh();
