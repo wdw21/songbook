@@ -5,7 +5,7 @@
   <artist type="solo">Jacek Kaczmarski</artist>
   <lyric>
     <block type="verse">
-      <row style="instr"><ch a="e"/><ch a="eA"/><ch a="e"/><ch a="eA"/> </row>
+      <row important_over="false" style="instr"> <ch a="e"/><ch a="eA"/><ch a="e"/><ch a="eA"/>[wers instrumentalny]</row>
       <row important_over="true">D<ch a="e"/>ałeś mi P<ch a="D"/>anie zbr<ch a="e"/>oję</row>
       <row important_over="true">D<ch a="e"/>awny kuł pł<ch a="D"/>atnerz j<ch a="e"/>ą</row>
       <row important_over="true">W w<ch a="e"/>ielu pog<ch a="D"/>ięta b<ch a="e"/>ojach</row>
