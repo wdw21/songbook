@@ -10,7 +10,7 @@
 
 //const sidechordstemplate = document.createElement('template');
 
-import {getChordsFromRow, getSideChordsForRow, setSideChordsForRow} from "./verse.js";
+import {getChordsFromRow, getNextRow, getPrevRow, getSideChordsForRow, setSideChordsForRow} from "./verse.js";
 import {nbsp} from "./utils.js";
 import {makeRowInstrumental, makeRowNotInstrumental, notifyRowParentAboutChange, pushRowChords} from "./songbody.js";
 
@@ -26,11 +26,7 @@ export default class SideChordsRow extends HTMLElement {
         // this.chordsType = shadow.getElementById("chords_type");
         this.selectType = shadow.getElementById("select_type");
         this.chinput = shadow.getElementById("sch");
-        // this.chordsType.addEventListener("click", () => {
-        //     this.chordsType.style.display = "none";
-        //     this.selectType.hidden=false;
-        //     this.selectType.style.display = "inline";
-        // });
+
         this.selectType.addEventListener("change", () => {
             this.pushRowType();
             notifyRowParentAboutChange(this.row);
@@ -38,6 +34,36 @@ export default class SideChordsRow extends HTMLElement {
         this.chinput.addEventListener("change", () => {
             this.pushSideChords();
             notifyRowParentAboutChange(this.row);
+        })
+
+        this.chinput.addEventListener("beforeinput", (e) => {
+            console.log("SCH::BeforeInput", e)
+        })
+
+        this.chinput.addEventListener("keydown", (e) => {
+            console.log("SCH::KeyDown", e)
+            if (e.key == 'ArrowDown'
+                && this.chinput.selectionStart == this.chinput.selectionEnd
+                && this.chinput.selectionStart == this.chinput.value.length) {
+                const nextRow = getNextRow(this.row);
+                if (nextRow) {
+                    nextRow.siblingSide.chinput.focus();
+                    nextRow.siblingSide.chinput.selectionStart =0;
+                    nextRow.siblingSide.chinput.selectionEnd =0;
+                    e.preventDefault();
+                }
+            }
+            if (e.key == 'ArrowUp'
+                && this.chinput.selectionStart == this.chinput.selectionEnd
+                && this.chinput.selectionStart == 0) {
+                const prevRow = getPrevRow(this.row);
+                if (prevRow) {
+                    prevRow.siblingSide.chinput.focus();
+                    prevRow.siblingSide.chinput.selectionStart= prevRow.siblingSide.chinput.value.length;
+                    prevRow.siblingSide.chinput.selectionEnd = prevRow.siblingSide.chinput.selectionStart;
+                    e.preventDefault();
+                }
+            }
         })
 
         this.buttonSyncToSide = shadow.getElementById("sync_to_side");
