@@ -77,13 +77,15 @@ export class SongVerse extends HTMLElement {
     this.sidechords.style.width = this.sidechords.getBoundingClientRect().width + "px";
 
     let newsc = document.createDocumentFragment()
-    let rows = this.getElementsByTagName("song-row");
-    for (let r of rows) {
-      const ed = document.createElement("song-side-chords")
-      ed.setRow(r);
-      newsc.appendChild(ed);
-      r.siblingSide=ed;
-      this.resizeObserver.observe(r);
+    if (!this.getAttribute("blocknb")) {
+      let rows = this.getElementsByTagName("song-row");
+      for (let r of rows) {
+        const ed = document.createElement("song-side-chords")
+        ed.setRow(r);
+        newsc.appendChild(ed);
+        r.siblingSide = ed;
+        this.resizeObserver.observe(r);
+      }
     }
 
     this.sidechords.replaceChildren(newsc)
@@ -91,23 +93,38 @@ export class SongVerse extends HTMLElement {
   }
 
   refoninput(e, verse) {
-    if (this.btRadios.chorus.checked) { verse.setAttribute("type", "chorus"); }
-    if (this.btRadios.verse.checked) { verse.setAttribute("type", "verse"); }
-    if (this.btRadios.other.checked) { verse.setAttribute("type", "other"); }
+    if (this.btRadios.chorus.checked) {
+      verse.setAttribute("type", "chorus");
+    }
+    if (this.btRadios.verse.checked) {
+      verse.setAttribute("type", "verse");
+    }
+    if (this.btRadios.other.checked) {
+      verse.setAttribute("type", "other");
+    }
 
-    verse.updateClass()
-    verse.updateVisibility();
+    verse.refresh();
   }
+
+  refresh() {
+    this.updateClass()
+    this.updateVisibility();
+    this.refreshSidechords();
+  }
+
 
   blocklinkoninput(e, verse) {
     if (verse.blocklink.checked) {
       verse.setAttribute("blocknb", "?");
     } else {
+      const referred = this.getReferred();
       verse.removeAttribute("blocknb");
+      if (referred) {
+        verse.innerHTML=referred.innerHTML;
+      }
     }
 
-    verse.updateClass()
-    verse.updateVisibility();
+    verse.refresh();
   }
 
 
@@ -115,10 +132,11 @@ export class SongVerse extends HTMLElement {
     let r = document.getElementById(verse.linkSel.value);
     if (r) {
       verse.setAttribute("blocknb", r.id);
+      verse.setRadioToType(r.getAttribute('type'));
     } else {
       verse.setAttribute("blocknb", "?");
+      verse.setRadioToType('?');
     }
-    verse.setRadioToType(r.getAttribute('type'));
 
     this.refoninput(e, verse);
   }

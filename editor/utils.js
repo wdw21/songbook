@@ -57,10 +57,37 @@ export function loadXMLDoc(filename)
 }
 
 export function setCursorBefore(node) {
+  // Why not: document.getSelection().collapse(node); ?
+
   let newr=document.createRange();
   newr.setStartBefore(node);
   newr.setEndBefore(node);
   document.getSelection().removeAllRanges();
   document.getSelection().addRange(newr);
   console.log("New selection:", document.getSelection(), newr);
+}
+
+export function setCursorAfter(node) {
+  if (node.nextSibling) {
+    setCursorBefore(node.nextSibling)
+  } else {
+    let newr=document.createRange();
+    if (node.nodeName=='#text') {
+      newr.setStart(node, node.nodeValue.length - 1)
+      newr.setEnd(node, node.nodeValue.length - 1)
+    }
+    // newr.setStartBefore(node);
+    // newr.setEndBefore(node);
+    document.getSelection().removeAllRanges();
+    document.getSelection().addRange(newr);
+    console.log("New selection:", document.getSelection(), newr);
+  }
+  // Why not: document.getSelection().collapse(node); ?
+  //
+  // let newr=document.createRange();
+  // newr.setStartBefore(node);
+  // newr.setEndBefore(node);
+  // document.getSelection().removeAllRanges();
+  // document.getSelection().addRange(newr);
+  // console.log("New selection:", document.getSelection(), newr);
 }

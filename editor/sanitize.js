@@ -1,6 +1,6 @@
 import {createChord} from './ch.js';
 import {findAncestor,nbsp,removeAllChildren} from './utils.js';
-import {makeRowInstrumental} from './songbody.js';
+import {instrRowPhrase, isRowInstr, makeRowInstrumental} from './songbody.js';
 
 const spaceRegex = / /g;
 const nbspsRegexp = /\u00a0+/g;
@@ -126,6 +126,9 @@ function traverse(parent, node) {
       let newParent = nestToRows(parent);
       newParent.appendChild(node);
       traverseChilds(node, node.childNodes);
+      if (isRowInstr(node)) {
+        makeRowInstrumental(node);
+      }
       return newParent;
     }
     case 'SONG-ROWS': {
@@ -254,6 +257,10 @@ function isEmptyRow(el) {
       (el.textContent.trim()==='' || el.textContent.trim()===nbsp);
   console.log("Row", el, "is empty:", empty)
   return empty
+}
+
+function normalize(str) {
+  return str.trim().replace(nbsp," ");
 }
 
 export function SplitVerseFromRow(row) {
@@ -397,6 +404,9 @@ function lightTraverse(node) {
     case 'SONG-ROW': {
       if (node.parentNode.nodeName!='SONG-ROWS') {
         console.log("Misplaced", node);
+        return false;
+      }
+      if (isRowInstr(node) && normalize(node.textContent.trim()) !== normalize(instrRowPhrase)) {
         return false;
       }
       break;
