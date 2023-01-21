@@ -57,6 +57,8 @@ export function loadXMLDoc(filename)
 }
 
 export function setCursorBefore(node) {
+  // Why not: document.getSelection().collapse(node); ?
+
   let newr=document.createRange();
   newr.setStartBefore(node);
   newr.setEndBefore(node);

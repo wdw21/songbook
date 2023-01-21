@@ -22,6 +22,10 @@ function isChordSelected() {
   return getChordSelected() != null;
 }
 
+export function isRowInstr(row) {
+  return row.getAttribute('type','normal') == 'instr';
+}
+
 function canInsertChord() {
   if (window.getSelection().rangeCount < 1) {return false; }
   let r = window.getSelection().getRangeAt(0);
@@ -42,8 +46,9 @@ function canInsertChord() {
 export function makeRowNotInstrumental(row) {
   // let chords = row.innerText.replaceAll(' ', nbsp).split(nbsp);
   // console.log(chords);
-  if (row.getAttribute('type')=='instr') {
+  if (isRowInstr(row)) {
     row.removeAttribute("type");
+    removeTextFromRow(row);
     // removeAllChildren(row);
     // for (let i=0; i<chords.length; ++i) {
     //   row.appendChild(createChord(chords[i]));
@@ -78,10 +83,7 @@ export function pushRowChords(row, text) {
   row.normalize();
 }
 
-
-export function makeRowInstrumental(row) {
-  row.setAttribute("type", "instr");
-  row.removeAttribute('important_over');
+function removeTextFromRow(row) {
   let it=row.firstChild;
   while (it != null) {
     let n=it.nextSibling;
@@ -90,6 +92,15 @@ export function makeRowInstrumental(row) {
     }
     it = n;
   }
+}
+
+export const instrRowPhrase='[wers instrumentalny]';
+
+export function makeRowInstrumental(row) {
+  row.setAttribute("type", "instr");
+  row.removeAttribute('important_over');
+  removeTextFromRow(row);
+  row.insertBefore(document.createTextNode(instrRowPhrase), null);
   if (row.siblingSide) {
     row.siblingSide.loadRow();
   }
@@ -148,7 +159,7 @@ export default class SongBody extends HTMLElement {
     this.body=shadow.getElementById("songbody");
 
     this.body.addEventListener("mousedown", this.mouseDown);
-    this.body.addEventListener("click", this.click);
+   // this.body.addEventListener("click", this.click);
     this.body.addEventListener("dragover", (e) => {this.dragOver(e, this); });
     this.body.addEventListener("dragstart", (e) => {this.dragStart(e, this); });
     this.body.addEventListener("dragend", (e) => {this.dragEnd(e, this); });
@@ -389,16 +400,16 @@ export default class SongBody extends HTMLElement {
     }
   }
 
-  click(e) {
-    console.log("click", e);
-    if (e.target.nodeName==='SONG-ROW' && e.target.getAttribute('type')=='instr') {
-      makeRowNotInstrumental(e.target);
-    }
-    //   if (insertChordHere("")) {
-    //     e.preventDefault();
-    //   }
-    // }
-  }
+  // click(e) {
+  //   console.log("click", e);
+  //   if (e.target.nodeName==='SONG-ROW' && e.target.getAttribute('type')=='instr') {
+  //     makeRowNotInstrumental(e.target);
+  //   }
+  //   //   if (insertChordHere("")) {
+  //   //     e.preventDefault();
+  //   //   }
+  //   // }
+  // }
 
   keyDown(e,songBook) {
     console.log("keydown...",e, document.getSelection());
@@ -526,6 +537,22 @@ export default class SongBody extends HTMLElement {
 
   beforeInput(e, songbody) {
     console.log("beforeInput", e);
+
+    if (e.target != songbody) {
+      return;
+    }
+
+    let r = document.getSelection().getRangeAt(0);
+    const row = findAncestor(r.startContainer, 'SONG-ROW');
+    if (e.inputType=='insertText' && row && isRowInstr(row)) {
+      makeRowNotInstrumental(row);
+      const pre = document.createTextNode(nbsp);
+      row.insertBefore(pre, null);
+      setCursorBefore(pre);
+      e.preventDefault();
+      return;
+    }
+
     if (e.inputType == "deleteContentBackward"
        && e.target == songbody) {
       if (document.getSelection().rangeCount == 1

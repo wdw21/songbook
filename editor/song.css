@@ -12,21 +12,32 @@ song-row {
   padding-top: 0.5ex; /* We would prefer here margin, but padding works with the size observer.*/
 }
 
-song-row[type="instr"]:before {
-  content: '[wers instrumentalny]';
-  color: gray;
-  font-style: italic;
-  visibility: visible;
-}
+/*song-row[type="instr"]:before {*/
+/*  color: gray;*/
+/*  font-style: italic;*/
+/*  visibility: visible;*/
+/*}*/
+
+/*song-row[type="instr"]:before::selection {*/
+/*  color: pink;*/
+/*}*/
+
+/*song-row::selection {*/
+/*  color: pink;*/
+/*}*/
 
 song-row[type="instr"] {
+  /*content: '[wers instrumentalny]';*/
   /*overflow-wrap: normal;*/
   /*font-weight: bold;*/
   /*background: white;*/
   /*white-space:nowrap;*/
   /*font-family: Arial;*/
   /*margin-top: 0.6em;*/
- visibility: hidden;
+ /*visibility: hidden;*/
+    color: gray;
+    font-style: italic;
+    visibility: visible;
 }
 
 /*:host-context(song-row[type="instr"]) {*/
