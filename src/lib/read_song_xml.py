@@ -40,7 +40,7 @@ class Row:
         for chunk in root.getchildren():
             chunks.append(RowChunk(chord=chunk.attrib['a'], content=chunk.tail))
         return Row(
-            new_chords=bool(strtobool(root.attrib.get('important_over', 'false'))),
+            new_chords=root.attrib.get('important_over', 'false')=='true',
             bis=bis,
             chunks=chunks,
             instr=(root.attrib.get('style', '')=='instr'),
