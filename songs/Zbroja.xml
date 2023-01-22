@@ -51,7 +51,7 @@
     </block>
     <block type="chorus">
       <row important_over="false" sidechords="(D) G D">B<ch a="D"/>o ch<ch a="G"/>oć zaginął hełm i m<ch a="D"/>iecz</row>
-      <row important_over="false">Dla c<ch a="D"/>iała ż<ch a="a"/>adna w niej ost<ch a="G"/>oja</row>
+      <row important_over="false" sidechords="a G">Dla c<ch a="D"/>iała ż<ch a="a"/>adna w niej ost<ch a="G"/>oja</row>
       <row important_over="false">To prz<ch a="a"/>ecież w k<ch a="H7"/>ońcu ważna rz<ch a="C"/>e<ch a="a"/>cz</row>
       <row important_over="false" sidechords="e H7 e (eA)">Zb<ch a="e"/>r<ch a="H7"/>o<ch a="e"/>j<ch a="A"/>a<ch a="e"/></row>
     </block>
@@ -67,7 +67,7 @@
     </block>
     <block type="chorus">
       <row important_over="never" sidechords="(D) G D"><ch a="D"/>Więc choć za ciosem pada cios<ch a="G"/><ch a="D"/></row>
-      <row important_over="never"><ch a="D"/>I wróg posiłki śle w konwojach<ch a="a"/><ch a="G"/></row>
+      <row important_over="never" sidechords="a G"><ch a="D"/>I wróg posiłki śle w konwojach<ch a="a"/><ch a="G"/></row>
       <row important_over="never"><ch a="a"/>Nas przed upadkiem chroni wciąż<ch a="H7"/><ch a="C"/><ch a="a"/></row>
       <row important_over="never" sidechords="e H7 e (eA)"><ch a="e"/>Zbroja<ch a="H7"/><ch a="e"/><ch a="A"/><ch a="e"/></row>
     </block>
@@ -83,7 +83,7 @@
     </block>
     <block type="chorus">
       <row important_over="never" sidechords="(D) G D"><ch a="D"/>Choć słońce skrył bojowy gaz<ch a="G"/><ch a="D"/></row>
-      <row important_over="never"><ch a="D"/>I żołdak pławi się w rozbojach<ch a="a"/><ch a="G"/></row>
+      <row important_over="never" sidechords="a G"><ch a="D"/>I żołdak pławi się w rozbojach<ch a="a"/><ch a="G"/></row>
       <row important_over="never"><ch a="a"/>Wciąż przed upadkiem chroni nas<ch a="H7"/><ch a="C"/><ch a="a"/></row>
       <row important_over="never" sidechords="e H7 e (eA)"><ch a="e"/>Zbroja<ch a="H7"/><ch a="e"/><ch a="A"/><ch a="e"/></row>
     </block>
@@ -98,16 +98,15 @@
       <row important_over="never" sidechords="eD e (e)"><ch a="e"/>Hartuje pancerz nasz<ch a="D"/><ch a="e"/></row>
     </block>
     <block type="chorus">
-      <row important_over="never" sidechords="(D) G D"><ch a="D"/>Choć krwią zachłysnął się nasz czas<ch a="G"/><ch a="D"/></row>
-      <row important_over="never"><ch a="D"/>Choć myśli toną w paranojach<ch a="a"/><ch a="G"/></row>
-      <row important_over="never"><ch a="a"/>Jak zawsze chronić będzie nas<ch a="H7"/><ch a="C"/><ch a="e"/></row>
-      <row important_over="never" sidechords="e H7 e (eA)"><ch a="e"/>Zbroja<ch a="H7"/><ch a="e"/><ch a="A"/><ch a="e"/></row>
+      <bis times="2">
+        <row important_over="never" sidechords="(D) G D"><ch a="D"/>Choć krwią zachłysnął się nasz czas<ch a="G"/><ch a="D"/></row>
+        <row important_over="never" sidechords="a G"><ch a="D"/>Choć myśli toną w paranojach<ch a="a"/><ch a="G"/></row>
+        <row important_over="never" sidechords="a H7 C a"><ch a="a"/>Jak zawsze chronić będzie nas<ch a="H7"/><ch a="C"/><ch a="e"/></row>
+        <row important_over="never" sidechords="e H7 e"><ch a="e"/>Zbroja<ch a="H7"/><ch a="e"/><ch a="A"/><ch a="e"/></row>
+      </bis>
     </block>
     <block type="chorus">
-      <row important_over="never" sidechords="(D) G D"><ch a="D"/>Choć krwią zachłysnął się nasz czas<ch a="G"/><ch a="D"/></row>
-      <row important_over="never"><ch a="D"/>Choć myśli toną w paranojach<ch a="a"/><ch a="G"/></row>
-      <row important_over="never"><ch a="a"/>Jak zawsze chronić będzie nas<ch a="H7"/><ch a="C"/><ch a="e"/></row>
-      <row important_over="true" sidechords="e H7 e e H7 e e H7 e (eA)"><ch a="e"/>Zb<ch a="H7"/>roj<ch a="e"/>a,    <ch a="e"/>Zb<ch a="H7"/>roj<ch a="e"/>a,    <ch a="e"/>Zb<ch a="H7"/>roj<ch a="e"/>a<ch a="e"/><ch a="A"/></row>
+      <row important_over="never" sidechords="eH7e eH7e (Ae)"><ch a="e"/>Zbroja, <ch a="e"/>Zbroja</row>
     </block>
   </lyric>
   <music>
