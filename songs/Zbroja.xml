@@ -5,7 +5,9 @@
   <artist type="solo">Jacek Kaczmarski</artist>
   <lyric>
     <block type="verse">
-      <row important_over="false" style="instr" sidechords="e eA e eA x2"> [wers instrumentalny]<ch a="e"/><ch a="eA"/><ch a="e"/><ch a="eA"/><ch a="x2"/></row>
+      <bis times="2">
+        <row important_over="false" style="instr"> <ch a="e"/><ch a="eA"/><ch a="e"/><ch a="eA"/></row>
+      </bis>
       <row important_over="true" sidechords="eD e">D<ch a="e"/>ałeś mi P<ch a="D"/>anie zbr<ch a="e"/>oję</row>
       <row important_over="true" sidechords="eD e">D<ch a="e"/>awny kuł pł<ch a="D"/>atnerz j<ch a="e"/>ą</row>
       <row important_over="true" sidechords="eD e">W w<ch a="e"/>ielu pog<ch a="D"/>ięta b<ch a="e"/>ojach</row>
@@ -32,10 +34,10 @@
       <row important_over="never" sidechords="eD e (e)"><ch a="e"/>Co chce giganta grać<ch a="D"/><ch a="e"/></row>
     </block>
     <block type="chorus">
-      <row important_over="never" sidechords="(D) G D">L<ch a="D"/>ecz ch<ch a="G"/>oć zaginął hełm i m<ch a="D"/>iecz</row>
-      <row important_over="never">Dla c<ch a="a"/>iała żadna w niej ost<ch a="G"/>oja</row>
-      <row important_over="never">To prz<ch a="a"/>ecież w k<ch a="H7"/>ońcu ważna rz<ch a="C"/>e<ch a="a"/>cz</row>
-      <row important_over="never" sidechords="e H7 e (eA)">Zb<ch a="e"/>r<ch a="H7"/>o<ch a="e"/>ja    <ch a="e"/><ch a="A"/></row>
+      <row important_over="false" sidechords="(D) G D">L<ch a="D"/>ecz ch<ch a="G"/>oć zaginął hełm i m<ch a="D"/>iecz</row>
+      <row important_over="false">Dla c<ch a="a"/>iała żadna w niej ost<ch a="G"/>oja</row>
+      <row important_over="false">To prz<ch a="a"/>ecież w k<ch a="H7"/>ońcu ważna rz<ch a="C"/>e<ch a="a"/>cz</row>
+      <row important_over="false" sidechords="e H7 e (eA)">Zb<ch a="e"/>r<ch a="H7"/>o<ch a="e"/>ja    <ch a="e"/><ch a="A"/></row>
     </block>
     <block type="verse">
       <row important_over="never" sidechords="eD e"><ch a="e"/>A taka w niej powaga<ch a="D"/><ch a="e"/></row>
@@ -48,10 +50,10 @@
       <row important_over="never" sidechords="eD e (e)"><ch a="e"/>Jeśli umrę podczas snu<ch a="D"/><ch a="e"/></row>
     </block>
     <block type="chorus">
-      <row important_over="never" sidechords="(D) G D">B<ch a="D"/>o ch<ch a="G"/>oć zaginął hełm i m<ch a="D"/>iecz</row>
-      <row important_over="never">Dla c<ch a="D"/>iała ż<ch a="a"/>adna w niej ost<ch a="G"/>oja</row>
-      <row important_over="never">To prz<ch a="a"/>ecież w k<ch a="H7"/>ońcu ważna rz<ch a="C"/>e<ch a="a"/>cz</row>
-      <row important_over="never" sidechords="e H7 e (eA)">Zb<ch a="e"/>r<ch a="H7"/>o<ch a="e"/>j<ch a="A"/>a<ch a="e"/></row>
+      <row important_over="false" sidechords="(D) G D">B<ch a="D"/>o ch<ch a="G"/>oć zaginął hełm i m<ch a="D"/>iecz</row>
+      <row important_over="false">Dla c<ch a="D"/>iała ż<ch a="a"/>adna w niej ost<ch a="G"/>oja</row>
+      <row important_over="false">To prz<ch a="a"/>ecież w k<ch a="H7"/>ońcu ważna rz<ch a="C"/>e<ch a="a"/>cz</row>
+      <row important_over="false" sidechords="e H7 e (eA)">Zb<ch a="e"/>r<ch a="H7"/>o<ch a="e"/>j<ch a="A"/>a<ch a="e"/></row>
     </block>
     <block type="verse">
       <row important_over="never" sidechords="eD e"><ch a="e"/>Wrzasnęli hasło — wojna!<ch a="D"/><ch a="e"/></row>
@@ -105,7 +107,7 @@
       <row important_over="never" sidechords="(D) G D"><ch a="D"/>Choć krwią zachłysnął się nasz czas<ch a="G"/><ch a="D"/></row>
       <row important_over="never"><ch a="D"/>Choć myśli toną w paranojach<ch a="a"/><ch a="G"/></row>
       <row important_over="never"><ch a="a"/>Jak zawsze chronić będzie nas<ch a="H7"/><ch a="C"/><ch a="e"/></row>
-      <row important_over="never" sidechords="e H7 e e H7 e e H7 e (eA)"><ch a="e"/>Zb<ch a="H7"/>roj<ch a="e"/>a,    <ch a="e"/>Zb<ch a="H7"/>roj<ch a="e"/>a,    <ch a="e"/>Zb<ch a="H7"/>roj<ch a="e"/>a<ch a="A"/><ch a="e"/></row>
+      <row important_over="true" sidechords="e H7 e e H7 e e H7 e (eA)"><ch a="e"/>Zb<ch a="H7"/>roj<ch a="e"/>a,    <ch a="e"/>Zb<ch a="H7"/>roj<ch a="e"/>a,    <ch a="e"/>Zb<ch a="H7"/>roj<ch a="e"/>a<ch a="A"/><ch a="e"/></row>
     </block>
   </lyric>
   <music>
