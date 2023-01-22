@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="A my nie chcemy uciekać stąd">
-	<alias/>
 	<text_author type="solo">Jacek Kaczmarski</text_author>
-	<comment>Zwrotka 'Dym w dziurce od klucza' nie pojawia się w oficjalnych wersjach, które przeglądałem.</comment>
+	<comment>Zwrotka &#039;Dym w dziurce od klucza&#039; nie pojawia się w oficjalnych wersjach, które przeglądałem.</comment>
 	<composer type="solo">Przemysław Gintrowski</composer>
 	<artist type="solo">Jacek Kaczmarski; Przemysław Gintrowski</artist>
-	<translator/>
-	<original_title/>
 	<lyric>
 		<block type="verse">
 			<row important_over="true">St<ch a="a"/>anął w ogniu nasz wi<ch a="G"/>elki dom</row>
@@ -62,22 +59,19 @@
 	<music metre="4/4">
 		<guitar barre="0"/>
 	</music>
+	<keywords/>
+	<album>Przybycie Tytanów</album>
+	<genre>Poezja śpiewana</genre>
 	<status>
-		<verificators><verificator>Adam</verificator><verificator>Onufry</verificator>
-			
-			
-		</verificators>
-		<to_do>Dodaje rozmieszczenie akordów.Nie jestem na 100% pewien płyty</to_do>
-		<done>	
-			
-			
+		<done>
 			<text/>
 			<authors/>
 			<chords>chord positioning</chords>
 		</done>
+		<verificators>
+			<verificator>Adam</verificator>
+			<verificator>Onufry</verificator>
+		</verificators>
+		<to_do>Dodaje rozmieszczenie akordów.Nie jestem na 100% pewien płyty</to_do>
 	</status>
-	<keywords/>
-	<music_source/>
-	<album>Przybycie Tytanów</album>
-	<genre>Poezja śpiewana</genre>
 </song>
