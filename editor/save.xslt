@@ -226,13 +226,15 @@
           <xsl:value-of select="@type"/>
         </xsl:attribute>
       </xsl:if>
-        <xsl:if test="boolean(@sidechords) and string-length(@sidechords)>0">
+        <xsl:if test="boolean(@sidechords) and string-length(@sidechords)>0 and not(@type='instr')">
           <xsl:attribute name="sidechords">
             <xsl:value-of select="normalize-space(@sidechords)"/>
           </xsl:attribute>
         </xsl:if>
-        <xsl:if test="@type='instr'"><xsl:text> </xsl:text></xsl:if>
-        <xsl:apply-templates select="node()"/>
+        <xsl:if test="@type='instr'"><xsl:text> </xsl:text><xsl:apply-templates select="./xhtml:song-ch"/></xsl:if>
+        <xsl:if test="not(@type='instr')">
+          <xsl:apply-templates select="node()"/>
+        </xsl:if>
     </row>
   </xsl:template>
 

@@ -26,6 +26,9 @@ aż tyle.</comment>
       <row important_over="true"> I nie bisami</row>
     </block>
     <blocklink blocknb="2"/>
+    <block type="verse">
+      <row important_over="never" sidechords="C (D) | Cis">To jest zwrotka bez akordów nad</row>
+    </block>
   </lyric>
   <music metre="12/8">
     <guitar barre="13"/>
