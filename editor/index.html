@@ -153,9 +153,10 @@
     }
 
     async function commitAndPublish(e) {
-      await commit(e.target);
-      const {baseUrl,branch,user} = parseParams();
-      window.location = `${baseUrl}/users/${user}/changes/${branch}` + ':publish'
+      if (await commit(e.target)) {
+        const {baseUrl,branch,user} = parseParams();
+        window.location = `${baseUrl}/users/${user}/changes/${branch}` + ':publish'
+      }
     }
 
   </script>
