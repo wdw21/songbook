@@ -101,13 +101,13 @@
       <row important_over="never" sidechords="(D) G D"><ch a="D"/>Choć krwią zachłysnął się nasz czas<ch a="G"/><ch a="D"/></row>
       <row important_over="never"><ch a="D"/>Choć myśli toną w paranojach<ch a="a"/><ch a="G"/></row>
       <row important_over="never"><ch a="a"/>Jak zawsze chronić będzie nas<ch a="H7"/><ch a="C"/><ch a="e"/></row>
-      <row important_over="never" sidechords="e H7 e"><ch a="e"/>Zbroja<ch a="H7"/><ch a="e"/><ch a="A"/><ch a="e"/></row>
+      <row important_over="never" sidechords="e H7 e (eA)"><ch a="e"/>Zbroja<ch a="H7"/><ch a="e"/><ch a="A"/><ch a="e"/></row>
     </block>
     <block type="chorus">
       <row important_over="never" sidechords="(D) G D"><ch a="D"/>Choć krwią zachłysnął się nasz czas<ch a="G"/><ch a="D"/></row>
       <row important_over="never"><ch a="D"/>Choć myśli toną w paranojach<ch a="a"/><ch a="G"/></row>
       <row important_over="never"><ch a="a"/>Jak zawsze chronić będzie nas<ch a="H7"/><ch a="C"/><ch a="e"/></row>
-      <row important_over="true" sidechords="e H7 e e H7 e e H7 e (eA)"><ch a="e"/>Zb<ch a="H7"/>roj<ch a="e"/>a,    <ch a="e"/>Zb<ch a="H7"/>roj<ch a="e"/>a,    <ch a="e"/>Zb<ch a="H7"/>roj<ch a="e"/>a<ch a="A"/><ch a="e"/></row>
+      <row important_over="true" sidechords="e H7 e e H7 e e H7 e (eA)"><ch a="e"/>Zb<ch a="H7"/>roj<ch a="e"/>a,    <ch a="e"/>Zb<ch a="H7"/>roj<ch a="e"/>a,    <ch a="e"/>Zb<ch a="H7"/>roj<ch a="e"/>a<ch a="e"/><ch a="A"/></row>
     </block>
   </lyric>
   <music>
