@@ -73,7 +73,7 @@ class Row:
             chunks[0].content = ' ' + chunks[0].content
 
         instr = root.attrib.get('style', 'normal') == 'instr'
-        r = Row(new_chords=strtobool(root.attrib.get('important_over', 'false')), bis=bis, chunks=chunks, instr=instr, sidechords=root.attrib.get('sidechords', None))
+        r = Row(new_chords=(root.attrib.get('important_over', 'false')=='true'), bis=bis, chunks=chunks, instr=instr, sidechords=root.attrib.get('sidechords', None))
         if instr:
             r.row_type += RowType.INSTRUMENTAL.value
         return r

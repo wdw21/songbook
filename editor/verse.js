@@ -1,4 +1,4 @@
-import {nbsp} from "./utils.js";
+import {findAncestor, nbsp} from "./utils.js";
 import {SideChordsInit} from "./sidechords.js";
 import {pushRowChords} from "./songbody.js";
 
@@ -388,4 +388,30 @@ export function SongVerseBisInit() {
   SideChordsInit();
   customElements.define("song-verse", SongVerse);
   customElements.define("song-bis", SongBis);
+}
+
+export function getNextRow(row) {
+  if (row.nextSibling && row.nextSibling.nodeName=='SONG-ROW') {
+    return row.nextSibling;
+  }
+  let songbody = findAncestor(row, "SONG-BODY");
+  let rows = songbody.getElementsByTagName("song-row");
+  for (let i=0; i < rows.length; ++i) {
+    if (rows[i]==row) {
+      return i<rows.length-1 ? rows[i+1] : null;
+    }
+  }
+}
+
+export function getPrevRow(row) {
+  if (row.previousSibling && row.previousSibling.nodeName=='SONG-ROW') {
+    return row.previousSibling;
+  }
+  let songbody = findAncestor(row, "SONG-BODY");
+  let rows = songbody.getElementsByTagName("song-row");
+  for (let i=rows.length-1; i>=0; --i) {
+    if (rows[i]==row) {
+      return i>1 ? rows[i-1] : null;
+    }
+  }
 }
