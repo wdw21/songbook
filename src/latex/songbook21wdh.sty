@@ -88,12 +88,20 @@
 }
 
 \newcommand{\AAndCAndA}[3]{%
- {%
-       \small%
+  {\IfStrEq{#1#2#3}{}{}{%not empty
+    \small%
+    \IfStrEq{#1}{#2}{%
+        \IfStrEq{#2}{#3}{\textbf{Słowa, muzyka i wykonanie:}\ #1 \\}{%
+            \IfStrEq{#1}{}{}{\textbf{Słowa, muzyka:}\ #1 \\}
+            \IfStrEq{#3}{}{}{\textbf{Wykonawca:}\ #3 \\}
+        }
+    }{
        \if\blank{#1}{}\else{\textbf{Słowa:}\ #1 \\}\fi%
        \if\blank{#2}{}\else{\textbf{Muzyka:}\ #2 \\}\fi%
        \if\blank{#3}{}\else{\textbf{Wykonawca:}\ #3 \\}\fi%
-  }%
+    }
+  }
+  }
 }
 
 \newcommand{\STitle}[1]{%
