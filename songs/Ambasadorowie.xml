@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<song title="Ambasadorowie" xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd">
-	<alias></alias>
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Ambasadorowie">
 	<text_author type="solo">Jacek Kaczmarski</text_author>
-	<comment></comment>
 	<composer type="solo">Jacek Kaczmarski</composer>
 	<artist type="solo">Jacek Kaczmarski</artist>
-	<translator></translator>
-	<original_title></original_title>
-	<lyric xmlns="http://21wdh.staszic.waw.pl">
+	<lyric>
 		<block type="verse">
 			<row important_over="true">Jeszcze pod ręką globus - z taką mapą świata, <ch a="d"/><ch a="C"/><ch a="a"/><ch a="d"/></row>
 			<row important_over="true">Na jaką stać strategię, plany i marzenia. <ch a="d"/><ch a="C"/><ch a="A"/></row>
@@ -57,26 +53,13 @@
 			<row important_over="false">Ach! Jean de Dinteville, francuski ambasador…<ch a="D"/><ch a="A"/><ch a="D"/><ch a="A"/></row>
 		</block>
 	</lyric>
-	
-	
-	
-	
-	
-	
-	<music metre="4/4">
-		<guitar/>
-	</music>
-	<keywords></keywords>
-	<album></album>
+	<music metre="4/4"/>
+	<keywords/>
 	<genre>Poezja śpiewana</genre>
 	<status>
-		<done>
-		</done>
+		<done/>
 		<verificators>
 			<verificator>Onufry</verificator>
-			
 		</verificators>
-		<to_do></to_do>
 	</status>
-	<music_source></music_source>
 </song>
