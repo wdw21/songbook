@@ -88,13 +88,21 @@
 }
 
 \newcommand{\AAndCAndA}[3]{%
- {%
-       \small%
+  {\IfStrEq{#1#2#3}{}{}{%not empty
+    \small%
+    \IfStrEq{#1}{#2}{%
+        \IfStrEq{#2}{#3}{\textbf{Słowa, muzyka i wykonanie:}\ #1 \\}{%
+            \IfStrEq{#1}{}{}{\textbf{Słowa, muzyka:}\ #1 \\}%
+            \IfStrEq{#3}{}{}{\textbf{Wykonawca:}\ #3 \\}%
+        }%
+    }{%
        \if\blank{#1}{}\else{\textbf{Słowa:}\ #1 \\}\fi%
        \if\blank{#2}{}\else{\textbf{Muzyka:}\ #2 \\}\fi%
        \if\blank{#3}{}\else{\textbf{Wykonawca:}\ #3 \\}\fi%
+    }%
   }%
-}
+  }%
+}%
 
 \newcommand{\STitle}[1]{%
   {\LARGE\centering%
@@ -116,8 +124,8 @@
   \addcontentsline{toc}{section}{\theSongCnt{}. #1}
 %  \addcontentsline{toc}{section}{alias title}
   \STitle{\theSongTitle}
-  \AAndCAndA{#2}{#3}{#4}
-  \parindent=0pt
+  \AAndCAndA{#2}{#3}{#4}%
+  \parindent=0pt%
   }{}
 
 \newcommand{\calb}[0]{\vline width 2pt {}}%
@@ -161,6 +169,6 @@
       }%
       {\ChordsContext{#1#2}{}{#3}{#5}}%
     \if\blank{#4}{}\else{#4}\fi%
-    \IfSubStr{#1}{L}{\IfSubStr{#1}{E}{\\}{\\\vtop{\vskip1.5ex minus 1ex}\\}}{\IfSubStr{#1}{P}{\\*}{\IfSubStr{#1}{F}{\\*}{\\}}} % optionally we could emit \\* on last-by-1 line to prevent 1-line tables.
+    \IfSubStr{#1}{L}{\IfSubStr{#1}{E}{\\}{\\\vtop{\vskip0.7ex minus 1ex}\\}}{\IfSubStr{#1}{P}{\\*}{\IfSubStr{#1}{F}{\\*}{\\}}} % optionally we could emit \\* on last-by-1 line to prevent 1-line tables.
 }{}
 
