@@ -21,7 +21,7 @@ import {
     MAIN_BRANCH_NAME,
     prepareBranch, editorLink,
     prepareMainBranch,
-    HandleError, EDITOR_BASE_URL, PARENT_DOMAIN,
+    HandleError, EDITOR_BASE_URL, PARENT_DOMAIN, clearCookiesAndAuthRedirect,
 } from './common.js';
 
 const app = express();
@@ -174,6 +174,16 @@ app.get('/users/:user/changes[:]new', async (req, res) => {
         if (!octokit) {
             return;
         }
+        console.log("Request query: ", req.query)
+        console.log("Request query file: ", req.query.file)
+        if (req.query.file) {
+            let file = req.query.file;
+            console.log("Got file: ", file)
+            if (!file.toLowerCase().endsWith(".xml")) {
+                file = file + ".xml";
+            }
+            return await newChange(file, octokit, user, res)
+        }
 
         htmlPrefix(res);
         res.write(`
@@ -210,20 +220,16 @@ function sanitizeBranchName(br) {
     return br.replaceAll(/[^a-zA-Z0-9.\-_]/g, "_");
 }
 
-async function newChange(file, req, res) {
+async function newChange(file, octokit, user, res) {
     try {
         console.log("newChange started")
         let today = new Date().toISOString().slice(0, 10);
         let rand = Math.floor(Math.random() * 10000);
         let branchName = sanitizeBranchName("se-" + today + "-" + rand + "-" + file);
-        console.log("[newChange] getting octokit...")
-        const {octokit, user} = await newUserOctokit(req, res);
-        console.log("[newChange] got octokit. Preparing branch ...")
         await prepareBranch(octokit, user, branchName)
-
         res.redirect(editorLink(user, branchName, "songs/" + file, true, true));
     } catch (e) {
-        console.log("newChange EXCEPTION", JSON.stringify(e))
+        console.log("newChange EXCEPTION", e)
         // Don't know why generic handler is not executed.
         myErrorHandle(e, res);
         res.end();
@@ -232,19 +238,33 @@ async function newChange(file, req, res) {
 }
 
 app.post('/users/:user/changes[:]new', express.urlencoded({extended: true}), async (req, res) => {
-    console.log("BODY", JSON.stringify(req.body));
+  //  console.log("BODY", JSON.stringify(req.body));
     let file = req.body.file.trim();
     if (!file.toLowerCase().endsWith(".xml")) {
         file = file + ".xml";
     }
-    let nc = await newChange(file, req, res)
+    console.log("[newChange] getting octokit...")
+    const {octokit, user} = await newUserOctokit(req, res, `${BASE_URL}users/me/changes:new?file=${encodeURIComponent(file)}`);
+    if (!octokit) {
+        console.log("Couldn't get octokit...")
+        return
+    }
+    console.log("[newChange] got octokit. Preparing branch ...")
+    let nc = await newChange(file, octokit, user, res)
     console.log("users/:user/changes[:]new exited");
     return nc;
 });
 
 app.post('/users/:user/changes/:file[:]new', async (req, res) => {
     let file = req.params.trim();
-    return newChange(file, req, res)
+    console.log("[newChange] getting octokit...")
+    const {octokit, user} = await newUserOctokit(req, res, `${BASE_URL}users/me/changes:new?file=${encodeURIComponent(file)}`);
+    if (!octokit) {
+        console.log("Couldn't get octokit...")
+        return
+    }
+    console.log("[newChange] got octokit. Preparing branch ...")
+    return newChange(file, octokit, user, res)
 });
 
 app.get('/users/:user/songs', async (req, res) => {
@@ -455,21 +475,8 @@ app.get('/users/:user/changes/:branchName/:file([^$]+)', async (req, res) => {
     }
 });
 
-// TODO(ptab): - it should redirect back to origin, not to the 'changes' page
 app.get('/auth', async (req, res) => {
-    const state = crypto.randomUUID();
-    res.clearCookie("session", {domain: PARENT_DOMAIN});
-    res.cookie("state", state);
-
-    const {url} =
-        oauthAuthorizationUrl({
-            clientType: "oauth-app",
-            clientId: OAUTH_CLIENT_ID,
-            redirectUrl: CONFIG_BASE_URL,
-            scopes: ["public_repo"],
-            state: state,
-        });
-    res.redirect(url);
+    clearCookiesAndAuthRedirect(res, CHANGES_BASE_URL);
 });
 
 app.get('/intro', async (req, res) => {

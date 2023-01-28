@@ -3,6 +3,8 @@ import {Octokit} from "@octokit/rest";
 import {RequestError} from "@octokit/request-error";
 import util from "util";
 import {graphql}  from "@octokit/graphql";
+import crypto from "crypto";
+import {oauthAuthorizationUrl} from "@octokit/oauth-authorization-url";
 
 const USER_AGENT="songbook/0.1.0";
 
@@ -67,19 +69,50 @@ export function htmlSuffix(res) {
     res.end();
 }
 
-export async function newUserOctokit(req,res) {
+function getBackUrl(req, backUrl) {
+    if (backUrl) {
+        console.log("Using back URL", backUrl);
+        return backUrl;
+    }
+    if (req.method=='GET') {
+        console.log("Using back URL based on req: ", req.URL);
+        return req.URL;
+    }
+    console.log("Using the default back URL:" + CHANGES_BASE_URL);
+    return CHANGES_BASE_URL;
+}
+
+export function clearCookiesAndAuthRedirect(res, backUrl) {
+    const state = crypto.randomUUID();
+    res.clearCookie("session", {domain: PARENT_DOMAIN});
+    res.cookie("state", state);
+    res.cookie("redirectUrl", backUrl);
+
+    const {url} =
+        oauthAuthorizationUrl({
+            clientType: "oauth-app",
+            clientId: OAUTH_CLIENT_ID,
+            redirectUrl: backUrl,
+            scopes: ["public_repo"],
+            state: state,
+        });
+    res.redirect(url);
+}
+
+export async function newUserOctokit(req,res, backUrl) {
     let access_token = req.cookies.session ? req.cookies.session.access_token
         : null;
     let authuser = req.cookies.session ? req.cookies.session.user : null;
    // console.log("access token from cookie: ", access_token)
     if (!access_token || !authuser) {
+        const expectedBackUrl=req.cookies.redirectUrl ? req.cookies.redirectUrl : backUrl;
         //TODO(ptab): Compare secret with the cookie.
         const authData = {
             clientId: OAUTH_CLIENT_ID,
             clientSecret: OAUTH_APP_SECRET,
             code: req.query.code,
             state: req.query.state,
-            redirectUrl: CHANGES_BASE_URL,
+            redirectUrl: expectedBackUrl,
             log: console,
         };
 
@@ -90,7 +123,9 @@ export async function newUserOctokit(req,res) {
         } catch (e) {
             console.log("Catched error(1):", e);
             console.log("Catched error(2):", e.status, e instanceof RequestError);
-            res.redirect("/auth");
+
+            clearCookiesAndAuthRedirect(res, getBackUrl(req, backUrl));
+
             return {octkokit: null,authuser:null,user:null,mygraphql:null};
         }
         const octokit = new Octokit({
