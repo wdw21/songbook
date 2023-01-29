@@ -28,7 +28,7 @@
       <row important_over="true">Więc <ch a="F"/>czy pokażesz <ch a="C"/>mi</row>
       <row important_over="true">Powiedz, <ch a="F"/>czy pokażesz<ch a="C"/> mi</row>
       <row important_over="true">Gadaj, c<ch a="F"/>zy pokażesz mi</row>
-      <row important_over="true">Swe nagie <ch a="C"/>ciało<ch a="a"/><ch a="F"/><ch a="Fis"/><ch a="G"/>? / swoją kolekcję motyli / swe majtki w kratkę</row>
+      <row important_over="true">Swe nagie <ch a="C"/>ciało<ch a="a"/><ch a="F"/><ch a="Fis"/><ch a="G"/>?</row>
     </block>
     <block type="other">
       <row important_over="false" style="instr"> <ch a="C"/><ch a="a"/><ch a="F"/><ch a="G"/></row>
@@ -47,7 +47,7 @@
       <row important_over="never"><ch a="F"/>Lecz nie pokażę ci<ch a="C"/></row>
       <row important_over="never"><ch a="F"/>Nigdy nie pokażę ci<ch a="C"/></row>
       <row important_over="never"><ch a="F"/>Nie, ja nie pokażę ci</row>
-      <row important_over="never">Nagiego ciała! / kolekcji motyli / majtek w kratkę<ch a="C"/><ch a="a"/><ch a="F"/><ch a="Fis"/><ch a="G"/></row>
+      <row important_over="never">Nagiego ciała!<ch a="C"/><ch a="a"/><ch a="F"/><ch a="Fis"/><ch a="G"/></row>
     </block>
     <block type="verse">
       <row important_over="never"><ch a="C"/>Tańczymy blisko, zespół zagrał ,,Star dust&#039;&#039;<ch a="a"/><ch a="F"/><ch a="G"/></row>
@@ -57,7 +57,7 @@
       <row important_over="never"><ch a="F"/>Pokażesz jednak mi<ch a="C"/></row>
       <row important_over="never"><ch a="F"/>Że pokażesz w końcu mi<ch a="C"/></row>
       <row important_over="never"><ch a="F"/>Że pokażesz dzisiaj mi</row>
-      <row important_over="never">Swe nagie ciało / swoją kolekcję motyli / swe majtki w kratkę<ch a="C"/><ch a="a"/><ch a="F"/><ch a="Fis"/><ch a="G"/></row>
+      <row important_over="never">Swe nagie ciało<ch a="a"/><ch a="F"/><ch a="Fis"/><ch a="G"/></row>
     </block>
   </lyric>
   <keywords/>
