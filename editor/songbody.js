@@ -198,8 +198,8 @@ export default class SongBody extends HTMLElement {
     this.buttonRedo.addEventListener("click", (e) => this.doRedo());
 
     this.buttonBis.addEventListener("click", (e) => this.wrapBis());
-    this.importantOver.addEventListener("click", (e) => { this.markImportantOver(); this.refreshToolbar(); });
-    this.buttonInstr.addEventListener("click", (e) =>  { this.toggleInstrumental(); this.refreshToolbar(); });
+    this.importantOver.addEventListener("click", (e) => { this.toggleImportantOver(); this.refresh(); });
+    this.buttonInstr.addEventListener("click", (e) =>  { this.toggleInstrumental(); this.refresh(); });
     this.buttonChord.addEventListener("click", (e) =>  { insertChordHere(""); this.refreshToolbar(); });
     this.buttonSplit.addEventListener("click", (e) =>  { this.splitVerse(); this.refreshToolbar(); });
 
@@ -330,7 +330,7 @@ export default class SongBody extends HTMLElement {
     }
   }
 
-  markImportantOver() {
+  toggleImportantOver() {
     let allImportant = this.allSelectedImportant();
     let selRows = this.selectedRows();
     for (let i = 0; i < selRows.length; ++i) {
