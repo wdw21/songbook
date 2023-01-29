@@ -1,13 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Zielona dolina">
-	<alias></alias>
 	<text_author type="solo">Janusz Kubicki</text_author>
-	<comment></comment>
 	<composer type="band">Trzy dni Tyłem</composer>
 	<artist type="band">Trzy dni Tyłem</artist>
-	<translator></translator>
-	<original_title></original_title>
-	<lyric xmlns="http://21wdh.staszic.waw.pl">
+	<lyric>
 		<block type="verse">
 			<row important_over="false">Chcę dzień nowy zawsze witać</row>
 			<row important_over="false">Gdzieś daleko razem z tobą</row>
@@ -42,20 +38,18 @@
 		</block>
 		<blocklink blocknb="2"/>
 	</lyric>
-	<music metre="">
+	<music>
 		<guitar barre="0"/>
 	</music>
+	<keywords/>
+	<genre>Piosenka turystyczna</genre>
 	<status>
-		<verificators><verificator>Taboret</verificator>
-			
-		</verificators>
-		<to_do>Na podstawie informacji od p. Krzysztofa Mazurkiewicza</to_do>
 		<done>
 			<authors/>
 		</done>
+		<verificators>
+			<verificator>Taboret</verificator>
+		</verificators>
+		<to_do>Na podstawie informacji od p. Krzysztofa Mazurkiewicza</to_do>
 	</status>
-	<keywords/>
-	<music_source></music_source>
-	<album></album>
-	<genre>Piosenka turystyczna</genre>
 </song>
