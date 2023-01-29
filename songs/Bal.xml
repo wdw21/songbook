@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Bal">
-	<alias/>
 	<text_author type="solo">W. Wiśniewski</text_author>
 	<comment>To, że piosenk ma 4 akordy na krzyż nie znaczy że należy ją rąbać jak drewno !!!</comment>
 	<composer type="solo">Tomek Lewandowski</composer>
 	<artist type="solo">Tomek Lewandowski</artist>
-	<translator/>
-	<original_title/>
 	<lyric>
 		<block type="verse">
 			<row important_over="false">Moje myśli proszę was, siądźcie jak kruki koło mnie<ch a="G"/><ch a="D"/><ch a="C"/><ch a="D"/></row>
@@ -30,24 +27,19 @@
 		</block>
 		<blocklink blocknb="2"/>
 	</lyric>
-	<music metre="">
+	<music>
 		<guitar barre="0"/>
 	</music>
+	<keywords/>
+	<album>Miniony Czas</album>
 	<status>
-		<verificators><verificator>Adam</verificator>
-			
-		</verificators>
-		<to_do/>
-		<done>	
-			
-			
+		<done>
 			<text/>
 			<authors/>
 			<chords>chords</chords>
 		</done>
+		<verificators>
+			<verificator>Adam</verificator>
+		</verificators>
 	</status>
-	<keywords/>
-	<music_source/>
-	<album>Miniony Czas</album>
-	<genre/>
 </song>
