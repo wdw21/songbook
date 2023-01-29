@@ -381,7 +381,7 @@ async function validateSongXML(payload) {
     const song = libxmljs2.parseXml(payload);
 
     if (!song.validate(xsdDoc)) {
-        console.warn("XML not VALID")
+        console.warn("XML not VALID", payload)
         return JSON.stringify(song.validationErrors);
     } else {
         console.log("XML VALID :)")
