@@ -324,13 +324,6 @@ app.get('/config', async (req, res) => {
     res.redirect(`/users/${authuser}/changes`);
 });
 
-// function logRequest(req, res, next) {
-//     console.log("V=============================================================V");
-//     console.log("REQUEST", req)
-//     next();
-//     console.log("^=============================================================^");
-// }
-
 function myErrorHandle(e, res) {
     if (e instanceof RequestError && e.status===404) {
         console.log("Returning 404")
@@ -344,39 +337,8 @@ function myErrorHandle(e, res) {
     }
 }
 
-// function errorHandleWrapper(req, res, next) {
-//     console.log("V errorHandleWrapper =============================================================^");
-//     try {
-//         console.log("NEXT is NOT DONE for: " + req.url)
-//         next()
-//         console.log("NEXT is DONE for: " + req.url)
-//     } catch (e) {
-//         myErrorHandle(e, res)
-//     } finally {
-//         res.end();
-//     }
-//     console.log("^ errorHandleWrapper===================================================^");
-// }
-
-// function errorHandle(e, req, res, next) {
-//     console.log("Error handle for request", req.url)
-//     if (e instanceof RequestError && e.status===404) {
-//         console.log("Returning 404")
-//         res.status(404);
-//         res.send("Document not found");
-//     } if (e instanceof RequestError && e.status===401) {
-//         console.log("Got 401 -> Redirecting to /auth")
-//         res.redirect("/auth")
-//     } else {
-//         HandleError(e, res);
-//         res.end();
-//     }
-// }
-
 async function validateSongXML(payload) {
-    //path.resolve(__dirname, './song.xsd"')
     const xsd = fs.readFileSync(new URL('./song.xsd', import.meta.url)).toString()
-//    console.log("LOADED xsd: ", xsd)
     const xsdDoc = libxmljs2.parseXml(xsd);
     const song = libxmljs2.parseXml(payload);
 

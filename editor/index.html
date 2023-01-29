@@ -57,10 +57,7 @@
         songEditor.New();
       }
       songEditor.addEventListener("git:commit", async (e) => {
-        const success = await commit(e.target);
-        if (success) {
-          notice("Zapisano");
-        }
+         await commit(e.target);
       } );
       songEditor.addEventListener("git:commitAndPublish", (e)=>commitAndPublish(e) );
 
@@ -147,7 +144,9 @@
           return false;
         }
         msg = `Piosenka ${title}: ` + msg;
-        return commitInternal(songbook, serialized, msg)
+        const ci = commitInternal(songbook, serialized, msg)
+        notice("Zapisano", songbook);
+        return ci
       }
       return false;
     }
