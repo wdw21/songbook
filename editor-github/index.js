@@ -442,7 +442,7 @@ app.post('/users/:user/changes/:branchName[:]commit', async (req, res) => {
     const file = req.query.file
     const payload = req.body;
     const commitResult = await commit(branchName, file, msg, payload, req, res);
-    if (commitResult) {
+    if (commitResult && commitResult.createCommitOnBranch) {
         res.send(
             {
                 "status": "committed",
@@ -453,8 +453,8 @@ app.post('/users/:user/changes/:branchName[:]commit', async (req, res) => {
     } else {
         res.send(
             {
-                "status": "committed",
-                "commit": commitResult.createCommitOnBranch.commit
+                "status": "failure",
+                "errors": commitResult.errors
             }
         );
     }
