@@ -135,7 +135,7 @@
 
       if (!changed) {
         notice("Brak nowych zmian", songbook);
-        return false;
+        return true; // To taki sukces.
       }
 
       const {branch} = parseParams();

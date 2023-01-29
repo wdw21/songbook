@@ -6,7 +6,11 @@ import util from 'util';
 import crypto from 'crypto';
 import cookieParser from "cookie-parser";
 import cors from 'cors';
-import libxmljs from"libxmljs";
+
+import * as fs from 'fs';
+import * as path from "path";
+
+import libxmljs2 from "libxmljs2";
 
 import {cleanupChanges, listChanges} from './listChanges.js';
 import {
@@ -370,14 +374,19 @@ function myErrorHandle(e, res) {
 // }
 
 async function validateSongXML(payload) {
-    var xsd = '<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element name="comment" type="xs:string"/></xs:schema>';
+    path.resolve(__dirname, './song.xsd"')
+    const xsd = fs.readFileSync(path.resolve(__dirname, './song.xsd"')).toString()
+    console.log("LOADED xsd: ", xsd)
+    const xsdDoc = libxmljs2.parseXml(xsd);
+    const song = libxmljs2.parseXml(payload);
 
-    var xsdDoc = libxml.parseXml(xsd);
-    var xmlDocValid = libxml.parseXml(xml_valid);
-    var xmlDocInvalid = libxml.parseXml(xml_invalid);
-
-    assert.equal(xmlDocValid.validate(xsdDoc), true);
-    assert.equal(xmlDocInvalid.validate(xsdDoc), false);
+    if (!song.validate(xsdDoc)) {
+        console.warn("XML not VALID")
+        return JSON.stringify(song.validationErrors);
+    } else {
+        console.log("XML VALID :)")
+        return null
+    }
 }
 
 async function commit(branchName, file, msg, payload, req, res) {
@@ -394,7 +403,7 @@ async function commit(branchName, file, msg, payload, req, res) {
 
     const validError = await validateSongXML(payload);
     if (validError) {
-        return {error: validError};
+        return {errors: validError};
     }
 
     return mygraphql(`
