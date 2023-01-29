@@ -34,29 +34,29 @@
       <row important_over="true" sidechords="G D G (CD)"><ch a="G"/>I gryzie kminek <ch a="D"/>czarny przecinek <ch a="G"/>dnia  <ch a="C"/><ch a="D"/></row>
     </block>
     <block type="verse">
-      <row important_over="never" sidechords="G DG"><ch a="G"/>Noce śniły <ch a="D"/>budziły się <ch a="G"/>ranki</row>
-      <row important_over="never" sidechords="C GD"><ch a="C"/>Koniczyny <ch a="G"/>poczwórny był<ch a="D"/> liść</row>
-      <row important_over="never" sidechords="G DG"><ch a="G"/>Rwałaś groszek <ch a="D"/>zielony przed <ch a="G"/>gankiem</row>
-      <row important_over="never" sidechords="CG DG (H7)"><ch a="C"/>Kiedy <ch a="G"/>przyszło <ch a="D"/>polami nam <ch a="G"/>iść <ch a="H7"/></row>
-      <row important_over="never" sidechords="e H7e"><ch a="e"/>Trwało lato i <ch a="H7"/>trwała <ch a="e"/>muzyka</row>
-      <row important_over="never" sidechords="CC7+ aD"><ch a="C"/>Rumie<ch a="C7+"/>niłaś się <ch a="a"/>wiśnią z mych <ch a="D"/>ust</row>
-      <row important_over="never" sidechords="G CG"><ch a="G"/>Las na wzgórzu <ch a="C"/>horyzont<ch a="G"/> zamykał</row>
-      <row important_over="never"><ch a="C"/>A ty biegłaś ku <ch a="D"/>niemu bez tchu</row>
+      <row important_over="false" sidechords="G DG"><ch a="G"/>Noce śniły <ch a="D"/>budziły się <ch a="G"/>ranki</row>
+      <row important_over="false" sidechords="C GD"><ch a="C"/>Koniczyny <ch a="G"/>poczwórny był<ch a="D"/> liść</row>
+      <row important_over="false" sidechords="G DG"><ch a="G"/>Rwałaś groszek <ch a="D"/>zielony przed <ch a="G"/>gankiem</row>
+      <row important_over="false" sidechords="CG DG (H7)"><ch a="C"/>Kiedy <ch a="G"/>przyszło <ch a="D"/>polami nam <ch a="G"/>iść <ch a="H7"/></row>
+      <row important_over="false" sidechords="e H7e"><ch a="e"/>Trwało lato i <ch a="H7"/>trwała <ch a="e"/>muzyka</row>
+      <row important_over="false" sidechords="CC7+ aD"><ch a="C"/>Rumie<ch a="C7+"/>niłaś się <ch a="a"/>wiśnią z mych <ch a="D"/>ust</row>
+      <row important_over="false" sidechords="G CG"><ch a="G"/>Las na wzgórzu <ch a="C"/>horyzont<ch a="G"/> zamykał</row>
+      <row important_over="false"><ch a="C"/>A ty biegłaś ku <ch a="D"/>niemu bez tchu</row>
     </block>
     <blocklink blocknb="3"/>
     <block type="verse">
-      <row important_over="never" sidechords="G DG"><ch a="G"/>A gdy lipiec się w <ch a="D"/>drogę <ch a="G"/>spakował</row>
-      <row important_over="never" sidechords="C GD"><ch a="C"/>Oddał skrzypce i <ch a="G"/>poszedł gdzieś <ch a="D"/>w świat</row>
-      <row important_over="never" sidechords="G DG"><ch a="G"/>Ty zostałaś mi <ch a="D"/>panno <ch a="G"/>kminkowa</row>
-      <row important_over="never" sidechords="CG DG (H7)"><ch a="C"/>I łod<ch a="G"/>yżki rzuc<ch a="D"/>ane na <ch a="G"/>wiatr <ch a="H7"/></row>
-      <row important_over="never" sidechords="e H7e"><ch a="e"/>Jesień deszczem twe <ch a="H7"/>łąki <ch a="e"/>przemoczy</row>
-      <row important_over="never" sidechords="CC7+ aD"><ch a="C"/>Zima<ch a="C7+"/> śniegiem <ch a="a"/>okryje na <ch a="D"/>mróz</row>
-      <row important_over="never" sidechords="G CG"><ch a="G"/>A gdy lipiec zagl<ch a="C"/>ądnie ci w <ch a="G"/>oczy</row>
-      <row important_over="never"><ch a="C"/>Znowu będziesz tak <ch a="D"/>biegła bez tchu</row>
+      <row important_over="false" sidechords="G DG"><ch a="G"/>A gdy lipiec się w <ch a="D"/>drogę <ch a="G"/>spakował</row>
+      <row important_over="false" sidechords="C GD"><ch a="C"/>Oddał skrzypce i <ch a="G"/>poszedł gdzieś <ch a="D"/>w świat</row>
+      <row important_over="false" sidechords="G DG"><ch a="G"/>Ty zostałaś mi <ch a="D"/>panno <ch a="G"/>kminkowa</row>
+      <row important_over="false" sidechords="CG DG (H7)"><ch a="C"/>I łod<ch a="G"/>yżki rzuc<ch a="D"/>ane na <ch a="G"/>wiatr <ch a="H7"/></row>
+      <row important_over="false" sidechords="e H7e"><ch a="e"/>Jesień deszczem twe <ch a="H7"/>łąki <ch a="e"/>przemoczy</row>
+      <row important_over="false" sidechords="CC7+ aD"><ch a="C"/>Zima<ch a="C7+"/> śniegiem <ch a="a"/>okryje na <ch a="D"/>mróz</row>
+      <row important_over="false" sidechords="G CG"><ch a="G"/>A gdy lipiec zagl<ch a="C"/>ądnie ci w <ch a="G"/>oczy</row>
+      <row important_over="false"><ch a="C"/>Znowu będziesz tak <ch a="D"/>biegła bez tchu</row>
     </block>
     <blocklink blocknb="3"/>
     <block type="other">
-      <row important_over="never" sidechords="G D G (CD G)"><ch a="G"/>I gryzie kminek <ch a="D"/>czarny przecinek <ch a="G"/>dnia <ch a="C"/><ch a="D"/><ch a="G"/></row>
+      <row important_over="false" sidechords="G D G (CD G)"><ch a="G"/>I gryzie kminek <ch a="D"/>czarny przecinek <ch a="G"/>dnia <ch a="C"/><ch a="D"/><ch a="G"/></row>
     </block>
   </lyric>
   <music>
