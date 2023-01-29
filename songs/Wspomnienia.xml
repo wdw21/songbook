@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Wspomnienia">
   <alias>Kanada</alias>
-  <text_author type="solo">Leonard Cohen/Phil Spector, Leonard Cohen</text_author>
+  <text_author type="solo">Phil Spector, Leonard Cohen</text_author>
   <comment>Do sprawdzenia akordy i ustawienie nad tekstem</comment>
   <composer type="solo">Phil Spector</composer>
+  <artist>Maciej Zębaty</artist>
   <translator>Maciej Karpiński, Maciej Zembaty</translator>
   <original_title>Memories</original_title>
   <lyric>
     <block type="other">
-      <row important_over="false" style="instr"> </row>
+      <row important_over="false" style="instr"> <ch a="C"/><ch a="a"/><ch a="F"/><ch a="G"/></row>
       <row important_over="never">Lata 50, Kanada<ch a="C"/><ch a="a"/><ch a="F"/><ch a="G"/></row>
       <row important_over="never">Brudna przepocona sala gimnastyczna</row>
       <row important_over="never">W jakiejś kanadyjskiej szkole</row>
@@ -30,8 +31,8 @@
       <row important_over="true">Swe nagie <ch a="C"/>ciało<ch a="a"/><ch a="F"/><ch a="Fis"/><ch a="G"/>? / swoją kolekcję motyli / swe majtki w kratkę</row>
     </block>
     <block type="other">
-      <row important_over="false" style="instr"> </row>
-      <row important_over="never">A ja skoncentruję się</row>
+      <row important_over="false" style="instr"> <ch a="C"/><ch a="a"/><ch a="F"/><ch a="G"/></row>
+      <row important_over="never" sidechords="C a F G">A ja skoncentruję się</row>
       <row important_over="never">Przed czekającym mnie w następnej zwrotce</row>
       <row important_over="never">Niełatwym zadaniu aktorskim</row>
       <row important_over="never">Z tekstu wynika<ch a="a"/><ch a="F"/><ch a="Fis"/><ch a="G"/></row>
