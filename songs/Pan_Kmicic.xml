@@ -17,7 +17,7 @@
       <row important_over="true">Czyn to <ch a="A"/>czyn zapadła <ch a="d"/>klamka</row>
       <row important_over="true">Puścić <ch a="H"/>kura po <ch a="E"/>zaściankach</row>
     </block>
-    <block type="verse">
+    <block type="chorus">
       <bis times="2">
         <row important_over="true">Hej, kto <ch a="a"/>szlachta za <ch a="d"/>Kmicicem</row>
         <row important_over="true" sidechords="a Ea"><ch a="a"/>Hajda na Wołmonto<ch a="E"/>wicz<ch a="a"/>e</row>
