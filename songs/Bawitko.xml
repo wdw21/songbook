@@ -62,6 +62,7 @@
 			</bis>
 		</block>
 		<blocklink blocknb="3"/>
+		<blocklink blocknb="3"/>
 	</lyric>
 	<music>
 		<guitar barre="0"/>
@@ -77,6 +78,5 @@
 		<verificators>
 			<verificator>Adam</verificator>
 		</verificators>
-		<to_do>Adam -&gt; Ostatni refren bis=2 ale nie wiem jak to zrobić z kodu dla refrenu więć musisz się to zrobić sam</to_do>
 	</status>
 </song>
