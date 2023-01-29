@@ -377,7 +377,7 @@ export function setSideChordsForRow(row, ch) {
 
 export function getSideChordsForRow(row) {
   let sch = row.getAttribute("sidechords");
-  if (sch && sch.trim()!="") {
+  if (sch) { // Even empty sch - means explicitly no children in the subtree.
     return sch.trim();
   } else {
     return getChordsFromRow(row);

@@ -226,7 +226,7 @@
           <xsl:value-of select="@type"/>
         </xsl:attribute>
       </xsl:if>
-        <xsl:if test="boolean(@sidechords) and string-length(@sidechords)>0 and not(@type='instr')">
+        <xsl:if test="boolean(@sidechords) and not(@type='instr')">
           <xsl:attribute name="sidechords">
             <xsl:value-of select="normalize-space(@sidechords)"/>
           </xsl:attribute>
