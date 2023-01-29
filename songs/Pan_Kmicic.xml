@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Pan Kmicic">
-  <alias/>
   <text_author>Jacek Kaczmarski</text_author>
-  <comment/>
   <composer type="solo">Jacek Kaczmarski</composer>
   <artist type="solo">Jacek Kaczmarski</artist>
-  <translator/>
-  <original_title/>
   <lyric>
     <block type="verse">
       <row important_over="false"><ch a="a"/>Wilcze zęby, oczy siwe<ch a="d"/></row>
@@ -17,7 +13,7 @@
       <row important_over="false"><ch a="H"/>Puścić kura po zaściankach<ch a="E"/></row>
     </block>
     <block type="verse">
-      <bis>
+      <bis times="2">
         <row important_over="false"><ch a="a"/>Hej, kto szlachta za Kmicicem<ch a="D"/></row>
         <row important_over="false"><ch a="a"/>Hajda na Wołmontowicze<ch a="E"/><ch a="a"/></row>
       </bis>
@@ -79,11 +75,12 @@
     </block>
     <blocklink blocknb="2"/>
   </lyric>
-  <music metre="">
+  <music>
     <guitar barre="0"/>
   </music>
+  <keywords/>
   <status>
+    <done/>
     <verificators/>
-    <to_do/>
   </status>
 </song>
