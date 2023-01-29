@@ -26,11 +26,11 @@
     <block type="chorus">
       <row important_over="true" sidechords="G (D) e (D)"><ch a="G"/>Panno kminkowa<ch a="D"/>,  <ch a="e"/>panno lipcowa<ch a="D"/></row>
       <row important_over="true"><ch a="G"/>Twoje są łąki twoje skowronki <ch a="D"/>wszystkich łąk</row>
-      <row important_over="true" sidechords="e (CD) G C"><ch a="e"/>Idziesz polami <ch a="C"/><ch a="D"/>    <ch a="G"/>w palcach łodyżkę <ch a="C"/>masz</row>
+      <row important_over="true" sidechords="e (CD) G C"><ch a="e"/>Idziesz polami <ch a="C"/><ch a="D"/>     <ch a="G"/>w palcach łodyżkę <ch a="C"/>masz</row>
       <row important_over="true" sidechords="G D G (CD)"><ch a="G"/>I gryziesz kminek <ch a="D"/>czarny przecinek <ch a="G"/>nasz <ch a="C"/><ch a="D"/></row>
       <row important_over="true" sidechords="G (D) e (D)"><ch a="G"/>Panna kminkowa<ch a="D"/>,  <ch a="e"/>panna lipcowa<ch a="D"/></row>
       <row important_over="true"><ch a="G"/>Śmiać się gotowa letnia królowa <ch a="D"/>kwietnych łąk</row>
-      <row important_over="true" sidechords="e (CD) G C"><ch a="e"/>Idzie polami <ch a="C"/><ch a="D"/>    <ch a="G"/>w palcach łodyżkę <ch a="C"/>ma</row>
+      <row important_over="true" sidechords="e (CD) G C"><ch a="e"/>Idzie polami <ch a="C"/><ch a="D"/>     <ch a="G"/>w palcach łodyżkę <ch a="C"/>ma</row>
       <row important_over="true" sidechords="G D G (CD)"><ch a="G"/>I gryzie kminek <ch a="D"/>czarny przecinek <ch a="G"/>dnia  <ch a="C"/><ch a="D"/></row>
     </block>
     <block type="verse">
@@ -66,7 +66,8 @@
   <status>
     <done>
       <text/>
-      <chords>true</chords>
+      <authors/>
+      <chords>chord positioning</chords>
     </done>
     <verificators>
       <verificator>Adam Foland</verificator>
