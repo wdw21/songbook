@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Pan Kmicic">
-  <text_author>Jacek Kaczmarski</text_author>
+  <text_author type="solo">Jacek Kaczmarski</text_author>
+  <comment>27.10.1989
+(wg H. Sienkiewicza)</comment>
   <composer type="solo">Jacek Kaczmarski</composer>
   <artist type="solo">Jacek Kaczmarski</artist>
   <lyric>
     <block type="verse">
-      <row important_over="false"><ch a="a"/>Wilcze zęby, oczy siwe<ch a="d"/></row>
-      <row important_over="false"><ch a="E"/>Groźnie garść obuszkiem furczy<ch a="a"/></row>
-      <row important_over="false"><ch a="a"/>Gniew w zawody z wichru zrywem<ch a="d"/></row>
-      <row important_over="false"><ch a="E"/>Dzika radość, lot jaskółczy<ch a="a"/></row>
-      <row important_over="false"><ch a="A"/>Czyn to czyn zapadła klamka<ch a="d"/></row>
-      <row important_over="false"><ch a="H"/>Puścić kura po zaściankach<ch a="E"/></row>
+      <row important_over="false"><ch a="a"/>Wilcze zęby, oczy <ch a="d"/>siwe</row>
+      <row important_over="false">Groźnie <ch a="E"/>garść obuszkiem <ch a="a"/>furczy</row>
+      <row important_over="false"><ch a="a"/>Gniew w zawody z wichru <ch a="d"/>zrywem</row>
+      <row important_over="false">Dzika <ch a="E"/>radość, lot jaskółczy<ch a="a"/></row>
+      <row important_over="false">Czyn to <ch a="A"/>czyn zapadła <ch a="d"/>klamka</row>
+      <row important_over="false">Puścić <ch a="H"/>kura po <ch a="E"/>zaściankach</row>
     </block>
     <block type="verse">
       <bis times="2">
-        <row important_over="false"><ch a="a"/>Hej, kto szlachta za Kmicicem<ch a="D"/></row>
-        <row important_over="false"><ch a="a"/>Hajda na Wołmontowicze<ch a="E"/><ch a="a"/></row>
+        <row important_over="false">Hej, kto <ch a="a"/>szlachta za <ch a="d"/>Kmicicem</row>
+        <row important_over="false" sidechords="a Ea"><ch a="a"/>Hajda na Wołmonto<ch a="E"/>wicz<ch a="a"/>e</row>
       </bis>
     </block>
     <block type="verse">
@@ -48,7 +50,7 @@
     <block type="verse">
       <row important_over="false"><ch a="a"/>Jasna Góra, czas pokuty<ch a="d"/></row>
       <row important_over="false"><ch a="E"/>Trup, trup — Kmicic strzela z łuku<ch a="a"/></row>
-      <row important_over="false"><ch a="a"/>Klasztor płaszczem mgieł zasnuty<ch a="d"/></row>
+      <row important_over="false"><ch a="a"/>Klasztor płaszczem nieb zasnuty<ch a="d"/></row>
       <row important_over="false"><ch a="E"/>W Szwedzkich armat strasznym huku<ch a="a"/></row>
       <row important_over="false"><ch a="A"/>Jędrek się granatem bawi<ch a="d"/></row>
       <row important_over="false"><ch a="H"/>Ksiądz Kordecki błogosławi<ch a="E"/></row>
@@ -79,8 +81,15 @@
     <guitar barre="0"/>
   </music>
   <keywords/>
+  <album>Dzieci Hioba</album>
   <status>
-    <done/>
-    <verificators/>
+    <done>
+      <text/>
+      <authors/>
+      <chords>chord positioning</chords>
+    </done>
+    <verificators>
+      <verificator>Adam Foland</verificator>
+    </verificators>
   </status>
 </song>
