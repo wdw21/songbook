@@ -5,7 +5,7 @@
 		<block type="verse">
 			<row important_over="true"><ch a="C"/> Dany jest drz<ch a="a"/>ewom t<ch a="d"/>aki sen, Tu zmieniłem</row>
 			<row important_over="true"><ch a="G"/> Co korę w puchu mgi<ch a="C"/>eł zanurza,</row>
-			<row important_over="true"><ch a="a"/> Przegina wiatry zgi<ch a="d"/>ętym pniem</row>
+			<row important_over="true" sidechords="a d c"><ch a="a"/> Przegina wiatry zgi<ch a="d"/>ętym pniem</row>
 			<row important_over="true"><ch a="G"/> I twardnieć każe w l<ch a="C"/>etnich burzach.</row>
 		</block>
 		<block type="chorus">
