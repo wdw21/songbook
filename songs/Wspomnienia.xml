@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Wspomnienia">
   <alias>Kanada</alias>
-  <text_author type="solo">Leonard Cohen/Phil Spector & Leonard Cohen</text_author>
+  <text_author type="solo">Leonard Cohen/Phil Spector, Leonard Cohen</text_author>
   <comment>Do sprawdzenia akordy i ustawienie nad tekstem</comment>
   <composer type="solo">Phil Spector</composer>
   <translator>Maciej Karpiński, Maciej Zembaty</translator>
