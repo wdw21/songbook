@@ -3,6 +3,7 @@ import {loadXMLDoc, nbsp} from './utils.js';
 function escapeAttrib(unsafe)
 {
   return unsafe
+      .replace(/&/g, '&amp;')
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
 }
@@ -10,6 +11,9 @@ function escapeAttrib(unsafe)
 function escapeText(unsafe)
 {
   return unsafe
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
 }
