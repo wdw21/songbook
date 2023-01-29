@@ -160,8 +160,13 @@ export default class SongBody extends HTMLElement {
       <button id="buttonSplit"><i class="material-icons">insert_page_break</i>Podziel zwrotkę</button>
       <button id="buttonBis"><i class="material-icons">repeat_on</i>BIS</button><i id="help-bis-icon" class="material-icons">help</i>
       <div id="help-bis" class="help">Zaznaczone wiersze będą powtarzane. Ustaw licznik na 1 by wyłączyć.</div>
-      <button id="importantOver"><i class="material-icons">assignment_late</i>Kluczowe akordy</button><i id="help-io-icon" class="material-icons">help</i>
-      <div id="help-io" class="help">Oznacz wersy w których jest ważne by akordy pojawiały się nad tekstem.</div>
+      
+      <div>
+        <button id="importantOver"><i class="material-icons">assignment_late</i>Kluczowe akordy</button>
+        <button id="notImportantOver"><i class="material-icons">assignment_late</i>Opcjonalnie nad</button>
+        <button id="sideOnly"><i class="material-icons">assignment_late</i>Tylko z boku</button>
+      </div>
+      
       <button id="buttonInstr"><i class="material-icons">music_note</i>Wers instrumentalny</button><i id="help-instr-icon" class="material-icons">help</i>
       <div id="help-instr" class="help">Wers zawierający tylko akordy. Odzielaj je spacjami.</div>
       
@@ -187,7 +192,11 @@ export default class SongBody extends HTMLElement {
     this.buttonAppendVerse=shadow.getElementById("appendVerse");
 
     this.buttonBis=shadow.getElementById("buttonBis");
+
     this.importantOver=shadow.getElementById("importantOver");
+    this.notImportantOver=shadow.getElementById("notImportantOver");
+    this.sideOnly=shadow.getElementById("sideOnly");
+
     this.buttonInstr=shadow.getElementById("buttonInstr");
     this.buttonChord=shadow.getElementById("buttonChord");
     this.buttonSplit=shadow.getElementById("buttonSplit");
@@ -198,7 +207,11 @@ export default class SongBody extends HTMLElement {
     this.buttonRedo.addEventListener("click", (e) => this.doRedo());
 
     this.buttonBis.addEventListener("click", (e) => this.wrapBis());
-    this.importantOver.addEventListener("click", (e) => { this.toggleImportantOver(); this.refresh(); });
+
+    this.importantOver.addEventListener("click", (e) => { this.toggleImportantOver("true"); this.refresh(); });
+    this.notImportantOver.addEventListener("click", (e) => { this.toggleImportantOver("false"); this.refresh(); });
+    this.sideOnly.addEventListener("click", (e) => { this.toggleImportantOver("never"); this.refresh(); });
+
     this.buttonInstr.addEventListener("click", (e) =>  { this.toggleInstrumental(); this.refresh(); });
     this.buttonChord.addEventListener("click", (e) =>  { insertChordHere(""); this.refreshToolbar(); });
     this.buttonSplit.addEventListener("click", (e) =>  { this.splitVerse(); this.refreshToolbar(); });
@@ -209,7 +222,7 @@ export default class SongBody extends HTMLElement {
 
     this.shadow = shadow;
     this.initHelp("help-bis");
-    this.initHelp("help-io");
+ //   this.initHelp("help-io");
     this.initHelp("help-instr");
 
     this.reset();
@@ -230,11 +243,8 @@ export default class SongBody extends HTMLElement {
   }
 
   refreshToolbar() {
-    if (this.allSelectedImportant()) {
-      this.importantOver.innerHTML='<i class="material-icons">assignment_late</i>Mało ważne akordy';  //priority_high ?
-    } else {
-      this.importantOver.innerHTML='<i class="material-icons">assignment_late</i>Kluczowe akordy'; //low_priority ?
-    }
+    this.importantOver.disabled = this.allSelectedImportant();
+
     if (this.allSelectedInstrumental()) {
       this.buttonInstr.innerHTML='<i class="material-icons">lyrics</i>Wers liryczny';
     } else {
@@ -330,11 +340,10 @@ export default class SongBody extends HTMLElement {
     }
   }
 
-  toggleImportantOver() {
-    let allImportant = this.allSelectedImportant();
+  toggleImportantOver(important_over) {
     let selRows = this.selectedRows();
     for (let i = 0; i < selRows.length; ++i) {
-      selRows[i].setAttribute("important_over", !allImportant);
+      selRows[i].setAttribute("important_over", important_over);
     }
   }
 
