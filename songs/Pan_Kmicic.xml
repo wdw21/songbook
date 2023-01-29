@@ -7,9 +7,12 @@
   <artist type="solo">Jacek Kaczmarski</artist>
   <lyric>
     <block type="verse">
-      <row important_over="true"><ch a="a"/>Wilcze zęby, oczy <ch a="d"/>siwe</row>
+      <bis times="4">
+        <row important_over="false" style="instr"> <ch a="aa"/><ch a="ad"/></row>
+      </bis>
+      <row important_over="true">Wilcze <ch a="a"/>zęby, oczy <ch a="d"/>siwe</row>
       <row important_over="true">Groźnie <ch a="E"/>garść obuszkiem <ch a="a"/>furczy</row>
-      <row important_over="true"><ch a="a"/>Gniew w zawody z wichru <ch a="d"/>zrywem</row>
+      <row important_over="true">Gniew w<ch a="a"/> zawody z wichru <ch a="d"/>zrywem</row>
       <row important_over="true">Dzika <ch a="E"/>radość, lot jaskółczy<ch a="a"/></row>
       <row important_over="true">Czyn to <ch a="A"/>czyn zapadła <ch a="d"/>klamka</row>
       <row important_over="true">Puścić <ch a="H"/>kura po <ch a="E"/>zaściankach</row>
@@ -73,7 +76,7 @@
       <row important_over="never"><ch a="A"/>Więc za słuszną sprawność ręki<ch a="d"/></row>
       <row important_over="never"><ch a="H"/>Będzie ręka i Oleńki<ch a="E"/></row>
       <row important_over="never"><ch a="A"/>Łaska króla, dworek dzieci<ch a="d"/></row>
-      <row important_over="never"><ch a="H"/>Szlachcic co przykładem świeci<ch a="E"/></row>
+      <row important_over="false"><ch a="H"/>Szlachcic co przykładem świeci<ch a="E"/></row>
     </block>
     <blocklink blocknb="2"/>
   </lyric>
