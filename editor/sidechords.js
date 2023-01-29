@@ -175,7 +175,7 @@ export function SideChordsInit() {
 <!--      <span id="chords_type"  class="material-icons">auto_awesome</span>-->
       <select id="select_type">
           <option value="important">Kluczowe nad</option><!--First chorus only-->
-          <option value="available">Dostępne nad</option><-- Szkoda miejsca-->
+          <option value="available">Opcjonalnie nad</option><-- Szkoda miejsca-->
           <option value="never">Tylko z boku</option><!-- never - np. nie ustawione prawidłowo-->
           <option value="instr">Wers instrumentalny</option>
       </select>
