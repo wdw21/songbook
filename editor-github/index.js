@@ -374,9 +374,9 @@ function myErrorHandle(e, res) {
 // }
 
 async function validateSongXML(payload) {
-    path.resolve(__dirname, './song.xsd"')
-    const xsd = fs.readFileSync(path.resolve(__dirname, './song.xsd"')).toString()
-    console.log("LOADED xsd: ", xsd)
+    //path.resolve(__dirname, './song.xsd"')
+    const xsd = fs.readFileSync(new URL('./song.xsd', import.meta.url)).toString()
+//    console.log("LOADED xsd: ", xsd)
     const xsdDoc = libxmljs2.parseXml(xsd);
     const song = libxmljs2.parseXml(payload);
 
