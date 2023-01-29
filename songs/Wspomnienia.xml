@@ -27,7 +27,7 @@
     <block type="other">
       <row important_over="never"><ch a="C"/><ch a="a"/><ch a="F"/><ch a="G"/>A ja skoncentruję się przed czekającym mnie </row>
       <row important_over="never">w następnej zwrotce niełatwym zadaniu aktorskim</row>
-      <row important_over="never">Z tekstu wynika<ch a="a"/><ch a="F"/><ch a="Fis"/><ch a="G"/>, że będę musiał wcielić się w postać</row>
+      <row important_over="never" sidechords="a F">Z tekstu wynika<ch a="a"/><ch a="F"/><ch a="Fis"/><ch a="G"/>, że będę musiał wcielić się w postać</row>
       <row important_over="never">Niewinnej, jasnowłosej, kanadyjskiej nastolatki</row>
     </block>
     <block type="verse">
