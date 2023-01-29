@@ -7,6 +7,11 @@ import crypto from 'crypto';
 import cookieParser from "cookie-parser";
 import cors from 'cors';
 
+import * as fs from 'fs';
+import * as path from "path";
+
+import libxmljs2 from "libxmljs2";
+
 import {cleanupChanges, listChanges} from './listChanges.js';
 import {
     BASE_URL,
@@ -368,6 +373,21 @@ function myErrorHandle(e, res) {
 //     }
 // }
 
+async function validateSongXML(payload) {
+    //path.resolve(__dirname, './song.xsd"')
+    const xsd = fs.readFileSync(new URL('./song.xsd', import.meta.url)).toString()
+//    console.log("LOADED xsd: ", xsd)
+    const xsdDoc = libxmljs2.parseXml(xsd);
+    const song = libxmljs2.parseXml(payload);
+
+    if (!song.validate(xsdDoc)) {
+        console.warn("XML not VALID", payload)
+        return JSON.stringify(song.validationErrors);
+    } else {
+        console.log("XML VALID :)")
+        return null
+    }
+}
 
 async function commit(branchName, file, msg, payload, req, res) {
     const {octokit, mygraphql, user} = await newUserOctokit(req, res);
@@ -380,6 +400,11 @@ async function commit(branchName, file, msg, payload, req, res) {
     const branch = await prepareBranch(octokit, user, branchName)
 
     console.log(util.inspect(branch, false, null, false));
+
+    const validError = await validateSongXML(payload);
+    if (validError) {
+        return {errors: validError};
+    }
 
     return mygraphql(`
   mutation ($input: CreateCommitOnBranchInput!) {
@@ -417,13 +442,22 @@ app.post('/users/:user/changes/:branchName[:]commit', async (req, res) => {
     const file = req.query.file
     const payload = req.body;
     const commitResult = await commit(branchName, file, msg, payload, req, res);
-    res.send(
-        {
-            "status": "committed",
-            "commit": commitResult.createCommitOnBranch.commit
-        }
-    );
-    console.log(":commit over")
+    if (commitResult && commitResult.createCommitOnBranch) {
+        res.send(
+            {
+                "status": "committed",
+                "commit": commitResult.createCommitOnBranch.commit
+            }
+        );
+        console.log(":commit over")
+    } else {
+        res.send(
+            {
+                "status": "failure",
+                "errors": commitResult.errors
+            }
+        );
+    }
 });
 
 app.post('/users/:user/changes/:branchName/:file([^$]+)', async (req, res) => {
