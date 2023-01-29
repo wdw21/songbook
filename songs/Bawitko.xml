@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Bawitko">
-	<alias/>
 	<text_author type="solo">Andrzej Poniedzielski</text_author>
-	<comment/>
 	<composer type="solo">Andrzej Poniedzielski</composer>
 	<artist type="solo">Andrzej Poniedzielski</artist>
-	<translator/>
-	<original_title/>
 	<lyric>
 		<block type="verse">
 			<row important_over="false">W<ch a="d"/>agą zabr<ch a="C"/>aną Tem<ch a="d"/>idzie</row>
@@ -25,15 +21,11 @@
 			</bis>
 		</block>
 		<block type="chorus">
-			<row important_over="false">
-				<ch a="d"/>Oj nieł<ch a="C"/>adnie człowieku ni<ch a="d"/>eładnie</row>
-			<row important_over="false">
-				<ch a="d"/>Oj nieł<ch a="C"/>adnie człowieku brz<ch a="d"/>ydko</row>
-			<row important_over="false">
-				<ch a="d"/>Ty się całe ż<ch a="C"/>ycie tylko baw<ch a="d"/>isz</row>
+			<row important_over="false"><ch a="d"/>Oj nieł<ch a="C"/>adnie człowieku ni<ch a="d"/>eładnie</row>
+			<row important_over="false"><ch a="d"/>Oj nieł<ch a="C"/>adnie człowieku brz<ch a="d"/>ydko</row>
+			<row important_over="false"><ch a="d"/>Ty się całe ż<ch a="C"/>ycie tylko baw<ch a="d"/>isz</row>
 			<bis times="2">
-				<row important_over="false">
-					<ch a="d"/>Czasem sobie zmi<ch a="C"/>eniasz baw<ch a="d"/>itko</row>
+				<row important_over="false"><ch a="d"/>Czasem sobie zmi<ch a="C"/>eniasz baw<ch a="d"/>itko</row>
 			</bis>
 		</block>
 		<block type="verse">
@@ -66,27 +58,25 @@
 			<row important_over="false">Sł<ch a="d"/>owa skład<ch a="C"/>amy w kwi<ch a="d"/>atach</row>
 			<row important_over="false">P<ch a="d"/>otem przyp<ch a="C"/>rószą je l<ch a="F"/>iście jesi<ch a="G"/>eni</row>
 			<bis times="2">
-				<row important_over="false">
-					<ch a="d"/>Odgrzebuj<ch a="C"/>emy po l<ch a="d"/>atach</row>
+				<row important_over="false"><ch a="d"/>Odgrzebuj<ch a="C"/>emy po l<ch a="d"/>atach</row>
 			</bis>
 		</block>
 		<blocklink blocknb="3"/>
 	</lyric>
-	<music metre="">
+	<music>
 		<guitar barre="0"/>
 	</music>
+	<keywords/>
+	<album>13 łatwych utworów tanecznych</album>
 	<status>
-		<verificators><verificator>Adam</verificator>
-		</verificators>
-		<to_do>Adam -&gt; Ostatni refren bis=2 ale nie wiem jak to zrobić z kodu dla refrenu więć musisz się to zrobić sam</to_do>
 		<done>
 			<text/>
 			<authors/>
 			<chords>chord positioning</chords>
 		</done>
+		<verificators>
+			<verificator>Adam</verificator>
+		</verificators>
+		<to_do>Adam -&gt; Ostatni refren bis=2 ale nie wiem jak to zrobić z kodu dla refrenu więć musisz się to zrobić sam</to_do>
 	</status>
-	<keywords/>
-	<music_source/>
-	<album>13 łatwych utworów tanecznych</album>
-	<genre/>
 </song>
