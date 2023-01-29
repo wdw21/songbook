@@ -1,21 +1,16 @@
 import {loadXMLDoc, nbsp} from './utils.js';
 
-function escapeAttrib(unsafe)
-{
-  return unsafe
-      .replace(/&/g, '&amp;')
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-}
-
-function escapeText(unsafe)
-{
+function escapeText(unsafe) {
   return unsafe
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
+}
+
+function escapeAttrib(unsafe) {
+  return escapeText(unsafe)
 }
 
 function serializeElement(indent, elem, sep) { // returns { out: '   ', breakClosing: true/false}
