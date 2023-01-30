@@ -2,10 +2,10 @@
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Gloria">
   <text_author>Edward Stachura</text_author>
   <composer type="solo">Krzysztof Myszkowski</composer>
-  <artist type="solo">Stare Dobre Małżeństwo</artist>
+  <artist type="band">Stare Dobre Małżeństwo</artist>
   <lyric>
     <block type="other">
-      <row important_over="false" style="instr"> <ch a="G"/><ch a="G"/><ch a="e"/><ch a="G"/><ch a="a"/><ch a="C"/><ch a="D"/><ch a="G"/></row>
+      <row important_over="false" style="instr"> <ch a="G"/><ch a="Ge"/><ch a="Ga"/><ch a="CD"/><ch a="G"/></row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="G"/>Chwała najsampierw komu, komu gloria<ch a="e"/><ch a="G"/><ch a="a"/></row>
@@ -55,8 +55,12 @@
     <guitar barre="0"/>
   </music>
   <keywords/>
+  <album>Dla wszystkich starczy miejsca / Sercopisanie</album>
   <status>
-    <done/>
+    <done>
+      <text/>
+      <authors/>
+    </done>
     <verificators/>
   </status>
 </song>
