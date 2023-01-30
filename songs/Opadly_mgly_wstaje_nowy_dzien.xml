@@ -1,13 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Opadły mgły wstaje nowy dzień">
-	<alias></alias>
 	<text_author type="solo">Edward Stachura</text_author>
-	<comment></comment>
 	<composer type="solo">Krzysztof Myszkowski</composer>
 	<artist type="solo">Stare Dobre Małżeństwo</artist>
-	<translator></translator>
-	<original_title></original_title>
-	<lyric xmlns="http://21wdh.staszic.waw.pl">
+	<lyric>
 		<block type="verse">
 			<row important_over="false">Opadły mgł<ch a="G"/>y i miasto ze sn<ch a="C"/>u się budzi</row>
 			<row important_over="false">G<ch a="G"/>órą czmycha już n<ch a="D"/>oc</row>
@@ -59,29 +55,21 @@
 			<row important_over="false"><ch a="G"/>Wstaje nowy dzień<ch a="D"/></row>
 		</block>
 	</lyric>
-	<music metre="">
+	<music>
 		<guitar barre="0"/>
 	</music>
+	<keywords/>
 	<status>
-		<verificators><verificator>Alek</verificator><verificator>Krzysiek Cz.		</verificator>
-			
-			
-		</verificators>
-		<to_do>Alek chyba sprawdzil, i nie zaznaczyl, ze sprawdzone
-Onufry</to_do>
-		<done>	
-			
-			
-			
-			
-			
+		<done>
 			<text/>
 			<authors/>
 			<chords>chord positioning</chords>
 		</done>
+		<verificators>
+			<verificator>Alek</verificator>
+			<verificator>Krzysiek Cz.</verificator>
+		</verificators>
+		<to_do>Alek chyba sprawdzil, i nie zaznaczyl, ze sprawdzone
+Onufry</to_do>
 	</status>
-	<keywords/>
-	<music_source></music_source>
-	<album></album>
-	<genre></genre>
 </song>
