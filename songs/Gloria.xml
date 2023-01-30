@@ -30,7 +30,7 @@
       <row important_over="never" sidechords="CDC"><ch a="C"/>Sieroto świata, ulubieńcze losu<ch a="D"/><ch a="C"/></row>
       <row important_over="never" sidechords="DC"><ch a="D"/>Od złego ratuj i kąkoli w zbożu<ch a="C"/></row>
       <row important_over="never" sidechords="DC"><ch a="D"/>Łagodnie kołysz tych co są na morzu<ch a="C"/></row>
-      <row important_over="never" sidechords="DG G)"><ch a="D"/>Gloria gloria in excelsis eoli<ch a="G"/></row>
+      <row important_over="never" sidechords="DG (G)"><ch a="D"/>Gloria gloria in excelsis eoli<ch a="G"/></row>
     </block>
     <block type="other">
       <row important_over="false" style="instr"> <ch a="Ge"/><ch a="Ga"/><ch a="CD"/><ch a="GG7"/><ch a="CD"/><ch a="e"/><ch a="CD"/><ch a="CD"/><ch a="CD"/><ch a="G"/></row>
@@ -41,7 +41,7 @@
       <row important_over="never" sidechords="CD e"><ch a="C"/>Chwała wam ptaszki śpiewające<ch a="D"/><ch a="e"/></row>
       <row important_over="never" sidechords="CDC"><ch a="C"/>Chwała wam ryby pluskające<ch a="D"/><ch a="C"/></row>
       <row important_over="never" sidechords="DC"><ch a="D"/>Chwała wam zające na łące<ch a="C"/></row>
-      <row important_over="never" sidechords="D G (G7)"><ch a="D"/>Zakochane w biedronce<ch a="G"/><ch a="G7"/></row>
+      <row important_over="never" sidechords="DG (G7)"><ch a="D"/>Zakochane w biedronce<ch a="G"/><ch a="G7"/></row>
     </block>
     <block type="verse">
       <row important_over="never" sidechords="CD e"><ch a="C"/>Chwała wam zimy, wiosny, lata i jesienie<ch a="D"/><ch a="e"/></row>
@@ -51,7 +51,7 @@
       <row important_over="never" sidechords="DG (G)"><ch a="D"/>Gloria gloria<ch a="G"/></row>
     </block>
     <block type="other">
-      <row important_over="false" style="instr"> </row>
+      <row important_over="false" style="instr"> <ch a="Ge"/><ch a="Ga"/><ch a="CD"/><ch a="GG7"/><ch a="CD"/><ch a="e"/><ch a="CD"/><ch a="CD"/><ch a="CD"/><ch a="G"/></row>
     </block>
   </lyric>
   <music>
