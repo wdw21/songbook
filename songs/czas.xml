@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<song title="Czas" xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd">
-	<alias></alias>
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Czas">
 	<text_author type="solo">Maciej Służała</text_author>
 	<comment>W refren po zwrotkach wchodzi drugi głos jeszcze podczas trwania ostatniej linijki zwrotki.</comment>
 	<composer type="solo">Maciej Służała</composer>
 	<artist type="band">Krążek</artist>
-	<translator></translator>
-	<original_title></original_title>
-	<lyric xmlns="http://21wdh.staszic.waw.pl">
+	<lyric>
 		<block type="chorus">
 			<row important_over="true">Cz<ch a="d"/>as płynie wciąż tak jak wąż poplątany ogon</row>
 			<row important_over="true"><ch a="B"/> Dnia minionego mgłą ktoś wypatruje nocą</row>
@@ -42,7 +39,7 @@
 			<row important_over="false">Ob<ch a="d"/>ejrzyj się za siebie!</row>
 		</block>
 		<block type="chorus">
-			<row style="instr"><ch a="d"/><ch a="B"/><ch a="C"/><ch a="d"/><ch a="d"/><ch a="B"/><ch a="C"/><ch a="d"/></row>
+			<row important_over="false" style="instr"> <ch a="d"/><ch a="B"/><ch a="C"/><ch a="d"/><ch a="d"/><ch a="B"/><ch a="C"/><ch a="d"/></row>
 		</block>
 		<block type="verse">
 			<row important_over="false">Wi<ch a="d"/>edz! Ja znam wsz<ch a="C"/>ystkie twoje tajemn<ch a="d"/>ice.</row>
@@ -64,11 +61,8 @@
 			</bis>
 		</block>
 	</lyric>
-	<music metre="4/4">
-		<guitar/>
-	</music>
-	<keywords></keywords>
-	<album></album>
+	<music metre="4/4"/>
+	<keywords/>
 	<genre>Poezja śpiewana</genre>
 	<status>
 		<done>
@@ -79,7 +73,5 @@
 		<verificators>
 			<verificator>Michał Korch</verificator>
 		</verificators>
-		<to_do></to_do>
 	</status>
-	<music_source></music_source>
 </song>
