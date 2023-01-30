@@ -1,28 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Gloria">
-  <alias/>
   <text_author>Edward Stachura</text_author>
-  <comment/>
   <composer type="solo">Krzysztof Myszkowski</composer>
   <artist type="solo">Stare Dobre Małżeństwo</artist>
-  <translator/>
-  <original_title/>
   <lyric>
     <block type="other">
-      <row important_over="false" style="instr">
-        <ch a="G"/>
-
-        <ch a="G"/>
-        <ch a="e"/>
-
-        <ch a="G"/>
-        <ch a="a"/>
-
-        <ch a="C"/>
-        <ch a="D"/>
-
-        <ch a="G"/>
-     </row>
+      <row important_over="false" style="instr"> <ch a="G"/><ch a="G"/><ch a="e"/><ch a="G"/><ch a="a"/><ch a="C"/><ch a="D"/><ch a="G"/></row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="G"/>Chwała najsampierw komu, komu gloria<ch a="e"/><ch a="G"/><ch a="a"/></row>
@@ -50,35 +33,7 @@
       <row important_over="false"><ch a="D"/>Gloria gloria in excelsis eoli<ch a="G"/></row>
     </block>
     <block type="other">
-      <row important_over="false"  style="instr">
-        <ch a="G"/>
-        <ch a="e"/>
-
-        <ch a="G"/>
-        <ch a="a"/>
-
-        <ch a="C"/>
-        <ch a="D"/>
-
-        <ch a="G"/>
-        <ch a="G7"/>
-
-        <ch a="C"/>
-        <ch a="D"/>
-
-        <ch a="e"/>
-
-        <ch a="C"/>
-        <ch a="D"/>
-
-        <ch a="C"/>
-        <ch a="D"/>
-
-        <ch a="C"/>
-        <ch a="D"/>
-
-        <ch a="G"/>
-     </row>
+      <row important_over="false" style="instr"> <ch a="G"/><ch a="e"/><ch a="G"/><ch a="a"/><ch a="C"/><ch a="D"/><ch a="G"/><ch a="G7"/><ch a="C"/><ch a="D"/><ch a="e"/><ch a="C"/><ch a="D"/><ch a="C"/><ch a="D"/><ch a="C"/><ch a="D"/><ch a="G"/></row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="G"/>Z wiatrem pochwalonym teraz pędzimy społem<ch a="e"/><ch a="G"/><ch a="a"/></row>
@@ -96,11 +51,12 @@
       <row important_over="false"><ch a="D"/>Gloria gloria<ch a="G"/></row>
     </block>
   </lyric>
-  <music metre="">
+  <music>
     <guitar barre="0"/>
   </music>
+  <keywords/>
   <status>
+    <done/>
     <verificators/>
-    <to_do/>
   </status>
 </song>
