@@ -50,6 +50,9 @@
       <row important_over="never" sidechords="DC"><ch a="D"/>W piersi pod koszulą całe jego mienie<ch a="C"/></row>
       <row important_over="never" sidechords="DG (G)"><ch a="D"/>Gloria gloria<ch a="G"/></row>
     </block>
+    <block type="other">
+      <row important_over="false" style="instr"> </row>
+    </block>
   </lyric>
   <music>
     <guitar barre="0"/>
