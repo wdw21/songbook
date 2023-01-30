@@ -16,11 +16,11 @@
 			<row important_over="false">J<ch a="d"/>est nie ma nic chwil minionych już nie złapiesz.</row>
 		</block>
 		<block type="verse">
-			<row important_over="false">Sp<ch a="d"/>ójrz! Oto ż<ch a="C"/>ycia twego tajemnicza ksi<ch a="d"/>ęga.</row>
-			<row important_over="false">P<ch a="d"/>isana piórem gwiazd, atr<ch a="C"/>amentem t<ch a="G"/>ęczy.<ch a="d"/></row>
-			<row important_over="false">W ozd<ch a="B"/>obnych kartach zatrzymany czas.</row>
-			<row important_over="false">Burz<ch a="G"/>owe chmury, słon<ch a="A"/>eczny blask.</row>
-			<row important_over="false">Świat zn<ch a="d"/>any i nieznany…</row>
+			<row important_over="true">Sp<ch a="d"/>ójrz! Oto ż<ch a="C"/>ycia twego tajemnicza ksi<ch a="d"/>ęga.</row>
+			<row important_over="true">P<ch a="d"/>isana piórem gwiazd, atr<ch a="C"/>amentem t<ch a="G"/>ęczy.<ch a="d"/></row>
+			<row important_over="true">W ozd<ch a="B"/>obnych kartach zatrzymany czas.</row>
+			<row important_over="true">Burz<ch a="G"/>owe chmury, słon<ch a="A"/>eczny blask.</row>
+			<row important_over="true">Świat zn<ch a="d"/>any i nieznany…</row>
 		</block>
 		<blocklink blocknb="1"/>
 		<block type="verse">
