@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Pożegnanie 2">
-  <alias/>
   <text_author>Piotr Bakal</text_author>
-  <comment/>
   <composer type="solo">Krzysztof Myszkowski</composer>
   <artist type="solo">Stare Dobre Małżeństwo</artist>
-  <translator/>
-  <original_title/>
   <lyric>
     <block type="verse">
-      <bis>
+      <bis times="2">
         <row important_over="false"><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="h"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="Fis7"/> La, la, la…</row>
       </bis>
     </block>
@@ -26,7 +22,7 @@
       <row important_over="false"><ch a="G"/>Daj mi wreszcie spokój — dosyć mam już słów<ch a="D"/><ch a="Fis7"/></row>
     </block>
     <block type="other">
-      <row important_over="false" style="instr"><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="h"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="Fis7"/> La, la, la…</row>
+      <row important_over="false" style="instr"> <ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="h"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="Fis7"/></row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="h"/>Wrócę tu na pewno, gdy nadejdzie pora<ch a="Fis7"/><ch a="Gzm"/><ch a="h"/></row>
@@ -41,16 +37,17 @@
       <row important_over="false"><ch a="G"/>Może nam się uda zacząć jeszcze raz<ch a="D"/><ch a="Fis7"/></row>
     </block>
     <block type="verse">
-      <bis>
+      <bis times="2">
         <row important_over="false"><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="h"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="Fis7"/> La, la, la…</row>
       </bis>
     </block>
   </lyric>
-  <music metre="">
+  <music>
     <guitar barre="0"/>
   </music>
+  <keywords/>
   <status>
+    <done/>
     <verificators/>
-    <to_do/>
   </status>
 </song>
