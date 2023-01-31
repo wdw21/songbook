@@ -12,7 +12,7 @@
       <row important_over="never" sidechords="CD G(G7)"><ch a="C"/>Na wysokościach<ch a="D"/><ch a="G"/><ch a="G7"/></row>
       <row important_over="never" sidechords="CD e"><ch a="C"/>Chwała najsampierw tobie, trawo przychylna każdemu<ch a="D"/><ch a="e"/></row>
       <row important_over="never" sidechords="CDC"><ch a="C"/>Kraino na dół od Edenu<ch a="D"/><ch a="C"/></row>
-      <row important_over="never" sidechords="DG (G)"><ch a="D"/>Gloria gloria<ch a="G"/></row>
+      <row important_over="never">Gloria gloria<ch a="DG"/><ch a="(G)"/></row>
     </block>
     <block type="verse">
       <row important_over="never" sidechords="Ge Ga"><ch a="G"/>Chwała tobie słońce odyńcu samotny<ch a="e"/><ch a="G"/><ch a="a"/></row>
@@ -21,7 +21,7 @@
       <row important_over="never" sidechords="CDC"><ch a="C"/>I chmury czarne białym kłem przebijasz<ch a="D"/><ch a="C"/></row>
       <row important_over="never" sidechords="DC"><ch a="D"/>I to wszystko bezkrwawo brawo, brawo<ch a="C"/></row>
       <row important_over="never" sidechords="DC"><ch a="D"/>I to wszystko złociście i nikogo nie boli<ch a="C"/></row>
-      <row important_over="never" sidechords="DG (G)"><ch a="D"/>Gloria, gloria in exelsis soli<ch a="G"/></row>
+      <row important_over="never">Gloria, gloria in exelsis soli<ch a="DG"/><ch a="(G)"/></row>
     </block>
     <block type="verse">
       <row important_over="never" sidechords="Ge Ga"><ch a="G"/>Z słońcem pochwalonym teraz pędźmy razem<ch a="e"/><ch a="G"/><ch a="a"/></row>
@@ -30,7 +30,7 @@
       <row important_over="never" sidechords="CDC"><ch a="C"/>Sieroto świata, ulubieńcze losu<ch a="D"/><ch a="C"/></row>
       <row important_over="never" sidechords="DC"><ch a="D"/>Od złego ratuj i kąkoli w zbożu<ch a="C"/></row>
       <row important_over="never" sidechords="DC"><ch a="D"/>Łagodnie kołysz tych co są na morzu<ch a="C"/></row>
-      <row important_over="never" sidechords="DG (G)"><ch a="D"/>Gloria gloria in excelsis eoli<ch a="G"/></row>
+      <row important_over="never">Gloria gloria in excelsis eoli<ch a="DG"/><ch a="(G)"/></row>
     </block>
     <block type="other">
       <row important_over="false" style="instr"> <ch a="Ge"/><ch a="Ga"/><ch a="CD"/><ch a="GG7"/><ch a="CD"/><ch a="e"/><ch a="CD"/><ch a="CD"/><ch a="CD"/><ch a="G"/></row>
@@ -48,7 +48,7 @@
       <row important_over="never" sidechords="CDC"><ch a="C"/>Chwała temu co bez gniewu idzie<ch a="D"/><ch a="C"/></row>
       <row important_over="never" sidechords="DC"><ch a="D"/>Poprzez śniegi, deszcze, blaski oraz cienie<ch a="C"/></row>
       <row important_over="never" sidechords="DC"><ch a="D"/>W piersi pod koszulą całe jego mienie<ch a="C"/></row>
-      <row important_over="never" sidechords="DG (G)"><ch a="D"/>Gloria gloria<ch a="G"/></row>
+      <row important_over="never">Gloria gloria<ch a="DG"/><ch a="(G)"/></row>
     </block>
     <block type="other">
       <row important_over="false" style="instr"> <ch a="Ge"/><ch a="Ga"/><ch a="CD"/><ch a="GG7"/><ch a="CD"/><ch a="e"/><ch a="CD"/><ch a="CD"/><ch a="CD"/><ch a="G"/></row>
