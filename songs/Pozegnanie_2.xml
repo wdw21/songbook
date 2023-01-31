@@ -6,8 +6,8 @@
   <lyric>
     <block type="verse">
       <bis times="2">
-        <row important_over="never" sidechords="GD GD GD Fis7A7">La, la, la…</row>
-        <row important_over="never" sidechords="hG DFis7 A7Fis7">La, la, la…<ch a="GD"/><ch a="GD"/><ch a="GD"/><ch a="Fis7A7"/><ch a="hG"/><ch a="DFis7"/><ch a="A7Fis7"/></row>
+        <row important_over="never">La, la, la…<ch a="GD"/><ch a="GD"/><ch a="GD"/><ch a="Fis7A7"/></row>
+        <row important_over="never">La, la, la…<ch a="hG"/><ch a="DFis7"/><ch a="A7Fis7"/></row>
       </bis>
     </block>
     <block type="verse">
@@ -40,8 +40,8 @@
     </block>
     <block type="verse">
       <bis times="2">
-        <row important_over="never" sidechords="GD GD GD Fis7A7"><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="h"/><ch a="G"/><ch a="D"/><ch a="Fis7"/><ch a="A7"/><ch a="Fis7"/> La, la, la…</row>
-        <row important_over="never" sidechords="hG DFis7 A7Fis7">La, la, la…</row>
+        <row important_over="never">La, la, la…<ch a="GD"/><ch a="GD"/><ch a="GD"/><ch a="Fis7A7"/></row>
+        <row important_over="never">La, la, la…<ch a="hG"/><ch a="DFis7"/><ch a="A7Fis7"/></row>
       </bis>
     </block>
   </lyric>
