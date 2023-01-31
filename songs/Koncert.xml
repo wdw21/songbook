@@ -1,15 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Koncert">
-	<alias></alias>
 	<text_author type="solo">Aleksandra Kiełb</text_author>
-	<comment></comment>
-	<composer type="band">Aleksandra Kiełb, Krzysztof Myszkowski</composer>
-	<artist type="solo"></artist>
-	<translator></translator>
-	<original_title></original_title>
-	<lyric xmlns="http://21wdh.staszic.waw.pl">
+	<composer type="solo">Aleksandra Kiełb</composer>
+	<artist type="solo">Stare Dobre Małżeństwo / Ola Kiełb</artist>
+	<lyric>
 		<block type="other">
-			<row style="instr"><ch a="H7"/><ch a="e"/><ch a="H7"/><ch a="e"/></row>
+			<row important_over="false" style="instr"> <ch a="H7"/><ch a="e"/><ch a="H7"/><ch a="e"/><ch a="e"/></row>
 		</block>
 		<block type="verse">
 			<row important_over="true"><ch a="H7"/> W kołnierz wtulam tw<ch a="e"/>arz</row>
@@ -28,8 +24,8 @@
 				<row important_over="true">Gdyby ł<ch a="C"/>yżką światła</row>
 				<row important_over="true">Rozwes<ch a="G"/>elić to wszystko</row>
 				<row important_over="true">Żeby w<ch a="H7"/>e mnie zaśpiewało coś t<ch a="e"/>eż</row>
-				<row important_over="true">Żeby w<ch a="H7"/>e mnie zaśpiewało coś t<ch a="e"/>eż</row>
 			</bis>
+			<row important_over="true">Żeby w<ch a="H7"/>e mnie zaśpiewało coś t<ch a="e"/>eż</row>
 		</block>
 		<block type="verse">
 			<row important_over="false">R<ch a="H7"/>ośnie we mnie mgł<ch a="e"/>a</row>
@@ -47,28 +43,27 @@
 				<row important_over="false"><ch a="C"/>Tak by dźwięki ułożyły się w wiersz<ch a="G"/></row>
 				<row important_over="false"><ch a="C"/>Będę łyżką światła rozweselać to wszystko<ch a="G"/></row>
 				<row important_over="false"><ch a="H7"/>Żeby w tobie zaśpiewało coś też<ch a="e"/></row>
-				<row important_over="false"><ch a="H7"/>Żeby w tobie zaśpiewało coś też<ch a="e"/></row>
 			</bis>
+			<row important_over="false"><ch a="H7"/>Żeby w tobie zaśpiewało coś też<ch a="e"/></row>
 		</block>
 		<block type="other">
-			<row style="instr"><ch a="C"/><ch a="G"/><ch a="C"/><ch a="G"/><ch a="C"/><ch a="G"/><ch a="H7"/><ch a="e"/><ch a="H7"/><ch a="e"/></row>
+			<row important_over="false" style="instr"> <ch a="C"/><ch a="G"/><ch a="C"/><ch a="G"/><ch a="C"/><ch a="G"/><ch a="H7"/><ch a="e"/><ch a="H7"/><ch a="e"/></row>
 		</block>
 	</lyric>
-	<music metre="">
+	<music>
 		<guitar barre="4"/>
 	</music>
+	<keywords/>
+	<album>Pod wielkim dachem nieba</album>
 	<status>
-		<verificators><verificator>Onufry</verificator>
-			
-		</verificators>
-		<to_do></to_do>
 		<done>
 			<text/>
+			<authors/>
 			<chords>chord positioning</chords>
 		</done>
+		<verificators>
+			<verificator>Onufry</verificator>
+			<verificator>Adam Foland</verificator>
+		</verificators>
 	</status>
-	<keywords/>
-	<music_source></music_source>
-	<album></album>
-	<genre></genre>
 </song>
