@@ -1,15 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Koncert">
-	<alias></alias>
 	<text_author type="solo">Aleksandra Kiełb</text_author>
-	<comment></comment>
 	<composer type="band">Aleksandra Kiełb, Krzysztof Myszkowski</composer>
-	<artist type="solo"></artist>
-	<translator></translator>
-	<original_title></original_title>
-	<lyric xmlns="http://21wdh.staszic.waw.pl">
+	<lyric>
 		<block type="other">
-			<row style="instr"><ch a="H7"/><ch a="e"/><ch a="H7"/><ch a="e"/></row>
+			<row important_over="false" style="instr"> <ch a="H7"/><ch a="e"/><ch a="H7"/><ch a="e"/></row>
 		</block>
 		<block type="verse">
 			<row important_over="true"><ch a="H7"/> W kołnierz wtulam tw<ch a="e"/>arz</row>
@@ -51,24 +46,20 @@
 			</bis>
 		</block>
 		<block type="other">
-			<row style="instr"><ch a="C"/><ch a="G"/><ch a="C"/><ch a="G"/><ch a="C"/><ch a="G"/><ch a="H7"/><ch a="e"/><ch a="H7"/><ch a="e"/></row>
+			<row important_over="false" style="instr"> <ch a="C"/><ch a="G"/><ch a="C"/><ch a="G"/><ch a="C"/><ch a="G"/><ch a="H7"/><ch a="e"/><ch a="H7"/><ch a="e"/></row>
 		</block>
 	</lyric>
-	<music metre="">
+	<music>
 		<guitar barre="4"/>
 	</music>
+	<keywords/>
 	<status>
-		<verificators><verificator>Onufry</verificator>
-			
-		</verificators>
-		<to_do></to_do>
 		<done>
 			<text/>
 			<chords>chord positioning</chords>
 		</done>
+		<verificators>
+			<verificator>Onufry</verificator>
+		</verificators>
 	</status>
-	<keywords/>
-	<music_source></music_source>
-	<album></album>
-	<genre></genre>
 </song>
