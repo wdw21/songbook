@@ -1,5 +1,5 @@
 \begin{song}{\VAR{song.title}}{\VAR{song.text_author}}{\VAR{song.composer}}{\VAR{song.artist}}
-\begin{longtable}{l V{6em} p{0.6\textwidth} l@{}}
+\begin{longtable}[l]{l V{6em} l l@{}}
 &\ldots \endfoot  \endlastfoot
 \BLOCK{ for block in song.blocks }
     \BLOCK{ for row in block.effective_rows }
@@ -13,7 +13,7 @@
             \bis
         \BLOCK{- elif row.bis > 0 -}
             \bisl{\VAR{row.bis}}
-        \BLOCK{- endif }}{\BLOCK{ if row.sidechords -}\VAR{row.sidechords}\BLOCK{- else -}\BLOCK{ for chunk in row.chunks -}
+        \BLOCK{- endif }}{\BLOCK{ if row.sidechords!=None -}\VAR{row.sidechords}\BLOCK{- else -}\BLOCK{ for chunk in row.chunks -}
             \BLOCK{ if chunk.chord }\VAR{chunk.chord} \BLOCK{ endif }
         \BLOCK{- endfor }\BLOCK{- endif }}%
     \BLOCK{ endfor }

@@ -40,11 +40,14 @@ jobs:
       - if: steps.changed-xml-files.outputs.any_changed == 'true'
         run: sudo apt-get install texlive texlive-latex-extra texlive-lang-polish
 
-      - name: Generate PDF
+      - name: Generate PDFs
         if: steps.changed-xml-files.outputs.any_changed == 'true'
         run: |
           chmod 755 ./render_pdf.sh
           cd  ${{ github.workspace }} && ./render_pdf.sh single a4 "$(date +'%Y-%m-%d')" ${{ steps.changed-xml-files.outputs.all_changed_files }}
+          mv '${{ github.workspace }}/build/songs_tex/output.pdf' '@${{ github.workspace }}/build/songs_tex/a4.pdf'
+          cd  ${{ github.workspace }} && ./render_pdf.sh single a4 "$(date +'%Y-%m-%d')" ${{ steps.changed-xml-files.outputs.all_changed_files }}
+          mv '${{ github.workspace }}/build/songs_tex/output.pdf' '@${{ github.workspace }}/build/songs_tex/a5.pdf'
 
       - name: Save artifact
         if: steps.changed-xml-files.outputs.any_changed == 'true'
@@ -53,29 +56,22 @@ jobs:
           name: songbooks
           path: ${{ github.workspace }}/build/songs_tex/*.pdf
 
-      - name: Upload artifact
+      - name: Upload artifacts
         if: steps.changed-xml-files.outputs.any_changed == 'true'
         run: |
-          FILENAME=$(echo "${{github.repository}}/${{github.sha}}_a5.pdf" | sed 's|/|%2F|g' )
-          LINK="https://firebasestorage.googleapis.com/v0/b/wdw-21.appspot.com/o/${FILENAME}"
-          echo "link=${LINK}" >> $GITHUB_ENV
-          curl -v --data-binary  '@${{ github.workspace }}/build/songs_tex/output.pdf' "${LINK}" -H 'Content-Type: application/pdf'
+          for format in "a4" "a5"; do
+            FILENAME=$(echo "${{github.repository}}/${{github.sha}}_${format}.pdf" | sed 's|/|%2F|g' )
+            LINK="https://firebasestorage.googleapis.com/v0/b/wdw-21.appspot.com/o/${FILENAME}"
+            echo "link_${format}=${LINK}" >> $GITHUB_ENV
+            curl -v --data-binary  "@${{ github.workspace }}/build/songs_tex/${format}.pdf" "${LINK}" -H 'Content-Type: application/pdf'
+          done
 
       - name: Comment PR proxy
         uses: mshick/add-pr-comment@v2
         with:
           message: |
-            [New PDF](${{ env.link }}?alt=media) is ready, my lord (available for ~14 days).
+            New PDFs [A4](${{ env.link_a4 }}?alt=media),[A5](${{ env.link_a5 }}?alt=media) is ready, my lord (available for ~14 days).
             
-            Cieplutkiego [PDFa](${{ env.link }}?alt=media) podano.
+            Cieplutkie PDFy [A4](${{ env.link_a4 }}?alt=media), [A5](${{ env.link_a5 }}?alt=media) podano.
           proxy-url: https://editor-github-pr-proxy-2tnk3uvmqq-ey.a.run.app
-
-#      - name: Comment PR
-#        uses: thollander/actions-comment-pull-request@v2
-#        if: steps.changed-xml-files.outputs.any_changed == 'true'
-#        with:
-#          message: |
-#            [New PDF](${{ env.link }}?alt=media) is ready, my lord (available for ~14 days).
-#
-#            Cieplutkiego [PDFa](${{ env.link }}?alt=media) podano.
       - run: echo "DONE"

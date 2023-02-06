@@ -7,6 +7,7 @@
 \RequirePackage{xstring}
 \RequirePackage{booktabs}
 \RequirePackage{array}
+\RequirePackage{pbox}
 \RequirePackage{varwidth} % must be loaded after array
 
 \newcommand{\theSongTitle}{}
@@ -111,7 +112,7 @@
 
 
 \newenvironment{song}[4]{
-  \clearpage 
+  \clearpage
   \fancyhead[LE]{#1}
   \fancyhead[RO]{#1}
   \setcounter{VerseCnt}{0}
@@ -148,6 +149,7 @@
 %     "L"  <=> (last line) don't try to nobreakline.
 %     'E'  <=> The very last verse of the song
 %     "I"  <=> instrumental line
+%     "S"  <=> the only line of verse/chorus
 % - you can combine the lines
 % #2: "C"  <=> chorus
 %     "V"  <=> verse
@@ -164,10 +166,10 @@
     \IfSubStr{#2}{C}%
       {%
       \IfSubStr{#1}{S}%
-        {\ChordsContext{#1#2}{}{#3}{#5}}%
-        {\ChordsContext{#1#2}{||}{#3}{#5}}%
+        {\ChordsContext{#1#2}{||}{\pbox[l]{0.6\textwidth}{\phantom{}#3}}{#5}}%
+        {\ChordsContext{#1#2}{||}{\pbox[l]{0.6\textwidth}{\phantom{}#3}}{#5}}%
       }%
-      {\ChordsContext{#1#2}{}{#3}{#5}}%
+      {\ChordsContext{#1#2}{}{\pbox[l]{0.6\textwidth}{\phantom{}#3}}{#5}}%
     \if\blank{#4}{}\else{#4}\fi%
     \IfSubStr{#1}{L}{\IfSubStr{#1}{E}{\\}{\\\vtop{\vskip0.7ex minus 1ex}\\}}{\IfSubStr{#1}{P}{\\*}{\IfSubStr{#1}{F}{\\*}{\\}}} % optionally we could emit \\* on last-by-1 line to prevent 1-line tables.
 }{}
