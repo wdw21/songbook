@@ -166,10 +166,10 @@
     \IfSubStr{#2}{C}%
       {%
       \IfSubStr{#1}{S}%
-        {\ChordsContext{#1#2}{||}{\pbox[l]{0.6\textwidth}{#3}}{#5}}%
-        {\ChordsContext{#1#2}{||}{\pbox[l]{0.6\textwidth}{#3}}{#5}}%
+        {\ChordsContext{#1#2}{||}{\pbox[l]{0.6\textwidth}{\phantom{}#3}}{#5}}%
+        {\ChordsContext{#1#2}{||}{\pbox[l]{0.6\textwidth}{\phantom{}#3}}{#5}}%
       }%
-      {\ChordsContext{#1#2}{}{\pbox[l]{0.6\textwidth}{#3}}{#5}}%
+      {\ChordsContext{#1#2}{}{\pbox[l]{0.6\textwidth}{\phantom{}#3}}{#5}}%
     \if\blank{#4}{}\else{#4}\fi%
     \IfSubStr{#1}{L}{\IfSubStr{#1}{E}{\\}{\\\vtop{\vskip0.7ex minus 1ex}\\}}{\IfSubStr{#1}{P}{\\*}{\IfSubStr{#1}{F}{\\*}{\\}}} % optionally we could emit \\* on last-by-1 line to prevent 1-line tables.
 }{}
