@@ -69,7 +69,9 @@
 	<music>
 		<guitar barre="0"/>
 	</music>
-	<keywords/>
+	<keywords>
+		<keyword>Western</keyword>
+	</keywords>
 	<album>Wojciech Młynarski - Prawie Całość CD_2</album>
 	<status>
 		<done>
