@@ -131,6 +131,7 @@ class Block:
                     effective_rows = [rowclone]
                   else:
                     effective_rows[0].chunks.append(RowChunk(content=" \ldots"))
+                    effective_rows[0].bis=False
                     break
             if len(effective_rows)==0:
                 effective_rows = rows
