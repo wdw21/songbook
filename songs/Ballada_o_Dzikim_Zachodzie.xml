@@ -30,12 +30,7 @@
 			<row important_over="false">Ale każdy, czy duży, czy mały<ch a="G"/><ch a="C"/><ch a="G"/></row>
 			<row important_over="false">Czuł się za to bezpieczny bez granic<ch a="e"/><ch a="D"/><ch a="G"/></row>
 		</block>
-		<block type="chorus">
-			<row important_over="false">Bo tym tylko od innych różni się ta ballada<ch a="C"/><ch a="D"/><ch a="G"/><ch a="C"/></row>
-			<row important_over="false">Że w tym mieście gdzieś na prerii krańcach<ch a="C"/><ch a="G"/></row>
-			<row important_over="false">Na jednego mieszkańca jeden szeryf przypadał<ch a="C"/><ch a="D"/><ch a="C"/><ch a="G"/></row>
-			<row important_over="false">Jeden szeryf na jednego mieszkańca<ch a="e"/><ch a="D"/><ch a="G"/></row>
-		</block>
+		<blocklink blocknb="2"/>
 		<block type="verse">
 			<row important_over="false">Jeśli państwa historia ta nudzi<ch a="G"/><ch a="C"/><ch a="G"/></row>
 			<row important_over="false">To pocieszcie się tym, że nareszcie<ch a="e"/><ch a="D"/><ch a="G"/></row>
