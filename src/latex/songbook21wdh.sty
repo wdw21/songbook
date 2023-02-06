@@ -149,6 +149,7 @@
 %     "L"  <=> (last line) don't try to nobreakline.
 %     'E'  <=> The very last verse of the song
 %     "I"  <=> instrumental line
+%     "S"  <=> the only line of verse/chorus
 % - you can combine the lines
 % #2: "C"  <=> chorus
 %     "V"  <=> verse
@@ -165,7 +166,7 @@
     \IfSubStr{#2}{C}%
       {%
       \IfSubStr{#1}{S}%
-        {\ChordsContext{#1#2}{}{\pbox[l]{0.6\textwidth}{#3}}{#5}}%
+        {\ChordsContext{#1#2}{||}{\pbox[l]{0.6\textwidth}{#3}}{#5}}%
         {\ChordsContext{#1#2}{||}{\pbox[l]{0.6\textwidth}{#3}}{#5}}%
       }%
       {\ChordsContext{#1#2}{}{\pbox[l]{0.6\textwidth}{#3}}{#5}}%

@@ -132,6 +132,7 @@ class Block:
                   else:
                     effective_rows[0].chunks.append(RowChunk(content=" \ldots"))
                     effective_rows[0].bis=False
+                    effective_rows[0].sidechords=""
                     break
             if len(effective_rows)==0:
                 effective_rows = rows
