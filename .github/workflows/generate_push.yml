@@ -46,7 +46,7 @@ jobs:
           chmod 755 ./render_pdf.sh
           cd  ${{ github.workspace }} && ./render_pdf.sh single a4 "$(date +'%Y-%m-%d')" ${{ steps.changed-xml-files.outputs.all_changed_files }}
           mv '${{ github.workspace }}/build/songs_tex/output.pdf' '${{ github.workspace }}/build/songs_tex/a4.pdf'
-          cd  ${{ github.workspace }} && ./render_pdf.sh single a4 "$(date +'%Y-%m-%d')" ${{ steps.changed-xml-files.outputs.all_changed_files }}
+          cd  ${{ github.workspace }} && ./render_pdf.sh single a5 "$(date +'%Y-%m-%d')" ${{ steps.changed-xml-files.outputs.all_changed_files }}
           mv '${{ github.workspace }}/build/songs_tex/output.pdf' '${{ github.workspace }}/build/songs_tex/a5.pdf'
 
       - name: Save artifact
@@ -70,7 +70,7 @@ jobs:
         uses: mshick/add-pr-comment@v2
         with:
           message: |
-            New PDFs [A4](${{ env.link_a4 }}?alt=media),[A5](${{ env.link_a5 }}?alt=media) is ready, my lord (available for ~14 days).
+            New PDFs [A4](${{ env.link_a4 }}?alt=media), [A5](${{ env.link_a5 }}?alt=media) is ready, my lord (available for ~14 days).
             
             Cieplutkie PDFy [A4](${{ env.link_a4 }}?alt=media), [A5](${{ env.link_a5 }}?alt=media) podano.
           proxy-url: https://editor-github-pr-proxy-2tnk3uvmqq-ey.a.run.app
