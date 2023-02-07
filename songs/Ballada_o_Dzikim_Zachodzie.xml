@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Ballada o Dzikim Zachodzie">
-	<alias/>
 	<text_author type="solo">Wojciech Młynarski</text_author>
-	<comment/>
 	<composer type="solo">Tadeusz Suchocki</composer>
 	<artist type="solo">Wojciech Młynarski</artist>
-	<translator/>
-	<original_title/>
 	<lyric>
 		<block type="verse">
 			<row important_over="false">Potwierdzają to setne przykłady<ch a="G"/><ch a="C"/><ch a="G"/></row>
@@ -18,7 +14,7 @@
 			<row important_over="false">Jak gdzie indziej świeciło tam słońce<ch a="G"/><ch a="C"/><ch a="G"/></row>
 			<row important_over="false">Marli starcy, rodziły się dzieci<ch a="e"/><ch a="D"/><ch a="G"/></row>
 		</block>
-		<block type="verse">
+		<block type="chorus">
 			<row important_over="false">I tym tylko od innych różni się ta ballada<ch a="C"/><ch a="D"/><ch a="G"/><ch a="C"/></row>
 			<row important_over="false">Że w tym mieście gdzieś na prerii krańcach<ch a="C"/><ch a="G"/></row>
 			<row important_over="false">Na jednego mieszkańca jeden szeryf przypadał<ch a="C"/><ch a="D"/><ch a="C"/><ch a="G"/></row>
@@ -34,12 +30,7 @@
 			<row important_over="false">Ale każdy, czy duży, czy mały<ch a="G"/><ch a="C"/><ch a="G"/></row>
 			<row important_over="false">Czuł się za to bezpieczny bez granic<ch a="e"/><ch a="D"/><ch a="G"/></row>
 		</block>
-		<block type="verse">
-			<row important_over="false">Bo tym tylko od innych różni się ta ballada<ch a="C"/><ch a="D"/><ch a="G"/><ch a="C"/></row>
-			<row important_over="false">Że w tym mieście gdzieś na prerii krańcach<ch a="C"/><ch a="G"/></row>
-			<row important_over="false">Na jednego mieszkańca jeden szeryf przypadał<ch a="C"/><ch a="D"/><ch a="C"/><ch a="G"/></row>
-			<row important_over="false">Jeden szeryf na jednego mieszkańca<ch a="e"/><ch a="D"/><ch a="G"/></row>
-		</block>
+		<blocklink blocknb="2"/>
 		<block type="verse">
 			<row important_over="false">Jeśli państwa historia ta nudzi<ch a="G"/><ch a="C"/><ch a="G"/></row>
 			<row important_over="false">To pocieszcie się tym, że nareszcie<ch a="e"/><ch a="D"/><ch a="G"/></row>
@@ -50,7 +41,7 @@
 			<row important_over="false">Skoro każdy świadomość zatracił<ch a="G"/><ch a="C"/><ch a="G"/></row>
 			<row important_over="false">Czym się różnią od ludzi bandyci<ch a="e"/><ch a="D"/><ch a="G"/></row>
 		</block>
-		<block type="verse">
+		<block type="chorus">
 			<row important_over="false">A tym tylko od innych różni się ta ballada<ch a="C"/><ch a="D"/><ch a="G"/><ch a="C"/></row>
 			<row important_over="false">Że w tym mieście gdzieś na prerii krańcach<ch a="C"/><ch a="G"/></row>
 			<row important_over="false">Na każdego człowieka nagle strach upadł blady<ch a="C"/><ch a="D"/><ch a="C"/><ch a="G"/></row>
@@ -66,7 +57,7 @@
 			<row important_over="false">Lecz nie wszystkim świeciło tam słońce<ch a="G"/><ch a="C"/><ch a="G"/></row>
 			<row important_over="false">Bo bandyci krążyli bez trwogi<ch a="e"/><ch a="D"/><ch a="G"/></row>
 		</block>
-		<block type="verse">
+		<block type="chorus">
 			<row important_over="false">Wyciągnijmy więc morał w tej balladzie ukryty<ch a="C"/><ch a="D"/><ch a="C"/><ch a="G"/></row>
 			<row important_over="false">Gdy nie grozi nam żadne rififi<ch a="C"/><ch a="G"/></row>
 			<row important_over="false">Że czasami najtrudniej rozpoznać bandytę<ch a="C"/><ch a="D"/><ch a="C"/><ch a="G"/></row>
@@ -75,21 +66,21 @@
 			</bis>
 		</block>
 	</lyric>
-	<music metre="">
+	<music>
 		<guitar barre="0"/>
 	</music>
+	<keywords>
+		<keyword>Western</keyword>
+	</keywords>
+	<album>Wojciech Młynarski - Prawie Całość CD_2</album>
 	<status>
-		<verificators><verificator>Adam</verificator>
-			
-		</verificators>
-		<to_do/>
-		<done>	<text/>
+		<done>
+			<text/>
 			<authors/>
 			<chords>chords</chords>
 		</done>
+		<verificators>
+			<verificator>Adam</verificator>
+		</verificators>
 	</status>
-	<keywords/>
-	<music_source/>
-	<album>Wojciech Młynarski - Prawie Całość CD_2</album>
-	<genre/>
 </song>
