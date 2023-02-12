@@ -1,47 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Dom w górach">
+  <text_author>Ewa Gaworska</text_author>
+  <comment>Na dostępnych nagarach są tylko dwie pierwsze zwrotki.</comment>
+  <composer type="solo">Ewa Gaworska</composer>
   <artist type="solo">Ewa Gaworska; Wojtek Starck</artist>
   <lyric>
     <block type="verse">
-      <row important_over="false">W jesi<ch a="a"/>enną głogów cz<ch a="C"/>erwień</row>
-      <row important_over="false">W złot<ch a="d"/>awą młodość brz<ch a="E"/>ozy</row>
-      <row important_over="false">Wiatr z gł<ch a="a"/>owy czapkę z<ch a="C"/>erwie</row>
-      <row important_over="false">Pod st<ch a="d"/>opy gór poł<ch a="E"/>oży</row>
+      <row important_over="never">W jesi<ch a="a"/>enną głogów cz<ch a="C"/>erwień</row>
+      <row important_over="never">W złot<ch a="d"/>awą młodość brz<ch a="E"/>ozy</row>
+      <row important_over="never">Wiatr z gł<ch a="a"/>owy czapkę z<ch a="C"/>erwie</row>
+      <row important_over="never">Pod st<ch a="d"/>opy gór poł<ch a="E"/>oży</row>
     </block>
     <block type="chorus">
-      <row important_over="false">I zb<ch a="d"/>udujemy d<ch a="G"/>om bez str<ch a="C"/>ychów i bez p<ch a="a"/>iwnic</row>
-      <row important_over="false">Zapł<ch a="d"/>onie lampą kr<ch a="G"/>ąg zap<ch a="C"/>achem lasów grz<ch a="a"/>ybnych</row>
-      <row important_over="false">Nie tr<ch a="d"/>zeba stawiać pi<ch a="a"/>eców, nie m<ch a="d"/>usisz okien s<ch a="a"/>zklić</row>
-      <row important_over="false">I zb<ch a="d"/>udujemy d<ch a="a"/>om, bo taki d<ch a="E"/>om musi <ch a="a"/>być</row>
+      <row important_over="never">I zb<ch a="d"/>udujemy d<ch a="G"/>om bez str<ch a="C"/>ychów i bez p<ch a="a"/>iwnic</row>
+      <row important_over="never" sidechords="d G C a">Zapł<ch a="d"/>onie lampą klon, zap<ch a="C"/>achem lasów grz<ch a="a"/>ybnych</row>
+      <row important_over="never">Nie tr<ch a="d"/>zeba stawiać pi<ch a="a"/>eców, nie m<ch a="d"/>usisz okien s<ch a="a"/>zklić</row>
+      <row important_over="never">I zb<ch a="d"/>udujemy d<ch a="a"/>om, bo taki d<ch a="E"/>om musi <ch a="a"/>być</row>
     </block>
     <block type="verse">
-      <row important_over="false">I n<ch a="a"/>iebu się pokł<ch a="C"/>onisz</row>
-      <row important_over="false">I w<ch a="d"/>yżej wciąż bez sł<ch a="E"/>owa</row>
-      <row important_over="false">Na w<ch a="a"/>yciągniętej dł<ch a="C"/>oni</row>
-      <row important_over="false">Będzi<ch a="d"/>emy dom bud<ch a="E"/>ować</row>
+      <row important_over="never">I n<ch a="a"/>iebu się pokł<ch a="C"/>onisz</row>
+      <row important_over="never">I w<ch a="d"/>yżej wciąż bez sł<ch a="E"/>owa</row>
+      <row important_over="never">Na w<ch a="a"/>yciągniętej dł<ch a="C"/>oni</row>
+      <row important_over="never">Będzi<ch a="d"/>emy dom bud<ch a="E"/>ować</row>
     </block>
     <blocklink blocknb="2"/>
     <block type="verse">
-      <row important_over="false">I wzni<ch a="a"/>esiesz twarz gdzie szcz<ch a="C"/>yty</row>
-      <row important_over="false">I wy<ch a="d"/>żej wciąż bez sł<ch a="E"/>owa</row>
-      <row important_over="false">Na ści<ch a="a"/>eżkach mgłą okr<ch a="C"/>ytych</row>
-      <row important_over="false">Będzi<ch a="d"/>emy dom bud<ch a="E"/>ować</row>
+      <row important_over="never">I wzni<ch a="a"/>esiesz twarz gdzie szcz<ch a="C"/>yty</row>
+      <row important_over="never">I wy<ch a="d"/>żej wciąż bez sł<ch a="E"/>owa</row>
+      <row important_over="never">Na ści<ch a="a"/>eżkach mgłą okr<ch a="C"/>ytych</row>
+      <row important_over="never">Będzi<ch a="d"/>emy dom bud<ch a="E"/>ować</row>
     </block>
     <blocklink blocknb="2"/>
     <block type="verse">
-      <row important_over="false">Od l<ch a="a"/>at już po kryj<ch a="C"/>omu</row>
-      <row important_over="false">Naw<ch a="d"/>iedza nas noc<ch a="E"/>ami</row>
-      <row important_over="false">Ban<ch a="a"/>alny sen o d<ch a="C"/>omu</row>
-      <row important_over="false">I r<ch a="d"/>ośnie razem z n<ch a="E"/>ami</row>
+      <row important_over="never">Od l<ch a="a"/>at już po kryj<ch a="C"/>omu</row>
+      <row important_over="never">Naw<ch a="d"/>iedza nas noc<ch a="E"/>ami</row>
+      <row important_over="never">Ban<ch a="a"/>alny sen o d<ch a="C"/>omu</row>
+      <row important_over="never">I r<ch a="d"/>ośnie razem z n<ch a="E"/>ami</row>
     </block>
     <blocklink blocknb="2"/>
+    <block type="verse">
+      <row important_over="never" sidechords="d G C a">I zb<ch a="d"/>udujemy d<ch a="G"/>om na cztery świata strony</row>
+      <row important_over="never" sidechords="d G C a">Zapł<ch a="d"/>onie lampą klon, wędrowcom dniem znużonym</row>
+      <row important_over="never">Nie tr<ch a="d"/>zeba stawiać pi<ch a="a"/>eców, nie m<ch a="d"/>usisz okien s<ch a="a"/>zklić</row>
+      <row important_over="never">I zb<ch a="d"/>udujemy d<ch a="a"/>om, bo taki d<ch a="E"/>om musi <ch a="a"/>być</row>
+    </block>
   </lyric>
   <music>
     <guitar barre="3"/>
   </music>
   <keywords/>
   <status>
-    <done/>
-    <verificators/>
+    <done>
+      <text/>
+      <authors/>
+      <chords>chords</chords>
+    </done>
+    <verificators>
+      <verificator>Adam Foland</verificator>
+    </verificators>
   </status>
 </song>
