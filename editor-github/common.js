@@ -21,6 +21,7 @@ export const PARENT_DOMAIN = process.env.PARENT_DOMAIN;
 export const EDITOR_BASE_URL = EDITOR_DOMAIN + EDITOR_PATH
 
 export const CHANGES_BASE_URL = BASE_URL + "/changes";
+export const REDIRECT_BASE_URL = BASE_URL + "/redirect";
 export const CONFIG_BASE_URL = BASE_URL + "/config";
 
 export const MAIN_BRANCH_NAME="songeditor-main";
@@ -69,14 +70,23 @@ export function htmlSuffix(res) {
     res.end();
 }
 
+function fullUrl(req) {
+    return new URL(`${req.protocol}://${req.get('host')}${req.originalUrl}`);
+}
+
+function stripProtocol(s) {
+    return s.replace("http://", "").replace("https://","");
+}
+
 function getBackUrl(req, backUrl) {
     if (backUrl) {
         console.log("Using back URL", backUrl);
         return backUrl;
     }
-    if (req.method=='GET') {
-        console.log("Using back URL based on req: ", req.URL);
-        return req.URL;
+    const u = fullUrl(req);
+    if (req.method=='GET' && !stripProtocol(u.href).startsWith(stripProtocol(REDIRECT_BASE_URL))) {
+        console.log("Using back URL based on req: ", u.href);
+        return u.href;
     }
     console.log("Using the default back URL:" + CHANGES_BASE_URL);
     return CHANGES_BASE_URL;
@@ -92,7 +102,7 @@ export function clearCookiesAndAuthRedirect(res, backUrl) {
         oauthAuthorizationUrl({
             clientType: "oauth-app",
             clientId: OAUTH_CLIENT_ID,
-            redirectUrl: backUrl,
+            redirectUrl: REDIRECT_BASE_URL,
             scopes: ["public_repo"],
             state: state,
         });
@@ -105,14 +115,13 @@ export async function newUserOctokit(req,res, backUrl) {
     let authuser = req.cookies.session ? req.cookies.session.user : null;
    // console.log("access token from cookie: ", access_token)
     if (!access_token || !authuser) {
-        const expectedBackUrl=req.cookies.redirectUrl ? req.cookies.redirectUrl : backUrl;
         //TODO(ptab): Compare secret with the cookie.
         const authData = {
             clientId: OAUTH_CLIENT_ID,
             clientSecret: OAUTH_APP_SECRET,
             code: req.query.code,
             state: req.query.state,
-            redirectUrl: expectedBackUrl,
+            redirectUrl: REDIRECT_BASE_URL,
             log: console,
         };
 

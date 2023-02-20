@@ -26,7 +26,7 @@ import {
     MAIN_BRANCH_NAME,
     prepareBranch, editorLink,
     prepareMainBranch,
-    HandleError, EDITOR_BASE_URL, PARENT_DOMAIN, clearCookiesAndAuthRedirect,
+    HandleError, EDITOR_BASE_URL, PARENT_DOMAIN, clearCookiesAndAuthRedirect, REDIRECT_BASE_URL,
 } from './common.js';
 
 const app = express();
@@ -474,6 +474,25 @@ app.get('/users/:user/changes/:branchName/:file([^$]+)', async (req, res) => {
 app.get('/auth', async (req, res) => {
     clearCookiesAndAuthRedirect(res, CHANGES_BASE_URL);
 });
+
+app.get('/redirect', async (req, res) => {
+    let red = req.cookies["redirectUrl"];
+    console.log(`/redirect with REDIRECT URL: '${red}'`)
+
+    const {octokit} = await newUserOctokit(req, res);
+    if (!octokit) {
+        return
+    }
+
+    res.clearCookie("redirectUrl");
+    if (red && red.startsWith(REDIRECT_BASE_URL)) {
+        res.redirect(CHANGES_BASE_URL);
+    } else if (red && red.startsWith(BASE_URL)) {
+        res.redirect(red);
+    } else {
+        res.status(400);
+    }
+})
 
 app.get('/intro', async (req, res) => {
     htmlPrefix(res);
