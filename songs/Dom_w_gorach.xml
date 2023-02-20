@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Dom w górach">
-  <alias/>
-  <text_author/>
-  <comment/>
-  <composer type="solo"/>
+  <text_author>Ewa Gaworska</text_author>
+  <comment>Na dostępnych nagraniach są tylko dwie pierwsze zwrotki.</comment>
+  <composer type="solo">Ewa Gaworska</composer>
   <artist type="solo">Ewa Gaworska; Wojtek Starck</artist>
-  <translator/>
-  <original_title/>
   <lyric>
     <block type="verse">
-      <row important_over="false">W jesi<ch a="a"/>enną głogów cz<ch a="C"/>erwień</row>
-      <row important_over="false">W złot<ch a="d"/>awą młodość brz<ch a="E"/>ozy</row>
-      <row important_over="false">Wiatr z gł<ch a="a"/>owy czapkę z<ch a="C"/>erwie</row>
-      <row important_over="false">Pod st<ch a="d"/>opy gór poł<ch a="E"/>oży</row>
+      <row important_over="true">W <ch a="a"/>jesienną głogów <ch a="C"/>czerwień</row>
+      <row important_over="true">W złot<ch a="d"/>awą młodość brz<ch a="E"/>ozy</row>
+      <row important_over="true">Wiatr z <ch a="a"/>głowy czapkę <ch a="C"/>zerwie</row>
+      <row important_over="true">Pod <ch a="d"/>stopy gór poł<ch a="E"/>oży</row>
     </block>
     <block type="chorus">
-      <row important_over="false">I zb<ch a="d"/>udujemy d<ch a="G"/>om bez str<ch a="C"/>ychów i bez p<ch a="a"/>iwnic</row>
-      <row important_over="false">Zapł<ch a="d"/>onie lampą kr<ch a="G"/>ąg zap<ch a="C"/>achem lasów grz<ch a="a"/>ybnych</row>
-      <row important_over="false">Nie tr<ch a="d"/>zeba stawiać pi<ch a="a"/>eców, nie m<ch a="d"/>usisz okien s<ch a="a"/>zklić</row>
-      <row important_over="false">I zb<ch a="d"/>udujemy d<ch a="a"/>om, bo taki d<ch a="E"/>om musi <ch a="a"/>być</row>
+      <row important_over="true">I <ch a="d"/>zbudujemy <ch a="G"/>dom bez <ch a="C"/>strychów i bez <ch a="a"/>piwnic</row>
+      <row important_over="true">Zapł<ch a="d"/>onie lampą <ch a="G"/>klon, zap<ch a="C"/>achem lasów <ch a="a"/>grzybnych</row>
+      <row important_over="true">Nie <ch a="d"/>trzeba stawiać <ch a="a"/>pieców, nie <ch a="d"/>musisz okien <ch a="a"/>szklić</row>
+      <row important_over="true">I <ch a="d"/>zbudujemy <ch a="a"/>dom, bo taki <ch a="E"/>dom musi <ch a="a"/>być</row>
     </block>
     <block type="verse">
       <row important_over="false">I n<ch a="a"/>iebu się pokł<ch a="C"/>onisz</row>
@@ -41,12 +38,25 @@
       <row important_over="false">I r<ch a="d"/>ośnie razem z n<ch a="E"/>ami</row>
     </block>
     <blocklink blocknb="2"/>
+    <block type="chorus">
+      <row important_over="false">I <ch a="d"/>zbudujemy <ch a="G"/>dom na <ch a="C"/>cztery świata <ch a="a"/>strony</row>
+      <row important_over="false">Zapł<ch a="d"/>onie lampą kl<ch a="G"/>on, wędr<ch a="C"/>owcom dniem <ch a="a"/>znużonym</row>
+      <row important_over="false">Nie tr<ch a="d"/>zeba stawiać pi<ch a="a"/>eców, nie m<ch a="d"/>usisz okien s<ch a="a"/>zklić</row>
+      <row important_over="false">I zb<ch a="d"/>udujemy d<ch a="a"/>om, bo taki d<ch a="E"/>om musi <ch a="a"/>być</row>
+    </block>
   </lyric>
-  <music metre="">
+  <music>
     <guitar barre="3"/>
   </music>
+  <keywords/>
   <status>
-    <verificators/>
-    <to_do/>
+    <done>
+      <text/>
+      <authors/>
+      <chords>chord positioning</chords>
+    </done>
+    <verificators>
+      <verificator>Adam Foland</verificator>
+    </verificators>
   </status>
 </song>
