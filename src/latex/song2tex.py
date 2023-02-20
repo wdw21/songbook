@@ -142,12 +142,14 @@ class Block:
 
 
 class Song:
-    def __init__(self, title='', text_author='', composer='', artist='', blocks=[]):
+    def __init__(self, title='', text_author='', composer='', artist='', blocks=[], barre=None, metre=None):
         self.title = tex_escape(title) if title else ''
         self.text_author = tex_escape(text_author) if text_author else ''
         self.composer = tex_escape(composer) if composer else ''
         self.artist = tex_escape(artist) if artist else ''
         self.blocks = blocks
+        self.barre = barre if barre != '' and barre != '0' and barre != 0 else None
+        self.metre = metre
 
     @staticmethod
     def parseDOM(root):
@@ -158,6 +160,7 @@ class Song:
         blocks = [flatten(block) for block in root.find('{*}lyric').getchildren() if
                   block.tag != '{http://21wdh.staszic.waw.pl}tabbs']
         get_text = lambda elem: elem.text if elem is not None else None
+        get_attrib = lambda attrs: attrs[0] if len(attrs)>0 and attrs[0] else None
         if blocks and blocks[-1].effective_rows:
           blocks[-1].effective_rows[-1].row_type += RowType.END.value # end row
 
@@ -166,7 +169,9 @@ class Song:
             text_author=get_text(root.find('{*}text_author')),
             composer=get_text(root.find('{*}composer')),
             artist=get_text(root.find('{*}artist')),
-            blocks=blocks
+            blocks=blocks,
+            barre=get_attrib(root.xpath("./s:music/s:guitar/@barre", namespaces={"s": "http://21wdh.staszic.waw.pl"})),
+            metre=get_attrib(root.xpath("./s:music/@metre", namespaces={"s": "http://21wdh.staszic.waw.pl"}))
         )
 
 
