@@ -1,13 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Dzielna Margot">
-	<alias></alias>
 	<text_author type="solo">Georges Brassens</text_author>
-	<comment></comment>
-	<composer type="solo"></composer>
-	<artist type="solo"></artist>
-	<translator></translator>
-	<original_title></original_title>
-	<lyric xmlns="http://21wdh.staszic.waw.pl">
+	<lyric>
 		<block type="verse">
 			<row important_over="false"><ch a="A"/>W naszej wsi bezbronnego kotka</row>
 			<row important_over="false"><ch a="A7"/>Znalazła w trawie raz Margot<ch a="D"/></row>
@@ -77,19 +71,17 @@
 		</block>
 		<blocklink blocknb="2"/>
 	</lyric>
-	<music metre="">
+	<music>
 		<guitar barre="0"/>
 	</music>
+	<keywords/>
 	<status>
-		<verificators><verificator>Krzysiek - na podstawie poprawek w śpiewniku Szkocja</verificator>
-			
-		</verificators>
-		<to_do></to_do>	<done>
+		<done>
 			<text/>
 			<chords>chords</chords>
 		</done>
-	</status>	<keywords/>
-	<music_source></music_source>
-	<album></album>
-	<genre></genre>
+		<verificators>
+			<verificator>Krzysiek - na podstawie poprawek w śpiewniku Szkocja</verificator>
+		</verificators>
+	</status>
 </song>
