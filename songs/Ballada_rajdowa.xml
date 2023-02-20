@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<song title="Ballada rajdowa" xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd">
-	<alias></alias>
-	<text_author type="solo"></text_author>
-	<comment></comment>
-	<composer type="solo"></composer>
-	<artist type="solo"></artist>
-	<translator></translator>
-	<original_title></original_title>
-	<lyric xmlns="http://21wdh.staszic.waw.pl">
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Ballada rajdowa">
+	<lyric>
 		<block type="chorus">
 			<bis times="2">
 				<row important_over="true">Naszej zi<ch a="G"/>emi śpiewamy, ziemi p<ch a="D"/>okłon składamy,</row>
@@ -39,13 +32,8 @@
 		</block>
 		<blocklink blocknb="1"/>
 	</lyric>
-	
-	
-	<music metre="4/4">
-		<guitar/>
-	</music>
-	<keywords></keywords>
-	<album></album>
+	<music metre="4/4"/>
+	<keywords/>
 	<genre>Piosenka harcerska</genre>
 	<status>
 		<done>
@@ -54,9 +42,7 @@
 		</done>
 		<verificators>
 			<verificator>Michał Korch</verificator>
-			
 		</verificators>
 		<to_do>W takiej wersji śpiewa Barakowa z 281. Nie znam autorów.</to_do>
 	</status>
-	<music_source></music_source>
 </song>
