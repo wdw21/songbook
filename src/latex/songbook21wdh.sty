@@ -107,10 +107,10 @@
 \newcommand{\AAndCAndAAndMusic}[5]{%
   \small %
   \begin{tabular}{rl}
-      \parbox[t][][t]{0.7\textwidth}{\AAndCAndA{#1}{#2}{#3}} &
-      \parbox[t][][t]{0.2\textwidth}{
-        \IfStrEq{#4}{}{}{\textbf{Kapodaster:}\ #4 \\}
-        \IfStrEq{#5}{}{}{\textbf{Metrum:}\ #5}
+      \parbox[t][][t]{0.75\textwidth}{\AAndCAndA{#1}{#2}{#3}} &
+      \parbox[t][][t]{8em}{
+        \IfStrEq{#4}{}{}{\raggedright\textbf{Kapodaster:}\ #4 \hfill \\}
+        \IfStrEq{#5}{}{}{\raggedright\textbf{Metrum:}\ \hfill #5}
       } \\
   \end{tabular}%
 }%
@@ -122,20 +122,19 @@
 
 
 \newenvironment{song}[6]{
-  \clearpage
-  \fancyhead[LE]{#1}
-  \fancyhead[RO]{#1}
-  \setcounter{VerseCnt}{0}
-  \renewcommand{\theSongTitle}{#1}
-  \renewcommand{\theSongLyricist}{#2}
-  \renewcommand{\theSongComposer}{#3}
-  \renewcommand{\theSongArtist}{#4}
-
-  \addtocounter{SongCnt}{1}
-  \addcontentsline{toc}{section}{\theSongCnt{}. #1}
+  \clearpage%
+  \fancyhead[LE]{#1}%
+  \fancyhead[RO]{#1}%
+  \setcounter{VerseCnt}{0}%
+  \renewcommand{\theSongTitle}{#1}%
+  \renewcommand{\theSongLyricist}{#2}%
+  \renewcommand{\theSongComposer}{#3}%
+  \renewcommand{\theSongArtist}{#4}%
+  \addtocounter{SongCnt}{1}%
+  \addcontentsline{toc}{section}{\theSongCnt{}. #1}%
 %  \addcontentsline{toc}{section}{alias title}
-  \STitle{\theSongTitle}
-  \vspace{5pt plus 5pt minus 5pt}
+  \STitle{\theSongTitle}%
+  \vspace{5pt plus 5pt minus 5pt}%
   \AAndCAndAAndMusic{#2}{#3}{#4}{#5}{#6}%
   \parindent=0pt%
   }{}
