@@ -249,7 +249,7 @@ app.post('/users/:user/changes[:]new', express.urlencoded({extended: true}), asy
         file = file + ".xml";
     }
     console.log("[newChange] getting octokit...")
-    const {octokit, user} = await newUserOctokit(req, res, `${BASE_URL}users/me/changes:new?file=${encodeURIComponent(file)}`);
+    const {octokit, user} = await newUserOctokit(req, res, `${BASE_URL}/users/me/changes:new?file=${encodeURIComponent(file)}`);
     if (!octokit) {
         console.log("Couldn't get octokit...")
         return
@@ -263,7 +263,7 @@ app.post('/users/:user/changes[:]new', express.urlencoded({extended: true}), asy
 app.post('/users/:user/changes/:file[:]new', async (req, res) => {
     let file = req.params.trim();
     console.log("[newChange] getting octokit...")
-    const {octokit, user} = await newUserOctokit(req, res, `${BASE_URL}users/me/changes:new?file=${encodeURIComponent(file)}`);
+    const {octokit, user} = await newUserOctokit(req, res, `${BASE_URL}/users/me/changes:new?file=${encodeURIComponent(file)}`);
     if (!octokit) {
         console.log("Couldn't get octokit...")
         return
