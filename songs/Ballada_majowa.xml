@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Ballada majowa">
-  <alias/>
   <text_author type="solo">Józef Baran</text_author>
-  <comment/>
   <composer type="solo">Krzysztof Myszkowski</composer>
   <artist type="band">Stare Dobre Małżeństwo</artist>
-  <translator/>
-  <original_title/>
   <lyric>
     <block type="verse">
       <row important_over="true">Brn<ch a="D"/>ąłem do ciebie m<ch a="A"/>aju</row>
@@ -48,7 +44,6 @@
   </music>
   <keywords/>
   <album>Czarny blues o czwartej nad ranem</album>
-  <genre/>
   <status>
     <done>
       <text/>
