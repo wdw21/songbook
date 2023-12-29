@@ -153,17 +153,29 @@ export async function newUserOctokit(req,res, backUrl) {
     }
     const usr = (!req.params.user || req.params.user === 'me') ? authuser : req.params.user;
     console.log('Acting as user:', usr);
+    let mygraphql = graphql.defaults({
+            headers: {
+                "Authorization": "bearer " + access_token
+            },
+        });
+
     return {
         octokit: new Octokit({
             userAgent: USER_AGENT,
             auth: access_token,
             log: console,
         }),
-        mygraphql: graphql.defaults({
-            headers: {
-                "Authorization": "bearer " + access_token
-            },
-        }),
+        mygraphql: async function(query, params) {
+            return mygraphql(query, params).catch(function (e) {
+                console.log("wrapRedirectToConfigIfNeeded: Got error:", e);
+                console.log("wrapRedirectToConfigIfNeeded: Got error message:", e.message);
+                if (e.message.includes("Could not resolve to a Repository with the name")) {
+                    console.log("redirecting to config...");
+                    // TODO: Might set a redirect address.
+                    res.redirect(CONFIG_BASE_URL);
+                }
+            })
+        },
         authuser: authuser,
         user: usr
     }
