@@ -16,14 +16,16 @@
     </block>
     <block type="chorus">
       <bis times="2">
-        <row important_over="true">A teraz m<ch a="D"/>aj dokoła m<ch a="A"/>aj</row>
+        <row important_over="true">A tera<ch a="D"/>z  sss <ch a="sss"/>maj dokoła m<ch a="A"/>aj</row>
         <row important_over="true">Wyświ<ch a="G0"/>ęca ogr<ch a="h"/>ody</row>
         <row important_over="true">I cały j<ch a="G"/>a i cały j<ch a="fis"/>a</row>
         <row important_over="true">Zanurz<ch a="G"/>ony w Jordanie pog<ch a="A"/>ody</row>
         <row important_over="true">A teraz m<ch a="D"/>aj i maj i m<ch a="A"/>aj</row>
         <row important_over="true">Dok<ch a="G0"/>oła się świ<ch a="h"/>ęci</row>
         <row important_over="true">Od wonnych b<ch a="G"/>zów szalonych bz<ch a="fis"/>ów</row>
-        <row important_over="true">Wprost w gł<ch a="G"/>owie się kr<ch a="A"/>ęci…<ch a="D"/></row>
+        <row important_over="true">Wprost w gł<ch a="G"/>owie się kr<ch a="A"/>ęci…</row>
+        <row important_over="true"/>
+        <row important_over="false" style="instr"> <ch a="D"/><ch a="C"/><ch a="a"/><ch a="H"/></row>
       </bis>
     </block>
     <block type="verse">
