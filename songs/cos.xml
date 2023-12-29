@@ -1,13 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Coś">
-	<alias></alias>
 	<text_author type="solo">Jakub Pochrybniak</text_author>
-	<comment>Gra się bodajże na strunie E basowej ,,glissando'' wszystkie dźwięki w górę a potem w dół…</comment>
+	<comment>Gra się bodajże na strunie E basowej „glissando” wszystkie dźwięki w górę a potem w dół…</comment>
 	<composer type="solo">Jakub Pochrybniak</composer>
-	<artist type="solo">21. WDH „Stare Żbiki”</artist>
-	<translator></translator>
-	<original_title></original_title>
-	<lyric xmlns="http://21wdh.staszic.waw.pl">
+	<artist type="band">21. WDH „Stare Żbiki”</artist>
+	<lyric>
 		<block type="verse">
 			<row important_over="false">Był koń,</row>
 			<row important_over="false">zdechł koń,</row>
@@ -15,13 +12,7 @@
 			<row important_over="false">szkoda go.</row>
 		</block>
 	</lyric>
-	
-	<music metre="">
-		<guitar/>
-	</music>
-	<keywords></keywords>
-	<album></album>
-	<genre></genre>
+	<keywords/>
 	<status>
 		<done>
 			<text/>
@@ -31,8 +22,5 @@
 		<verificators>
 			<verificator>Michał Korch</verificator>
 		</verificators>
-		<to_do></to_do>
 	</status>
-	<music_source></music_source>
 </song>
-
