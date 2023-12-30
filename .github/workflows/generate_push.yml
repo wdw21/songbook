@@ -31,22 +31,21 @@ jobs:
           files: |
             songs/*.xml
 
-      - name: List all changed files
-        run: |
-          for file in "${{ steps.changed-xml-files.outputs.all_changed_files }}"; do
-            echo "$file was changed"
-          done
-
       - if: steps.changed-xml-files.outputs.any_changed == 'true'
         run: sudo apt-get install texlive texlive-latex-extra texlive-lang-polish
 
       - name: Generate PDFs
         if: steps.changed-xml-files.outputs.any_changed == 'true'
         run: |
+          FILES=()
+          for file in "${{ steps.changed-xml-files.outputs.all_changed_files }}"; do
+            echo "$file was changed"
+            FILES+=("${file}")
+          done
           chmod 755 ./render_pdf.sh
-          cd  ${{ github.workspace }} && ./render_pdf.sh single a4 "$(date +'%Y-%m-%d')" ${{ steps.changed-xml-files.outputs.all_changed_files }}
+          cd  ${{ github.workspace }} && ./render_pdf.sh single a4 "$(date +'%Y-%m-%d')" "${FILES[@]}"
           mv '${{ github.workspace }}/build/songs_tex/output.pdf' '${{ github.workspace }}/build/songs_tex/a4.pdf'
-          cd  ${{ github.workspace }} && ./render_pdf.sh single a5 "$(date +'%Y-%m-%d')" ${{ steps.changed-xml-files.outputs.all_changed_files }}
+          cd  ${{ github.workspace }} && ./render_pdf.sh single a5 "$(date +'%Y-%m-%d')" "${FILES[@]}"
           mv '${{ github.workspace }}/build/songs_tex/output.pdf' '${{ github.workspace }}/build/songs_tex/a5.pdf'
 
       - name: Save artifact
