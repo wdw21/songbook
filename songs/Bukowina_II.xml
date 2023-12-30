@@ -1,13 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Bukowina II">
-	<alias></alias>
 	<text_author type="solo">Wojciech Bellon</text_author>
-	<comment></comment>
 	<composer type="solo">Wojciech Bellon</composer>
 	<artist type="band">Wolna Grupa Bukowina</artist>
-	<translator></translator>
-	<original_title></original_title>
-	<lyric xmlns="http://21wdh.staszic.waw.pl">
+	<lyric>
 		<block type="verse">
 			<row important_over="true">D<ch a="C"/>ość wytoczyli bań p<ch a="d"/>różnych przed d<ch a="F"/>omy kal<ch a="C"/>ecy</row>
 			<row important_over="true">Ż<ch a="C"/>yją jak żyli, bezw<ch a="d"/>olni, gł<ch a="F"/>usi i śl<ch a="C"/>epi</row>
@@ -33,8 +29,7 @@
 		</block>
 		<blocklink blocknb="2"/>
 		<block type="verse">
-			<row important_over="false">
-				<ch a="C"/>Odnaleźć musisz, gdzie g<ch a="d"/>óry chm<ch a="F"/>urom dłoń pod<ch a="C"/>ają</row>
+			<row important_over="false"><ch a="C"/>Odnaleźć musisz, gdzie g<ch a="d"/>óry chm<ch a="F"/>urom dłoń pod<ch a="C"/>ają</row>
 			<row important_over="false">Gdzi<ch a="C"/>e deszcz i susza, gdzie l<ch a="d"/>ipce, p<ch a="F"/>aździerniki, m<ch a="C"/>aje</row>
 			<row important_over="false"><ch a="d"/> Stają się r<ch a="G"/>okiem, w<ch a="e"/>ęzłem życia.</row>
 			<row important_over="false"><ch a="d"/> Twój dom buk<ch a="G"/>owy z<ch a="C"/>awi<ch a="e"/>esz<ch a="a"/>ony</row>
@@ -43,26 +38,22 @@
 		</block>
 		<blocklink blocknb="2"/>
 	</lyric>
-	
-	
-	
 	<music metre="4/4">
 		<guitar barre="0"/>
 	</music>
+	<keywords/>
+	<album>Bukowina</album>
+	<genre>poezja śpiewana</genre>
 	<status>
-		<verificators><verificator>Alek</verificator><verificator>Krzysiek</verificator><verificator>Michał Korch</verificator>
-			
-			
-			
-		</verificators>
-		<done>	<text/>
+		<done>
+			<text/>
 			<authors/>
 			<chords>chord positioning</chords>
 		</done>
-		<to_do></to_do>
+		<verificators>
+			<verificator>Alek</verificator>
+			<verificator>Krzysiek</verificator>
+			<verificator>Michał Korch</verificator>
+		</verificators>
 	</status>
-	<keywords/>
-	<music_source></music_source>
-	<album>Bukowina</album>
-	<genre>poezja śpiewana</genre>
 </song>
