@@ -23,7 +23,7 @@
     </block>
     <blocklink blocknb="2"/>
     <block type="chorus">
-      <row important_over="false"> (Tak czy nie, nie! Tak czy nie, nie! Tak czy nie, nie!)</row>
+      <row important_over="false">(Tak czy nie, nie! Tak czy nie, nie! Tak czy nie, nie!)</row>
     </block>
     <block type="verse">
       <row important_over="false">Wtem do <ch a="A"/>celi klawisz wpada i za<ch a="C"/>czyna więźnia bić</row>
@@ -40,6 +40,7 @@
       <row important_over="false">(Chcesz czy nie, nie!)</row>
     </block>
   </lyric>
+  <music metre="4/4"/>
   <keywords/>
   <status>
     <done/>
