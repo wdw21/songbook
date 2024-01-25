@@ -133,8 +133,8 @@ jobs:
         run: cd /workspace && chmod 755 ./render_epub.sh && ./render_epub.sh
       - if: ${{ inputs.epub }}
         run: mv /workspace/build/spiewnik.epub /workspace/build/songbook_${{ env.release_name }}.epub
-      - if: ${{ inputs.epub }}
-        run: sudo apt-get install epubcheck
+#      - if: ${{ inputs.epub }}
+#        run: sudo apt-get install epubcheck
       - if: ${{ inputs.epub }}
         run: epubcheck /workspace/build/songbook_${{ env.release_name }}.epub
 
