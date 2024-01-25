@@ -8,6 +8,10 @@ permissions: read-all
 jobs:
   Generate-artifacts:
     runs-on: ubuntu-latest
+    container:
+      image: europe-docker.pkg.dev/wdw-21/songbook/github-latex-worker:latest
+      volumes:
+        - ${{ github.workspace }}:/workspace
     steps:
       - run: echo "release_name=$(date +'%Y-%m-%dT%H_%M_%S')" >> $GITHUB_ENV
       - run: echo "Generating a songbook PDF triggered by ${{ github.event_name }} release:${{ env.release_name }}"
@@ -15,13 +19,13 @@ jobs:
           echo "DUMP: ${{ github }}"
       - name: Check out repository code
         uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-          cache: 'pip' # caching pip dependencies
-      - run: sudo apt-get install python3-lxml
-      - run: pip3 install -r ${{ github.workspace }}/requirements.txt
-      - run: pip install lxml
+#      - uses: actions/setup-python@v4
+#        with:
+#          python-version: '3.9'
+#          cache: 'pip' # caching pip dependencies
+#      - run: sudo apt-get install python3-lxml
+#      - run: pip3 install -r ${{ github.workspace }}/requirements.txt
+#      - run: pip install lxml
 
       - name: Get changed files
         id: changed-xml-files
@@ -43,26 +47,26 @@ jobs:
             FILES+=("${file}")
           done
           chmod 755 ./render_pdf.sh
-          cd  ${{ github.workspace }} && ./render_pdf.sh single a4 "$(date +'%Y-%m-%d')" "${FILES[@]}"
-          mv '${{ github.workspace }}/build/songs_tex/output.pdf' '${{ github.workspace }}/build/songs_tex/a4.pdf'
-          cd  ${{ github.workspace }} && ./render_pdf.sh single a5 "$(date +'%Y-%m-%d')" "${FILES[@]}"
-          mv '${{ github.workspace }}/build/songs_tex/output.pdf' '${{ github.workspace }}/build/songs_tex/a5.pdf'
+          cd /workspace && ./render_pdf.sh single a4 "$(date +'%Y-%m-%d')" "${FILES[@]}"
+          mv /workspace/build/songs_tex/output.pdf' '/workspace/build/songs_tex/a4.pdf'
+          cd  /workspace && ./render_pdf.sh single a5 "$(date +'%Y-%m-%d')" "${FILES[@]}"
+          mv /workspace/build/songs_tex/output.pdf' '/workspace/build/songs_tex/a5.pdf'
 
       - name: Save artifact
         if: steps.changed-xml-files.outputs.any_changed == 'true'
         uses: actions/upload-artifact@v3
         with:
           name: songbooks
-          path: ${{ github.workspace }}/build/songs_tex/*.pdf
+          path: /workspace/build/songs_tex/*.pdf
 
       - name: Upload artifacts
         if: steps.changed-xml-files.outputs.any_changed == 'true'
         run: |
           for format in "a4" "a5"; do
-            FILENAME=$(echo "${{github.repository}}/${{github.sha}}_${format}.pdf" | sed 's|/|%2F|g' )
+            FILENAME=$(echo "/workspace/${{github.sha}}_${format}.pdf" | sed 's|/|%2F|g' )
             LINK="https://firebasestorage.googleapis.com/v0/b/wdw-21.appspot.com/o/${FILENAME}"
             echo "link_${format}=${LINK}" >> $GITHUB_ENV
-            curl -v --data-binary  "@${{ github.workspace }}/build/songs_tex/${format}.pdf" "${LINK}" -H 'Content-Type: application/pdf'
+            curl -v --data-binary  "@/workspace/build/songs_tex/${format}.pdf" "${LINK}" -H 'Content-Type: application/pdf'
           done
 
       - name: Comment PR proxy
