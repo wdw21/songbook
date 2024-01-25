@@ -52,7 +52,10 @@ permissions:
 jobs:
   generate-artifacts:
     runs-on: ubuntu-latest
-    container: europe-docker.pkg.dev/wdw-21/songbook/github-latex-worker:latest
+    container:
+      image: europe-docker.pkg.dev/wdw-21/songbook/github-latex-worker:latest
+      volumes:
+        - ${{ github.workspace }}:/workspace
     steps:
       - run: export TZ="Europe/Warsaw"
       - run: echo "release_name=$(date +'%Y-%m-%dT%H-%M-%S')" >> $GITHUB_ENV
@@ -75,19 +78,19 @@ jobs:
 #      - if: ${{ inputs.pdf }}
 #        run: sudo apt-get install texlive texlive-latex-extra texlive-lang-polish
       - if: ${{ inputs.pdf }}
-        run: cd  ${{ github.workspace }} && chmod 755 ./render_pdf.sh && ./render_pdf.sh songbook a5 "Śpiewnik $(date +'%Y-%m-%d')" songs/*.xml
+        run: cd  /workspace && chmod 755 ./render_pdf.sh && ./render_pdf.sh songbook a5 "Śpiewnik $(date +'%Y-%m-%d')" songs/*.xml
       - if: ${{ inputs.pdf }}
-        run: mv ${{ github.workspace }}/build/songs_tex/output.pdf ${{ github.workspace }}/build/songbook_${{ env.release_name }}_a5.pdf
+        run: mv /workspace/build/songs_tex/output.pdf /workspace/build/songbook_${{ env.release_name }}_a5.pdf
       - if: ${{ inputs.pdf }}
-        run: cd  ${{ github.workspace }} && ./render_pdf.sh songbook a4 "Śpiewnik $(date +'%Y-%m-%d')" songs/*.xml
+        run: cd  /workspace && ./render_pdf.sh songbook a4 "Śpiewnik $(date +'%Y-%m-%d')" songs/*.xml
       - if: ${{ inputs.pdf }}
-        run: mv ${{ github.workspace }}/build/songs_tex/output.pdf ${{ github.workspace }}/build/songbook_${{ env.release_name }}_a4.pdf
+        run: mv /workspace/build/songs_tex/output.pdf /workspace/build/songbook_${{ env.release_name }}_a4.pdf
       - name: Upload PDFs
         if: ${{ inputs.pdf }}
         uses: actions/upload-artifact@v3
         with:
           name: songbooks
-          path: ${{ github.workspace }}/build/*.pdf
+          path: /workspace/build/*.pdf
 
       - name: Create Release
         id: create_release
@@ -108,7 +111,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ${{ github.workspace }}/build/songbook_${{ env.release_name }}_a4.pdf
+          asset_path: /workspace/build/songbook_${{ env.release_name }}_a4.pdf
           asset_name: songbook_${{ env.release_name }}_a4.pdf
           asset_content_type: application/pdf
       - name: Upload PDF_A5 to release
@@ -119,7 +122,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ github.workspace }}/build/songbook_${{ env.release_name }}_a5.pdf
+          asset_path: /workspace/build/songbook_${{ env.release_name }}_a5.pdf
           asset_name: songbook_${{ env.release_name }}_a5.pdf
           asset_content_type: application/pdf
 
@@ -127,13 +130,13 @@ jobs:
 
 
       - if: ${{ inputs.epub }}
-        run: cd  ${{ github.workspace }} && chmod 755 ./render_epub.sh && ./render_epub.sh
+        run: cd /workspace && chmod 755 ./render_epub.sh && ./render_epub.sh
       - if: ${{ inputs.epub }}
-        run: mv ${{ github.workspace }}/build/spiewnik.epub ${{ github.workspace }}/build/songbook_${{ env.release_name }}.epub
+        run: mv /workspace/build/spiewnik.epub /workspace/build/songbook_${{ env.release_name }}.epub
       - if: ${{ inputs.epub }}
         run: sudo apt-get install epubcheck
       - if: ${{ inputs.epub }}
-        run: epubcheck ${{ github.workspace }}/build/songbook_${{ env.release_name }}.epub
+        run: epubcheck /workspace/build/songbook_${{ env.release_name }}.epub
 
 
       - name: Upload EPUBs
@@ -141,7 +144,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: songbooks
-          path: ${{ github.workspace }}/build/*.epub
+          path: /workspace/build/*.epub
 
       - name: Upload epub to release
         if: ${{ inputs.epub && inputs.release }}
@@ -151,7 +154,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ${{ github.workspace }}/build/songbook_${{ env.release_name }}.epub
+          asset_path: /workspace/build/songbook_${{ env.release_name }}.epub
           asset_name: songbook_${{ env.release_name }}.epub
           asset_content_type: application/epub+zip
 
@@ -160,9 +163,9 @@ jobs:
 
 
       - if: ${{ inputs.html }}
-        run: cd  ${{ github.workspace }} && chmod 755 ./render_htmls.sh && ./render_htmls.sh
+        run: cd  /workspace && chmod 755 ./render_htmls.sh && ./render_htmls.sh
       - if: ${{ inputs.html }}
-        run: mv ${{ github.workspace }}/build/songs_html.zip ${{ github.workspace }}/build/songs_html_${{ env.release_name }}.zip
+        run: mv /workspace/build/songs_html.zip /workspace/build/songs_html_${{ env.release_name }}.zip
 
 
       - name: Upload HTMLs
@@ -170,7 +173,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: songbooks
-          path: ${{ github.workspace }}/build/*.zip
+          path: /workspace/build/*.zip
 
       - name: Upload htmls to release
         if: ${{ inputs.html && inputs.release }}
@@ -180,7 +183,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ${{ github.workspace }}/build/songs_html_${{ env.release_name }}.zip
+          asset_path: /workspace/build/songs_html_${{ env.release_name }}.zip
           asset_name: songbook_${{ env.release_name }}.zip
           asset_content_type: application/zip
 
