@@ -136,7 +136,7 @@ jobs:
 #      - if: ${{ inputs.epub }}
 #        run: sudo apt-get install epubcheck
       - if: ${{ inputs.epub }}
-        run: epubcheck /workspace/build/songbook_${{ env.release_name }}.epub
+        run: java -jar /usr/bin/epubcheck /workspace/build/songbook_${{ env.release_name }}.epub
 
 
       - name: Upload EPUBs
