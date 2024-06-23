@@ -26,10 +26,10 @@ jobs:
 #      - run: sudo apt-get install python3-lxml
 #      - run: pip3 install -r ${{ github.workspace }}/requirements.txt
 #      - run: pip install lxml
-
+ 
       - name: Get changed files
         id: changed-xml-files
-        uses: tj-actions/changed-files@v35.1.1
+        uses: tj-actions/changed-files@v44.5.4
         with:
           fetch_depth: 500
           files: |
