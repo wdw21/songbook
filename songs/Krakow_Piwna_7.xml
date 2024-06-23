@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Kraków, Piwna 7">
-  <text_author>Andrzej Sikorowski</text_author>
+  <text_author type="solo">Andrzej Sikorowski</text_author>
+  <artist type="band">Pod Budą</artist>
   <lyric>
     <block type="verse">
       <row important_over="false"><ch a="C"/>Byłem u wróżki, Piwna 7<ch a="F"/><ch a="G"/><ch a="C"/></row>
@@ -55,6 +56,7 @@
     <guitar barre="2"/>
   </music>
   <keywords/>
+  <album>Zmowa Z Zegarem</album>
   <status>
     <done/>
     <verificators/>
