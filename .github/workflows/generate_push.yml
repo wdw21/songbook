@@ -35,8 +35,8 @@ jobs:
           files: |
             songs/*.xml
 
-      - if: steps.changed-xml-files.outputs.any_changed == 'true'
-        run: sudo apt-get install texlive texlive-latex-extra texlive-lang-polish
+#      - if: steps.changed-xml-files.outputs.any_changed == 'true'
+#        run: sudo apt-get install texlive texlive-latex-extra texlive-lang-polish
 
       - name: Generate PDFs
         if: steps.changed-xml-files.outputs.any_changed == 'true'
