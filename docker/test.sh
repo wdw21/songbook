@@ -1,0 +1,1 @@
+docker run -v "${PWD}/..:/work" -w /work -it europe-docker.pkg.dev/wdw-21/songbook/github-latex-worker:latest /bin/bash
