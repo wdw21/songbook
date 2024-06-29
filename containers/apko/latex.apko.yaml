@@ -11,14 +11,17 @@ contents:
     - py3-markupsafe
     - py3-icu
     - py3-jinja2
-    - texmf-dist
+    - curl
+    - ca-certificates
+    - xz
+#    - texmf-dist
 #   Unfortunetelly all languages are needed... as otherwise it fails with errors like:/usr/share/texmf-dist/tex/generic/hyph-utf8/patterns/tex/hyph-af.tex
 #    - texmf-dist-langpolish
 #    - texmf-dist-langother
 #    - texmf-dist-langgerman
-    - texmf-dist-lang
-    - texmf-dist-latexrecommended
-    - texmf-dist-latexextra
+#    - texmf-dist-lang
+#    - texmf-dist-latexrecommended
+#    - texmf-dist-latexextra
 
 cmd: /bin/sh -l
 
@@ -34,7 +37,7 @@ accounts:
   groups:
     - groupname: latex
       gid: 10000
-  run-as: latex
+  run-as: 0
 
 
 archs:
