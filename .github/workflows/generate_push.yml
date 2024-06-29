@@ -49,9 +49,9 @@ jobs:
           done
           chmod 755 ./render_pdf.sh
           cd /workspace && ./render_pdf.sh single a4 "$(date +'%Y-%m-%d')" "${FILES[@]}"
-          mv /workspace/build/songs_tex/output.pdf' '/workspace/build/songs_tex/a4.pdf'
+          mv /workspace/build/songs_tex/output.pdf '/workspace/build/songs_tex/a4.pdf'
           cd  /workspace && ./render_pdf.sh single a5 "$(date +'%Y-%m-%d')" "${FILES[@]}"
-          mv /workspace/build/songs_tex/output.pdf' '/workspace/build/songs_tex/a5.pdf'
+          mv /workspace/build/songs_tex/output.pdf '/workspace/build/songs_tex/a5.pdf'
 
       - name: Save artifact
         if: steps.changed-xml-files.outputs.any_changed == 'true'
