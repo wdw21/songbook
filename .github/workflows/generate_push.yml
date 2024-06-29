@@ -40,6 +40,7 @@ jobs:
 
       - name: Generate PDFs
         if: steps.changed-xml-files.outputs.any_changed == 'true'
+        shell: bash
         run: |
           FILES=()
           for file in "${{ steps.changed-xml-files.outputs.all_changed_files }}"; do
