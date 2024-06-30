@@ -53,7 +53,7 @@ jobs:
   generate-artifacts:
     runs-on: ubuntu-latest
     container:
-      image: europe-containers.pkg.dev/wdw-21/songbook/github-latex-worker:latest
+      image: europe-docker.pkg.dev/wdw-21/songbook/github-latex-worker:latest
       volumes:
         - ${{ github.workspace }}:/workspace
     steps:
@@ -67,16 +67,6 @@ jobs:
         run: echo "Generating a ZIP with songs in html triggered by ${{ github.event_name }} release:${{ env.release_name }}"
       - name: Check out repository code
         uses: actions/checkout@v3
-#      - uses: actions/setup-python@v4
-#        with:
-#          python-version: '3.9'
-#          cache: 'pip' # caching pip dependencies
-#      - run: sudo apt-get install python3-lxml
-#      - run: pip3 install -r ${{ github.workspace }}/requirements.txt
-#      - run: pip install lxml
-#
-#      - if: ${{ inputs.pdf }}
-#        run: sudo apt-get install texlive texlive-latex-extra texlive-lang-polish
       - if: ${{ inputs.pdf }}
         run: cd  /workspace && chmod 755 ./render_pdf.sh && ./render_pdf.sh songbook a5 "Śpiewnik $(date +'%Y-%m-%d')" songs/*.xml
       - if: ${{ inputs.pdf }}
@@ -137,8 +127,6 @@ jobs:
 #        run: sudo apt-get install epubcheck
       - if: ${{ inputs.epub }}
         run: java -jar /usr/bin/epubcheck /workspace/build/songbook_${{ env.release_name }}.epub
-
-
       - name: Upload EPUBs
         if: ${{ inputs.epub }}
         uses: actions/upload-artifact@v3
@@ -157,9 +145,6 @@ jobs:
           asset_path: /workspace/build/songbook_${{ env.release_name }}.epub
           asset_name: songbook_${{ env.release_name }}.epub
           asset_content_type: application/epub+zip
-
-
-      #generating zip from here
 
 
       - if: ${{ inputs.html }}
