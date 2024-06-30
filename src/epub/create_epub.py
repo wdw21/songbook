@@ -17,7 +17,7 @@ def name_of_file(song):
     return os.path.splitext(os.path.split(song)[1])[0]
 
 
-def create_content_opf(list_of_songs_meta, target_dir):
+def create_content_opf(list_of_songs_meta, target_dir, files):
     tmp_path = 'templates/content.opf'
     out_path = os.path.join(target_dir, "epub", "OEBPS", "content.opf")
     tree = etree.parse(tmp_path)
@@ -38,15 +38,21 @@ def create_content_opf(list_of_songs_meta, target_dir):
         etree.SubElement(spine, "itemref").attrib['idref'] = 'p' + str(p)
         p = p+1
 
-    x = etree.SubElement(manifest, "item")
-    x.attrib['id'] = 'p' + str(p)
-    x.attrib['href'] = 'cover.xhtml'
-    x.attrib['media-type'] = "application/xhtml+xml"
-    etree.SubElement(spine, "itemref").attrib['idref'] = 'p' + str(p)
+    for f in files:
+        x = etree.SubElement(manifest, "item")
+        x.attrib['id'] = 'p' + str(p)
+        x.attrib['href'] = f
+        x.attrib['media-type'] = "application/xhtml+xml"
+        etree.SubElement(spine, "itemref").attrib['idref'] = 'p' + str(p)
+        p = p + 1
 
     et = etree.ElementTree(root)
     et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
 
+def groupName(title):
+  if title[0]>='0' and title[0]<='9':
+      return "0..9"
+  return title[0].upper()
 
 def create_toc_ncx(list_of_songs_meta, target_dir):
     tmp_path = 'templates/toc.ncx'
@@ -62,8 +68,8 @@ def create_toc_ncx(list_of_songs_meta, target_dir):
     last_letter=''
     playOrder=1
     for i in range(len(list_of_songs_meta)):
-        if (len(list_of_songs_meta) > 20 and last_letter != list_of_songs_meta[i].title[0]):
-           last_letter = list_of_songs_meta[i].title[0].upper()
+        if len(list_of_songs_meta) > 20 and last_letter != groupName(list_of_songs_meta[i].title):
+           last_letter = groupName(list_of_songs_meta[i].title)
            parent_np = etree.SubElement(navmap, "navPoint")
            parent_np.attrib['id'] = 'p' + str(playOrder)
            parent_np.attrib['playOrder'] = str(playOrder)
@@ -87,8 +93,55 @@ def create_toc_ncx(list_of_songs_meta, target_dir):
     et = etree.ElementTree(root)
     et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
 
+class SongInToc:
+    def __init__(self, song):
+       self.song = song
+
+    def plik(self):
+        return self.song.plik
+
+    def title(self):
+        return self.song.title
+
+def extract_toc_songs(list_of_songs_meta):
+    d = dict()
+    group = None
+    last_letter = None
+    for i in range(len(list_of_songs_meta)):
+        if len(list_of_songs_meta) > 20 and last_letter != groupName(list_of_songs_meta[i].title):
+            group = groupName(list_of_songs_meta[i].title)
+        if not group in d:
+            d[group] = []
+        d[group].append(SongInToc(list_of_songs_meta[i]))
+    return d
+
+def toc_songs_to_xhtml(parent, toc_songs_list):
+    for i in range(len(toc_songs_list)):
+        s = toc_songs_list[i]
+        li = etree.SubElement(parent, "li")
+        a = etree.SubElement(li, "a")
+        a.attrib['href'] = name_of_file(s.plik())+ '.xhtml'
+        a.text = s.title()
+
+def create_group_toc_xhtml(group, toc_songs_list, target_dir):
+    tmp_path = 'templates/toc_letter.xhtml'
+    file_name = "toc_"+group+".xhtml"
+    out_path = os.path.join(target_dir, "epub", "OEBPS", file_name)
+    tree = etree.parse(tmp_path)
+    root = tree.getroot()
+    body = root.getchildren()[1]
+    nav = body.getchildren()[0]
+    h1 = nav.getchildren()[0]
+    h1.text = group
+    toc_ol = nav.getchildren()[1]
+
+    toc_songs_to_xhtml(toc_ol, toc_songs_list)
+    et = etree.ElementTree(root)
+    et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
+    return file_name
 
 def create_toc_xhtml(list_of_songs_meta, target_dir):
+    files = []
     tmp_path = 'templates/toc.xhtml'
     out_path = os.path.join(target_dir, "epub", "OEBPS", "toc.xhtml")
     tree = etree.parse(tmp_path)
@@ -96,23 +149,26 @@ def create_toc_xhtml(list_of_songs_meta, target_dir):
     body = root.getchildren()[1]
     nav = body.getchildren()[0]
     toc_ol = nav.getchildren()[1]
-    parent_ol = toc_ol
-    last_letter=''
-    for i in range(len(list_of_songs_meta)):
-        if (len(list_of_songs_meta) > 20 and last_letter != list_of_songs_meta[i].title[0]):
-           last_letter = list_of_songs_meta[i].title[0].upper()
-           parent_li = etree.SubElement(toc_ol, "li")
-           parent_a = etree.SubElement(parent_li, "a")
-           parent_a.attrib['href'] = name_of_file(list_of_songs_meta[i].plik) + '.xhtml#'
-           parent_a.text = last_letter
-           parent_ol = etree.SubElement(parent_li, "ol")
-        li = etree.SubElement(parent_ol, "li")
-        a = etree.SubElement(li, "a")
-        a.attrib['href'] = name_of_file(list_of_songs_meta[i].plik) + '.xhtml'
-        a.text = list_of_songs_meta[i].title
+
+    toc_songs = extract_toc_songs(list_of_songs_meta)
+    for group in toc_songs:
+        if group:
+            parent_li = etree.SubElement(toc_ol, "li")
+          #  parent_li.attrib["id"] = "toc_" + group
+            parent_a = etree.SubElement(parent_li, "span")
+         #   parent_a.attrib['name'] = "toc_" + group
+            #parent_a.attrib['href'] = "#toc_" + group   #
+            #parent_a.attrib['href'] = name_of_file(toc_songs[group][0].plik())+ '.xhtml'   #"toc_" + group + '.xhtml'
+            parent_a.text = group
+            parent_ol = etree.SubElement(parent_li, "ol")
+            toc_songs_to_xhtml(parent_ol, toc_songs[group])
+            files.append(create_group_toc_xhtml(group, toc_songs[group], target_dir))
+        else:
+            toc_songs_to_xhtml(toc_ol, toc_songs[group])
+
     et = etree.ElementTree(root)
     et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
-
+    return files
 
 def create_template_epub(path):
     path_epub = os.path.join(path, "epub")
@@ -140,13 +196,21 @@ def create_template_epub(path):
 
 
 def create_full_epub(src_of_songs, src, target_dir):
+    los = loslib.list_of_song(src_of_songs)
+    toc_songs = extract_toc_songs(los)
+    suffix = etree.Element("div", attrib={"id":"letters", "class": "letters"})
+    for group in toc_songs:
+        a=etree.SubElement(suffix, "a")
+        a.attrib["href"] = "toc_" + group + ".xhtml"
+        a.text=group
+
     create_template_epub(target_dir)
     path_out = os.path.join(target_dir, "epub", "OEBPS")
-    cash.create_all_songs_html(src_of_songs, src, path_out)
-    los = loslib.list_of_song(src_of_songs)
-    create_content_opf(los, target_dir)
+    cash.create_all_songs_html(src_of_songs, src, path_out,  suffix)
+    files = ["cover.xhtml"]
+    files.extend(create_toc_xhtml(los, target_dir))
     create_toc_ncx(los, target_dir)
-    create_toc_xhtml(los, target_dir)
+    create_content_opf(los, target_dir, files)
 
 
 def package_epub(target_dir):
