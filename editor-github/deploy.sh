@@ -10,7 +10,7 @@
 gcloud functions deploy songbook-ghe \
   --project=wdw-21 \
   --allow-unauthenticated \
-  --region=europe-west1 --runtime nodejs18 --trigger-http --max-instances=5 --source . --memory=128Mi --gen2 \
+  --region=europe-west1 --runtime nodejs18 --trigger-http --max-instances=5 --source . --memory=256Mi --gen2 \
   --entry-point=songbook \
   --env-vars-file=google-cloud-functions-env.txt \
   --set-secrets=OAUTH_APP_SECRET=projects/wdw-21/secrets/github-editor-app-oauth:latest

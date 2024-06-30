@@ -227,7 +227,7 @@ function sanitizeBranchName(br) {
 
 async function newChange(file, octokit, user, res) {
     try {
-        console.log("newChange started")
+        console.log("newChange started (2024-06-30)")
         let today = new Date().toISOString().slice(0, 10);
         let rand = Math.floor(Math.random() * 10000);
         let branchName = sanitizeBranchName("se-" + today + "-" + rand + "-" + file);

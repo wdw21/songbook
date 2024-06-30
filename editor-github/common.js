@@ -103,7 +103,7 @@ export function clearCookiesAndAuthRedirect(res, backUrl) {
             clientType: "oauth-app",
             clientId: OAUTH_CLIENT_ID,
             redirectUrl: REDIRECT_BASE_URL,
-            scopes: ["public_repo"],
+            scopes: ["public_repo", "workflow"],
             state: state,
         });
     res.redirect(url);
@@ -254,14 +254,16 @@ export function editorLink(user, branchName, file, autocommit, maybeNew) {
 
 export function HandleError(e, res) {
     console.log("HttpError", e);
-    if (!res.headersSent && e instanceof RequestError && e.status===401) {
+    if ((!res.headersSent && e instanceof RequestError && e.status===401) ||
+       (e.response.data.message.includes("refusing to allow an OAuth App to"))) {
         // HttpError RequestError [HttpError]: Bad credentials
+        // status: 422,  E.g. HttpError: refusing to allow an OAuth App to create or update workflow `.github/workflows/generate.yml` without `workflow` scope
         res.redirect('/auth');
         return;
     }
     if (!res.responsesSent) {
         res.send(`<hr/><detail><summery>Error</summery><pre>`);
-       // res.send(util.inspect(e, false, null, false));
+        res.send(util.inspect(e, false, null, false));
         res.end(`</pre></detail></body></html>`);
     }
 }
