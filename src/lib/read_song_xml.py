@@ -2,8 +2,6 @@
 
 from lxml import etree
 from enum import Enum
-from distutils.util import strtobool
-
 
 class RowChunk:  # obsługuje akordy
     def __init__(self, chord='', content=None):
