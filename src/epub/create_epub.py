@@ -1,4 +1,5 @@
 import os
+import copy
 import zipfile
 
 from lxml import etree
@@ -123,7 +124,7 @@ def toc_songs_to_xhtml(parent, toc_songs_list):
         a.attrib['href'] = name_of_file(s.plik())+ '.xhtml'
         a.text = s.title()
 
-def create_group_toc_xhtml(group, toc_songs_list, target_dir):
+def create_group_toc_xhtml(group, toc_songs_list, target_dir, page_suffix = None):
     tmp_path = 'templates/toc_letter.xhtml'
     file_name = "toc_"+group+".xhtml"
     out_path = os.path.join(target_dir, "epub", "OEBPS", file_name)
@@ -137,10 +138,12 @@ def create_group_toc_xhtml(group, toc_songs_list, target_dir):
 
     toc_songs_to_xhtml(toc_ol, toc_songs_list)
     et = etree.ElementTree(root)
+    if page_suffix is not None:
+        body.append(copy.deepcopy(page_suffix))
     et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
     return file_name
 
-def create_toc_xhtml(list_of_songs_meta, target_dir):
+def create_toc_xhtml(list_of_songs_meta, target_dir, page_suffix):
     files = []
     tmp_path = 'templates/toc.xhtml'
     out_path = os.path.join(target_dir, "epub", "OEBPS", "toc.xhtml")
@@ -154,15 +157,11 @@ def create_toc_xhtml(list_of_songs_meta, target_dir):
     for group in toc_songs:
         if group:
             parent_li = etree.SubElement(toc_ol, "li")
-          #  parent_li.attrib["id"] = "toc_" + group
             parent_a = etree.SubElement(parent_li, "span")
-         #   parent_a.attrib['name'] = "toc_" + group
-            #parent_a.attrib['href'] = "#toc_" + group   #
-            #parent_a.attrib['href'] = name_of_file(toc_songs[group][0].plik())+ '.xhtml'   #"toc_" + group + '.xhtml'
             parent_a.text = group
             parent_ol = etree.SubElement(parent_li, "ol")
             toc_songs_to_xhtml(parent_ol, toc_songs[group])
-            files.append(create_group_toc_xhtml(group, toc_songs[group], target_dir))
+            files.append(create_group_toc_xhtml(group, toc_songs[group], target_dir, page_suffix))
         else:
             toc_songs_to_xhtml(toc_ol, toc_songs[group])
 
@@ -208,7 +207,7 @@ def create_full_epub(src_of_songs, src, target_dir):
     path_out = os.path.join(target_dir, "epub", "OEBPS")
     cash.create_all_songs_html(src_of_songs, src, path_out,  suffix)
     files = ["cover.xhtml"]
-    files.extend(create_toc_xhtml(los, target_dir))
+    files.extend(create_toc_xhtml(los, target_dir, page_suffix = suffix))
     create_toc_ncx(los, target_dir)
     create_content_opf(los, target_dir, files)
 
