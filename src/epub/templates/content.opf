@@ -8,20 +8,19 @@
         <dc:identifier id="db-id">wdw21-experimental-3rmds92</dc:identifier>
         <meta refines="#editor" property="role" scheme="marc:relators" id="role">edt</meta>
         <meta property="dcterms:modified"></meta>
-        <dc:language>pl</dc:language>
+        <dc:language>en</dc:language><!-- pl is not supported by kindle previewer -->
     </metadata>
 
     <manifest>
+        <item id="cover" href="images/cover.jpg" media-type="image/jpeg" properties="cover-image"/>
         <item id="toc" href="toc.xhtml" media-type="application/xhtml+xml" properties="nav"/>
         <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
         <item id="template_css" href="CSS/template.css" media-type="text/css"/>
         <item id="song_css" href="CSS/song.css" media-type="text/css"/>
-
     </manifest>
 
     <spine toc="ncx">
         <itemref idref="toc"/>
-
     </spine>
 
 </package>

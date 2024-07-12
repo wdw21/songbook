@@ -1,7 +1,6 @@
 # noinspection PyInterpreter
 from lxml import etree
 from enum import Enum
-from distutils.util import strtobool
 import sys
 import jinja2
 import re
