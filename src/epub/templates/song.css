@@ -1,75 +1,78 @@
-h1 {
-  text-align: left
-  }
+/* Kindle specyfic chords styling, as kindle stopped supporting 'width' property in the inline-block. */
 
-span.lyric span.ch {
-  display: inline-block;
-  position: relative;
-  left: 0px;
-  top: -1.4em;
-  font-size: xx-small;
-  width:0px;
-  padding-top:0.9em;
-  font-weight: bold;
-  overflow-wrap: normal;
-  hyphens: none;
+span.lyric {
+  display: table-cell;
+  /*border: 1px solid blue;*/
+}
+
+span.lyric span.chunk {
+  display: inline-table;
+  /*border: 1px solid green;*/
+  vertical-align: bottom;
 }
 
 span.lyric span.chord {
-  display: inline-block;
-  position: relative;
-  left: 0px;
-  font-size: xx-small;
-  width:0px;
-  padding-top:0.9em;
-  font-weight: bolder;
+  display: table-row;
+  /*border: 1px solid orange;*/
+  max-height: 0;
+}
+
+span.lyric span.chord span.ch{
+  display: table-cell;
+}
+
+span.lyric span.content {
+  display: table-row;
+  /*border: 1px solid red;*/
+  /*overflow-wrap: normal;*/
+  /*white-space: nowrap;*/
+  /*hyphens: none;*/
+}
+
+span.lyric span.content-i {
+  display: table-cell;
+  /*border: 1px solid red;*/
+  white-space: pre-line;
   overflow-wrap: normal;
+  /*white-space: nowrap;*/
   hyphens: none;
 }
 
-span.lyric span.chord span.ch {
+span.ws {
+  display: inline-block;
+  opacity: 0;
+}
 
-  width: 75px;
+div.row {
+  display: table-row;
+  border: 1px solid red;
+  page-break-inside: avoid;
+  page-break-after: avoid;
+}
+
+div.row > span.chords {
+  display: table-cell;
   overflow-wrap: normal;
-  font-weight: bold;
-}
-
-div.over_false span.lyric span.ch {
-  display: none;
-}
-
-span.ch {
-  font-family: sans-serif;
-}
-
-span.content_creator {
-  margin-top: 0.2em;
-  font-style: italic;
-  font-weight: bold;
-}
-
-div.row > span.lyric > span {
-    white-space: nowrap;
-}
-
-div.row > span.lyric > span > span {
-    white-space: normal;
-}
-
-span.chords > span.ch {
-  margin-left: 0.6em;
+  hyphens: none;
+  white-space: nowrap;
 }
 
 div.verse {
   display: table;
-   /*width: 100%; */
+  border-spacing: 0;
+  page-break-inside: avoid;
+}
+
+div.verse {
+  display: table;
+  width: 100%;
   align-items: stretch;
   margin-top: 1.2em;
 }
 
 div.chorus {
   display: table;
-   /*width: 100%;*/
+  width: 100%;
   align-items: stretch;
   margin-top: 1.2em;
   padding-left: 1.2em;
@@ -77,53 +80,60 @@ div.chorus {
 
 div.other {
   display: table;
-   /*width: 100%;*/
+  width: 100%;
   align-items: stretch;
   margin-top: 1.2em;
 }
 
-div.row {
-  display: table-row;
+div.over_false span.lyric span.ch {
+  display: none;
 }
 
-div.row > span.lyric {
-  display: table-cell;
-  padding-right: 2em;
-  /*width: 85%;*/
-}
-div.row > span.chords_ins {
-  display: table-cell;
-  padding-right: 2em;
-  /*width: 85%;*/
+/* Generic styling*/
+
+h1 {
+  text-align: left;
 }
 
-div.row > span.chords {
-  display: table-cell;
-  align-items: end;
-  padding-left: 1em;
-  justify-content: left;
-  width: max-content;
+span.lyric span.ch {
+  font-family: sans-serif;
+  font-size: xx-small;
+  font-weight: bolder;
+}
+
+span.ch {
+  font-family: sans-serif;
+  font-weight: bolder;
+}
+
+span.content_creator {
+  margin-top: 0.0em;
+  font-style: italic;
+  font-weight: bold;
+  font-size: small;
+}
+
+span.chords > span.ch {
+  margin-left: 0.6em;
 }
 
 div.row > span.bis_inactive {
   display: table-cell;
-  align-items: end;
-  padding-left: 0.4em;
+  padding-right: 0.4em;
   empty-cells: show;
-  max-width: 10em;
+  width: 2em;
 }
 
 div.row > span.bis_active {
   display: table-cell;
-  align-items: end;
-  padding-left: 0.4em;
-  border-left: solid;
+  padding-right: 0.4em;
+  border-right: solid;
   empty-cells: show;
-  max-width: 10em;
+  text-align: right;
+  width: 2em;
 }
 
 div.comment {
   margin-top: 1.2em;
   font-style: italic;
 }
-

@@ -12,6 +12,8 @@ def _add_chunk(chunk, parent, position):
     span_ch = etree.SubElement(chord, "span", attrib={"class": "ch"})
     span_ch.text = chunk.chord
     span_content = etree.SubElement(span_chunk, "span", attrib={"class": "content"})
+    # Nested spans help with formatting as table.
+    span_content = etree.SubElement(span_content, "span", attrib={"class": "content-i"})
     if position == 0:
         if chunk.content.startswith(' '):
             span_content.text = chunk.content
@@ -45,13 +47,13 @@ def _add_chords(row, parent, class_name):
 def _add_bis(row, div_row):
     if str(type(row.bis)) == "<class \'bool\'>" and row.bis is True:
         span_bis = etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
-        span_bis.text = '  '
+        span_bis.text = u'\u00a0'
     elif str(type(row.bis)) == "<class \'int\'>":
         span_bis = etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
         span_bis.text = 'x' + str(row.bis)
     else:
         span_unbis = etree.SubElement(div_row, "span", attrib={"class": "bis_inactive"})
-        span_unbis.text = '   '
+        span_unbis.text = u'\u00a0'
 
 
 def _add_row(row, parent):
@@ -61,17 +63,17 @@ def _add_row(row, parent):
     else:
         chords_over = "over_true"
     div_row = etree.SubElement(parent, "div", attrib={"class": "row " + chords_over})
-    div_row.text = u'\u200d'
+    div_row.text = u'\u200d' # Not visible spaces -> forces the row to be generated as a single line. We remove it in post-processing.
     _add_lyric(row, div_row)
     if str(type(row.bis)) == "<class \'bool\'>" and row.bis is True:
         span_bis = etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
-        span_bis.text = '  '
+        span_bis.text =  u'\u00a0'
     elif str(type(row.bis)) == "<class \'int\'>":
         span_bis = etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
         span_bis.text = 'x' + str(row.bis)
     else:
         span_unbis = etree.SubElement(div_row, "span", attrib={"class": "bis_inactive"})
-        span_unbis.text = '   '
+        span_unbis.text =u'\u00a0'
     _add_chords(row, div_row, "chords")
 
 
@@ -81,7 +83,7 @@ def _add_instrumental_row(row, parent):
     if str(type(row.bis)) == "<class \'bool\'>" and row.bis is True:
         _add_chords(row, div_row, "chords_ins")
         span_bis = etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
-        span_bis.text = '  '
+        span_bis.text = u'\u00a0'
     elif str(type(row.bis)) == "<class \'int\'>":
         _add_chords(row, div_row, "chords_ins")
         span_bis = etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
@@ -89,7 +91,7 @@ def _add_instrumental_row(row, parent):
     else:
         _add_chords(row, div_row, "chords_ins")
         span_unbis = etree.SubElement(div_row, "span", attrib={"class": "bis_inactive"})
-        span_unbis.text = '   '
+        span_unbis.text = u'\u00a0'
 
 
 def _add_verse(block, parent, block_type):
@@ -176,6 +178,18 @@ def xml2html(src_xml_path, path_out, song_suffix):  # tworzy piosenkę w wersji 
 
     et.write(path_out, doctype='<!DOCTYPE html>', pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
 
+    replace_in_file(path_out, path_out, lambda s: s.replace(" </span>", "<span class='ws'>_</span></span>").replace('<span class="content-i"> ', '<span class="content-i"><span class="ws">_</span>'))
+
+def replace_in_file(sourceFile, targetFile, f):
+    with open(sourceFile, 'r') as file:
+        filedata = file.read()
+
+    # Replace the target string
+    filedata = f(filedata)
+
+    # Write the file out again
+    with open(targetFile, 'w') as file:
+        file.write(filedata)
 
 def create_list_of_songs(song_set):
     """ Dostaje jako argument listę piosenek lub ścieżkę do katalogu i zwraca listę piosenek """
