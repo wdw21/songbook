@@ -1,6 +1,7 @@
 import os
 import zipfile
 import copy
+import sys
 
 from lxml import etree
 import shutil
@@ -9,6 +10,7 @@ from datetime import datetime
 
 import src.html.create_songs_html as cash
 import src.lib.list_of_songs as loslib
+import src.lib.songbook as sb
 
 def actual_date():
     return str(datetime.now().strftime("%d/%m/%Y %H:%M"))
@@ -212,8 +214,8 @@ def create_template_epub(path):
                          lambda s: s.replace("{date}", actual_date()))
 
 
-def create_full_epub(src_of_songs, src, target_dir):
-    los = loslib.list_of_song(src_of_songs)
+def create_full_epub(songbook,  target_dir):
+    los = songbook.list_of_songs()
     toc_songs = extract_toc_songs(los)
     suffix = etree.Element("div", attrib={"id":"letters", "class": "letters"})
     for group in toc_songs:
@@ -224,11 +226,10 @@ def create_full_epub(src_of_songs, src, target_dir):
 
     create_template_epub(target_dir)
     path_out = os.path.join(target_dir, "epub", "OEBPS")
-    cash.create_all_songs_html(src_of_songs, src, path_out,  suffix)
+    cash.create_all_songs_html(los, path_out,  suffix)
     files = []
     files.extend(create_toc_xhtml(los, target_dir, page_suffix = suffix))
-    #create_toc_ncx(los, target_dir)
-    create_content_opf(los, target_dir, files)
+    create_content_opf(los, target_dir, post_files=files)
 
 
 def package_epub(target_dir):
@@ -250,11 +251,12 @@ def package_epub(target_dir):
 
 
 def main():
-    src = os.path.join("..", "..", "songs")  # gdzie są wszystkie piosenki
-    target_dir = os.path.join("..", "..", "build")  # gdzie ma utworzyć epub
-    src_of_songs = os.path.join("..", "..", "songs")
+    target_dir = os.path.join(sb.repo_dir(), "build")  # gdzie ma utworzyć epub
+    songbook_file = os.path.join(sb.repo_dir(), "songbooks/default.songbook.yaml") if len(sys.argv) == 1 else sys.argv[1]
+    songbook = sb.load_songbook_spec_from_yaml(songbook_file)
+
     # które piosenki chcę zawrzeć w śpiewniku (może być katalogiem z plikami xml lub listą plików)
-    create_full_epub(src_of_songs, src, target_dir)
+    create_full_epub(songbook, target_dir)
     package_epub(target_dir)
 
 
