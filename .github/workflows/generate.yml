@@ -79,7 +79,7 @@ jobs:
         if: ${{ inputs.pdf }}
         uses: actions/upload-artifact@v4
         with:
-          name: songbooks
+          name: songbooks_pdfs
           path: /workspace/build/*.pdf
 
       - name: Create Release
@@ -131,8 +131,10 @@ jobs:
         if: ${{ inputs.epub }}
         uses: actions/upload-artifact@v4
         with:
-          name: songbooks
+          name: songbooks_epub
+          overwrite: true
           path: /workspace/build/*.epub
+
 
       - name: Upload epub to release
         if: ${{ inputs.epub && inputs.release }}
@@ -157,7 +159,7 @@ jobs:
         if: ${{ inputs.html }}
         uses: actions/upload-artifact@v4
         with:
-          name: songbooks
+          name: songbooks_htmls
           path: /workspace/build/*.zip
 
       - name: Upload htmls to release
