@@ -43,7 +43,7 @@ jobs:
         if: steps.changed-xml-files.outputs.any_changed == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: songbooks
+          name: songbooks_pdf
           path: /workspace/build/songs_tex/*.pdf
 
       - name: Upload artifacts
