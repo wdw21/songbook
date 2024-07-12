@@ -43,12 +43,11 @@
       <row important_over="never"><ch a="F"/>Ty - najwyżej w górę wznosisz brwi.</row>
       <row important_over="never"><ch a="G"/>Lecz nie zaraźliwy jest twój śmiech.<ch a="C"/></row>
       <row important_over="never"><ch a="G"/>Bo ty grasz!</row>
-    </block>
-    <block type="chorus">
       <row important_over="false">Ja - duszę na ramieniu wiecznie mam.</row>
       <row important_over="false">Cały jestem zbudowany z ran.</row>
       <row important_over="false">Lecz gdy śmieje się, to wkrąg się śmieje świat!</row>
     </block>
+    <block type="chorus"/>
   </lyric>
   <music>
     <guitar barre="0"/>
