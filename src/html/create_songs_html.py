@@ -113,8 +113,8 @@ def _add_creator(creator, describe, parent):
 
 def _add_blocks(song, parent):
     """class song -> html div body # blok z metadanymi o piosence i piosenką"""
-    body_song = etree.SubElement(parent, "body", attrib={"class": "song"})
-    h1_title = etree.SubElement(body_song, "h1", attrib={"class": "title"})
+    body_song = etree.SubElement(parent, "body", attrib={"class": "song", etree.QName("http://www.idpf.org/2007/ops", "type"):"bodymatter"})
+    h1_title = etree.SubElement(body_song, "h1", attrib={"class": "title", "id": "title"})
     h1_title.text = song.title
     if song.original_title:
         _add_creator(song.original_title, "Tytuł oryginalny: ", body_song)
@@ -153,15 +153,19 @@ def _add_blocks(song, parent):
 def xml2html(src_xml_path, path_out, song_suffix):  # tworzy piosenkę w wersji html
 
     xhtml_namespace = "http://www.w3.org/1999/xhtml"
+    epub_namespace = "http://www.idpf.org/2007/ops"
     xhtml = "{%s}" % xhtml_namespace
-    nsmap = {None: xhtml_namespace}
+    nsmap = {None: xhtml_namespace,
+             "epub": epub_namespace}
 
     song = rsx.parse_song_xml(src_xml_path)
     root_html = etree.Element(xhtml + "html", nsmap=nsmap)
     root_html.attrib[etree.QName("lang")] = "pl-PL"
     head = etree.SubElement(root_html, "head")
     etree.SubElement(head, "link",
-                     attrib={"rel": "stylesheet", "type": "text/css", "href": "CSS/song.css", "media": "screen"})
+                     attrib={"rel": "stylesheet", "type": "text/css", "href": "CSS/song.css", "media": "all"})
+    etree.SubElement(head, "link",
+                     attrib={"rel": "stylesheet", "type": "text/css", "href": "CSS/template.css", "media": "all"})
    # etree.SubElement(head, "script", attrib={"src": "./song.js"})
     _add_blocks(song, root_html)
     title = etree.SubElement(head, "title")
@@ -170,7 +174,7 @@ def xml2html(src_xml_path, path_out, song_suffix):  # tworzy piosenkę w wersji 
     if song_suffix is not None:
        root_html.find("body").append(copy.deepcopy(song_suffix))
 
-    et.write(path_out, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
+    et.write(path_out, doctype='<!DOCTYPE html>', pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
 
 
 def create_list_of_songs(song_set):

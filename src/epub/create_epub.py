@@ -48,7 +48,7 @@ def create_content_opf(list_of_songs_meta, target_dir, files):
         p = p + 1
 
     et = etree.ElementTree(root)
-    et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
+    et.write(out_path, doctype='<!DOCTYPE html>', pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
 
 def groupName(title):
   if title[0]>='0' and title[0]<='9':
@@ -79,7 +79,7 @@ def create_toc_ncx(list_of_songs_meta, target_dir):
            parent_text = etree.SubElement(parent_nl, "text")
            parent_text.text = last_letter
            content = etree.SubElement(parent_np, "content")
-           content.attrib['src'] = name_of_file(list_of_songs_meta[i].plik) + '.xhtml#'
+           content.attrib['src'] = name_of_file(list_of_songs_meta[i].plik) + '.xhtml#title'
            parent = parent_np
 
         navpoint = etree.SubElement(parent, "navPoint")
@@ -92,7 +92,7 @@ def create_toc_ncx(list_of_songs_meta, target_dir):
         content = etree.SubElement(navpoint, "content")
         content.attrib['src'] = name_of_file(list_of_songs_meta[i].plik) + '.xhtml'
     et = etree.ElementTree(root)
-    et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
+    et.write(out_path, doctype='<!DOCTYPE html>', pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
 
 class SongInToc:
     def __init__(self, song):
@@ -140,7 +140,20 @@ def create_group_toc_xhtml(group, toc_songs_list, target_dir, page_suffix = None
     et = etree.ElementTree(root)
     if page_suffix is not None:
         body.append(copy.deepcopy(page_suffix))
-    et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
+    et.write(out_path, doctype='<!DOCTYPE html>', pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
+    return file_name
+
+def create_index_toc_xhtml(target_dir, page_suffix = None):
+    tmp_path = 'templates/index.xhtml'
+    file_name = "index.xhtml"
+    out_path = os.path.join(target_dir, "epub", "OEBPS", file_name)
+    tree = etree.parse(tmp_path)
+    root = tree.getroot()
+    body = root.getchildren()[1]
+    et = etree.ElementTree(root)
+    if page_suffix is not None:
+        body.append(copy.deepcopy(page_suffix))
+    et.write(out_path, doctype='<!DOCTYPE html>', pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
     return file_name
 
 def create_toc_xhtml(list_of_songs_meta, target_dir, page_suffix):
@@ -153,6 +166,8 @@ def create_toc_xhtml(list_of_songs_meta, target_dir, page_suffix):
     nav = body.getchildren()[0]
     toc_ol = nav.getchildren()[1]
 
+    files.append(create_index_toc_xhtml(target_dir, page_suffix))
+
     toc_songs = extract_toc_songs(list_of_songs_meta)
     for group in toc_songs:
         if group:
@@ -164,6 +179,12 @@ def create_toc_xhtml(list_of_songs_meta, target_dir, page_suffix):
             files.append(create_group_toc_xhtml(group, toc_songs[group], target_dir, page_suffix))
         else:
             toc_songs_to_xhtml(toc_ol, toc_songs[group])
+
+
+    li = etree.SubElement(toc_ol, "li")
+    a = etree.SubElement(li, "a")
+    a.attrib['href'] = 'index.xhtml'
+    a.text ="Index"
 
     et = etree.ElementTree(root)
     et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
@@ -206,9 +227,9 @@ def create_full_epub(src_of_songs, src, target_dir):
     create_template_epub(target_dir)
     path_out = os.path.join(target_dir, "epub", "OEBPS")
     cash.create_all_songs_html(src_of_songs, src, path_out,  suffix)
-    files = ["cover.xhtml"]
+    files = []
     files.extend(create_toc_xhtml(los, target_dir, page_suffix = suffix))
-    create_toc_ncx(los, target_dir)
+    #create_toc_ncx(los, target_dir)
     create_content_opf(los, target_dir, files)
 
 

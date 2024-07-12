@@ -12,15 +12,18 @@
     </metadata>
 
     <manifest>
-        <item id="cover" href="images/cover.jpg" media-type="image/jpeg" properties="cover-image"/>
+        <item id="coverimage" href="images/cover.jpg" media-type="image/jpeg" properties="cover-image"/>
+        <item id="cover" href="cover.xhtml" media-type="application/xhtml+xml"/>
         <item id="toc" href="toc.xhtml" media-type="application/xhtml+xml" properties="nav"/>
-        <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
+        <!--item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/-->
         <item id="template_css" href="CSS/template.css" media-type="text/css"/>
         <item id="song_css" href="CSS/song.css" media-type="text/css"/>
     </manifest>
 
-    <spine toc="ncx">
+    <spine>
+        <itemref idref="cover"/>
         <itemref idref="toc"/>
+        <!--https://kdp.amazon.com/en_US/help/topic/G201605710-->
     </spine>
 
 </package>
