@@ -159,7 +159,7 @@ function traverse(parent, node) {
     case 'CODE': {
       if (node.className=='an') {
         // Wywrota: <code class="an" data-chord="C" data-suffix="" data-local="C">C</code>
-        let ch = createChord(node.attributes['data-chord'].value);
+        let ch = createChord(node.attributes['data-local'].value);
         node.remove();
         let newParent = nestToRow(parent);
         newParent.appendChild(ch);
