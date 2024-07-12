@@ -3,17 +3,18 @@
 
     <head>
         <meta content="wdw21-experimental-3rmds92" name="dtb:uid"/>
-        <meta content="2" name="dtb:depth"/>
+        <meta content="3" name="dtb:depth"/>
         <meta content="0" name="dtb:totalPageCount"/>
         <meta content="0" name="dtb:maxPageNumber"/>
     </head>
 
     <docTitle>
-        <text>Śpiewnik 21WDW Wersja:</text>
+        <text>Śpiewnik 21WDW Wersja: </text>
     </docTitle>
 
     <navMap>
 
     </navMap>
+
 
 </ncx>
