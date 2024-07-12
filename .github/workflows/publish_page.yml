@@ -41,12 +41,21 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Download generated songbook artifacts
+      - name: Download generated songbook artifacts (pdfs)
         uses: actions/download-artifact@v4
         with:
-          name: songbooks
+          name: songbooks_pdfs
           path: _generated
-
+      - name: Download generated songbook artifacts (epub)
+        uses: actions/download-artifact@v4
+        with:
+          name: songbooks_epub
+          path: _generated
+      - name: Download generated songbook artifacts (htmls)
+        uses: actions/download-artifact@v4
+        with:
+          name: songbooks_htmls
+          path: _generated
       - name: Prepare _site
         run: |
           unzip -o _generated/*.zip -d _site/
