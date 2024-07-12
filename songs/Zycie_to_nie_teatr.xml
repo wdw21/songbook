@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Życie to nie teatr">
-  <alias/>
-  <text_author>Edward Stachura</text_author>
-  <comment/>
-  <composer type="solo"/>
-  <artist type="solo"/>
-  <translator/>
-  <original_title/>
+  <text_author type="solo">Edward Stachura</text_author>
   <lyric>
     <block type="verse">
       <row important_over="false"><ch a="a"/>Życie to jest teatr, <ch a="E"/>mówisz ciągle, opowiadasz;</row>
@@ -22,20 +16,20 @@
       <row important_over="false"><ch a="E"/>Wszystko przy nim blednie<ch a="E7"/>, <ch a="a"/>blednie nawet sama śmierć!<ch a="G"/></row>
     </block>
     <block type="chorus">
-      <row important_over="false"><ch a="F"/>Ty i ja teatry to są dwa! Ty i ja!<ch a="G"/><ch a="C"/><ch a="G"/></row>
-      <row important_over="false"><ch a="a"/>Ty - ty prawdziwej nie uronisz łzy.<ch a="E"/><ch a="E7"/><ch a="a"/></row>
-      <row important_over="false"><ch a="F"/>Ty najwyżej w górę wznosisz brwi.</row>
-      <row important_over="false"><ch a="G"/>Nawet kiedy źle Ci jest, to nie jest źle.<ch a="C"/></row>
-      <row important_over="false">Ja - duszę na ramieniu ciągle mam.</row>
-      <row important_over="false">Cały zbudowany jestem z ran.</row>
-      <row important_over="false">Lecz kaleka nie ja jestem, tylko ty!</row>
+      <row important_over="never"><ch a="F"/>Ty i ja teatry to są dwa! Ty i ja!<ch a="G"/><ch a="C"/><ch a="G"/></row>
+      <row important_over="never"><ch a="a"/>Ty - ty prawdziwej nie uronisz łzy.<ch a="E"/><ch a="E7"/><ch a="a"/></row>
+      <row important_over="never"><ch a="F"/>Ty najwyżej w górę wznosisz brwi.</row>
+      <row important_over="never"><ch a="G"/>Nawet kiedy źle Ci jest, to nie jest źle.<ch a="C"/></row>
+      <row important_over="never">Ja - duszę na ramieniu ciągle mam.</row>
+      <row important_over="never">Cały zbudowany jestem z ran.</row>
+      <row important_over="never">Lecz kaleka nie ja jestem, tylko ty!</row>
     </block>
     <block type="verse">
-      <row important_over="false"><ch a="a"/>Dzisiaj bankiet u artystów, <ch a="E"/>Ty się tam wybierasz;</row>
-      <row important_over="false"><ch a="E7"/>Gości będzie dużo, <ch a="a"/>niedostępna tylariera;</row>
-      <row important_over="false"><ch a="F"/>Tańce alkohole<ch a="G"/>, <ch a="C"/>pewnie flirty będą też,<ch a="a"/></row>
-      <row important_over="false"><ch a="E"/>Drzwi otwarte zamkną, <ch a="E7"/><ch a="a"/>potem się.</row>
-      <row important_over="false">No i cześć!<ch a="G"/></row>
+      <row important_over="true"><ch a="a"/>Dzisiaj bankiet u artystów, <ch a="E"/>Ty się tam wybierasz;</row>
+      <row important_over="true"><ch a="E7"/>Gości będzie dużo, <ch a="a"/>niedostępna tylariera;</row>
+      <row important_over="true"><ch a="F"/>Tańce alkohole<ch a="G"/>, <ch a="C"/>pewnie flirty będą też,<ch a="a"/></row>
+      <row important_over="true"><ch a="E"/>Drzwi otwarte zamkną, <ch a="E7"/><ch a="a"/>potem się.</row>
+      <row important_over="true">No i cześć!<ch a="G"/></row>
     </block>
     <block type="verse">
       <row important_over="false"><ch a="a"/>Wpadnę tam na chwilę, <ch a="E"/>zanim spuchnie atmosfera;</row>
@@ -44,21 +38,23 @@
       <row important_over="false"><ch a="E"/>Wyjdę na przestworza<ch a="E7"/>, <ch a="a"/>przecudowny stworzę wiersz.<ch a="G"/></row>
     </block>
     <block type="chorus">
-      <row important_over="false"><ch a="F"/>Ty i ja - teatry to są dwa. Ty i ja!<ch a="G"/><ch a="C"/><ch a="G"/></row>
-      <row important_over="false"><ch a="a"/>Ty - ty prawdziwej nie uronisz łzy.<ch a="E"/><ch a="E7"/><ch a="a"/></row>
-      <row important_over="false"><ch a="F"/>Ty - najwyżej w górę wznosisz brwi.</row>
-      <row important_over="false"><ch a="G"/>Lecz nie zaraźliwy jest twój śmiech.<ch a="C"/></row>
-      <row important_over="false"><ch a="G"/>Bo ty grasz!</row>
+      <row important_over="never"><ch a="F"/>Ty i ja - teatry to są dwa. Ty i ja!<ch a="G"/><ch a="C"/><ch a="G"/></row>
+      <row important_over="never"><ch a="a"/>Ty - ty prawdziwej nie uronisz łzy.<ch a="E"/><ch a="E7"/><ch a="a"/></row>
+      <row important_over="never"><ch a="F"/>Ty - najwyżej w górę wznosisz brwi.</row>
+      <row important_over="never"><ch a="G"/>Lecz nie zaraźliwy jest twój śmiech.<ch a="C"/></row>
+      <row important_over="never"><ch a="G"/>Bo ty grasz!</row>
+      <row important_over="false">Ja - duszę na ramieniu wiecznie mam.</row>
+      <row important_over="false">Cały jestem zbudowany z ran.</row>
+      <row important_over="false">Lecz gdy śmieje się, to wkrąg się śmieje świat!</row>
     </block>
-    <block type="verse">
-      <row important_over="false">Inny refren :P</row>
-    </block>
+    <block type="chorus"/>
   </lyric>
-  <music metre="">
+  <music>
     <guitar barre="0"/>
   </music>
+  <keywords/>
   <status>
+    <done/>
     <verificators/>
-    <to_do/>
   </status>
 </song>
