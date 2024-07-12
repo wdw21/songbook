@@ -1,6 +1,6 @@
 import os
-import copy
 import zipfile
+import copy
 
 from lxml import etree
 import shutil
@@ -18,7 +18,7 @@ def name_of_file(song):
     return os.path.splitext(os.path.split(song)[1])[0]
 
 
-def create_content_opf(list_of_songs_meta, target_dir, files):
+def create_content_opf(list_of_songs_meta, target_dir, pre_files=[], post_files=[]):
     tmp_path = 'templates/content.opf'
     out_path = os.path.join(target_dir, "epub", "OEBPS", "content.opf")
     tree = etree.parse(tmp_path)
@@ -31,15 +31,10 @@ def create_content_opf(list_of_songs_meta, target_dir, files):
     manifest = root.getchildren()[1]
     spine = root.getchildren()[2]
     p = 1
-    for i in range(len(list_of_songs_meta)):
-        x = etree.SubElement(manifest, "item")
-        x.attrib['id'] = 'p' + str(p)
-        x.attrib['href'] = name_of_file(list_of_songs_meta[i].plik) + '.xhtml'
-        x.attrib['media-type'] = "application/xhtml+xml"
-        etree.SubElement(spine, "itemref").attrib['idref'] = 'p' + str(p)
-        p = p+1
 
-    for f in files:
+    all_files = pre_files + list(map(lambda x:name_of_file(x.plik) + '.xhtml' ,list_of_songs_meta)) + post_files
+
+    for f in all_files:
         x = etree.SubElement(manifest, "item")
         x.attrib['id'] = 'p' + str(p)
         x.attrib['href'] = f
@@ -190,6 +185,7 @@ def create_toc_xhtml(list_of_songs_meta, target_dir, page_suffix):
     et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
     return files
 
+
 def create_template_epub(path):
     path_epub = os.path.join(path, "epub")
     if os.path.exists(path_epub):
@@ -212,7 +208,8 @@ def create_template_epub(path):
     shutil.copyfile(path_tmp_css_template, os.path.join(path_css, "template.css"))
     shutil.copyfile(path_tmp_mimetype, os.path.join(path_epub, "mimetype"))
     shutil.copyfile(os.path.join('templates', "images", "cover.jpg"), os.path.join(path_images, "cover.jpg"))
-    shutil.copyfile(os.path.join('templates', "cover.xhtml"), os.path.join(path_oebps, "cover.xhtml"))
+    cash.replace_in_file(os.path.join('templates', "cover.xhtml"), os.path.join(path_oebps, "cover.xhtml"),
+                         lambda s: s.replace("{date}", actual_date()))
 
 
 def create_full_epub(src_of_songs, src, target_dir):
@@ -220,9 +217,10 @@ def create_full_epub(src_of_songs, src, target_dir):
     toc_songs = extract_toc_songs(los)
     suffix = etree.Element("div", attrib={"id":"letters", "class": "letters"})
     for group in toc_songs:
-        a=etree.SubElement(suffix, "a")
-        a.attrib["href"] = "toc_" + group + ".xhtml"
-        a.text=group
+        if group:
+            a=etree.SubElement(suffix, "a")
+            a.attrib["href"] = "toc_" + group + ".xhtml"
+            a.text=group
 
     create_template_epub(target_dir)
     path_out = os.path.join(target_dir, "epub", "OEBPS")
