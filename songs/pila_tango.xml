@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Piła tango">
-  <text_author type="solo">Krzysztofa „Grabaż” Grabowski</text_author>
+  <text_author type="solo">Krzysztof „Grabaż” Grabowski</text_author>
   <artist type="band">Strachy na Lachy</artist>
   <lyric>
     <block type="other">
@@ -9,7 +9,7 @@
       </bis>
     </block>
     <block type="other">
-      <row important_over="false"> Oto historia z <ch a="a"/>kantem,</row>
+      <row important_over="false">Oto historia z <ch a="a"/>kantem,</row>
       <row important_over="false"><ch a="d"/> Co pod<ch a="E"/>wójne ma <ch a="a"/>dno.</row>
       <row important_over="false"><ch a="d"/> Gdyby na<ch a="E"/>pisał ją <ch a="a"/>Dante,</row>
       <row important_over="false"><ch a="d"/> To nie <ch a="E"/>tak by to <ch a="a"/>szło.</row>
@@ -25,14 +25,14 @@
       <row important_over="false">Ro<ch a="a"/>gaczem na wieżowcu Piła <ch a="d"/>witała je<ch a="E7"/>leni.</row>
     </block>
     <block type="chorus">
-      <row important_over="false">Statek <ch a="a"/>Piła Tango,<ch a="d"/>   <ch a="E7"/>  </row>
-      <row important_over="false">Czar<ch a="a"/>na bandera.<ch a="d"/>   <ch a="E7"/>  </row>
-      <row important_over="false">To tylko <ch a="a"/>Piła Tango,<ch a="d"/>   <ch a="E7"/>  </row>
-      <row important_over="false">Tań<ch a="a"/>czysz to teraz.<ch a="d"/>   <ch a="E7"/>  </row>
-      <row important_over="false">Płynie statek <ch a="a"/>Piła Tango,<ch a="d"/>   <ch a="E7"/>  </row>
-      <row important_over="false">Czar<ch a="a"/>na Bandera.<ch a="d"/>   <ch a="E7"/>  </row>
+      <row important_over="false">Statek <ch a="a"/>Piła Tango,<ch a="d"/><ch a="E7"/></row>
+      <row important_over="false">Czar<ch a="a"/>na bandera.<ch a="d"/><ch a="E7"/></row>
+      <row important_over="false">To tylko <ch a="a"/>Piła Tango,<ch a="d"/><ch a="E7"/></row>
+      <row important_over="false">Tań<ch a="a"/>czysz to teraz.<ch a="d"/><ch a="E7"/></row>
+      <row important_over="false">Płynie statek <ch a="a"/>Piła Tango,<ch a="d"/><ch a="E7"/></row>
+      <row important_over="false">Czar<ch a="a"/>na Bandera.<ch a="d"/><ch a="E7"/></row>
       <row important_over="false">U<ch a="a"/>kłoń się świrom<ch a="d"/>,  <ch a="E7"/></row>
-      <row important_over="false">Żyj <ch a="a"/>nie umieraj.<ch a="d"/>   <ch a="E7"/>  </row>
+      <row important_over="false">Żyj <ch a="a"/>nie umieraj.<ch a="d"/><ch a="E7"/></row>
     </block>
     <block type="verse">
       <row important_over="false">Gruby <ch a="a"/>jak armata Szczepan błąkał <ch a="d"/>się po kuli <ch a="E7"/>ziemskiej,</row>
