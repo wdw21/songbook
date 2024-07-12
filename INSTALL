@@ -1,6 +1,6 @@
 installing on OSX:
 
-  brew install pkg-config icu4c python-build epubcheck
+  brew install pkg-config icu4c python-build epubcheck pyyaml
 
 #  brew install python-lxml
   python3 -m venv .python_venv/

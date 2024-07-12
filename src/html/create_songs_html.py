@@ -206,12 +206,16 @@ def create_list_of_songs(song_set):
         return songs_list
 
 
-def create_all_songs_html(list_of_songs, path_in, path_out, song_suffix=None):
+def create_all_songs_html_from_dir(path_in, path_out, song_suffix=None):
+    """Tworzy wszystkie piosenki z listy w formacie html w katalogu path_out"""
+
+    return create_all_songs_html( create_list_of_songs(path_in), path_out, song_suffix)
+
+def create_all_songs_html(list_of_songs, path_out, song_suffix=None):
     """Tworzy wszystkie piosenki z listy w formacie html w katalogu path_out"""
 
     if not os.path.exists(path_out):
         os.mkdir(path_out)
 
-    list_of_songs = create_list_of_songs(list_of_songs)
     for song in list_of_songs:
-        xml2html(os.path.join(path_in, song + '.xml'), os.path.join(path_out, song + '.xhtml'), song_suffix)
+        xml2html(song.plik, os.path.join(path_out,  song.base_file_name() + '.xhtml'), song_suffix)

@@ -11,6 +11,9 @@ class SongMeta:
     def __repr__(self) -> str:
       return "{" + "File:{} Title:{} Alias:{}".format(self.plik, self.title, self.alias) + "}"
 
+    def base_file_name(self):
+        return os.path.splitext(os.path.basename(self.plik))[0]
+
     @staticmethod
     def parseDOM(root, path):
         def elementTextOrNone(elem):
@@ -28,15 +31,18 @@ def add_song(path, lista):
     song = SongMeta.parseDOM(tree.getroot(), path)
     lista.append(song)
 
-
-def list_of_song(path_in):
-    songs_list = os.listdir(path_in)
+def list_of_song_from_files(files):
     list_od_meta = []
-    for song in songs_list:
-        if os.path.splitext(song)[1] == '.xml':
-            path = path_in + "/" + song
-            add_song(path, list_od_meta)
+    for file in files:
+        add_song(file, list_od_meta)
     collator = icu.Collator.createInstance(icu.Locale('pl_PL.UTF-8'))
     list_od_meta.sort(key=lambda x: collator.getSortKey(x.title))
-
     return list_od_meta
+
+def list_of_song(path_in):
+    files = []
+    for song in os.listdir(path_in):
+        if os.path.splitext(song)[1] == '.xml':
+            path = path_in + "/" + song
+            files.append(path)
+    return list_of_song_from_files(files)

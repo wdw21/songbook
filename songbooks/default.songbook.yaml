@@ -1,0 +1,9 @@
+songbook:
+  title: "Śpiewnik"
+# subtitle: "All"
+  url: "https://songbook.21wdw.org"
+  picture:
+    svg: /src/latex/znak21.pdf
+    pdf: /src/epub/templates/images/cover.jpg
+  songs:
+    - glob: "/songs/*.xml"
