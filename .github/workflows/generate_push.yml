@@ -16,7 +16,7 @@ jobs:
       - run: echo "release_name=$(date +'%Y-%m-%dT%H_%M_%S')" >> $GITHUB_ENV
       - run: echo "Generating a songbook PDF triggered by ${{ github.event_name }} release:${{ env.release_name }}"
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Get changed files
         id: changed-xml-files
         uses: tj-actions/changed-files@v44.5.4
@@ -41,7 +41,7 @@ jobs:
 
       - name: Save artifact
         if: steps.changed-xml-files.outputs.any_changed == 'true'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: songbooks
           path: /workspace/build/songs_tex/*.pdf

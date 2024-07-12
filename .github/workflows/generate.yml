@@ -77,7 +77,7 @@ jobs:
         run: mv /workspace/build/songs_tex/output.pdf /workspace/build/songbook_${{ env.release_name }}_a4.pdf
       - name: Upload PDFs
         if: ${{ inputs.pdf }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: songbooks
           path: /workspace/build/*.pdf
@@ -129,7 +129,7 @@ jobs:
         run: java -jar /usr/bin/epubcheck /workspace/build/songbook_${{ env.release_name }}.epub
       - name: Upload EPUBs
         if: ${{ inputs.epub }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: songbooks
           path: /workspace/build/*.epub
@@ -155,7 +155,7 @@ jobs:
 
       - name: Upload HTMLs
         if: ${{ inputs.html }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: songbooks
           path: /workspace/build/*.zip
