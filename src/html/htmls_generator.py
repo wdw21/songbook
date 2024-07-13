@@ -3,7 +3,6 @@ import shutil
 
 import src.html.create_songs_html as cash
 import sys
-
 import src.lib.songbook as sb
 
 def main():

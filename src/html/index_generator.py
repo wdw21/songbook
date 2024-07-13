@@ -1,9 +1,7 @@
 import os
-
+import sys
+import src.lib.songbook as sb
 from lxml import etree
-
-import src.html.create_songs_html as cash
-import src.lib.list_of_songs as loslib
 
 def name_of_file(song):
     return os.path.splitext(os.path.split(song)[1])[0]
@@ -12,7 +10,7 @@ def name_of_file(song):
 def create_index_xhtml(list_of_songs_meta, target_dir):
     tmp_path = 'index.xhtml'
     out_path = os.path.join(target_dir, tmp_path)
-    tree = etree.parse("./templates/index.xhtml")
+    tree = etree.parse(os.path.join(sb.repo_dir(), "./src/html/templates/index.xhtml"))
     ul = tree.getroot().find(".//{http://www.w3.org/1999/xhtml}ul");
     for i in range(len(list_of_songs_meta)):
         li = etree.SubElement(ul, "li")
@@ -32,10 +30,11 @@ def create_index_xhtml(list_of_songs_meta, target_dir):
 
 
 def main():
-    src = os.path.join("..", "..", "songs")
-    target_dir = os.path.join("..", "..", "build", "songs_html")
-    src_of_songs = os.path.join("..", "..", "songs")
-    los = loslib.list_of_song(src_of_songs)
-    create_index_xhtml(los, target_dir)
+    target_dir = os.path.join(sb.repo_dir(), "build")  # gdzie ma utworzyć epub
+    songbook_file = os.path.join(sb.repo_dir(), "songbooks/default.songbook.yaml") if len(sys.argv) == 1 else sys.argv[1]
+    songbook = sb.load_songbook_spec_from_yaml(songbook_file)
+    target_dir = os.path.join(sb.repo_dir(), "build", "songs_html")
+
+    create_index_xhtml(songbook.list_of_songs(), target_dir)
 
 main()
