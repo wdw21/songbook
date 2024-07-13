@@ -6,4 +6,4 @@ songbook:
     svg: /src/latex/znak21.pdf
     pdf: /src/epub/templates/images/cover.jpg
   songs:
-    - glob: "/**/*.xml"
+    - glob: "/songs/**/*.xml"

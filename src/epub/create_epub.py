@@ -9,7 +9,6 @@ from zipfile import ZipFile
 from datetime import datetime
 
 import src.html.create_songs_html as cash
-import src.lib.list_of_songs as loslib
 import src.lib.songbook as sb
 
 def actual_date():

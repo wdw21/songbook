@@ -15,7 +15,7 @@ class SongbookSpec:
   def list_of_songs(self):
       files = []
       for s in self.spec["songs"]:
-        files.extend(glob.glob(os.path.join(repo_dir(), "./"  + s["glob"])))
+        files.extend(glob.glob(os.path.join(repo_dir(), "./"  + s["glob"]), recursive=True))
       # print(os.path.join(repo_dir(), s["glob"]))
       # print(files)
       return loslib.list_of_song_from_files(files)
