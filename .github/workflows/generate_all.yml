@@ -68,13 +68,13 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       - if: ${{ inputs.pdf }}
-        run: cd  /workspace && chmod 755 ./render_pdf.sh && ./render_pdf.sh songbook a5 "Śpiewnik $(date +'%Y-%m-%d')" songs/*.xml
+        run: | 
+          cd  /workspace && chmod 755 ./render_pdf.sh && ./render_pdf.sh a5
+          mv /workspace/build/songs_tex/output.pdf /workspace/build/songbook_${{ env.release_name }}_a5.pdf
       - if: ${{ inputs.pdf }}
-        run: mv /workspace/build/songs_tex/output.pdf /workspace/build/songbook_${{ env.release_name }}_a5.pdf
-      - if: ${{ inputs.pdf }}
-        run: cd  /workspace && ./render_pdf.sh songbook a4 "Śpiewnik $(date +'%Y-%m-%d')" songs/*.xml
-      - if: ${{ inputs.pdf }}
-        run: mv /workspace/build/songs_tex/output.pdf /workspace/build/songbook_${{ env.release_name }}_a4.pdf
+        run: |
+          cd  /workspace && chmod 755 ./render_pdf.sh && ./render_pdf.sh a4
+          mv /workspace/build/songs_tex/output.pdf /workspace/build/songbook_${{ env.release_name }}_a4.pdf
       - name: Upload PDFs
         if: ${{ inputs.pdf }}
         uses: actions/upload-artifact@v4
