@@ -27,7 +27,7 @@ jobs:
       - name: Generate PDFs
         if: steps.changed-xml-files.outputs.any_changed == 'true'
         env:
-          FILES=${{ steps.changed-xml-files.outputs.all_changed_files }}
+          FILES: ${{ steps.changed-xml-files.outputs.all_changed_files }}
         shell: bash
         run: |
           chmod 755 ./render_pdf.sh
