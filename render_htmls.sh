@@ -19,8 +19,7 @@ if [[ $# -gt 1 ]]; then
   exit 1
 fi
 
-cd "${__dir}/src/html/"
-PYTHONPATH="${__dir}" python3 htmls_generator.py
-PYTHONPATH="${__dir}" python3 index_generator.py
+PYTHONPATH="${__dir}" python3 "${__dir}/src/html/htmls_generator.py"
+PYTHONPATH="${__dir}" python3 "${__dir}/src/html/index_generator.py"
 cd "${__dir}/build/"
 zip -r songs_html.zip songs_html
