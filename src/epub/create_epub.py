@@ -165,22 +165,29 @@ def create_toc_xhtml(list_of_songs_meta, target_dir, page_suffix):
     files.append(create_index_toc_xhtml(target_dir, page_suffix))
 
     toc_songs = extract_toc_songs(list_of_songs_meta)
-    for group in toc_songs:
-        if group:
-            parent_li = etree.SubElement(toc_ol, "li")
-            parent_a = etree.SubElement(parent_li, "span")
-            parent_a.text = group
-            parent_ol = etree.SubElement(parent_li, "ol")
-            toc_songs_to_xhtml(parent_ol, toc_songs[group])
-            files.append(create_group_toc_xhtml(group, toc_songs[group], target_dir, page_suffix))
-        else:
-            toc_songs_to_xhtml(toc_ol, toc_songs[group])
 
+    li = etree.SubElement(toc_ol, "li")
+    a = etree.SubElement(li, "a")
+    a.attrib['href'] = 'songs.xhtml'
+    a.text ="Piosenki"
 
     li = etree.SubElement(toc_ol, "li")
     a = etree.SubElement(li, "a")
     a.attrib['href'] = 'index.xhtml'
-    a.text ="Index"
+    a.text ="Indeks"
+
+    for group in toc_songs:
+        if group:
+            parent_li = etree.SubElement(toc_ol, "li")
+            parent_a = etree.SubElement(parent_li, "a", attrib={"href": "toc_" + group + ".xhtml"})
+            parent_a.text = group
+
+           # parent_ol = etree.SubElement(parent_li, "ol")
+           # toc_songs_to_xhtml(parent_ol, toc_songs[group])
+            files.append(create_group_toc_xhtml(group, toc_songs[group], target_dir, page_suffix))
+        else:
+            toc_songs_to_xhtml(toc_ol, toc_songs[group])
+
 
     et = etree.ElementTree(root)
     et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
@@ -210,6 +217,7 @@ def create_template_epub(target_path):
     shutil.copyfile(path_tmp_css_template, os.path.join(path_css, "template.css"))
     shutil.copyfile(path_tmp_mimetype, os.path.join(path_epub, "mimetype"))
     shutil.copyfile(os.path.join(template_dir, "images", "cover.jpg"), os.path.join(path_images, "cover.jpg"))
+    shutil.copyfile(os.path.join(template_dir, "songs.xhtml"), os.path.join(path_oebps, "songs.xhtml"))
     cash.replace_in_file(os.path.join(template_dir, "cover.xhtml"), os.path.join(path_oebps, "cover.xhtml"),
                          lambda s: s.replace("{date}", actual_date()))
 
