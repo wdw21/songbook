@@ -19,7 +19,7 @@ def main():
     cash.create_all_songs_html(songbook.list_of_songs(), path_songs_html)
     path_css = os.path.join(path_songs_html, "CSS")
     os.mkdir(path_css)
-    path_tmp_css_song = os.path.join('..', 'epub', 'templates', "song.css")
+    path_tmp_css_song = os.path.join(sb.repo_dir(), 'src', 'epub', 'templates', "song.css")
     shutil.copyfile(path_tmp_css_song, os.path.join(path_css, "song.css"))
 
 if __name__ == "__main__":

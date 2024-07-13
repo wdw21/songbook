@@ -11,6 +11,7 @@ contents:
     - py3-markupsafe
     - py3-icu
     - py3-jinja2
+    - py3-yaml
     - curl
     - ca-certificates
     - xz

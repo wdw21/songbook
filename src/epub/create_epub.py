@@ -21,7 +21,7 @@ def name_of_file(song):
 
 
 def create_content_opf(list_of_songs_meta, target_dir, pre_files=[], post_files=[]):
-    tmp_path = 'templates/content.opf'
+    tmp_path =os.path.join(sb.repo_dir(), "src", "epub", "templates", "content.opf")
     out_path = os.path.join(target_dir, "epub", "OEBPS", "content.opf")
     tree = etree.parse(tmp_path)
     root = tree.getroot()
@@ -122,7 +122,7 @@ def toc_songs_to_xhtml(parent, toc_songs_list):
         a.text = s.title()
 
 def create_group_toc_xhtml(group, toc_songs_list, target_dir, page_suffix = None):
-    tmp_path = 'templates/toc_letter.xhtml'
+    tmp_path = os.path.join(sb.repo_dir(), "src", "epub", "templates", "toc_letter.xhtml")
     file_name = "toc_"+group+".xhtml"
     out_path = os.path.join(target_dir, "epub", "OEBPS", file_name)
     tree = etree.parse(tmp_path)
@@ -141,7 +141,7 @@ def create_group_toc_xhtml(group, toc_songs_list, target_dir, page_suffix = None
     return file_name
 
 def create_index_toc_xhtml(target_dir, page_suffix = None):
-    tmp_path = 'templates/index.xhtml'
+    tmp_path =  os.path.join(sb.repo_dir(), "src", "epub", "templates", "index.xhtml")
     file_name = "index.xhtml"
     out_path = os.path.join(target_dir, "epub", "OEBPS", file_name)
     tree = etree.parse(tmp_path)
@@ -155,7 +155,7 @@ def create_index_toc_xhtml(target_dir, page_suffix = None):
 
 def create_toc_xhtml(list_of_songs_meta, target_dir, page_suffix):
     files = []
-    tmp_path = 'templates/toc.xhtml'
+    tmp_path =  os.path.join(sb.repo_dir(), "src", "epub", "templates", "toc.xhtml")
     out_path = os.path.join(target_dir, "epub", "OEBPS", "toc.xhtml")
     tree = etree.parse(tmp_path)
     root = tree.getroot()
@@ -188,8 +188,8 @@ def create_toc_xhtml(list_of_songs_meta, target_dir, page_suffix):
     return files
 
 
-def create_template_epub(path):
-    path_epub = os.path.join(path, "epub")
+def create_template_epub(target_path):
+    path_epub = os.path.join(target_path, "epub")
     if os.path.exists(path_epub):
         shutil.rmtree(path_epub)
     path_meta = os.path.join(path_epub, "META-INF")
@@ -201,16 +201,17 @@ def create_template_epub(path):
     os.mkdir(path_meta)
     os.mkdir(path_css)
     os.mkdir(path_images)
-    path_tmp_meta = os.path.join('templates', "container.xml")
+    template_dir = os.path.join(sb.repo_dir(), "src", "epub", "templates")
+    path_tmp_meta = os.path.join(template_dir, "container.xml")
     shutil.copyfile(path_tmp_meta, os.path.join(path_meta, "container.xml"))
-    path_tmp_css_song = os.path.join('templates', "song.css")
-    path_tmp_css_template = os.path.join('templates', "template.css")
-    path_tmp_mimetype = os.path.join('templates', "mimetype")
+    path_tmp_css_song = os.path.join(template_dir, "song.css")
+    path_tmp_css_template = os.path.join(template_dir, "template.css")
+    path_tmp_mimetype = os.path.join(template_dir, "mimetype")
     shutil.copyfile(path_tmp_css_song, os.path.join(path_css, "song.css"))
     shutil.copyfile(path_tmp_css_template, os.path.join(path_css, "template.css"))
     shutil.copyfile(path_tmp_mimetype, os.path.join(path_epub, "mimetype"))
-    shutil.copyfile(os.path.join('templates', "images", "cover.jpg"), os.path.join(path_images, "cover.jpg"))
-    cash.replace_in_file(os.path.join('templates', "cover.xhtml"), os.path.join(path_oebps, "cover.xhtml"),
+    shutil.copyfile(os.path.join(template_dir, "images", "cover.jpg"), os.path.join(path_images, "cover.jpg"))
+    cash.replace_in_file(os.path.join(template_dir, "cover.xhtml"), os.path.join(path_oebps, "cover.xhtml"),
                          lambda s: s.replace("{date}", actual_date()))
 
 
