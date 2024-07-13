@@ -19,6 +19,6 @@ if [[ $# -gt 1 ]]; then
   exit 1
 fi
 
-cd "${__dir}/src/epub/"
-PYTHONPATH="${__dir}" python3 create_epub.py
+#cd "${__dir}/src/epub/"
+PYTHONPATH="${__dir}" python3 ${__dir}/src/epub/create_epub.py "${@}"
 

@@ -178,7 +178,7 @@ def xml2html(src_xml_path, path_out, song_suffix):  # tworzy piosenkę w wersji 
 
     et.write(path_out, doctype='<!DOCTYPE html>', pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
 
-    replace_in_file(path_out, path_out, lambda s: s.replace(" </span>", "<span class='ws'>_</span></span>").replace('<span class="content-i"> ', '<span class="content-i"><span class="ws">_</span>'))
+    replace_in_file(path_out, path_out, lambda s: s.replace(u'\u200d', '').replace(" </span>", "<span class='ws'>_</span></span>").replace('<span class="content-i"> ', '<span class="content-i"><span class="ws">_</span>'))
 
 def replace_in_file(sourceFile, targetFile, f):
     with open(sourceFile, 'r') as file:
