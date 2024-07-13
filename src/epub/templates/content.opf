@@ -15,6 +15,7 @@
         <item id="coverimage" href="images/cover.jpg" media-type="image/jpeg" properties="cover-image"/>
         <item id="cover" href="cover.xhtml" media-type="application/xhtml+xml"/>
         <item id="toc" href="toc.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+        <item id="start" href="songs.xhtml" media-type="application/xhtml+xml"/>
         <!--item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/-->
         <item id="template_css" href="CSS/template.css" media-type="text/css"/>
         <item id="song_css" href="CSS/song.css" media-type="text/css"/>
@@ -23,7 +24,13 @@
     <spine>
         <itemref idref="cover"/>
         <itemref idref="toc"/>
+        <itemref idref="start"/>
         <!--https://kdp.amazon.com/en_US/help/topic/G201605710-->
     </spine>
-
+    <guide>
+        <reference type="title-page" href="cover.xhtml" title="Strona tytułowa"/>
+        <reference type="toc" href="toc.xhtml" title="Spis treści"/>
+        <reference type="text" href="songs.xhtml" title="Piosenki"/>
+        <reference type="index" href="index.xhtml" title="Indeks"/>
+    </guide>
 </package>
