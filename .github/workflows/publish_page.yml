@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   generate:
-    uses: ./.github/workflows/generate.yml
+    uses: ./.github/workflows/generate_all.yml
     with:
       html: true
       epub: true
