@@ -27,9 +27,16 @@ jobs:
       - name: Generate PDFs
         if: steps.changed-xml-files.outputs.any_changed == 'true'
         env:
-          FILES: ${{ steps.changed-xml-files.outputs.all_changed_files }}
+          SRC_FILES: ${{ steps.changed-xml-files.outputs.all_changed_files }}
         shell: bash
+        # For support of spaces in file-names, we would need to go for json / jq processing.
         run: |
+          FILES=()
+          for file in ${SRC_FILES}; do
+           echo "$file was changed"
+           FILES+=("${file}")
+          done
+          
           chmod 755 ./render_pdf.sh
           cd /workspace && ./render_pdf.sh single a4 "$(date +'%Y-%m-%d')" "${FILES[@]}"
           mv /workspace/build/songs_tex/output.pdf '/workspace/build/songs_tex/a4.pdf'
