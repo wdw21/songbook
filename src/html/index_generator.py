@@ -3,8 +3,8 @@ import sys
 import src.lib.songbook as sb
 from lxml import etree
 
-def name_of_file(song):
-    return os.path.splitext(os.path.split(song)[1])[0]
+# def name_of_file(song):
+#     return os.path.splitext(os.path.split(song)[1])[0]
 
 
 def create_index_xhtml(list_of_songs_meta, target_dir):
@@ -13,16 +13,17 @@ def create_index_xhtml(list_of_songs_meta, target_dir):
     tree = etree.parse(os.path.join(sb.repo_dir(), "./src/html/templates/index.xhtml"))
     ul = tree.getroot().find(".//{http://www.w3.org/1999/xhtml}ul");
     for i in range(len(list_of_songs_meta)):
+        song = list_of_songs_meta[i]
         li = etree.SubElement(ul, "li")
         # <button onclick='edit("zaciagnijcie_na_oknie_niebieska_zaslone.xhtml")'><span class="material-symbols-outlined">edit</span></button>
         button = etree.SubElement(li, "button")
         button.attrib['class'] = 'editicon'
-        button.attrib['onclick'] = "edit('"+name_of_file(list_of_songs_meta[i].plik)+".xml');"
+        button.attrib['onclick'] = "edit('"+os.path.relpath(song.plik, start=os.path.join(sb.repo_dir(), "songs"))+"');"
         span = etree.SubElement(button, 'span')
         span.attrib['class'] = 'material-symbols-outlined'
         span.text = 'edit'
         a = etree.SubElement(li, "a")
-        a.attrib['href'] = name_of_file(list_of_songs_meta[i].plik) + '.xhtml'
+        a.attrib['href'] = song.base_file_name() + '.xhtml'
         a.text = list_of_songs_meta[i].title
 
     et = etree.ElementTree(tree.getroot())

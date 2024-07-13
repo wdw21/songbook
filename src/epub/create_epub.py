@@ -14,9 +14,9 @@ import src.lib.songbook as sb
 def actual_date():
     return str(datetime.now().strftime("%d/%m/%Y %H:%M"))
 
-
-def name_of_file(song):
-    return os.path.splitext(os.path.split(song)[1])[0]
+#
+# def name_of_file(song):
+#     return os.path.splitext(os.path.split(song)[1])[0]
 
 
 def create_content_opf(list_of_songs_meta, target_dir, pre_files=[], post_files=[]):
@@ -33,7 +33,7 @@ def create_content_opf(list_of_songs_meta, target_dir, pre_files=[], post_files=
     spine = root.getchildren()[2]
     p = 1
 
-    all_files = pre_files + list(map(lambda x:name_of_file(x.plik) + '.xhtml' ,list_of_songs_meta)) + post_files
+    all_files = pre_files + list(map(lambda x:x.base_file_name() + '.xhtml' ,list_of_songs_meta)) + post_files
 
     for f in all_files:
         x = etree.SubElement(manifest, "item")
@@ -100,6 +100,9 @@ class SongInToc:
     def title(self):
         return self.song.title
 
+    def base_file_name(self):
+        return self.song.base_file_name()
+
 def extract_toc_songs(list_of_songs_meta):
     d = dict()
     group = None
@@ -117,7 +120,7 @@ def toc_songs_to_xhtml(parent, toc_songs_list):
         s = toc_songs_list[i]
         li = etree.SubElement(parent, "li")
         a = etree.SubElement(li, "a")
-        a.attrib['href'] = name_of_file(s.plik())+ '.xhtml'
+        a.attrib['href'] = s.base_file_name()+ '.xhtml'
         a.text = s.title()
 
 def create_group_toc_xhtml(group, toc_songs_list, target_dir, page_suffix = None):
