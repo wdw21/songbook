@@ -23,16 +23,20 @@ jobs:
         with:
           fetch_depth: 500
           files: |
-            songs/*.xml
+            songs/**/*.xml
       - name: Generate PDFs
         if: steps.changed-xml-files.outputs.any_changed == 'true'
+        env:
+          SRC_FILES: ${{ steps.changed-xml-files.outputs.all_changed_files }}
         shell: bash
+        # For support of spaces in file-names, we would need to go for json / jq processing.
         run: |
           FILES=()
-          for file in "${{ steps.changed-xml-files.outputs.all_changed_files }}"; do
-            echo "$file was changed"
-            FILES+=("${file}")
+          for file in ${SRC_FILES}; do
+           echo "$file was changed"
+           FILES+=("${file}")
           done
+          
           chmod 755 ./render_pdf.sh
           cd /workspace && ./render_pdf.sh single a4 "$(date +'%Y-%m-%d')" "${FILES[@]}"
           mv /workspace/build/songs_tex/output.pdf '/workspace/build/songs_tex/a4.pdf'
@@ -58,6 +62,7 @@ jobs:
 
       - name: Comment PR proxy
         uses: mshick/add-pr-comment@v2
+        if: steps.changed-xml-files.outputs.any_changed == 'true'
         with:
           message: |
             New PDFs [A4](${{ env.link_a4 }}?alt=media), [A5](${{ env.link_a5 }}?alt=media) is ready, my lord (available for ~14 days).
