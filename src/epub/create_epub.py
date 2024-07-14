@@ -12,23 +12,23 @@ import src.html.create_songs_html as cash
 import src.lib.songbook as sb
 
 def actual_date():
-    return str(datetime.now().strftime("%d/%m/%Y %H:%M"))
+    return str(datetime.now().strftime("%Y-%m-%d"))
+
+def actual_datetime():
+    return str(datetime.now().strftime("%Y-%m-%d  %H:%M"))
+
 
 #
 # def name_of_file(song):
 #     return os.path.splitext(os.path.split(song)[1])[0]
 
 
-def create_content_opf(list_of_songs_meta, target_dir, pre_files=[], post_files=[]):
+def create_content_opf(songbook, list_of_songs_meta, target_dir, pre_files=[], post_files=[]):
     tmp_path =os.path.join(sb.repo_dir(), "src", "epub", "templates", "content.opf")
     out_path = os.path.join(target_dir, "epub", "OEBPS", "content.opf")
     tree = etree.parse(tmp_path)
     root = tree.getroot()
-    metadata = root.getchildren()[0]
-    title = metadata.getchildren()[0]
-    title.text += actual_date()
-    modify_date = metadata.getchildren()[4]
-    modify_date.text = str(datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"))
+
     manifest = root.getchildren()[1]
     spine = root.getchildren()[2]
     p = 1
@@ -45,6 +45,7 @@ def create_content_opf(list_of_songs_meta, target_dir, pre_files=[], post_files=
 
     et = etree.ElementTree(root)
     et.write(out_path, doctype='<!DOCTYPE html>', pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
+    resolveTemplate(songbook, out_path, out_path)
 
 def groupName(title):
   if title[0]>='0' and title[0]<='9':
@@ -196,8 +197,22 @@ def create_toc_xhtml(list_of_songs_meta, target_dir, page_suffix):
     et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
     return files
 
+def resolveTemplate(songbook, from_file, to_file):
+    return  cash.replace_in_file(from_file, to_file,
+        lambda s: (s.replace(":date:", actual_date())
+                    .replace(":datetime:", actual_datetime())
+                    .replace(":title:", songbook.title())
+                    .replace(":subtitle:", songbook.subtitle())
+                    .replace(":id:", songbook.id())
+                    .replace(":uuid:", songbook.uuid())
+                    .replace(":url:", songbook.url())
+                    .replace(":publisher:", songbook.publisher())
+                    .replace(":timestamp:", datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"))
+                    .replace(":imageMime:", songbook.imageWebMime())
+                    .replace(":imageExt:", songbook.imageWebExt())))
 
-def create_template_epub(target_path):
+
+def create_template_epub(songbook, target_path):
     path_epub = os.path.join(target_path, "epub")
     if os.path.exists(path_epub):
         shutil.rmtree(path_epub)
@@ -212,17 +227,19 @@ def create_template_epub(target_path):
     os.mkdir(path_images)
     template_dir = os.path.join(sb.repo_dir(), "src", "epub", "templates")
     path_tmp_meta = os.path.join(template_dir, "container.xml")
-    shutil.copyfile(path_tmp_meta, os.path.join(path_meta, "container.xml"))
+    resolveTemplate(songbook, path_tmp_meta, os.path.join(path_meta, "container.xml"))
+
     path_tmp_css_song = os.path.join(template_dir, "song.css")
     path_tmp_css_template = os.path.join(template_dir, "template.css")
     path_tmp_mimetype = os.path.join(template_dir, "mimetype")
+
     shutil.copyfile(path_tmp_css_song, os.path.join(path_css, "song.css"))
     shutil.copyfile(path_tmp_css_template, os.path.join(path_css, "template.css"))
     shutil.copyfile(path_tmp_mimetype, os.path.join(path_epub, "mimetype"))
-    shutil.copyfile(os.path.join(template_dir, "images", "cover.jpg"), os.path.join(path_images, "cover.jpg"))
-    shutil.copyfile(os.path.join(template_dir, "songs.xhtml"), os.path.join(path_oebps, "songs.xhtml"))
-    cash.replace_in_file(os.path.join(template_dir, "cover.xhtml"), os.path.join(path_oebps, "cover.xhtml"),
-                         lambda s: s.replace("{date}", actual_date()))
+
+    shutil.copyfile(songbook.imageWebPath(), os.path.join(path_images, "cover." + songbook.imageWebExt()))
+    resolveTemplate(songbook, os.path.join(template_dir, "songs.xhtml"), os.path.join(path_oebps, "songs.xhtml"))
+    resolveTemplate(songbook, os.path.join(template_dir, "cover.xhtml"), os.path.join(path_oebps, "cover.xhtml"))
 
 
 def create_full_epub(songbook,  target_dir):
@@ -235,15 +252,15 @@ def create_full_epub(songbook,  target_dir):
             a.attrib["href"] = "toc_" + group + ".xhtml"
             a.text=group
 
-    create_template_epub(target_dir)
+    create_template_epub(songbook, target_dir)
     path_out = os.path.join(target_dir, "epub", "OEBPS")
     cash.create_all_songs_html(los, path_out,  suffix)
     files = []
     files.extend(create_toc_xhtml(los, target_dir, page_suffix = suffix))
-    create_content_opf(los, target_dir, post_files=files)
+    create_content_opf(songbook, los, target_dir, post_files=files)
 
 
-def package_epub(target_dir):
+def package_epub(songbook, target_dir):
     target_dir_epub = os.path.join(target_dir, "epub")
     with ZipFile(os.path.join(target_dir, "spiewnik.epub"), 'w', compression=zipfile.ZIP_DEFLATED) as myzip:
         myzip.write(os.path.join(target_dir_epub, "mimetype"), arcname="mimetype", compress_type=zipfile.ZIP_STORED)
@@ -257,8 +274,8 @@ def package_epub(target_dir):
                     arcname=os.path.join("OEBPS", "CSS", "template.css"))
         myzip.write(os.path.join(target_dir_epub, "OEBPS", "CSS", "song.css"),
                     arcname=os.path.join("OEBPS", "CSS", "song.css"))
-        myzip.write(os.path.join(target_dir_epub, "OEBPS", "images", "cover.jpg"),
-                            arcname=os.path.join("OEBPS", "images", "cover.jpg"))
+        myzip.write(os.path.join(target_dir_epub, "OEBPS", "images", "cover."+songbook.imageWebExt()),
+                            arcname=os.path.join("OEBPS", "images", "cover."+songbook.imageWebExt()))
 
 
 def main():
@@ -268,7 +285,7 @@ def main():
 
     # które piosenki chcę zawrzeć w śpiewniku (może być katalogiem z plikami xml lub listą plików)
     create_full_epub(songbook, target_dir)
-    package_epub(target_dir)
+    package_epub(songbook, target_dir)
 
 
 if __name__ == "__main__":

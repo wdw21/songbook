@@ -2,5 +2,5 @@
 
 set -e -x
 
-./render_epub.sh
+./render_epub.sh "${@}"
 epubcheck ./build/spiewnik.epub
