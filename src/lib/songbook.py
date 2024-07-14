@@ -45,7 +45,7 @@ class SongbookSpec:
       return resolvePath(self.spec["image"]["pdf"] if "image" in self.spec and "pdf" in self.spec["image"] else "songbooks/wdw21/znak21.pdf", start=self.basedir)
 
 
-def load_songbook_spec_from_yaml(filename, title, songFiles):
+def load_songbook_spec_from_yaml(filename, title=None, songFiles=None):
     with open(filename) as stream:
         songbook = yaml.safe_load(stream)
         if title:
