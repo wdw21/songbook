@@ -8,12 +8,15 @@ import song2tex as s2t
 import src.lib.songbook as sb
 
 
-def create_ready_tex(songbook, papersize, title_of_songbook=""):
+def str2tex(s):
+    return s.replace("\n", "\\\\").replace("#", "\\#")
+
+def create_ready_tex(songbook, papersize):
     """function create a pdf file in a4 or a5 size
         source - one file or list of files or directory path
         size - A4 or A5
         title - if source is list of songs you can add a title of songbook,
-        songbook - True if we want songbook, False if we don't
+        songbook - Specification of the songbook to generate
     """
     source = songbook.list_of_songs()
 
@@ -24,25 +27,25 @@ def create_ready_tex(songbook, papersize, title_of_songbook=""):
         print(s, file=sys.stderr)
         list_title_file.append((title, s.plik))
 
-    # I define head (template of header of tex document) and foot (template of footer of tex document)
-    # depending on the papersize which we want
-
     if papersize not in ("a4", "a5"):
         print("Wrong size of paper!", file=sys.stderr)
         exit(1)
 
-    if songbook:
-        head = f"songbook_{papersize}_p.tex"
-        foot = f"songbook_{papersize}_s.tex"
-    else:
-        head = f"single_{papersize}_p.tex"
-        foot = f"single_{papersize}_s.tex"
+    head = f"songbook_p.tex"
+    foot = f"songbook_s.tex"
 
     with open("src/formats/" + head) as f:
         content = f.read()
 
-    if songbook:
-        content = content.replace(":title:", title_of_songbook)
+    content = (content
+               .replace(":paper:", "paper" + papersize)
+               .replace(":fontsize:", "10pt" if papersize == "a4" else "11pt")
+               .replace(":title:", str2tex(songbook.title()))
+               .replace(":subtitle:", str2tex(songbook.subtitle()))
+               .replace(":place:", str2tex(songbook.place() + ", ") if songbook.place() else "")
+               .replace(":url:", str2tex(songbook.url()))
+               .replace(":publisher:", str2tex(songbook.publisher()))
+               .replace(":imagePdfPath:", songbook.imagePdfPath()))
 
     content += "".join([s2t.song2tex(file) for _, file in list_title_file])
 

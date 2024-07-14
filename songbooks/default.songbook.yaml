@@ -1,9 +1,13 @@
 songbook:
   title: "Śpiewnik"
-# subtitle: "All"
+  subtitle: "[wszystkie]"
+  place: "Warszawa"
   url: "https://songbook.21wdw.org"
-  picture:
-    svg: /src/latex/znak21.pdf
-    pdf: /src/epub/templates/images/cover.jpg
+  publisher: |
+    21. Warszawska Drużyna Harcerska ,,Stare Żbiki''
+    im. gen. Ignacego Prądzyńskiego
+  image:
+    svg: songbooks/wdw21/znak21.svg
+    pdf: songbooks/wdw21/znak21.pdf
   songs:
     - glob: "/songs/**/*.xml"

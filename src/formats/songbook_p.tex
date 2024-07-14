@@ -1,6 +1,6 @@
 % STYLE=file
 % TARGET=pdf
-\documentclass[a4paper,11pt]{extbook}
+\documentclass[:paper:,:fontsize:]{extbook}
 \usepackage[savemem]{ucs}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -12,6 +12,16 @@
 \usepackage{longtable}
 \usepackage{graphicx}
 \usepackage{dcolumn}
+\usepackage{qrcode}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
 
 %\geometry{scale={0.90,0.80},pdftex} \addtolength{\headheight}{2pc}
 \geometry{scale={0.95,0.85},pdftex,top={1cm}}
@@ -28,7 +38,7 @@
 \renewcommand{\chapter}[2]{\newpage\vbox{\LARGE{\bf #2}\\}}
 
 \pagestyle{fancy}
-\fancyfoot[RE,LO]{https://songbook.21wdw.org}
+\fancyfoot[RE,LO]{:url:}
 \fancyfoot[LE,RO]{\thepage}
 \fancyfoot[CE,CO]{}
 \fancyhead[RE,LO]{\today}
@@ -39,20 +49,23 @@
 \begin{center}
 \vspace*{\stretch{4}}
 {\Huge\verb|:title:|}
+\vskip 1em
+{\large\verb|:subtitle:|}
 \vspace{\stretch{1}}
 
 \large
 
 \vspace{\stretch{7}}
-\includegraphics[height=5 cm]{znak21.pdf}
+\includegraphics[height=5 cm]{:imagePdfPath:}
 \vspace{\stretch{7}}
 
-21. Warszawska Drużyna Harcerska ,,Stare Żbiki''\\
-im. gen. Ignacego Prądzyńskiego
+:publisher:
 
 \vspace{\stretch{1}}
-Warszawa, \today
+:place:\today
 \vspace*{\stretch{4}}
 \end{center}
+\vfill
+\rightline{\qrcode{:url:}}
 
 \cleardoublepage
