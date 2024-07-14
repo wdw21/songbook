@@ -3,17 +3,21 @@
          version="3.0">
 
     <metadata xmlns:opf="http://www.idpf.org/2007/opf">
-        <dc:title id="t1">Śpiewnik 21WDW Wersja: </dc:title>
-        <dc:creator id="editor">21. Warszawska Drużyna Wędrownicza</dc:creator>
-        <dc:identifier id="db-id">wdw21-experimental-3rmds92</dc:identifier>
+        <dc:title id="t1">:title: :subtitle:</dc:title>
+
+        <dc:creator id="editor">:publisher:</dc:creator>
+        <dc:identifier id="db-id">:id:</dc:identifier>
+        <dc:identifier id="uuid_id">uuid::uuid:</dc:identifier>
         <meta refines="#editor" property="role" scheme="marc:relators" id="role">edt</meta>
-        <meta property="dcterms:modified"></meta>
+        <meta refines="#t1" property="title-type">main</meta>
+        <meta property="dcterms:modified" scheme="dcterms:W3CDTF">:timestamp:</meta>
+
         <dc:language>en</dc:language><!-- pl is not supported by kindle previewer -->
     </metadata>
 
     <manifest>
-        <item id="coverimage" href="images/cover.jpg" media-type="image/jpeg" properties="cover-image"/>
-        <item id="cover" href="cover.xhtml" media-type="application/xhtml+xml"/>
+        <item id="cover" href="images/cover.:imageExt:" media-type=":imageMime:" properties="cover-image"/>
+        <item id="titlepage" href="cover.xhtml" media-type="application/xhtml+xml"/>
         <item id="toc" href="toc.xhtml" media-type="application/xhtml+xml" properties="nav"/>
         <item id="start" href="songs.xhtml" media-type="application/xhtml+xml"/>
         <!--item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/-->
@@ -22,7 +26,7 @@
     </manifest>
 
     <spine>
-        <itemref idref="cover"/>
+        <itemref idref="titlepage"/>
         <itemref idref="toc"/>
         <itemref idref="start"/>
         <!--https://kdp.amazon.com/en_US/help/topic/G201605710-->

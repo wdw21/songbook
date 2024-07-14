@@ -9,7 +9,7 @@ songbook:
   place: Warszawa
   image:
     svg: "./dino/dino1.svg"
-    jpg: "./dino/dino1.png"
+    png: "./dino/dino1.png"
     pdf: "./dino/dino1.pdf"
   songs:
     - glob: "songs/en/**/*.xml"

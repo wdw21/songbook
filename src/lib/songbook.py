@@ -1,5 +1,6 @@
 import yaml
 import glob, os
+import uuid
 import src.lib.list_of_songs as loslib
 
 def repo_dir():
@@ -35,6 +36,12 @@ class SongbookSpec:
   def url(self):
       return self.spec["url"] if "url" in self.spec else ""
 
+  def id(self):
+      return self.spec["id"] if "id" in self.spec else self.uuid()
+
+  def uuid(self):
+      return self.spec["uuid"] if "uuid" in self.spec else str(uuid.uuid4())
+
   def publisher(self):
       return self.spec["publisher"] if "publisher" in self.spec else ""
 
@@ -44,6 +51,26 @@ class SongbookSpec:
   def imagePdfPath(self):
       return resolvePath(self.spec["image"]["pdf"] if "image" in self.spec and "pdf" in self.spec["image"] else "songbooks/wdw21/znak21.pdf", start=self.basedir)
 
+  def imageWebPath(self):
+      if "image" in self.spec:
+          if "png" in self.spec["image"]: return resolvePath(self.spec["image"]["png"], start=self.basedir)
+          if "svg" in self.spec["image"]: return resolvePath(self.spec["image"]["svg"], start=self.basedir)
+          if "jpg" in self.spec["image"]: return resolvePath(self.spec["image"]["jpg"], start=self.basedir)
+      return resolvePath("songbooks/wdw21/znak21.jpg", start=self.basedir)
+
+  def imageWebExt(self):
+      if "image" in self.spec:
+          if "png" in self.spec["image"]: return "png"
+          if "svg" in self.spec["image"]: return "svg"
+          if "jpg" in self.spec["image"]: return "jpg"
+      return "image/jpeg"
+
+  def imageWebMime(self):
+      if "image" in self.spec:
+          if "png" in self.spec["image"]: return "image/png"
+          if "svg" in self.spec["image"]: return "image/svg+xml"
+          if "jpg" in self.spec["image"]: return "image/jpeg"
+      return "image/jpeg"
 
 def load_songbook_spec_from_yaml(filename, title=None, songFiles=None):
     with open(filename) as stream:
@@ -53,6 +80,3 @@ def load_songbook_spec_from_yaml(filename, title=None, songFiles=None):
         if songFiles:
             songbook["songbook"]["songs"] = map(lambda s: {"glob": s}, songFiles)
         return SongbookSpec(songbook, basedir=os.path.dirname(os.path.abspath(filename)))
-
-# l=load_songbook_spec_from_yaml("./songbooks/all/default.songbook.yaml")
-# print(l.list_of_songs())
