@@ -4,6 +4,7 @@ songbook:
   place: "Warszawa"
   url: "https://songbook.21wdw.org"
   uuid: "ad0aacee-2534-44f2-bb1e-02ced3775087"
+  id: "default_all"
   publisher: |
     21. Warszawska Drużyna Harcerska ,,Stare Żbiki''
     im. gen. Ignacego Prądzyńskiego

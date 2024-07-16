@@ -11,7 +11,9 @@ def create_index_xhtml(list_of_songs_meta, target_dir):
     tmp_path = 'index.xhtml'
     out_path = os.path.join(target_dir, tmp_path)
     tree = etree.parse(os.path.join(sb.repo_dir(), "./src/html/templates/index.xhtml"))
-    ul = tree.getroot().find(".//{http://www.w3.org/1999/xhtml}ul");
+
+    # List of songs
+    ul = tree.getroot().find(".//{http://www.w3.org/1999/xhtml}ul[@id='songs']")
     for i in range(len(list_of_songs_meta)):
         song = list_of_songs_meta[i]
         li = etree.SubElement(ul, "li")
@@ -26,6 +28,20 @@ def create_index_xhtml(list_of_songs_meta, target_dir):
         a.attrib['href'] = song.base_file_name() + '.xhtml'
         a.text = list_of_songs_meta[i].title
 
+    # List of songbooks
+    ul = tree.getroot().find(".//{http://www.w3.org/1999/xhtml}ul[@id='songbooks']")
+    for songbook in sb.songbooks():
+        if not songbook.hidden():
+            li = etree.SubElement(ul, "li", attrib={"id": songbook.id()})
+            li.text=songbook.title() + ":"
+            a_name = etree.SubElement(ul, "id", attrib={"class": "epub", "href": songbook.id()+".epub"})
+            a_name.text = "EPUB (kindle)"
+            a_epub = etree.SubElement(ul, "a", attrib={"class": "epub", "href": songbook.id()+".epub"})
+            a_epub.text = "EPUB (kindle)"
+            a_a4pdf = etree.SubElement(ul, "a", attrib={"class": "pdf", "href": songbook.id()+"_a4.pdf"})
+            a_a4pdf.text = "PDF (a4)"
+            a_a5pdf = etree.SubElement(ul, "a", attrib={"class": "pdf", "href": songbook.id()+"_a5.pdf"})
+            a_a5pdf.text = "PDF (a5)"
     et = etree.ElementTree(tree.getroot())
     et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
 

@@ -260,9 +260,9 @@ def create_full_epub(songbook,  target_dir):
     create_content_opf(songbook, los, target_dir, post_files=files)
 
 
-def package_epub(songbook, target_dir):
+def package_epub(songbook, target_dir, target_file="spiewnik.epub"):
     target_dir_epub = os.path.join(target_dir, "epub")
-    with ZipFile(os.path.join(target_dir, "spiewnik.epub"), 'w', compression=zipfile.ZIP_DEFLATED) as myzip:
+    with ZipFile(os.path.join(target_dir, target_file), 'w', compression=zipfile.ZIP_DEFLATED) as myzip:
         myzip.write(os.path.join(target_dir_epub, "mimetype"), arcname="mimetype", compress_type=zipfile.ZIP_STORED)
         myzip.write(os.path.join(target_dir_epub, "META-INF", "container.xml"),
                     arcname=os.path.join("META-INF", "container.xml"))
@@ -285,7 +285,7 @@ def main():
 
     # które piosenki chcę zawrzeć w śpiewniku (może być katalogiem z plikami xml lub listą plików)
     create_full_epub(songbook, target_dir)
-    package_epub(songbook, target_dir)
+    package_epub(songbook, target_dir, target_file=songbook.id()+".epub")
 
 
 if __name__ == "__main__":
