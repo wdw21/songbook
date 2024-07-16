@@ -63,8 +63,6 @@ jobs:
           mv _generated/*.epub _site/
           cp -R editor _site/
           ls -la _site/
-#          export REPL=$(cd _site; ls *.epub *.pdf | sed 's|\(.*a4.pdf\)|<span><a href="./../\1">PDF (A4)</a></span>|' | sed 's|\(.*a5.pdf\)|<span><a href="./../\1">PDF (A5)</a></span>|' | sed 's|\(.*epub\)|<span><a href="./../\1">EPUB</a></span>|')
-#          python3 -c 'import sys; import os; print(sys.stdin.read().replace("<!--INJECT HERE-->", "Całość: " + os.getenv("REPL")))' <_site/songs_html/index.xhtml >_site/songs_html/.index.xhtml
           mv _site/songs_html/.index.xhtml _site/songs_html/index.xhtml
 
       - name: Upload artifact for pages
