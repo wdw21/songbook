@@ -69,18 +69,13 @@ jobs:
         uses: actions/checkout@v4
       - if: ${{ inputs.pdf }}
         run: | 
-          cd  /workspace && chmod 755 ./render_pdf.sh && ./render_pdf.sh a5
-          mv /workspace/build/songs_tex/output.pdf /workspace/build/songbook_${{ env.release_name }}_a5.pdf
-      - if: ${{ inputs.pdf }}
-        run: |
-          cd  /workspace && chmod 755 ./render_pdf.sh && ./render_pdf.sh a4
-          mv /workspace/build/songs_tex/output.pdf /workspace/build/songbook_${{ env.release_name }}_a4.pdf
+          cd /workspace && ./render_pdfs.sh
       - name: Upload PDFs
         if: ${{ inputs.pdf }}
         uses: actions/upload-artifact@v4
         with:
           name: songbooks_pdfs
-          path: /workspace/build/*.pdf
+          path: /workspace/build/songs_tex/*.pdf
 
       - name: Create Release
         id: create_release
@@ -120,13 +115,8 @@ jobs:
 
 
       - if: ${{ inputs.epub }}
-        run: cd /workspace && chmod 755 ./render_epub.sh && ./render_epub.sh
-      - if: ${{ inputs.epub }}
-        run: mv /workspace/build/spiewnik.epub /workspace/build/songbook_${{ env.release_name }}.epub
-#      - if: ${{ inputs.epub }}
-#        run: sudo apt-get install epubcheck
-      - if: ${{ inputs.epub }}
-        run: java -jar /usr/bin/epubcheck /workspace/build/songbook_${{ env.release_name }}.epub
+        run: cd /workspace && ./render_epubs.sh
+
       - name: Upload EPUBs
         if: ${{ inputs.epub }}
         uses: actions/upload-artifact@v4
