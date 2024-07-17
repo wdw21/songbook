@@ -25,7 +25,7 @@ def create_index_xhtml(list_of_songs_meta, target_dir):
         span.attrib['class'] = 'material-symbols-outlined'
         span.text = 'edit'
         a = etree.SubElement(li, "a")
-        a.attrib['href'] = song.base_file_name() + '.xhtml'
+        a.attrib['href'] = os.path.join("./songs_html", song.base_file_name() + '.xhtml')
         a.text = list_of_songs_meta[i].title
 
     # List of songbooks
@@ -34,23 +34,20 @@ def create_index_xhtml(list_of_songs_meta, target_dir):
         if not songbook.hidden():
             li = etree.SubElement(ul, "li", attrib={"id": songbook.id()})
             li.text=songbook.title() + ":"
-            a_name = etree.SubElement(ul, "id", attrib={"class": "epub", "href": songbook.id()+".epub"})
-            a_name.text = "EPUB (kindle)"
             a_epub = etree.SubElement(ul, "a", attrib={"class": "epub", "href": songbook.id()+".epub"})
             a_epub.text = "EPUB (kindle)"
-            a_a4pdf = etree.SubElement(ul, "a", attrib={"class": "pdf", "href": songbook.id()+"_a4.pdf"})
+            a_a4pdf = etree.SubElement(ul, "a", attrib={"class": "pdf", "href": os.path.join("songs_tex", songbook.id()+"_a4.pdf")})
             a_a4pdf.text = "PDF (a4)"
-            a_a5pdf = etree.SubElement(ul, "a", attrib={"class": "pdf", "href": songbook.id()+"_a5.pdf"})
+            a_a5pdf = etree.SubElement(ul, "a", attrib={"class": "pdf", "href": os.path.join("songs_tex", songbook.id()+"_a5.pdf")})
             a_a5pdf.text = "PDF (a5)"
     et = etree.ElementTree(tree.getroot())
     et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
 
 
 def main():
-    target_dir = os.path.join(sb.repo_dir(), "build")  # gdzie ma utworzyć epub
     songbook_file = os.path.join(sb.repo_dir(), "songbooks/default.songbook.yaml") if len(sys.argv) == 1 else sys.argv[1]
     songbook = sb.load_songbook_spec_from_yaml(songbook_file)
-    target_dir = os.path.join(sb.repo_dir(), "build", "songs_html")
+    target_dir = os.path.join(sb.repo_dir(), "build")
 
     create_index_xhtml(songbook.list_of_songs(), target_dir)
 

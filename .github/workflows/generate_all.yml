@@ -150,7 +150,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: songbooks_htmls
-          path: /workspace/build/*.zip
+          path: | 
+            /workspace/build/*.zip
+            /workspace/build/index.xhtml
+
 
       - name: Upload htmls to release
         if: ${{ inputs.html && inputs.release }}
