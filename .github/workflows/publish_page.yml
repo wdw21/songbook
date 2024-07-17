@@ -58,8 +58,10 @@ jobs:
           path: _generated
       - name: Prepare _site
         run: |
-          unzip -o _generated/*.zip -d _site/
-          mv _generated/*.pdf _site/
+          mkdir -p _site/songs_html _site/songs_tex
+          unzip -o _generated/*.zip -d _site/songs_html
+          mv _generated/index.html _site/index.html
+          mv _generated/*.pdf _site/songs_tex
           mv _generated/*.epub _site/
           cp -R editor _site/
           ls -la _site/
