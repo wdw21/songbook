@@ -20,6 +20,9 @@ def main():
     os.mkdir(path_css)
     path_tmp_css_song = os.path.join(sb.repo_dir(), 'src', 'epub', 'templates', "song.css")
     shutil.copyfile(path_tmp_css_song, os.path.join(path_css, "song.css"))
+    path_tmp_css_song = os.path.join(sb.repo_dir(), 'src', 'epub', 'templates', "template.css")
+    shutil.copyfile(path_tmp_css_song, os.path.join(path_css, "template.css"))
+
 
 if __name__ == "__main__":
     main()

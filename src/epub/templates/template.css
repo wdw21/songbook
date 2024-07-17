@@ -47,3 +47,7 @@ body.index div.letters {
 	margin-top: 0;
 	display: block;
 }
+
+ul#songbooks a {
+	padding: 5ex;
+}
