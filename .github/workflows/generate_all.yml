@@ -152,7 +152,7 @@ jobs:
           name: songbooks_htmls
           path: | 
             /workspace/build/*.zip
-            /workspace/build/index.html
+            /workspace/build/index.xhtml
 
 
       - name: Upload htmls to release
