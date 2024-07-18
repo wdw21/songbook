@@ -47,7 +47,7 @@ div.row {
   display: table-row;
   border: 1px solid red;
   page-break-inside: avoid;
-  page-break-after: avoid;
+  /*page-break-after: avoid;*/
 }
 
 div.row > span.chords {
@@ -60,7 +60,7 @@ div.row > span.chords {
 div.verse {
   display: table;
   border-spacing: 0;
-  page-break-inside: avoid;
+  /*page-break-inside: avoid;*/
 }
 
 div.verse {
