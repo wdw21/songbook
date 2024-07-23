@@ -53,7 +53,7 @@ jobs:
   generate-artifacts:
     runs-on: ubuntu-latest
     container:
-      image: europe-docker.pkg.dev/wdw-21/songbook/github-latex-worker:latest
+      image: ghcr.io/wdw21/github-latex-worker:latest
       volumes:
         - ${{ github.workspace }}:/workspace
     steps:
