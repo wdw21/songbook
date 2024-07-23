@@ -3,57 +3,62 @@
   <artist>Szanty</artist>
   <lyric>
     <block type="verse">
-      <row>1. GdzieP: daleko Ameryka,<ch a="|"/><ch a="a"/><ch a="e"/><ch a="a"/><ch a="G"/></row>
-      <row>Z ortodrom+- loksodroma,<ch a="|"/><ch a="C"/><ch a="d"/><ch a="C"/><ch a="G"/></row>
-      <row>Na odkrycie swoje czeka<ch a="|"/><ch a="a"/><ch a="e"/><ch a="F"/><ch a="G"/></row>
-      <row>GdzieP: za morzem przyczajona.<ch a="|"/><ch a="C"/><ch a="G"/><ch a="a"/></row>
+      <row important_over="false">1. GdzieP: daleko Ameryka,<ch a="|"/><ch a="a"/><ch a="e"/><ch a="a"/><ch a="G"/></row>
+      <row important_over="false">Z ortodrom+- loksodroma,<ch a="|"/><ch a="C"/><ch a="d"/><ch a="C"/><ch a="G"/></row>
+      <row important_over="false">Na odkrycie swoje czeka<ch a="|"/><ch a="a"/><ch a="e"/><ch a="F"/><ch a="G"/></row>
+      <row important_over="false">GdzieP: za morzem przyczajona.<ch a="|"/><ch a="C"/><ch a="G"/><ch a="a"/></row>
     </block>
     <block type="chorus">
-      <row>A my, hej! Pochwyćmy wiatru powiew,<ch a="|"/><ch a="C"/><ch a="d"/></row>
-      <row>Niech nam zawsze sprzyja niebo.<ch a="|"/><ch a="C"/><ch a="F"/><ch a="G"/></row>
-      <row>My, Mazurscy Kolumbowie,<ch a="|"/><ch a="a"/><ch a="G"/><ch a="a"/><ch a="G"/></row>
-      <row>Odkrywamy Węgorzewo.<ch a="|"/><ch a="a"/><ch a="G"/><ch a="a"/></row>
+      <row important_over="false">A my, hej! Pochwyćmy wiatru powiew,<ch a="|"/><ch a="C"/><ch a="d"/></row>
+      <row important_over="false">Niech nam zawsze sprzyja niebo.<ch a="|"/><ch a="C"/><ch a="F"/><ch a="G"/></row>
+      <row important_over="false">My, Mazurscy Kolumbowie,<ch a="|"/><ch a="a"/><ch a="G"/><ch a="a"/><ch a="G"/></row>
+      <row important_over="false">Odkrywamy Węgorzewo.<ch a="|"/><ch a="a"/><ch a="G"/><ch a="a"/></row>
     </block>
     <block type="verse">
-      <row>2. Na wyprawę swoich marzeń</row>
-      <row>Wyruszyli z rann+- bryz+-,</row>
-      <row>Nieugięci wprost żeglarze,</row>
-      <row>Z lękiem gnali za horyzont.</row>
+      <row important_over="false">2. Na wyprawę swoich marzeń</row>
+      <row important_over="false">Wyruszyli z rann+- bryz+-,</row>
+      <row important_over="false">Nieugięci wprost żeglarze,</row>
+      <row important_over="false">Z lękiem gnali za horyzont.</row>
     </block>
     <block type="chorus">
-      <row>A my, hej! Pochwyćmy wiatru powiew,</row>
-      <row>By w nieznane miejsca płyn+-ć.</row>
-      <row>My, Mazurscy Kolumbowie,</row>
-      <row>Odkrywamy dzisiaj Sztynort.</row>
+      <row important_over="false">A my, hej! Pochwyćmy wiatru powiew,</row>
+      <row important_over="false">By w nieznane miejsca płyn+-ć.</row>
+      <row important_over="false">My, Mazurscy Kolumbowie,</row>
+      <row important_over="false">Odkrywamy dzisiaj Sztynort.</row>
     </block>
     <block type="verse">
-      <row>3. Na wyprawie długiej przyszło</row>
-      <row>Znosić bunty i zw+-tpienia,</row>
-      <row>Aż ktoP: w końcu z masztu krzykn+-ł</row>
-      <row>To magiczne słowo: "Ziemia!"</row>
+      <row important_over="false">3. Na wyprawie długiej przyszło</row>
+      <row important_over="false">Znosić bunty i zw+-tpienia,</row>
+      <row important_over="false">Aż ktoP: w końcu z masztu krzykn+-ł</row>
+      <row important_over="false">To magiczne słowo: &quot;Ziemia!&quot;</row>
     </block>
     <block type="chorus">
-      <row>A my, hej! Pochwyćmy wiatru powiew,</row>
-      <row>Obce l+-dy nie s+- blisko.</row>
-      <row>My, Mazurscy Kolumbowie,</row>
-      <row>Odkrywamy dziP: Giżycko.</row>
+      <row important_over="false">A my, hej! Pochwyćmy wiatru powiew,</row>
+      <row important_over="false">Obce l+-dy nie s+- blisko.</row>
+      <row important_over="false">My, Mazurscy Kolumbowie,</row>
+      <row important_over="false">Odkrywamy dziP: Giżycko.</row>
     </block>
     <block type="verse">
-      <row>4. Powrócili cali w glorii,</row>
-      <row>Wieszcze mieli o czym pisać,</row>
-      <row>No i przeszli do historii,</row>
-      <row>Bo przywieĽli syfilisa.</row>
+      <row important_over="false">4. Powrócili cali w glorii,</row>
+      <row important_over="false">Wieszcze mieli o czym pisać,</row>
+      <row important_over="false">No i przeszli do historii,</row>
+      <row important_over="false">Bo przywieĽli syfilisa.</row>
     </block>
     <block type="chorus">
-      <row>A my, hej! Pochwyćmy wiatru powiew,</row>
-      <row>Fale, sztormy to nie bajki.</row>
-      <row>My, Mazurscy Kolumbowie,</row>
-      <row>Odkrywamy Mikołajki.</row>
+      <row important_over="false">A my, hej! Pochwyćmy wiatru powiew,</row>
+      <row important_over="false">Fale, sztormy to nie bajki.</row>
+      <row important_over="false">My, Mazurscy Kolumbowie,</row>
+      <row important_over="false">Odkrywamy Mikołajki.</row>
     </block>
     <block type="verse">
-      <row>5. Za Kolumbem morskie mile,<ch a="|"/><ch a="C"/><ch a="d"/></row>
-      <row>Za nim rejs co wart był życia,<ch a="|"/><ch a="C"/><ch a="F"/><ch a="G"/></row>
-      <row><ch a="A"/>Ja<ch a="my"/>kic<ch a="mamy"/>hP: M<ch a="jeszcze"/>azur do <ch a="tyle"/>odkrycia, do odkrycia, do odkrycia…<ch a="|"/> |<ch a="a"/> a<ch a="G"/> G<ch a="a"/> a<ch a="G"/></row>
+      <row important_over="false">5. Za Kolumbem morskie mile,<ch a="|"/><ch a="C"/><ch a="d"/></row>
+      <row important_over="false">Za nim rejs co wart był życia,<ch a="|"/><ch a="C"/><ch a="F"/><ch a="G"/></row>
+      <row important_over="false"><ch a="A"/>Ja<ch a="my"/>kic<ch a="mamy"/>hP: M<ch a="jeszcze"/>azur do <ch a="tyle"/>odkrycia, do odkrycia, do odkrycia…<ch a="|"/> |<ch a="a"/> a<ch a="G"/> G<ch a="a"/> a<ch a="G"/></row>
     </block>
   </lyric>
+  <keywords/>
+  <status>
+    <done/>
+    <verificators/>
+  </status>
 </song>
