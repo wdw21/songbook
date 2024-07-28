@@ -16,7 +16,7 @@ def create_index_xhtml(list_of_songs_meta, target_dir):
     ul = tree.getroot().find(".//{http://www.w3.org/1999/xhtml}ul[@id='songs']")
     for i in range(len(list_of_songs_meta)):
         song = list_of_songs_meta[i]
-        if song.is_alias:
+        if song.is_alias():
             continue
         li = etree.SubElement(ul, "li")
         # <button onclick='edit("zaciagnijcie_na_oknie_niebieska_zaslone.xhtml")'><span class="material-symbols-outlined">edit</span></button>
@@ -28,7 +28,7 @@ def create_index_xhtml(list_of_songs_meta, target_dir):
         span.text = 'edit'
         a = etree.SubElement(li, "a")
         a.attrib['href'] = os.path.join("./songs_html", song.base_file_name() + '.xhtml')
-        a.text = list_of_songs_meta[i].title()
+        a.text = list_of_songs_meta[i].effectiveTitle()
 
     # List of songbooks
     ul = tree.getroot().find(".//{http://www.w3.org/1999/xhtml}ul[@id='songbooks']")

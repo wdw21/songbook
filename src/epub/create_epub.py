@@ -187,8 +187,9 @@ def create_toc_xhtml(list_of_songs_meta, target_dir, page_suffix):
             parent_a.text = group
 
             # Comment if you want songs for each letter
-            parent_ol = etree.SubElement(parent_li, "ol")
-            toc_songs_to_xhtml(parent_ol, toc_songs[group])
+            if False:
+                parent_ol = etree.SubElement(parent_li, "ol")
+                toc_songs_to_xhtml(parent_ol, toc_songs[group])
 
             files.append(create_group_toc_xhtml(group, toc_songs[group], target_dir, page_suffix))
         else:
