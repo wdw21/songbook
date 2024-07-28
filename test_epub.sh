@@ -3,4 +3,4 @@
 set -e -x
 
 ./render_epub.sh "${@}"
-epubcheck ./build/spiewnik.epub
+epubcheck ./build/default_all.epub

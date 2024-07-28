@@ -4,15 +4,15 @@ import icu #do sortowania po polskich znakach
 
 class SongMeta:
     def __init__(self, title='', alias='', path=''):
-        self.title = title if title else ''
-        self.alias = alias if alias else ''
-        self.plik = path
+        self._title = title if title else ''
+        self._alias = alias if alias else ''
+        self._plik = path
 
     def __repr__(self) -> str:
-      return "{" + "File:{} Title:{} Alias:{}".format(self.plik, self.title, self.alias) + "}"
+      return "{" + "File:{} Title:{} Alias:{}".format(self.plik(), self._title, self._alias) + "}"
 
     def base_file_name(self):
-        return os.path.splitext(os.path.basename(self.plik))[0]
+        return os.path.splitext(os.path.basename(self.plik()))[0]
 
     @staticmethod
     def parseDOM(root, path):
@@ -25,10 +25,48 @@ class SongMeta:
             path=path
         )
 
+    def effectiveTitle(self):
+        return self._title
+
+    def aliases(self):
+        return [self._alias] if (self._alias and self._alias != "") else []
+
+    def plik(self):
+        return self._plik
+
+    def is_alias(self):
+        return False
+
+
+class AliasMeta:
+    def __init__(self, alias, song_meta):
+        self._song_meta = song_meta
+        self._alias = alias
+
+    def __repr__(self) -> str:
+        return "{" + "Alias:{}->{}".format(self._alias, self._song_meta) + "}"
+
+    def base_file_name(self):
+        return self._song_meta.base_file_name()
+
+    def effectiveTitle(self):
+        return self._alias
+
+    def mainTitle(self):
+        return self._song_meta.effectiveTitle()
+
+    def aliases(self):
+        return self._song_meta.aliases()
+
+    def is_alias(self):
+        return True
+
 
 def add_song(path, lista):
     tree = etree.parse(path)
     song = SongMeta.parseDOM(tree.getroot(), path)
+    for a in song.aliases():
+        lista.append(AliasMeta(a, song))
     lista.append(song)
 
 def list_of_song_from_files(files):
@@ -36,7 +74,7 @@ def list_of_song_from_files(files):
     for file in files:
         add_song(file, list_od_meta)
     collator = icu.Collator.createInstance(icu.Locale('pl_PL.UTF-8'))
-    list_od_meta.sort(key=lambda x: collator.getSortKey(x.title))
+    list_od_meta.sort(key=lambda x: collator.getSortKey(x.effectiveTitle()))
     return list_od_meta
 
 def list_of_song(path_in):
