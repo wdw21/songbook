@@ -186,8 +186,10 @@ def create_toc_xhtml(list_of_songs_meta, target_dir, page_suffix):
             parent_a = etree.SubElement(parent_li, "a", attrib={"href": "toc_" + group + ".xhtml"})
             parent_a.text = group
 
-           # parent_ol = etree.SubElement(parent_li, "ol")
-           # toc_songs_to_xhtml(parent_ol, toc_songs[group])
+            # Comment if you want songs for each letter
+            parent_ol = etree.SubElement(parent_li, "ol")
+            toc_songs_to_xhtml(parent_ol, toc_songs[group])
+
             files.append(create_group_toc_xhtml(group, toc_songs[group], target_dir, page_suffix))
         else:
             toc_songs_to_xhtml(toc_ol, toc_songs[group])
@@ -195,6 +197,7 @@ def create_toc_xhtml(list_of_songs_meta, target_dir, page_suffix):
 
     et = etree.ElementTree(root)
     et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
+    cash.replace_in_file(out_path, out_path, lambda s: s.replace("</li><li>","</li>\n\t\t<li>").replace("><ol>",">\n<ol>"))
     return files
 
 def resolveTemplate(songbook, from_file, to_file):
