@@ -1,16 +1,11 @@
 installing on OSX:
 
+# Also see 'prepare_context.sh' for configuration of python environment.
+
   brew install pkg-config icu4c python-build epubcheck pyyaml
 
-#  brew install python-lxml
-  python3 -m venv .python_venv/
-  source .python_venv/bin/activate
-  export PATH="/usr/local/opt/icu4c/bin:$PATH"
-  export PKG_CONFIG_PATH="/opt/homebrew/opt/icu4c/lib/pkgconfig"
-  pip3 install -r requirements.txt
 
-
-  Install mactex: https://www.tug.org/mactex/mactex-download.html
+Install mactex: https://www.tug.org/mactex/mactex-download.html
 
  sudo tlmgr update --self
  sudo tlmgr install ucs

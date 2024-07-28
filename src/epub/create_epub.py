@@ -33,7 +33,7 @@ def create_content_opf(songbook, list_of_songs_meta, target_dir, pre_files=[], p
     spine = root.getchildren()[2]
     p = 1
 
-    all_files = pre_files + list(map(lambda x:x.base_file_name() + '.xhtml' ,list_of_songs_meta)) + post_files
+    all_files = pre_files + [x.base_file_name() + '.xhtml' for x in list_of_songs_meta if not x.is_alias() ] + post_files
 
     for f in all_files:
         x = etree.SubElement(manifest, "item")
@@ -66,8 +66,8 @@ def create_toc_ncx(list_of_songs_meta, target_dir):
     last_letter=''
     playOrder=1
     for i in range(len(list_of_songs_meta)):
-        if len(list_of_songs_meta) > 20 and last_letter != groupName(list_of_songs_meta[i].title):
-           last_letter = groupName(list_of_songs_meta[i].title)
+        if len(list_of_songs_meta) > 20 and last_letter != groupName(list_of_songs_meta[i].title()):
+           last_letter = groupName(list_of_songs_meta[i].title())
            parent_np = etree.SubElement(navmap, "navPoint")
            parent_np.attrib['id'] = 'p' + str(playOrder)
            parent_np.attrib['playOrder'] = str(playOrder)
@@ -85,7 +85,7 @@ def create_toc_ncx(list_of_songs_meta, target_dir):
         playOrder = playOrder + 1
         navlabel = etree.SubElement(navpoint, "navLabel")
         text = etree.SubElement(navlabel, "text")
-        text.text = list_of_songs_meta[i].title
+        text.text = list_of_songs_meta[i].title()
         content = etree.SubElement(navpoint, "content")
         content.attrib['src'] = name_of_file(list_of_songs_meta[i].plik) + '.xhtml'
     et = etree.ElementTree(root)
@@ -99,7 +99,7 @@ class SongInToc:
         return self.song.plik
 
     def title(self):
-        return self.song.title
+        return self.song.effectiveTitle()
 
     def base_file_name(self):
         return self.song.base_file_name()
@@ -109,8 +109,8 @@ def extract_toc_songs(list_of_songs_meta):
     group = None
     last_letter = None
     for i in range(len(list_of_songs_meta)):
-        if len(list_of_songs_meta) > 20 and last_letter != groupName(list_of_songs_meta[i].title):
-            group = groupName(list_of_songs_meta[i].title)
+        if len(list_of_songs_meta) > 20 and last_letter != groupName(list_of_songs_meta[i].effectiveTitle()):
+            group = groupName(list_of_songs_meta[i].effectiveTitle())
         if not group in d:
             d[group] = []
         d[group].append(SongInToc(list_of_songs_meta[i]))
@@ -186,8 +186,10 @@ def create_toc_xhtml(list_of_songs_meta, target_dir, page_suffix):
             parent_a = etree.SubElement(parent_li, "a", attrib={"href": "toc_" + group + ".xhtml"})
             parent_a.text = group
 
-           # parent_ol = etree.SubElement(parent_li, "ol")
-           # toc_songs_to_xhtml(parent_ol, toc_songs[group])
+            # Comment if you want songs for each letter
+            parent_ol = etree.SubElement(parent_li, "ol")
+            toc_songs_to_xhtml(parent_ol, toc_songs[group])
+
             files.append(create_group_toc_xhtml(group, toc_songs[group], target_dir, page_suffix))
         else:
             toc_songs_to_xhtml(toc_ol, toc_songs[group])
@@ -195,6 +197,7 @@ def create_toc_xhtml(list_of_songs_meta, target_dir, page_suffix):
 
     et = etree.ElementTree(root)
     et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
+    cash.replace_in_file(out_path, out_path, lambda s: s.replace("</li><li>","</li>\n\t\t<li>").replace("><ol>",">\n<ol>"))
     return files
 
 def resolveTemplate(songbook, from_file, to_file):

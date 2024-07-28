@@ -218,4 +218,5 @@ def create_all_songs_html(list_of_songs, path_out, song_suffix=None):
         os.mkdir(path_out)
 
     for song in list_of_songs:
-        xml2html(song.plik, os.path.join(path_out,  song.base_file_name() + '.xhtml'), song_suffix)
+        if not song.is_alias():
+            xml2html(song.plik(), os.path.join(path_out,  song.base_file_name() + '.xhtml'), song_suffix)

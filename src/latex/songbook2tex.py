@@ -23,9 +23,10 @@ def create_ready_tex(songbook, papersize):
     list_title_file = []
 
     for s in source:
-        title = s.title
-        print(s, file=sys.stderr)
-        list_title_file.append((title, s.plik))
+        if not s.is_alias():
+            title = s.effectiveTitle()
+            print(s, file=sys.stderr)
+            list_title_file.append((title, s.plik()))
 
     if papersize not in ("a4", "a5"):
         print("Wrong size of paper!", file=sys.stderr)
