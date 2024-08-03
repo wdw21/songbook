@@ -40,7 +40,7 @@ def create_ready_tex(songbook, source, papersize, title_of_songbook=None):
         content = (content
                    .replace(":title:", title_of_songbook)
                    .replace(":paper:", "paper"+ papersize)
-                   .replace(":fontsize:", "10pt" if papersize=="a4" else "11pt"))
+                   .replace(":fontsize:", "19pt" if papersize=="a4" else "14pt"))
 
         content += "".join([s2t.song2tex(file) for file in source])
 

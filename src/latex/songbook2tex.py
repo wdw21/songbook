@@ -40,7 +40,7 @@ def create_ready_tex(songbook, papersize):
 
     content = (content
                .replace(":paper:", "paper" + papersize)
-               .replace(":fontsize:", "10pt" if papersize == "a4" else "11pt")
+               .replace(":fontsize:", "19pt" if papersize == "a4" else "14pt")
                .replace(":title:", str2tex(songbook.title()))
                .replace(":subtitle:", str2tex(songbook.subtitle()))
                .replace(":place:", str2tex(songbook.place() + ", ") if songbook.place() else "")
