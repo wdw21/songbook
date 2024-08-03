@@ -255,6 +255,7 @@ def create_full_epub(songbook,  target_dir):
             a=etree.SubElement(suffix, "a")
             a.attrib["href"] = "toc_" + group + ".xhtml"
             a.text=group
+            a.tail=" "
 
     create_template_epub(songbook, target_dir)
     path_out = os.path.join(target_dir, "epub", "OEBPS")

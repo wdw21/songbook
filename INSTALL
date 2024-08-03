@@ -9,7 +9,8 @@ Install mactex: https://www.tug.org/mactex/mactex-download.html
 
  sudo tlmgr update --self
  sudo tlmgr install ucs
- sudo tlmgr install polski xstring pbox varwidth ec qrcode
+ sudo tlmgr install polski xstring pbox varwidth ec qrcode helvetic
+
 
 #
 mktextfm ecssdc10
@@ -25,6 +26,9 @@ mktexpk --mfmode / --bdpi 600 --mag 0+480/600 --dpi 480 ecssdc10
 mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 ecbx1000
 mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 ecrm1095
 mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 ectt2488
+
+mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 ectt3583
+mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 ectt1728
 
 
 installing on Linux:
