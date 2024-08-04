@@ -1,5 +1,9 @@
 /* Kindle specyfic chords styling, as kindle stopped supporting 'width' property in the inline-block. */
 
+body {
+  font-family: sans-serif;
+}
+
 span.lyric {
   display: table-cell;
   /*border: 1px solid blue;*/
