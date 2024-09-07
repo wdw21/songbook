@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Lego">
+  <text_author type="solo">Jacek Sienkiewicz</text_author>
+  <composer type="solo">Kasia Sienkiewicz</composer>
+  <artist type="band">Kwiat Jabłoni</artist>
+  <lyric>
+    <block type="verse">
+      <row important_over="false">Czas<ch a="B"/>ami chciałbym być zrobiony z klocków lego</row>
+      <row important_over="false">Byś mogła mi wymienić głowę,<ch a="C"/> gdy ją mam za cię<ch a="d"/>żką</row>
+      <row important_over="false">Dł<ch a="B"/>onie miałbym trochę mniej skomplikowane</row>
+      <row important_over="false">Ale mógłbym nimi chwycić wszystko,<ch a="C"/> co od ciebie dosta<ch a="d"/>nę</row>
+      <row important_over="false">Co od ciebie dosta<ch a="C"/>nę</row>
+    </block>
+  </lyric>
+  <keywords/>
+  <album>Pokaz slajdów</album>
+  <status>
+    <done/>
+    <verificators/>
+  </status>
+</song>
