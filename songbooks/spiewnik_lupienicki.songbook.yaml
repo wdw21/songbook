@@ -8,9 +8,9 @@ songbook:
     Śpiewnik Łupienicki (test)
   place: Łupienice
   image:
-    svg: "./spiewnik_lupienicki/dino1.svg"
-    png: "./spiewnik_lupienicki/dino1.png"
-    pdf: "./spiewnik_lupienicki/dino1.pdf"
+    svg: "./spiewnik_lupienicki/lupienice.svg"
+    png: "./spiewnik_lupienicki/lupienice.png"
+    pdf: "./spiewnik_lupienicki/lupienice.pdf"
   songs:
     - glob: "songs/pl/folk/**/*.xml"
     - glob: "songs/pl/harc/**/*.xml"
