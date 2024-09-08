@@ -1,0 +1,39 @@
+% STYLE=file
+% TARGET=pdf
+\documentclass[:paper:,:fontsize:]{extbook}
+\usepackage[savemem]{ucs}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+
+\usepackage{songbook21wdh}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{helvet}
+
+\geometry{scale={0.95,0.85},pdftex,top={3ex}}
+\addtolength{\headheight}{5ex}
+
+\setboolean{PrintChordsOn}{true}
+\setboolean{PrintChordsBehind}{true}
+\setboolean{PrintSongNum}{false}
+
+\setlength{\parindent}{0pt}
+\setlength{\headsep}{10pt}
+
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\chapter}[2]{\newpage\vbox{\LARGE{\bf #2}\\}}
+
+\pagestyle{fancy}
+\fancyfoot[RE,LO]{http://songbook.21wdw.org/}
+\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[CE,CO]{}
+\fancyhead[RE,LO]{\today}
+
+\begin{document}
+

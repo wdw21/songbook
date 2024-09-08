@@ -1,0 +1,56 @@
+
+h1, h2, h3, h4, h5 {
+	color: #666;
+	font-family: sans-serif;
+}
+
+p {
+	color: #444;
+	font-family: serif;
+	font-size: 1.3em;
+}
+
+a {
+	text-decoration: none;
+	color: #1EAEDB;
+}
+
+li {
+	list-style: decimal;
+	color: #444;
+	font-family: sans-serif;
+	font-size: 1.2em;
+	line-height: 1.4em;
+}
+
+div.comment {
+	margin-top: 1.2em;
+	font-style: italic;
+}
+
+div.letters {
+	margin-top: 2em;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+div.letters a {
+	font-size: x-large;
+	margin-left: 0.2em;
+	margin-right: 0.2em;
+}
+
+body.index div.letters a {
+	display: block;
+	font-size: x-large;
+}
+
+body.index div.letters {
+	margin-top: 0;
+	display: block;
+}
+
+ul#songbooks a {
+	padding: 5ex;
+}
