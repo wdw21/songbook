@@ -37,22 +37,9 @@
 			<row important_over="false">Na Ponidziu</row>
 		</block>
 	</lyric>
-	<music>
-		<guitar/>
-	</music>
-	<status>
-		<verificators/>
-		<done/>
-		<to_do/>
-	</status>
 	<keywords/>
-	<alias/>
-	<text_author type="solo"/>
-	<composer type="solo"/>
-	<music_source/>
-	<original_title/>
-	<translator/>
-	<album/>
-	<genre/>
-	<comment/>
+	<status>
+		<done/>
+		<verificators/>
+	</status>
 </song>
