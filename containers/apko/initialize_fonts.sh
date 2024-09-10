@@ -17,3 +17,6 @@ mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 ectt2488
 mktexpk --mfmode / --bdpi 600 --mag 0+540/600 --dpi 540 ecssdc10
 mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 ecrm0900
 mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 ecbx0900
+mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 ectt1728
+mktexpk --mfmode / --bdpi 600 --mag 1+0/600 --dpi 600 ectt1000
+
