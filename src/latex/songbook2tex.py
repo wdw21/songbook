@@ -9,7 +9,7 @@ import src.lib.songbook as sb
 
 
 def str2tex(s):
-    return s.replace("\n", "\\\\").replace("#", "\\#")
+    return s.replace("\n", "\\\\").replace("#", "\\#").replace("_", "\\_").replace("...", "…")
 
 def create_ready_tex(songbook, papersize):
     """function create a pdf file in a4 or a5 size
