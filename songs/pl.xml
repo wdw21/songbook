@@ -13,7 +13,7 @@
       <row important_over="true">Bucz<ch a="C"/>ynie jej w<ch a="G"/>argi sine</row>
       <row important_over="true">Mal<ch a="C"/>uje czerwi<ch a="H7"/>enią</row>
       <row important_over="true"><ch a="e"/> I korale j<ch a="D"/>arzębinie<ch a="C"/> w bańki c<ch a="H7"/>erkwi l<ch a="e"/>eje</row>
-      <row important_over="true" style="instr"> <ch a="e"/><ch a="C"/><ch a="H7"/><ch a="e"/></row>
+      <row important_over="false" style="instr"> <ch a="e"/><ch a="C"/><ch a="H7"/><ch a="e"/></row>
     </block>
     <block type="chorus">
       <row important_over="true">Do gór, do besk<ch a="C"/>idzkich gór</row>
