@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Wakacje">
+  <alias>Błękitny czas</alias>
+  <text_author type="solo">Małgorzata Grabowska</text_author>
+  <composer type="solo">Jan Sobolewski</composer>
+  <artist type="band">Mikroklimat</artist>
+  <lyric>
+    <block type="verse">
+      <row important_over="false" style="instr"> <ch a="C"/><ch a="G"/><ch a="G4/2"/><ch a="G"/></row>
+      <row important_over="false"><ch a="C"/>Błękitny czas, bł<ch a="d"/>ękitny piękny czas,</row>
+      <row important_over="false"><ch a="a"/>Wolności dzień już n<ch a="e"/>adchodzi.</row>
+      <row important_over="false"><ch a="F"/>Błękitny <ch a="D7"/>czas, <ch a="C"/>błękitny piękny <ch a="A7"/>czas,</row>
+      <row important_over="false"><ch a="D"/>Co nie ma ośmiu <ch a="G7"/>godzin. <ch a="G"/></row>
+    </block>
+    <block type="chorus">
+      <row important_over="false"><ch a="C"/>Jak dobrze jest wędrować <ch a="B"/>popr<ch a="A"/>zez ł<ch a="A5+"/>any<ch a="A"/>,</row>
+      <row important_over="false"><ch a="d"/>Choć jeden t<ch a="G"/>rampek<ch a="d"/> mam całkiem r<ch a="G"/>ozcz<ch a="G4/2"/>łapan<ch a="G"/>y,</row>
+      <row important_over="false"><ch a="C"/>Czerpać radość wędrowania <ch a="B"/>wprost z<ch a="A"/> bezd<ch a="A7"/>roż<ch a="A"/>y,</row>
+      <row important_over="false"><ch a="d"/>Jak dobrze w <ch a="G"/>trawie się uł<ch a="C"/>ożyć.</row>
+    </block>
+    <block type="verse">
+      <row important_over="never">Zielony czas, zielony piękny czas,<ch a="C"/><ch a="d"/></row>
+      <row important_over="never">Szumiący miękko jak drzewa,<ch a="a"/><ch a="e"/></row>
+      <row important_over="never">Zielony czas, zielony piękny czas,<ch a="F"/><ch a="D7"/><ch a="C"/><ch a="A7"/></row>
+      <row important_over="never">Co przy ognisku śpiewa<ch a="D"/><ch a="G7"/></row>
+    </block>
+    <blocklink blocknb="2"/>
+    <block type="verse">
+      <row important_over="never">Złocisty czas, złocisty piękny czas,<ch a="C"/><ch a="d"/></row>
+      <row important_over="never">Ogromny, ciepły jak słońce,<ch a="a"/><ch a="e"/></row>
+      <row important_over="never">Złocisty czas, złocisty piękny czas,<ch a="F"/><ch a="D7"/><ch a="C"/><ch a="A7"/></row>
+      <row important_over="never">Gdy można iść bez końca <ch a="D"/><ch a="G7"/></row>
+    </block>
+    <blocklink blocknb="2"/>
+  </lyric>
+  <keywords/>
+  <genre>Piosenka turystyczna</genre>
+  <status>
+    <done/>
+    <verificators/>
+  </status>
+</song>
