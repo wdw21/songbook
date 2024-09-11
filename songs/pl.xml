@@ -32,14 +32,14 @@
     </block>
     <blocklink blocknb="2"/>
     <block type="verse">
-      <row important_over="false">Teraz stateczny ojciec rodziny<ch a="d"/><ch a="A7"/><ch a="d"/><ch a="D7"/></row>
-      <row important_over="false">Samochód, żona, dzieci, M4 <ch a="g"/><ch a="D7"/><ch a="d"/></row>
-      <row important_over="false">Brydż u znajomych i imieniny<ch a="A7"/><ch a="d"/></row>
-      <row important_over="false">Spacer w niedzielę, trochę opery<ch a="E7"/><ch a="A7"/></row>
-      <row important_over="false">Czasem za oknem widzisz jak idą<ch a="d"/><ch a="A7"/><ch a="d"/><ch a="D7"/></row>
-      <row important_over="false">Dźwigając swoje wielkie plecaki<ch a="g"/><ch a="D7"/><ch a="d"/></row>
-      <row important_over="false">Chciałbyś dołączyć, stanąć w szeregu <ch a="A7"/><ch a="d"/></row>
-      <row important_over="false">I znów usłyszeć szydercze takie: <ch a="E7"/><ch a="A7"/></row>
+      <row important_over="never">Teraz stateczny ojciec rodziny<ch a="d"/><ch a="A7"/><ch a="d"/><ch a="D7"/></row>
+      <row important_over="never">Samochód, żona, dzieci, M4 <ch a="g"/><ch a="D7"/><ch a="d"/></row>
+      <row important_over="never">Brydż u znajomych i imieniny<ch a="A7"/><ch a="d"/></row>
+      <row important_over="never">Spacer w niedzielę, trochę opery<ch a="E7"/><ch a="A7"/></row>
+      <row important_over="never">Czasem za oknem widzisz jak idą<ch a="d"/><ch a="A7"/><ch a="d"/><ch a="D7"/></row>
+      <row important_over="never">Dźwigając swoje wielkie plecaki<ch a="g"/><ch a="D7"/><ch a="d"/></row>
+      <row important_over="never">Chciałbyś dołączyć, stanąć w szeregu <ch a="A7"/><ch a="d"/></row>
+      <row important_over="never">I znów usłyszeć szydercze takie: <ch a="E7"/><ch a="A7"/></row>
     </block>
     <blocklink blocknb="2"/>
   </lyric>
