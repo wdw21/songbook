@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Tęsknica">
   <alias>Na przełęczy przysiadł wrzesień</alias>
-  <text_author type="solo">A. Wierzbicki</text_author>
+  <text_author type="solo">Andrzej Wierzbicki</text_author>
   <composer type="solo">Andrzej Wierzbicki</composer>
-  <artist type="solo">A. Wierzbicki</artist>
+  <artist type="solo">Andrzej Wierzbicki</artist>
   <lyric>
     <block type="verse">
-      <row important_over="false">Na przełęczy pr<ch a="D"/>zysiadł wrzesień</row>
-      <row important_over="false"><ch a="G"/> Śmieje si<ch a="D"/>ę ukr<ch a="H7"/>adkiem</row>
-      <row important_over="false"><ch a="e"/> Skrzydłem kruka wł<ch a="D"/>osy czesze</row>
-      <row important_over="false"><ch a="e"/> Rozczochr<ch a="H7"/>anym wi<ch a="e"/>atrom</row>
-      <row important_over="false">Bucz<ch a="C"/>ynie jej w<ch a="G"/>argi sine</row>
-      <row important_over="false">Mal<ch a="C"/>uje czerwi<ch a="H7"/>enią</row>
-      <row important_over="false"><ch a="e"/> I korale j<ch a="D"/>arzębinie<ch a="C"/> w bańki c<ch a="H7"/>erkwi l<ch a="e"/>eje</row>
-      <row important_over="false" style="instr"> <ch a="e"/><ch a="C"/><ch a="H7"/><ch a="e"/></row>
+      <row important_over="true">Na przełęczy pr<ch a="D"/>zysiadł wrzesień</row>
+      <row important_over="true"><ch a="G"/> Śmieje si<ch a="D"/>ę ukr<ch a="H7"/>adkiem</row>
+      <row important_over="true"><ch a="e"/> Skrzydłem kruka wł<ch a="D"/>osy czesze</row>
+      <row important_over="true"><ch a="e"/> Rozczochr<ch a="H7"/>anym wi<ch a="e"/>atrom</row>
+      <row important_over="true">Bucz<ch a="C"/>ynie jej w<ch a="G"/>argi sine</row>
+      <row important_over="true">Mal<ch a="C"/>uje czerwi<ch a="H7"/>enią</row>
+      <row important_over="true"><ch a="e"/> I korale j<ch a="D"/>arzębinie<ch a="C"/> w bańki c<ch a="H7"/>erkwi l<ch a="e"/>eje</row>
+      <row important_over="true" style="instr"> <ch a="e"/><ch a="C"/><ch a="H7"/><ch a="e"/></row>
     </block>
     <block type="chorus">
-      <row important_over="false">Do gór, do besk<ch a="C"/>idzkich gór</row>
-      <row important_over="false"><ch a="D"/> Zawracamy kr<ch a="e"/>oki</row>
-      <row important_over="false">Przez równin ziel<ch a="C"/>ony mur</row>
-      <row important_over="false"><ch a="D"/> Dolin rzecznych kr<ch a="e"/>ocie</row>
-      <row important_over="false">Do gór, do besk<ch a="C"/>idzkich gór</row>
-      <row important_over="false"><ch a="D"/> Zawracamy <ch a="G"/>ocz<ch a="H7"/>y </row>
-      <row important_over="false">By d<ch a="e"/>ojrzeć w bucz<ch a="C"/>yny pniach</row>
-      <row important_over="false"><ch a="D"/> Madonn twarze zł<ch a="e"/>ote</row>
+      <row important_over="true">Do gór, do besk<ch a="C"/>idzkich gór</row>
+      <row important_over="true"><ch a="D"/> Zawracamy kr<ch a="e"/>oki</row>
+      <row important_over="true">Przez równin ziel<ch a="C"/>ony mur</row>
+      <row important_over="true"><ch a="D"/> Dolin rzecznych kr<ch a="e"/>ocie</row>
+      <row important_over="true">Do gór, do besk<ch a="C"/>idzkich gór</row>
+      <row important_over="true"><ch a="D"/> Zawracamy <ch a="G"/>ocz<ch a="H7"/>y </row>
+      <row important_over="true">By d<ch a="e"/>ojrzeć w bucz<ch a="C"/>yny pniach</row>
+      <row important_over="true"><ch a="D"/> Madonn twarze zł<ch a="e"/>ote</row>
       <row important_over="false" style="instr"> <ch a="e"/><ch a="C"/><ch a="H7"/><ch a="e"/><ch a="C"/><ch a="H7"/><ch a="e"/></row>
     </block>
     <block type="verse">
