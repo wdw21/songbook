@@ -14,14 +14,14 @@
       <row important_over="true">W którym się nie <ch a="d"/>boję spać</row>
       <row important_over="true">W którym się nie <ch a="a"/>boję spać</row>
       <row important_over="true"/>
-      <row important_over="true">Już na mnie <ch a="d"/>idzie tłum</row>
-      <row important_over="true">I depcze wszy<ch a="a"/>stko po drodze</row>
-      <row important_over="true">Nie mogę <ch a="d"/>uciec mu</row>
-      <row important_over="true">On też przed <ch a="a"/>sobą nie może</row>
-      <row important_over="true">Gwiazd już nie <ch a="d"/>widać, no bo jak?</row>
-      <row important_over="true">Kiedy łuna z <ch a="a"/>ziemi bije tak</row>
-      <row important_over="true">Jak gdyby chciała <ch a="d"/>zalać świat</row>
-      <row important_over="true">Jak gdyby chciała <ch a="a"/>zalać świat</row>
+      <row important_over="false">Już na mnie <ch a="d"/>idzie tłum</row>
+      <row important_over="false">I depcze wszy<ch a="a"/>stko po drodze</row>
+      <row important_over="false">Nie mogę <ch a="d"/>uciec mu</row>
+      <row important_over="false">On też przed <ch a="a"/>sobą nie może</row>
+      <row important_over="false">Gwiazd już nie <ch a="d"/>widać, no bo jak?</row>
+      <row important_over="false">Kiedy łuna z <ch a="a"/>ziemi bije tak</row>
+      <row important_over="false">Jak gdyby chciała <ch a="d"/>zalać świat</row>
+      <row important_over="false">Jak gdyby chciała <ch a="a"/>zalać świat</row>
     </block>
     <block type="chorus">
       <row important_over="true">Choć <ch a="F"/>nie chcę <ch a="g"/>budzić się</row>
