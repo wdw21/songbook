@@ -10,12 +10,12 @@
       <row important_over="true">Dł<ch a="B"/>onie miałbym trochę mniej skomplikowane</row>
       <row important_over="true">Ale mógłbym nimi chwycić wszystko,<ch a="C"/> co od ciebie dosta<ch a="d"/>nę</row>
       <row important_over="true">Co od ciebie dosta<ch a="C"/>nę</row>
-      <row important_over="true">I p<ch a="B"/>ewnie mógłbym mocno trzymać się podstawy</row>
-      <row important_over="true">Nawet gdybyś wywróciła mi świat <ch a="C"/>do góry noga<ch a="d"/>mi</row>
-      <row important_over="true">Do góry noga<ch a="C"/>mi</row>
-      <row important_over="true">I m<ch a="B"/>ożna byłoby nawet rzucić mną o ścianę</row>
-      <row important_over="true">A ja miałbym pewność, że i t<ch a="C"/>ak wtedy nic mi się nie sta<ch a="d"/>nie</row>
-      <row important_over="true">Nic mi się nie sta<ch a="C"/>nie</row>
+      <row important_over="false">I p<ch a="B"/>ewnie mógłbym mocno trzymać się podstawy</row>
+      <row important_over="false">Nawet gdybyś wywróciła mi świat <ch a="C"/>do góry noga<ch a="d"/>mi</row>
+      <row important_over="false">Do góry noga<ch a="C"/>mi</row>
+      <row important_over="false">I m<ch a="B"/>ożna byłoby nawet rzucić mną o ścianę</row>
+      <row important_over="false">A ja miałbym pewność, że i t<ch a="C"/>ak wtedy nic mi się nie sta<ch a="d"/>nie</row>
+      <row important_over="false">Nic mi się nie sta<ch a="C"/>nie</row>
     </block>
     <block type="chorus">
       <row important_over="true"><ch a="F"/>Na niebie grzmi</row>
