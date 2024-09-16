@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Głupia piosenka">
+  <artist type="band">Kabaret Potem</artist>
+  <lyric>
+    <block type="verse">
+      <row important_over="true"><ch a="a"/>Idzie sobie wiosna, <ch a="d"/>słychać świergot ptaka</row>
+      <row important_over="true"><ch a="a"/>Ładna to piosenka, t<ch a="E"/>ylko głupia taka. </row>
+      <row important_over="true"><ch a="a"/>Już przyleciał bociek <ch a="d"/>i w kałuży dłubie</row>
+      <row important_over="true"><ch a="a"/>Mnie to nie przeszkadza, <ch a="E"/>dalej będzie głupiej.</row>
+    </block>
+    <block type="chorus">
+      <row important_over="true"><ch a="d"/>Aa<ch a="G"/>aa i<ch a="C"/>dzie wiosna <ch a="a"/>(już jest wiosna)</row>
+      <row important_over="true"><ch a="d"/>Aa<ch a="G"/>aa <ch a="C"/>dłuższe dnie (<ch a="a"/>dłuższe dnie)</row>
+      <row important_over="true"><ch a="d"/>Aa<ch a="G"/>aa <ch a="C"/>kwiatki rosną <ch a="a"/>(kwiatki rosną)</row>
+      <row important_over="true"><ch a="d"/>Aa<ch a="G"/>aa <ch a="C"/>głupie nie? </row>
+    </block>
+    <block type="verse">
+      <row important_over="never">Słońce raźniej świeci, dym się w polu snuje<ch a="a"/><ch a="d"/></row>
+      <row important_over="never">Zupełnie bez sensu, ale się rymuje. <ch a="a"/><ch a="E"/></row>
+      <row important_over="never">Budzi się przyroda, już zielono wszędzie<ch a="a"/><ch a="d"/></row>
+      <row important_over="never">Bać się nie ma czego, refrenu nie będzie. <ch a="a"/><ch a="E"/></row>
+    </block>
+    <blocklink blocknb="2"/>
+    <block type="verse">
+      <row important_over="never">Rozmarzają rzeki, płynie kra do morza<ch a="a"/><ch a="d"/></row>
+      <row important_over="never">Zwrotka nie najgorsza, tylko rymu nie ma.<ch a="a"/><ch a="E"/></row>
+      <row important_over="never">Drzewa mają pączki, w gniazdach są pisklęta<ch a="a"/><ch a="d"/></row>
+      <row important_over="never">Przyroda jak zwrotka, niedorozwinięta<ch a="a"/><ch a="E"/></row>
+    </block>
+    <blocklink blocknb="2"/>
+    <block type="verse">
+      <row important_over="never">Wiosna jest po zimie, w myśl ludowych przysłów<ch a="a"/><ch a="d"/></row>
+      <row important_over="never">Ja już nie mam głowy do tych idiotyzmów<ch a="a"/><ch a="E"/></row>
+      <row important_over="never">Kończy się piosenka, nie ma śniegu prawie<ch a="a"/><ch a="d"/></row>
+      <row important_over="never">Pisać głupie teksty, nawet ja potrafię.<ch a="a"/><ch a="E"/></row>
+    </block>
+    <blocklink blocknb="2"/>
+  </lyric>
+  <keywords/>
+  <genre>Piosenka kabaretowa</genre>
+  <status>
+    <done/>
+    <verificators/>
+  </status>
+</song>
