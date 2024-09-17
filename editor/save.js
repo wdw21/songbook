@@ -2,11 +2,14 @@ import {loadXMLDoc, nbsp} from './utils.js';
 
 function escapeText(unsafe) {
   return unsafe
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+      .replaceAll('\u{0435}',"e") // e in Cyrylic
+      .replaceAll(',,','\u{201E}')
+      .replaceAll('\'\'','\u{201D}')
+      .replaceAll(/&/g, '&amp;')
+      .replaceAll(/</g, '&lt;')
+      .replaceAll(/>/g, '&gt;')
+      .replaceAll(/"/g, "&quot;")
+      .replaceAll(/'/g, "&#039;");
 }
 
 function escapeAttrib(unsafe) {
