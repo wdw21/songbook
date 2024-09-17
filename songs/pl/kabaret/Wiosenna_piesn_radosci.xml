@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Wiosenna pieśń radości">
-  <alias/>
-  <text_author>Kabaret ,,Potem''</text_author>
-  <comment/>
+  <alias>Głupia Piosenka</alias>
+  <text_author>Kabaret ,,Potem&#039;&#039;</text_author>
   <composer type="solo">Władysław Sikora</composer>
-  <artist type="solo">Kabaret ,,Potem''</artist>
-  <translator/>
-  <original_title/>
+  <artist type="solo">Kabaret ,,Potem&#039;&#039;</artist>
   <lyric>
     <block type="verse">
       <row important_over="false"><ch a="h"/>Idzie sobie wiosna, słychać świergot ptaka<ch a="e"/></row>
@@ -42,11 +39,12 @@
     </block>
     <blocklink blocknb="2"/>
   </lyric>
-  <music metre="">
+  <music>
     <guitar barre="0"/>
   </music>
+  <keywords/>
   <status>
+    <done/>
     <verificators/>
-    <to_do/>
   </status>
 </song>
