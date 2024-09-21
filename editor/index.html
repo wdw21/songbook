@@ -128,7 +128,7 @@
     }
 
     async function commit(songbook) {
-      const {serialized,changed, title} = songbook.SerializeWithChange();//document.getElementsByTagName("song-editor")[0].Serialize();
+      const {serialized, changed, title} = songbook.SerializeWithChange();//document.getElementsByTagName("song-editor")[0].Serialize();
 
       if (!changed) {
         notice("Brak nowych zmian", songbook);

@@ -191,7 +191,7 @@ export async function listChanges(req, res) {
     } catch (e) {
         HandleError(e, res);
     } finally {
-        if (!res.responsesSent) {
+        if (!res.headersSent) {
             htmlSuffix(res);
         }
     }

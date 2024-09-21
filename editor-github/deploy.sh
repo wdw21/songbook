@@ -2,6 +2,7 @@
 
 # First time:
 #  - https://cloud.google.com/sdk/docs/install-sdk
+#  - brew upgrade google-cloud-sdk
 #  - gcloud auth login
 #  - gcloud config set project wdw-21
 
