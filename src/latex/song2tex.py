@@ -24,7 +24,7 @@ def tex_escape(text):
         '\\': r'\textbackslash{}',
         '<': r'\textless{}',
         '>': r'\textgreater{}',
-        '...': r'{\ldots}'
+        '...': r'{\dots}'
     }
     if text:
         regex = re.compile('|'.join(re.escape(str(key)) for key in sorted(conv.keys(), key=lambda item: - len(item))))
@@ -129,7 +129,7 @@ class Block:
                     rowclone.row_type=RowType.FIRST.value + RowType.LAST.value + RowType.SHORT.value
                     effective_rows = [rowclone]
                   else:
-                    effective_rows[0].chunks.append(RowChunk(content=" \ldots"))
+                    effective_rows[0].chunks.append(RowChunk(content=" \dots"))
                     effective_rows[0].bis=False
                     effective_rows[0].sidechords=""
                     break

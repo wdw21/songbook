@@ -23,6 +23,7 @@ export const EDITOR_BASE_URL = EDITOR_DOMAIN + EDITOR_PATH
 export const CHANGES_BASE_URL = BASE_URL + "/changes";
 export const REDIRECT_BASE_URL = BASE_URL + "/redirect";
 export const CONFIG_BASE_URL = BASE_URL + "/config";
+export const AUTH_URL = BASE_URL + "/auth";
 
 export const MAIN_BRANCH_NAME="songeditor-main";
 
@@ -64,10 +65,14 @@ export function htmlPrefix(res) {
 }
 
 export function htmlSuffix(res) {
-    res.write(`
+    if (!res.headersSent) {
+        res.write(`
   </body>
 </html>`);
-    res.end();
+        res.end();
+    } else {
+        console.log("Headers already sent")
+    }
 }
 
 function fullUrl(req) {
@@ -93,6 +98,12 @@ function getBackUrl(req, backUrl) {
 }
 
 export function clearCookiesAndAuthRedirect(res, backUrl) {
+    console.log("clearCookiesAndAuthRedirect: backUrl", backUrl);
+    if (res.headersSent) {
+        console.log("clearCookiesAndAuthRedirect: Headers already sent")
+    } else {
+        console.log("clearCookiesAndAuthRedirect: Headers not yet sent")
+    }
     const state = crypto.randomUUID();
     res.clearCookie("session", {domain: PARENT_DOMAIN});
     res.cookie("state", state);
@@ -107,6 +118,11 @@ export function clearCookiesAndAuthRedirect(res, backUrl) {
             state: state,
         });
     res.redirect(url);
+    if (res.headersSent) {
+        console.log("clearCookiesAndAuthRedirect: Headers finally sent - AFTER redirect to:", url)
+    } else {
+        console.log("clearCookiesAndAuthRedirect: Headers not yet sent !!! ???")
+    }
 }
 
 export async function newUserOctokit(req,res, backUrl) {
@@ -258,10 +274,10 @@ export function HandleError(e, res) {
        (e.response.data.message.includes("refusing to allow an OAuth App to"))) {
         // HttpError RequestError [HttpError]: Bad credentials
         // status: 422,  E.g. HttpError: refusing to allow an OAuth App to create or update workflow `.github/workflows/generate.yml` without `workflow` scope
-        res.redirect('/auth');
+        res.redirect(AUTH_URL);
         return;
     }
-    if (!res.responsesSent) {
+    if (!res.headersSent) {
         res.send(`<hr/><detail><summery>Error</summery><pre>`);
         res.send(util.inspect(e, false, null, false));
         res.end(`</pre></detail></body></html>`);

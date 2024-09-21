@@ -3,17 +3,16 @@ import {http} from '@google-cloud/functions-framework';
 import {RequestError} from "@octokit/request-error";
 import express from 'express';
 import util from 'util';
-import crypto from 'crypto';
 import cookieParser from "cookie-parser";
 import cors from 'cors';
 
 import * as fs from 'fs';
-import * as path from "path";
 
 import libxmljs2 from "libxmljs2";
 
 import {cleanupChanges, listChanges} from './listChanges.js';
 import {
+    AUTH_URL,
     BASE_URL,
     EDITOR_DOMAIN,
     CHANGES_BASE_URL,
@@ -26,6 +25,7 @@ import {
     MAIN_BRANCH_NAME,
     prepareBranch, editorLink,
     prepareMainBranch,
+    stripProtocol,
     HandleError, EDITOR_BASE_URL, PARENT_DOMAIN, clearCookiesAndAuthRedirect, REDIRECT_BASE_URL,
 } from './common.js';
 
@@ -177,6 +177,7 @@ app.get('/users/:user/changes[:]new', async (req, res) => {
         console.log("Starting request /users/:user/changes[:]new");
         const {octokit, user} = await newUserOctokit(req, res);
         if (!octokit) {
+            console.log("No octokit in changes:NEW processing finished - exiting immedietely!!!");
             return;
         }
         console.log("Request query: ", req.query)
@@ -478,19 +479,26 @@ app.get('/auth', async (req, res) => {
 app.get('/redirect', async (req, res) => {
     let red = req.cookies["redirectUrl"];
     console.log(`/redirect with REDIRECT URL: '${red}'`)
-
+    console.log("Waiting for octokit")
     const {octokit} = await newUserOctokit(req, res);
+    console.log("Waited for octokit")
     if (!octokit) {
+        console.log("No octokit unfortunetely...");
         return
     }
-
+    console.log("octokit got... Clearing/redirecting again:", red);
     res.clearCookie("redirectUrl");
     if (red && red.startsWith(REDIRECT_BASE_URL)) {
+        console.log("Avoiding loop - going to: ", CHANGES_BASE_URL);
         res.redirect(CHANGES_BASE_URL);
-    } else if (red && red.startsWith(BASE_URL)) {
+    } else if (red &&  stripProtocol(red).startsWith(stripProtocol(BASE_URL))) {
+        console.log("Internal our going there: ", red);
         res.redirect(red);
     } else {
-        res.status(400);
+        console.log("External URL: ", red, "vs:", BASE_URL, "Sending to /auth");
+        res.redirect(AUTH_URL);
+        // res.status(400);
+        // res.send("No redirect with REDIRECT_BASE_URL");
     }
 })
 
