@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Od nowa">
+  <text_author type="solo">Jacek Sienkiewicz</text_author>
+  <composer type="solo">Jacek Sienkiewicz, Kasia Sienkiewicz</composer>
   <artist type="band">Kwiat Jabłoni</artist>
   <lyric>
     <block type="verse">
@@ -21,11 +23,11 @@
       </bis>
     </block>
     <block type="chorus">
-      <row important_over="false">Żeby się <ch a="D"/>nic nie stało do wczo<ch a="a"/>raj<ch a="C"/> <ch a="G"/></row>
+      <row important_over="false">Żeby się <ch a="D"/>nic nie stało do wczo<ch a="a"/>raj<ch a="C"/><ch a="G"/></row>
       <row important_over="false">Żebyśmy <ch a="D"/>się poznali od no<ch a="a"/>wa</row>
     </block>
     <block type="verse">
-      <row important_over="false"> <ch a="a"/>Jakby to było gdyby <ch a="F"/>wszystko to, co jest</row>
+      <row important_over="false"><ch a="a"/>Jakby to było gdyby <ch a="F"/>wszystko to, co jest</row>
       <row important_over="false">Miało <ch a="D"/>tylko jeden dzień?</row>
       <row important_over="false"><ch a="a"/>Podalibyśmy sobie <ch a="F"/>dłonie bez żalu</row>
       <row important_over="false">Bez pow<ch a="D"/>rotu koszmarów</row>
