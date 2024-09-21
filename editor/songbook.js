@@ -334,7 +334,9 @@ export class SongEditor extends HTMLElement {
     // setting up the reader
     var reader = new FileReader();
     reader.addEventListener('load', (event) => {
-      this.Load(event.target.result);;
+      this.Load(event.target.result);
+      // Loaded file should be committable.
+      this.serialized="";
     });
     reader.readAsText(this.open.files[0]);
   }
