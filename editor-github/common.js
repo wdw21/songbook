@@ -79,7 +79,7 @@ function fullUrl(req) {
     return new URL(`${req.protocol}://${req.get('host')}${req.originalUrl}`);
 }
 
-function stripProtocol(s) {
+export function stripProtocol(s) {
     return s.replace("http://", "").replace("https://","");
 }
 
