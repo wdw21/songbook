@@ -13,5 +13,11 @@ songbook:
     pdf: "./spiewnik_lupienicki/lupienice.pdf"
   songs:
     - glob: "songs/pl/folk/**/*.xml"
+    - glob: "songs/pl/bardowie/**/*.xml"
     - glob: "songs/pl/harc/**/*.xml"
+    - glob: "songs/pl/kabaret/**/*.xml"
+    - glob: "songs/pl/poezja/**/*.xml"
+    - glob: "songs/pl/pop/**/*.xml"
+    - glob: "songs/pl/religijne/**/*.xml"
+    - glob: "songs/pl/szanty/**/*.xml"
 
