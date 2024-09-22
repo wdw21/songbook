@@ -6,7 +6,7 @@
 	<composer type="solo">Wiesław Jarosz</composer>
 	<artist type="band">EKT Gdynia</artist>
 	<lyric>
-		<block type="other">
+		<block type="verse">
 			<bis times="2">
 				<row important_over="false">La la la…<ch a="G"/><ch a="D"/><ch a="C"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="C"/><ch a="D"/><ch a="G"/><ch a="C"/><ch a="D"/></row>
 			</bis>
