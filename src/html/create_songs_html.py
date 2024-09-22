@@ -64,6 +64,7 @@ def _add_row(row, parent):
         chords_over = "over_true"
     div_row = etree.SubElement(parent, "div", attrib={"class": "row " + chords_over})
     div_row.text = u'\u200d' # Not visible spaces -> forces the row to be generated as a single line. We remove it in post-processing.
+    _add_chords(row, div_row, "chords")
     _add_lyric(row, div_row)
     if str(type(row.bis)) == "<class \'bool\'>" and row.bis is True:
         span_bis = etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
@@ -74,29 +75,30 @@ def _add_row(row, parent):
     else:
         span_unbis = etree.SubElement(div_row, "span", attrib={"class": "bis_inactive"})
         span_unbis.text =u'\u00a0'
-    _add_chords(row, div_row, "chords")
-
 
 def _add_instrumental_row(row, parent):
     """class row instrumental-> html div row with content"""
     div_row = etree.SubElement(parent, "div", attrib={"class": "row"})
     if str(type(row.bis)) == "<class \'bool\'>" and row.bis is True:
         _add_chords(row, div_row, "chords_ins")
+        _ = etree.SubElement(div_row, "span", attrib={"class": "lyric"})
         span_bis = etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
         span_bis.text = u'\u00a0'
     elif str(type(row.bis)) == "<class \'int\'>":
         _add_chords(row, div_row, "chords_ins")
+        _ = etree.SubElement(div_row, "span", attrib={"class": "lyric"})
         span_bis = etree.SubElement(div_row, "span", attrib={"class": "bis_active"})
         span_bis.text = 'x' + str(row.bis)
     else:
         _add_chords(row, div_row, "chords_ins")
+        _ = etree.SubElement(div_row, "span", attrib={"class": "lyric"})
         span_unbis = etree.SubElement(div_row, "span", attrib={"class": "bis_inactive"})
         span_unbis.text = u'\u00a0'
 
-
-def _add_verse(block, parent, block_type):
+def _add_block(block, parent, block_type, verse_cnt):
     """class verse -> html div verse/chorus/other with content"""
     div_verse = etree.SubElement(parent, "div", attrib={"class": block_type})
+
     for ro in block.rows:
         if ro.instr:
             _add_instrumental_row(ro, div_verse)
@@ -111,7 +113,6 @@ def _add_creator(creator, describe, parent):
     span_label.text = describe
     span_content = etree.SubElement(div, "span", attrib={"class": "content_creator"})
     span_content.text = creator
-
 
 def _add_blocks(song, parent):
     """class song -> html div body # blok z metadanymi o piosence i piosenką"""
@@ -138,14 +139,29 @@ def _add_blocks(song, parent):
         _add_creator(song.metre, "Metrum: ", body_song)
     if song.barre and int(song.barre) > 0:
         _add_creator(song.barre, "Kapodaster: ", body_song)
+
+    corpse = etree.SubElement(body_song, "div", attrib={"class": "song_body", "id": "song_body"})
+    verse_cnt = 0
     for block in song.blocks:
         if block.block_type.value == 'V':
             b_type = "verse"
+            verse_cnt = verse_cnt + 1
         elif block.block_type.value == 'C':
             b_type = "chorus"
         else:
             b_type = "other"
-        _add_verse(block, body_song, b_type)
+        blockid=""
+        if b_type == "verse":
+            blockid=str(verse_cnt) + "."
+        if b_type == "chorus":
+            blockid="Ref:"
+
+
+        spacer = etree.SubElement(corpse, "div", attrib={"class": "block_spacer"})
+        block_id = etree.SubElement(spacer, "span", attrib={"class": "block_id"})
+        block_id.text = blockid
+        _add_block(block, corpse, b_type, verse_cnt)
+
     if song.comment:
         div = etree.SubElement(body_song, "div", attrib={"class": "comment"})
         span_content = etree.SubElement(div, "span", attrib={"class": "comment"})
