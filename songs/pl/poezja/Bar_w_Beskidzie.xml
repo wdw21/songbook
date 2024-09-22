@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Bar w Beskidzie">
 	<alias>Lej się chmielu</alias>
 	<text_author type="solo">Wiesław Jarosz</text_author>
-	<comment>Piosenka opisuje bar "Leśny" w Krempnej, który, wg zeznań świadków, nie ma już tego klimatu, co ongi.</comment>
+	<comment>Piosenka opisuje bar &quot;Leśny&quot; w Krempnej, który, wg zeznań świadków, nie ma już tego klimatu, co ongi.</comment>
 	<composer type="solo">Wiesław Jarosz</composer>
 	<artist type="band">EKT Gdynia</artist>
-	<translator></translator>
-	<original_title></original_title>
-	<lyric xmlns="http://21wdh.staszic.waw.pl">
-		<block type="other">
+	<lyric>
+		<block type="verse">
 			<bis times="2">
 				<row important_over="false">La la la…<ch a="G"/><ch a="D"/><ch a="C"/><ch a="G"/><ch a="D"/><ch a="G"/><ch a="D"/><ch a="C"/><ch a="D"/><ch a="G"/><ch a="C"/><ch a="D"/></row>
 			</bis>
@@ -59,31 +57,24 @@
 			</bis>
 		</block>
 	</lyric>
-	
 	<music metre="4/4">
 		<guitar barre="0"/>
 	</music>
+	<keywords/>
+	<album>Ja Stawiam</album>
+	<genre>Piosenka turystyczna górska</genre>
 	<status>
-		<verificators><verificator>Onufry</verificator><verificator>Adam</verificator><verificator>Onufry</verificator>
-			
-			
-			
-		</verificators>
-		<to_do>Adam--&gt;Poprawiłem akordy i ułożenia wstawek instrumentalnych
-Onufry -&gt; Poprawiłem strukturę, żeby refren był refrenem.</to_do>
-		<done>	
-			
-			
-			
-			
-			
+		<done>
 			<text/>
 			<authors/>
 			<chords>chord positioning</chords>
 		</done>
+		<verificators>
+			<verificator>Onufry</verificator>
+			<verificator>Adam</verificator>
+			<verificator>Onufry</verificator>
+		</verificators>
+		<to_do>Adam--&gt;Poprawiłem akordy i ułożenia wstawek instrumentalnych
+Onufry -&gt; Poprawiłem strukturę, żeby refren był refrenem.</to_do>
 	</status>
-	<keywords/>
-	<music_source></music_source>
-	<album>Ja Stawiam</album>
-	<genre>Piosenka turystyczna górska</genre>
 </song>
