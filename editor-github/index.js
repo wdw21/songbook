@@ -5,6 +5,7 @@ import express from 'express';
 import util from 'util';
 import cookieParser from "cookie-parser";
 import cors from 'cors';
+import path from 'path';
 
 import * as fs from 'fs';
 
@@ -172,6 +173,25 @@ async function getSongs(octokit, user) {
     return os
 }
 
+async function getDirs(octokit, user) {
+    let songs = await octokit.request('GET /repos/{owner}/{repo}/git/trees/{tree_sha}?recursive=1', {
+        owner: user,
+        repo: 'songbook',
+        tree_sha: MAIN_BRANCH_NAME,
+        headers: {
+            'X-GitHub-Api-Version': '2022-11-28'
+        }
+    })
+    let os = [];
+    for (let s of songs.data.tree) {
+        if (s.path.startsWith("songs/") && s.type === "tree") {
+            os.push(s.path.replaceAll("songs/", ""))
+        }
+    }
+    return os
+}
+
+
 app.get('/users/:user/changes[:]new', async (req, res) => {
     try {
         console.log("Starting request /users/:user/changes[:]new");
@@ -192,22 +212,23 @@ app.get('/users/:user/changes[:]new', async (req, res) => {
         }
 
         htmlPrefix(res);
-        res.write(`
-      <h1>Nowa edycja</h1>\n
-      Wybierz (lub utwórz) plik, który będziesz edytował:
-      `);
 
-        let songs = await getSongs(octokit, user)
 
-        res.write(`<datalist id="files">\n`);
-        for (const song of songs) {
-            res.write(`  <option>${song.title}</option>\n`);
+        let dirs = await getDirs(octokit, user)
+
+        res.write(`<datalist id="dirs">\n`);
+        for (const dir of dirs) {
+            res.write(`  <option>${dir}</option>\n`);
         }
         res.write(`</datalist>\n`);
 
         res.write(`
     <form action="/users/${user}/changes:new" method="post">
-      <input name="file" id='file' type="text" list="files" required pattern="[a-zA-Z0-9\\.\\-_()]+" 
+    <h1>Nowa edycja</h1>\n
+      Wybierz katalog w którym chcesz umieścić piosenkę:
+       <input name="dir" id='dir' type="text" list="dirs" /><br/>
+       Podaj nazwę pliku - tytuł piosenki to dobry pomysł:
+       <input name="file" id='file' type="text" required pattern="[a-zA-Z0-9\\.\\-_() ]+" 
         oninvalid="this.setCustomValidity('Pole musi być wypełnione i zawierać wyłącznie podstawowe litery, cyfry, myślnik i podkreślnik.')"
         oninput="this.setCustomValidity('')"/>
       <div>
@@ -244,19 +265,20 @@ async function newChange(file, octokit, user, res) {
 }
 
 app.post('/users/:user/changes[:]new', express.urlencoded({extended: true}), async (req, res) => {
-  //  console.log("BODY", JSON.stringify(req.body));
-    let file = req.body.file.trim();
+    //  console.log("BODY", JSON.stringify(req.body));
+    let dir = req.body.dir ? req.body.dir.trim() : ""
+    let file = req.body.file.trim().replaceAll(" ", "_").replaceAll(".xml", "")
     if (!file.toLowerCase().endsWith(".xml")) {
         file = file + ".xml";
     }
     console.log("[newChange] getting octokit...")
-    const {octokit, user} = await newUserOctokit(req, res, `${BASE_URL}/users/me/changes:new?file=${encodeURIComponent(file)}`);
+    const {octokit, user} = await newUserOctokit(req, res, `${BASE_URL}/users/me/changes:new?file=${encodeURIComponent(file)}&dir=${encodeURIComponent(dir)}`);
     if (!octokit) {
         console.log("Couldn't get octokit...")
         return
     }
     console.log("[newChange] got octokit. Preparing branch ...")
-    let nc = await newChange(file, octokit, user, res)
+    let nc = await newChange(path.join(dir, file), octokit, user, res)
     console.log("users/:user/changes[:]new exited");
     return nc;
 });
@@ -461,12 +483,12 @@ app.get('/users/:user/changes/:branchName/:file([^$]+)', async (req, res) => {
         res.setHeader('Content-type', 'text/xml')
         res.send(new Buffer.from(cont.data.content, "base64").toString('utf-8'));
     } catch (e) {
-       if (e instanceof RequestError && e.status===404) {
-           res.status(404);
-           res.send("Document not found");
-       } else {
-           HandleError(e, res);
-       }
+        if (e instanceof RequestError && e.status===404) {
+            res.status(404);
+            res.send("Document not found");
+        } else {
+            HandleError(e, res);
+        }
     } finally {
         res.end();
     }

@@ -129,7 +129,7 @@ export async function newUserOctokit(req,res, backUrl) {
     let access_token = req.cookies.session ? req.cookies.session.access_token
         : null;
     let authuser = req.cookies.session ? req.cookies.session.user : null;
-   // console.log("access token from cookie: ", access_token)
+    // console.log("access token from cookie: ", access_token)
     if (!access_token || !authuser) {
         //TODO(ptab): Compare secret with the cookie.
         const authData = {
@@ -162,18 +162,18 @@ export async function newUserOctokit(req,res, backUrl) {
         authuser = authenticated.data.login;
         console.log(util.inspect(authenticated, false, null, false));
         res.cookie("session", {
-            "access_token": access_token,
-            "user": authuser},
+                "access_token": access_token,
+                "user": authuser},
             { maxAge: 3*24*60*60*1000, httpOnly: true, sameSite:'none', secure: true, domain: PARENT_DOMAIN });
         res.cookie("new", "false", { maxAge: 31536000});
     }
     const usr = (!req.params.user || req.params.user === 'me') ? authuser : req.params.user;
     console.log('Acting as user:', usr);
     let mygraphql = graphql.defaults({
-            headers: {
-                "Authorization": "bearer " + access_token
-            },
-        });
+        headers: {
+            "Authorization": "bearer " + access_token
+        },
+    });
 
     return {
         octokit: new Octokit({
@@ -271,7 +271,7 @@ export function editorLink(user, branchName, file, autocommit, maybeNew) {
 export function HandleError(e, res) {
     console.log("HttpError", e);
     if ((!res.headersSent && e instanceof RequestError && e.status===401) ||
-       (e.response.data.message.includes("refusing to allow an OAuth App to"))) {
+        (e.response.data.message.includes("refusing to allow an OAuth App to"))) {
         // HttpError RequestError [HttpError]: Bad credentials
         // status: 422,  E.g. HttpError: refusing to allow an OAuth App to create or update workflow `.github/workflows/generate.yml` without `workflow` scope
         res.redirect(AUTH_URL);
