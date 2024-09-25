@@ -121,7 +121,7 @@
 }%
 
 
-\newenvironment{song}[6]{
+\newenvironment{song}[8]{
   \clearpage%
   \fancyhead[LE]{#1}%
   \fancyhead[RO]{#1}%
@@ -130,7 +130,12 @@
   \renewcommand{\theSongLyricist}{#2}%
   \renewcommand{\theSongComposer}{#3}%
   \renewcommand{\theSongArtist}{#4}%
+  % #7 - alias  #8- genre
   \addtocounter{SongCnt}{1}%
+  \index[wyk]{#4!#1}
+  \index[aliases]{#1}
+  \index[aliases]{#8!#1}
+  \index[genre]{#7!#1}
   \addcontentsline{toc}{section}{\theSongCnt{}. #1}%
 %  \addcontentsline{toc}{section}{alias title}
   \STitle{\theSongTitle}%

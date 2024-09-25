@@ -141,7 +141,7 @@ class Block:
 
 
 class Song:
-    def __init__(self, title='', text_author='', composer='', artist='', blocks=[], barre=None, metre=None):
+    def __init__(self, title='', text_author='', composer='', artist='', blocks=[], barre=None, metre=None, genre=None, alias=None):
         self.title = tex_escape(title) if title else ''
         self.text_author = tex_escape(text_author) if text_author else ''
         self.composer = tex_escape(composer) if composer else ''
@@ -149,6 +149,8 @@ class Song:
         self.blocks = blocks
         self.barre = barre if barre != '' and barre != '0' and barre != 0 else None
         self.metre = metre
+        self.genre = genre
+        self.alias = alias
 
     @staticmethod
     def parseDOM(root):
@@ -165,12 +167,14 @@ class Song:
 
         return Song(
             title=root.get('title'),
+            alias=get_text(root.find('{*}alias')),
             text_author=get_text(root.find('{*}text_author')),
             composer=get_text(root.find('{*}composer')),
             artist=get_text(root.find('{*}artist')),
             blocks=blocks,
             barre=get_attrib(root.xpath("./s:music/s:guitar/@barre", namespaces={"s": "http://21wdh.staszic.waw.pl"})),
-            metre=get_attrib(root.xpath("./s:music/@metre", namespaces={"s": "http://21wdh.staszic.waw.pl"}))
+            metre=get_attrib(root.xpath("./s:music/@metre", namespaces={"s": "http://21wdh.staszic.waw.pl"})),
+            genre=get_text(root.find('{*}genre'))
         )
 
 
