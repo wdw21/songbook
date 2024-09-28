@@ -39,10 +39,13 @@ else
   JOB="output"
 fi
 
+(cd ${tex_dir}; rm -rf "${JOB}.aind" "${JOB}.gind" "${JOB}.wind" "${JOB}.aadx" "${JOB}.gadx" "${JOB}.wadx")
+
 # Run pdflatex three times to recalculate longtables and toc
 TEXINPUTS=.:${__dir}/src/latex: pdflatex -jobname=${JOB} -output-directory "${tex_dir}" "${tex_file}"
-(cd ${tex_dir}; makeindex -o "${JOB}.aind" "${JOB}.aadx")
-(cd ${tex_dir}; makeindex -o "${JOB}.gind" "${JOB}.gadx")
-(cd ${tex_dir}; makeindex -o "${JOB}.wind" "${JOB}.wadx")
+INDEX_STY=()
+(cd ${tex_dir}; makeindex "${INDEX_STY[@]}" -o "${JOB}.aind" "${JOB}.aadx")
+(cd ${tex_dir}; makeindex "${INDEX_STY[@]}" -o "${JOB}.gind" "${JOB}.gadx")
+(cd ${tex_dir}; makeindex "${INDEX_STY[@]}" -o "${JOB}.wind" "${JOB}.wadx")
 TEXINPUTS=.:${__dir}/src/latex: pdflatex -jobname=${JOB} -output-directory "${tex_dir}" "${tex_file}"
 TEXINPUTS=.:${__dir}/src/latex: pdflatex -jobname=${JOB} -output-directory "${tex_dir}" "${tex_file}"
