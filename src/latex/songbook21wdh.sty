@@ -143,10 +143,10 @@
   \renewcommand{\theLetter}{\firstof{#1}}%
   % #7 - alias  #8- genre
   \addtocounter{SongCnt}{1}%
-  \IfStrEq{#4}{}{}{\index[wyk]{#4!#1}}
+  \IfStrEq{#4}{}{}{\index[wyk]{{#4}!{#1}}}
   \index[aliases]{#1}
-  \IfStrEq{#8}{}{}{\index[aliases]{#8!#1}}
-  \IfStrEq{#7}{}{}{\index[genre]{\makefirstuc{#7}!#1}}
+  \IfStrEq{#8}{}{}{\index[aliases]{{#8}!{#1}}}
+  \IfStrEq{#7}{}{}{\index[genre]{\makefirstuc{#7}!{#1}}}
   \addcontentsline{toc}{section}{\theSongCnt{}. #1}%
 %  \addcontentsline{toc}{section}{alias title}
   \STitle{\theSongTitle}%
