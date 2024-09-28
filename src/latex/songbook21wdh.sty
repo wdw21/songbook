@@ -120,29 +120,42 @@
     {\ifthenelse{\boolean{PrintSongNum}}{\theSongCnt{}.\ }{}{\bf #1\\}}}%
 }%
 
+%The macto \firstof returns the first letter (and works with UTF-8 chars).
+\makeatletter
+\newcommand{\firstof}[1]{\expandafter\checkfirst#1\@nil}
+\def\checkfirst#1{%
+    \ifx\UTFviii@two@octets#1%
+    \expandafter\gettwooctets
+    \else
+        \expandafter\@car\expandafter#1%
+    \fi
+}
+\def\gettwooctets#1#2#3\@nil{\UTFviii@two@octets#1#2}
 
-\newenvironment{song}[8]{
-  \clearpage%
-  \fancyhead[LE]{#1}%
-  \fancyhead[RO]{#1}%
+
+\newenvironment{song}[8]{%
+  \fancyhead[LE,RO]{\truncate{0.5\headwidth}{#1}}%
   \setcounter{VerseCnt}{0}%
   \renewcommand{\theSongTitle}{#1}%
   \renewcommand{\theSongLyricist}{#2}%
   \renewcommand{\theSongComposer}{#3}%
   \renewcommand{\theSongArtist}{#4}%
+  \renewcommand{\theLetter}{\firstof{#1}}%
   % #7 - alias  #8- genre
   \addtocounter{SongCnt}{1}%
   \index[wyk]{#4!#1}
   \index[aliases]{#1}
   \index[aliases]{#8!#1}
-  \index[genre]{#7!#1}
+  \index[genre]{\makefirstuc{#7}!#1}
   \addcontentsline{toc}{section}{\theSongCnt{}. #1}%
 %  \addcontentsline{toc}{section}{alias title}
   \STitle{\theSongTitle}%
   \vspace{5pt plus 5pt minus 5pt}%
   \AAndCAndAAndMusic{#2}{#3}{#4}{#5}{#6}%
   \parindent=0pt%
-  }{}
+  }{%
+    \clearpage%
+  }
 
 \newcommand{\calb}[0]{\vline width 2pt {}}%
 
