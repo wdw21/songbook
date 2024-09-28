@@ -14,6 +14,8 @@
 \usepackage{dcolumn}
 \usepackage{qrcode}
 \usepackage{index}
+\usepackage{mfirstuc}
+\usepackage[fit]{truncate}
 
 \newindex{wyk}{wadx}{wind}{Indeks wykonawców}
 \newindex{aliases}{aadx}{aind}{Indeks tytułów}
@@ -33,8 +35,7 @@
 \usepackage{helvet}
 
 
-%\geometry{scale={0.90,0.80},pdftex} \addtolength{\headheight}{2pc}
-\geometry{scale={0.95,0.85},pdftex,top={3ex}}
+\geometry{scale={0.95,0.90},pdftex,top={3ex}}
 \addtolength{\headheight}{5ex}
 
 \setboolean{PrintChordsOn}{true}
@@ -44,12 +45,14 @@
 \setlength{\parindent}{0pt}
 \setlength{\headsep}{10pt}
 
+\newcommand{\theLetter}{}
+
 \renewcommand{\footrulewidth}{0.4pt}
 \renewcommand{\chapter}[2]{\newpage\vbox{\LARGE{\bf #2}\\}}
 
 \pagestyle{fancy}
 \fancyfoot[RE,LO]{:url:}
-\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[LE,RO]{\thepage{} \theLetter}
 \fancyfoot[CE,CO]{}
 \fancyhead[RE,LO]{\today}
 
