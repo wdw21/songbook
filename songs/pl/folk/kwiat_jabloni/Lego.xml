@@ -39,6 +39,11 @@
       <row important_over="false">Niczego zł<ch a="C"/>ego</row>
     </block>
     <blocklink blocknb="2"/>
+    <block type="chorus">
+      <row important_over="false"><ch a="F"/>Na niebie grzmi</row>
+      <row important_over="false">Od wiatru le<ch a="g"/>cą łzy</row>
+      <row important_over="false">Już da<ch a="C"/>wno bym się rozsypał, gdyby nie t<ch a="F"/>y</row>
+    </block>
     <block type="other">
       <row important_over="false">O<ch a="C"/>oo, o<ch a="B"/>oo</row>
       <row important_over="false">O<ch a="d"/>oo, o<ch a="F"/>oo</row>
