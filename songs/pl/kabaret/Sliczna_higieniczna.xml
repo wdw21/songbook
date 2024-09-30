@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Śliczna higieniczna">
+  <text_author type="solo">Agnieszka Osiecka</text_author>
+  <composer type="solo">Wiesław Tupaczewski</composer>
+  <artist type="solo">Maryla Rodowicz</artist>
   <lyric>
     <block type="verse">
       <row important_over="false"><ch a="a"/>Jestem śliczna higieniczna</row>
@@ -79,6 +82,7 @@
     <guitar barre="0"/>
   </music>
   <keywords/>
+  <album>Absolutnie nic (1991)</album>
   <status>
     <done/>
     <verificators/>
