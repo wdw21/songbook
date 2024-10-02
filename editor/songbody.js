@@ -838,7 +838,17 @@ export default class SongBody extends HTMLElement {
     console.log("types", e.clipboardData.types);
     if (e.target.nodeName === 'SONG-ROW' || e.target.nodeName === 'SONG-BODY') {
       let p = document.createElement("span");
-      let data = e.clipboardData.getData("text/html");
+      let data = '';
+      if (data==='') { data = e.clipboardData.getData("text/html"); }
+      if (data==='') {
+        data = e.clipboardData.getData("text/plain");
+        var separateLines = data.split(/\r?\n|\r|\n/g);
+        let newdata='';
+        separateLines.forEach(line => {
+          newdata += "<row important_over='never'>" + line + "</row>";
+        })
+        data = newdata
+      }
       console.log(data);
       p.innerHTML  = data;
       getSelection().getRangeAt(0).deleteContents();
