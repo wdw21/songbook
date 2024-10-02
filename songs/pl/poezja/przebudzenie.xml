@@ -1,30 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Przebudzenie">
-  <text_author type="solo">Michał Ziomek</text_author>
-  <composer type="solo">Michał Ziomek</composer>
+  <text_author type="solo">Angelika i Michał Ziomek</text_author>
+  <composer type="solo">Angelika i Michał Ziomek</composer>
   <artist type="band">Ziomkowisko</artist>
   <lyric>
+    <block type="other">
+      <row important_over="false" style="instr"> <ch a="C"/><ch a="e"/><ch a="F"/><ch a="G"/><ch a="C"/><ch a="e"/><ch a="F"/><ch a="G"/></row>
+    </block>
     <block type="verse">
-      <row important_over="false" sidechords="C e F G">zamknięte oczy w ciemności, </row>
-      <row important_over="false">oddech spokojny, dobry to sen, </row>
-      <row important_over="false">między wierszami, niczym parami, </row>
-      <row important_over="false">przenika światło i cień. </row>
+      <bis times="2">
+        <row important_over="true">zamkni<ch a="C"/>ęte oczy w ciemn<ch a="e"/>ości,<ch a="F"/></row>
+        <row important_over="true"><ch a="G"/>oddech sp<ch a="C"/>okojny, dobry to s<ch a="e"/>en, <ch a="F"/><ch a="G"/></row>
+        <row important_over="true">mię<ch a="C"/>dzy wiersz<ch a="e"/>ami, niczym par<ch a="F"/>ami, </row>
+        <row important_over="true">p<ch a="G"/>rzenika świ<ch a="C"/>atło i ci<ch a="e"/>eń. <ch a="F"/><ch a="G"/></row>
+      </bis>
     </block>
     <block type="chorus">
-      <row important_over="false">wybudza mnie z nocy dzień, </row>
-      <row important_over="false">tak subtelnie wita świt, </row>
-      <row important_over="false">w tej wdzięczności wiem, że życie - nie - </row>
-      <row important_over="false">nie prześpię cię.</row>
+      <bis times="2">
+        <row important_over="true">w<ch a="C"/>ybudza mnie z nocy <ch a="e"/>dzień, </row>
+        <row important_over="true">t<ch a="F"/>ak subtelnie <ch a="G"/>wita św<ch a="C"/>it, <ch a="e"/><ch a="F"/><ch a="G"/></row>
+        <row important_over="true"><ch a="C"/>w tej wdzięczności wiem, że ż<ch a="e"/>ycie - nie - <ch a="F"/></row>
+        <row important_over="true">n<ch a="G"/>ie prześpię ci<ch a="C"/>ę.<ch a="e"/><ch a="F"/><ch a="G"/></row>
+      </bis>
     </block>
     <block type="verse">
-      <row important_over="false">nim bose stopy poczują chłód, </row>
-      <row important_over="false">nim szkła do patrzenia włożę. </row>
-      <row important_over="false">ostatni raz o świcie dnia, </row>
-      <row important_over="false">rytuał - miłosno wtuleni.</row>
+      <bis times="2">
+        <row important_over="false">nim bose stopy poczują chłód, <ch a="C"/><ch a="e"/><ch a="F"/></row>
+        <row important_over="false">nim szkła do patrzenia włożę. <ch a="G"/><ch a="C"/><ch a="e"/><ch a="F"/><ch a="G"/></row>
+        <row important_over="false">ostatni raz o świcie dnia, <ch a="C"/><ch a="e"/><ch a="F"/></row>
+        <row important_over="false">rytuał - miłosno wtuleni.<ch a="G"/><ch a="C"/><ch a="e"/><ch a="F"/><ch a="G"/></row>
+      </bis>
     </block>
-    <blocklink blocknb="2"/>
+    <blocklink blocknb="3"/>
   </lyric>
   <keywords/>
+  <genre>Poezja śpiewana</genre>
   <status>
     <done/>
     <verificators/>
