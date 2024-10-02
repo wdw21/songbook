@@ -5,4 +5,4 @@ npmtmp/
 .idea/
 *.epub
 __pycache__/
-
+*-download

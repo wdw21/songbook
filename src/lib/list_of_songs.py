@@ -3,9 +3,9 @@ import os
 import icu #do sortowania po polskich znakach
 
 class SongMeta:
-    def __init__(self, title='', alias='', path=''):
-        self._title = title if title else ''
-        self._alias = alias if alias else ''
+def __init__(self, title='', alias='', path=''):
+self._title = title if title else ''
+self._alias = alias if alias else ''
         self._plik = path
 
     def __repr__(self) -> str:

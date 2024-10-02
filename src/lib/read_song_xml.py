@@ -9,7 +9,7 @@ class RowChunk:  # obsługuje akordy
         if content is None:
             self.content = ''
         else:
-            self.content = content.strip('\t\n')
+            self.content = content.strip('t\n')
 
 
 class RowType(Enum):
