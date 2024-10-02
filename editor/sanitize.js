@@ -179,6 +179,19 @@ function traverse(parent, node) {
       break;
     }
 
+    case 'BR': {
+      let newParent = nestToRow(parent, true);
+      node.remove();
+      return newParent;
+    }
+
+    case 'P': {
+      let newParent = nestToRow(parent, true);
+      traverseChilds(newParent, node.childNodes);
+      node.remove();
+      return newParent;
+    }
+
     case 'CH': {
       removeAllChildren(node);
       let newParent = nestToRow(parent);
