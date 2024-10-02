@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Przebudzenie">
+  <text_author type="solo">Michał Ziomek</text_author>
+  <composer type="solo">Michał Ziomek</composer>
+  <artist type="band">Ziomkowisko</artist>
+  <lyric>
+    <block type="verse">
+      <row important_over="false" sidechords="C e F G">zamknięte oczy w ciemności, </row>
+      <row important_over="false">oddech spokojny, dobry to sen, </row>
+      <row important_over="false">między wierszami, niczym parami, </row>
+      <row important_over="false">przenika światło i cień. </row>
+    </block>
+    <block type="chorus">
+      <row important_over="false">wybudza mnie z nocy dzień, </row>
+      <row important_over="false">tak subtelnie wita świt, </row>
+      <row important_over="false">w tej wdzięczności wiem, że życie - nie - </row>
+      <row important_over="false">nie prześpię cię.</row>
+    </block>
+    <block type="verse">
+      <row important_over="false">nim bose stopy poczują chłód, </row>
+      <row important_over="false">nim szkła do patrzenia włożę. </row>
+      <row important_over="false">ostatni raz o świcie dnia, </row>
+      <row important_over="false">rytuał - miłosno wtuleni.</row>
+    </block>
+    <blocklink blocknb="2"/>
+  </lyric>
+  <keywords/>
+  <status>
+    <done/>
+    <verificators/>
+  </status>
+</song>
