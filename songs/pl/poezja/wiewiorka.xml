@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Wiewiórka">
-  <comment/>
+  <alias>Palto</alias>
+  <comment>Słowa na podstawie „Newa poezją płynąca”</comment>
+  <composer type="solo">Jacek Stefański; Zbigniew Stefański</composer>
   <artist type="band">Bez Jacka</artist>
   <lyric>
     <block type="verse">
@@ -46,6 +48,7 @@
     <blocklink blocknb="2"/>
   </lyric>
   <keywords/>
+  <album>Zatańcz ze mną na polanie (2000)</album>
   <genre>Poezja śpiewana</genre>
   <status>
     <done/>
