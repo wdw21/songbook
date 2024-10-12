@@ -53,27 +53,15 @@
     <block type="chorus">
       <row important_over="never">Spójrzże na mnie ejże<ch a="F"/><ch a="d"/></row>
       <row important_over="never">No weźże płyńże do mnie w pław,<ch a="g"/><ch a="C"/></row>
-      <row important_over="never">Ja ci się obejrzę!<ch a="F"/><ch a="d"/></row>
-      <row important_over="never">Królowo Świętokrzyskich Raf...<ch a="g"/><ch a="C"/></row>
+      <bis times="4">
+        <row important_over="never">Ja ci się obejrzę!<ch a="F"/><ch a="d"/></row>
+        <row important_over="never">Królowo {Świętokrzyskich | Mazowieckich | Warmińsko-Mazurskich | Górnośląskich} Raf...<ch a="g"/><ch a="C"/></row>
+      </bis>
     </block>
     <block type="chorus">
-      <row important_over="never">Ja ci się obejrzę!<ch a="F"/><ch a="d"/></row>
-      <row important_over="never">Królowo Mazowieckich Raf...<ch a="g"/><ch a="C"/></row>
-    </block>
-    <block type="chorus">
-      <row important_over="never">Ja ci się obejrzę!<ch a="F"/><ch a="d"/></row>
-      <row important_over="never">Królowo Warmińsko-Mazurskich Raf...<ch a="g"/><ch a="C"/></row>
-    </block>
-    <block type="chorus">
-      <row important_over="never">Ja ci się obejrzę!<ch a="F"/><ch a="d"/></row>
-      <row important_over="never">Królowo Górnośląskich Raf...<ch a="g"/><ch a="C"/></row>
-    </block>
-    <block type="verse">
       <row important_over="never">Ja ci się obejrzę...<ch a="F"/><ch a="d"/></row>
-    </block>
-    <block type="verse">
-      <row important_over="false">Ja ci się obejrzę!<ch a="F"/><ch a="d"/></row>
-      <row important_over="false">Królowo Białowieskich Raf...<ch a="g"/><ch a="C"/></row>
+      <row important_over="never">Ja ci się obejrzę!<ch a="F"/><ch a="d"/></row>
+      <row important_over="never">Królowo Białowieskich Raf...<ch a="g"/><ch a="C"/></row>
     </block>
   </lyric>
   <keywords/>
