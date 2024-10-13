@@ -1,4 +1,5 @@
-import { html2xmlstr } from './converter.js';
+import { html2xmlstr } from './conv.js';
+import {JSDOM} from "jsdom";
 
 describe('html2xmlstr tests', () => {
 
@@ -50,7 +51,7 @@ describe('html2xmlstr tests', () => {
   <span class='annotated-lyrics'>Czy na ł<code  class='an' data-chord='C' data-suffix='' data-local='C'>C</code>zy ja znajdę c<code  class='an' data-chord='A' data-suffix='m' data-local='a'>a</code>zas?</span><br>
 </div></div></div></div></div></div></section></body></html>`;
 
-        expect(html2xmlstr(html).trim()).toBe( `<song xmlns="http://21wdh.staszic.waw.pl" title="Ballada o smutnym skinie"><artist type="solo">Big Cyc</artist><comment>Kapodaster:       Trzeci Próg
+        expect(html2xmlstr(html, new JSDOM().window).trim()).toBe( `<song xmlns="http://21wdh.staszic.waw.pl" title="Ballada o smutnym skinie"><artist type="solo">Big Cyc</artist><comment>Kapodaster:       Trzeci Próg
 Trudność: Średni
 Strojenie:     klasyczne (E A D G H e)
 Tonacja:     F

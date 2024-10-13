@@ -5,7 +5,7 @@ import {createSongBody} from './songbody.js';
 import {Sanitize} from './sanitize.js';
 import {Save, Serialize} from './save.js';
 import {removeAllChildren} from './utils.js';
-import {html2xmlstr} from './conv/converter.js'
+import {html2xmlstr} from './conv/conv.js'
 
 const attrs=["title", "alias","text_author", "text_author_type","comment",
   "composer", "composer_type","artist", "artist_type",
@@ -336,11 +336,15 @@ export class SongEditor extends HTMLElement {
     var reader = new FileReader();
     reader.addEventListener('load', (event) => {
       if (filePath.name.endsWith(".html")) {
-        alert("html")
+        let converted = html2xmlstr(event.target.result, window)
+        this.Load(converted);
+        // Loaded file should be committable.
+        this.serialized="";
+      } else {
+        this.Load(event.target.result);
+        // Loaded file should be committable.
+        this.serialized = "";
       }
-      this.Load(event.target.result);
-      // Loaded file should be committable.
-      this.serialized="";
     });
     reader.readAsText(filePath);
   }
