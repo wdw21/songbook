@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "glob": "^11.0.0",
+    "jsdom": "^25.0.1"
+  }
+}

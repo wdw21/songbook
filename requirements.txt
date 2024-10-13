@@ -4,3 +4,4 @@ MarkupSafe~=2.1
 lxml~=4.9
 PyICU>=2.7
 pyyaml
+regex
