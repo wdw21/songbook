@@ -451,13 +451,23 @@ app.post('/users/:user/changes/:branchName/:file([^$]+)', async (req, res) => {
     const file = req.params.file.trim()
     const payload = req.body;
     const commitResult = await commit(branchName, file, msg, payload, req, res);
-    res.send(
-        {
-            "status": "committed",
-            "commit": commitResult.createCommitOnBranch.commit
-        }
-    );
-    console.log(":commit over")
+    if (commitResult && commitResult.createCommitOnBranch) {
+        res.send(
+            {
+                "status": "committed",
+                "commit": commitResult.createCommitOnBranch.commit
+            }
+        );
+        console.log(":commit over")
+    } else {
+        res.send(
+            {
+                "status": "failure",
+                "errors": commitResult.errors ? commitResult : "null"
+            }
+        );
+        console.error(":commit failed", commitResult)
+    }
 });
 
 app.post('/users/:user/changes/:branchName/:file([^$]+)[:]commitAndPublish', async (req, res) => {

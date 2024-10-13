@@ -190,6 +190,7 @@ export async function newUserOctokit(req,res, backUrl) {
                     // TODO: Might set a redirect address.
                     res.redirect(CONFIG_BASE_URL);
                 }
+                return e
             })
         },
         authuser: authuser,
