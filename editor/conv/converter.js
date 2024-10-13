@@ -1,8 +1,8 @@
 
-const { JSDOM } = require('jsdom')
-const { globSync } = require("glob");
-const fs = require('node:fs');
-const path = require('path');
+import {JSDOM} from "jsdom";
+import { globSync } from "glob";
+import * as fs from 'fs';
+import * as path from 'path';
 
 
 const Node = new JSDOM('').window.Node;
@@ -18,9 +18,9 @@ function rowIsInstrumental(row) {
 }
 
 function processRow(doc, span) {
-    row =  doc.createElementNS(NAMESPACE, 'row');
+    let row =  doc.createElementNS(NAMESPACE, 'row');
     row.setAttribute('important_over', 'false');
-    //let hasChord = false;
+   // var hasChord = false;
     let isChorus = false;
     let bis = 1;
     span.childNodes.forEach(node => {
@@ -29,7 +29,7 @@ function processRow(doc, span) {
         } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'CODE' && node.hasAttribute('data-local')) {
             let chord = node.getAttribute('data-local');
             row.appendChild(createChordElement(doc, chord));
-            hasChord = true;
+            //hasChord = true;
         } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'SPAN' && node.classList.contains('text-muted')) {
             if (node.textContent.toLowerCase().includes('ref')) {
                 isChorus = true
@@ -56,7 +56,7 @@ function processRow(doc, span) {
     }
 }
 
-function interpretationContent2lyric(docHtml, docXml) {
+export function interpretationContent2lyric(docHtml, docXml) {
     let lyric = docXml.createElementNS(NAMESPACE, 'lyric');
     let blockElements = docHtml.querySelector('.interpretation-content');
     if (!blockElements) {
@@ -82,7 +82,7 @@ function interpretationContent2lyric(docHtml, docXml) {
                     currentBlock.appendChild(row)
                 } else {
                     currentBlock.appendChild(docXml.createTextNode("\n    "));
-                    bisTag = docXml.createElementNS(NAMESPACE, "bis")
+                    let bisTag = docXml.createElementNS(NAMESPACE, "bis")
                     bisTag.setAttribute("times", bis)
                     bisTag.appendChild(row)
                     currentBlock.appendChild(bisTag)
@@ -109,14 +109,14 @@ function interpretationContent2lyric(docHtml, docXml) {
 
             if ((br_cnt > 1 || node.tagName === 'EOF') && currentBlock.childNodes.length > 0) {
                 //console.log("Flushing...", br_cnt);
-                instrumentalOnly = true
+                var instrumentalOnly = true
                 currentBlock.childNodes.forEach(row => {
                     if (!rowIsInstrumental(row)) {
                         instrumentalOnly = false
                     }
                 })
                 if (currentBlockBis > 1) {
-                    bisTag = docXml.createElementNS(NAMESPACE, "bis")
+                    let bisTag = docXml.createElementNS(NAMESPACE, "bis")
                     bisTag.setAttribute("times", currentBlockBis)
                     bisTag.append(...currentBlock.childNodes)
                     currentBlock.appendChild(docXml.createTextNode("\n    "));
@@ -133,7 +133,7 @@ function interpretationContent2lyric(docHtml, docXml) {
                 br_cnt = 0;
             }
         } else {
-            implicitRow.appendChild(node.cloneNode(deep=true))
+            implicitRow.appendChild(node.cloneNode(true))
         }
     });
 
@@ -143,7 +143,7 @@ function interpretationContent2lyric(docHtml, docXml) {
 
 let NAMESPACE = "http://21wdh.staszic.waw.pl"
 
-function html2xmlstr(html) {
+export function html2xmlstr(html) {
     const dom = new JSDOM();
     let parser = new dom.window.DOMParser();
     let docHtml = parser.parseFromString(html, 'text/html');
@@ -200,7 +200,7 @@ function convert(file) {
     }
 }
 
-module.exports = { interpretationContent2lyric, html2xmlstr};
+//module.exports = { interpretationContent2lyric, html2xmlstr};
 
 for (let i = 2; i < process.argv.length; i++) {
     let p = process.argv[i]

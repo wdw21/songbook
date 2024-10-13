@@ -5,6 +5,7 @@ import {createSongBody} from './songbody.js';
 import {Sanitize} from './sanitize.js';
 import {Save, Serialize} from './save.js';
 import {removeAllChildren} from './utils.js';
+import {html2xmlstr} from './conv/converter.js'
 
 const attrs=["title", "alias","text_author", "text_author_type","comment",
   "composer", "composer_type","artist", "artist_type",
@@ -26,7 +27,7 @@ export class SongEditor extends HTMLElement {
   
 <div id="fileToolbar">
   <button id="buttonNew">Nowy</button>
-  <input style="display: none"  id="open" type="file" accept=".xml"/>
+  <input style="display: none"  id="open" type="file" accept=".xml,.html"/>
   <input type="button" id="openCustom" value="Importuj plik"/>  
   <button id="buttonSave">Eksportuj plik</button>
 </div>
@@ -329,16 +330,19 @@ export class SongEditor extends HTMLElement {
 
   LoadFile(e) {
     console.log("LOADING", e);
-    let parser = new DOMParser();
 
     // setting up the reader
+    let filePath = (this.open.files[0]);
     var reader = new FileReader();
     reader.addEventListener('load', (event) => {
+      if (filePath.name.endsWith(".html")) {
+        alert("html")
+      }
       this.Load(event.target.result);
       // Loaded file should be committable.
       this.serialized="";
     });
-    reader.readAsText(this.open.files[0]);
+    reader.readAsText(filePath);
   }
 
   readAttribute(song, targetAttr, sourceTagName, sourceAttr=null) {

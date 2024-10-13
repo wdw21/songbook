@@ -1,9 +1,9 @@
-const { html2xmlstr } = require('./converter.js');
+import { html2xmlstr } from './converter.js';
 
 describe('html2xmlstr tests', () => {
 
     test('simple', () => {
-        html = `
+        let html = `
 <!DOCTYPE html>
 <html lang="pl">
 <head>
