@@ -1,5 +1,5 @@
-const { JSDOM } = require('jsdom');
-const { interpretationContent2lyric } = require('./converter.js');
+import { JSDOM}  from 'jsdom';
+import { interpretationContent2lyric } from './conv.js';
 
 function ic2l(html) {
     const dom = new JSDOM();
