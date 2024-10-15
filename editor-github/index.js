@@ -6,6 +6,8 @@ import util from 'util';
 import cookieParser from "cookie-parser";
 import cors from 'cors';
 import path from 'path';
+import * as http_ from 'http';
+import * as https_ from 'https';
 
 import * as fs from 'fs';
 
@@ -503,6 +505,27 @@ app.get('/users/:user/changes/:branchName/:file([^$]+)', async (req, res) => {
         res.end();
     }
 });
+
+app.get('/pr0xy', async (req, res) => {
+    let url = new URL(req.query.url);
+    let protocol = url.protocol==="http" ? http_ : https_
+    if (url.host==="spiewnik.wywrota.pl") {
+        protocol.get(url, ans => {
+            res.status(ans.statusCode);
+            ans.on("data", chunk => {
+                res.write(chunk)
+            })
+            ans.on("end", () => {
+                res.end()
+            })
+            ans.on("close", () => {
+                res.end()
+            })
+        })
+    } else {
+        res.status(400).send('Source not supported')
+    }
+})
 
 app.get('/auth', async (req, res) => {
     clearCookiesAndAuthRedirect(res, CHANGES_BASE_URL);
