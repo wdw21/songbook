@@ -29,6 +29,7 @@ export class SongEditor extends HTMLElement {
   <button id="buttonNew">Nowy</button>
   <input style="display: none"  id="open" type="file" accept=".xml,.html"/>
   <input type="button" id="openCustom" value="Importuj plik"/>  
+  <input type="button" id="openUrl" value="Importuj z sieci"/>  
   <button id="buttonSave">Eksportuj plik</button>
 </div>
 
@@ -152,6 +153,7 @@ export class SongEditor extends HTMLElement {
     this.buttonSave=shadow.getElementById("buttonSave");
     this.open=shadow.getElementById("open");
     this.openCustom=shadow.getElementById("openCustom");
+    this.openUrl=shadow.getElementById("openUrl");
 
     this.helpbody = shadow.getElementById("help-body");
     this.helpbody.addEventListener("click", (e) => {this.helpbody.hidden = true; });
@@ -159,6 +161,7 @@ export class SongEditor extends HTMLElement {
     shadow.getElementById("helpbody-icon").addEventListener("click", (e) => {this.helpbody.hidden ^= true;})
 
     this.openCustom.addEventListener("click", () => this.open.click());
+    this.openUrl.addEventListener("click", () => this.OpenUrl());
     this.buttonSave.addEventListener("click", () => Save(this));
     this.open.addEventListener("change", (e) => this.LoadFile(e));
     this.buttonNew.addEventListener("click", (e) => {
@@ -235,6 +238,22 @@ export class SongEditor extends HTMLElement {
     } else if (a) {
       a.value=this.getAttribute(attr);
     }
+  }
+
+  OpenUrl() {
+    let url=prompt("Proszę podaj adres do strony z piosenką (np. wywrota):", "https://...");
+
+    let request = new XMLHttpRequest();
+    request.open("GET", "https://europe-west1-wdw-21.cloudfunctions.net/songbook-ghe/pr0xy?url=" + url, true);
+    request.onload = () => {
+      console.log(request.responseText)
+      let converted = html2xmlstr(request.responseText, window)
+      this.Load(converted);
+      // Loaded file should be committable.
+      this.serialized="";
+    }
+    request.send();
+
   }
 
   body() {
