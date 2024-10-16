@@ -15,13 +15,14 @@ function processRow(doc, span) {
     let isChorus = false;
     let bis = 1;
     span.childNodes.forEach(node => {
+        //console.log("Processing:", node, node.nodeType, node.tagName)
         if (node.nodeType === node.TEXT_NODE && node.textContent.length > 0) {
             row.appendChild(doc.createTextNode(node.textContent.replaceAll(' ', ' ').replaceAll(/\s\s+/g, ' ').replaceAll("\n","")));
-        } else if (node.nodeType === node.ELEMENT_NODE && node.tagName === 'CODE' && node.hasAttribute('data-local')) {
+        } else if (node.nodeType === node.ELEMENT_NODE && node.tagName.toLowerCase() === 'code' && node.hasAttribute('data-local')) {
             let chord = node.getAttribute('data-local');
             row.appendChild(createChordElement(doc, chord));
             //hasChord = true;
-        } else if (node.nodeType === node.ELEMENT_NODE && node.tagName === 'SPAN' && node.classList.contains('text-muted')) {
+        } else if (node.nodeType === node.ELEMENT_NODE && node.tagName.toLowerCase() === 'span' && node.classList.contains('text-muted')) {
             if (node.textContent.toLowerCase().includes('ref')) {
                 isChorus = true
             }
@@ -82,7 +83,7 @@ export function interpretationContent2lyric(docHtml, docXml) {
             if (isChorus) {
                 currentBlock.setAttribute("type", "chorus")
             }
-        } else if (node.nodeType === node.ELEMENT_NODE && (node.tagName === 'BR' || node.tagName === 'EOF')) {
+        } else if (node.nodeType === node.ELEMENT_NODE && (node.tagName.toLowerCase() === 'br' || node.tagName.toLowerCase() === 'eof')) {
             br_cnt++;
             let {row, isChorus, bis} = processRow(docXml, implicitRow)
             implicitRow=docXml.createElementNS(NAMESPACE, 'span');
@@ -98,7 +99,7 @@ export function interpretationContent2lyric(docHtml, docXml) {
                 currentBlockBis=bis
             }
 
-            if ((br_cnt > 1 || node.tagName === 'EOF') && currentBlock.childNodes.length > 0) {
+            if ((br_cnt > 1 || node.tagName.toLowerCase() === 'eof') && currentBlock.childNodes.length > 0) {
                 //console.log("Flushing...", br_cnt);
                 var instrumentalOnly = true
                 currentBlock.childNodes.forEach(row => {
