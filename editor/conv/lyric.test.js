@@ -355,33 +355,32 @@ Może wtedy ci uwierzę,<br>
         expect(ic2l(html).trim()).toBe(expectedXml);
     });
 
-    `<div class="interpretation-content"><code  data-chord='A' data-suffix='' data-local='A'>A</code>                <code  data-chord='A' data-suffix='sus4' data-local='Asus4'>Asus4</code>     <code  data-chord='D' data-suffix='sus2' data-local='Dsus2'>Dsus2</code>            <code  data-chord='A' data-suffix='' data-local='A'>A</code><br>
-                                Skin jest całkiem łysy, włosków on nie nosi<br>
-                                Glaca w słońcu błyszczy jakby kombajn kosił<br>
-                                Pejsów nie ma skin, kitek nienawidzi<br>
-                                Boją się go Arabi, Murzyni i Żydzi<br>
-                                Najgorsza dla skina jest co roku zima<br>
-                                Jak on ją przetrzyma, przecież włosków nima<br>
-                                <br>
-                                <code  data-chord='E' data-suffix='' data-local='E'>E</code>             <code  data-chord='A' data-suffix='' data-local='A'>A</code>       <code  data-chord='F#' data-suffix='m' data-local='fis'>fis</code>          <code  data-chord='E' data-suffix='' data-local='E'>E</code><br>
-                                <span class='text-muted'>Ref:</span> Nałóż czapkę skinie, skinie nałóż czapkę<br>
-                                Kiedy wicher wieje, gdy pogoda w kratkę<br>
-                                <code  data-chord='D' data-suffix='' data-local='D'>D</code>               <code  data-chord='E' data-suffix='' data-local='E'>E</code>      <code  data-chord='A' data-suffix='' data-local='A'>A</code><br>
-                                Uszka się przeziębią, kark zlodowacieje<br>
-                                Resztki myśli z mózgu wiaterek przewieje<br>
-                                <br>
-                                Mamusia na drutach czapkę z wełny robi<br>
-                                Nałożysz ją skinie gdy się chłodniej zrobi<br>
-                                Wełna w główkę grzeje, ciepło jest pod czaszką<br>
-                                I komórki szare wówczas nie zamarzną<br>
-                                <br>
-                                Nasz skin był odważny, czapki nie nałożył<br>
-                                Całą zimę biegał łysy, wiosny już nie dożył<br>
-                                Główka mu zsiniała, uszka odmroziły<br>
-                                Czaszka na pół pękła, szwy wewnątrz puściły<br>
-                                <br>
-                                <span class='text-muted'>Ref.</span>..<br>
-                                <br>
-                                <br>
-                            </div>`
-});
+    test('Naked', () => {
+        const html = `<div class="interpretation-content">La, la, la, la... <code  data-chord='G' data-suffix='' data-local='G'>G</code> <code  data-chord='C' data-suffix='' data-local='C'>C</code> <code  data-chord='G' data-suffix='' data-local='G'>G</code> <code  data-chord='C' data-suffix='' data-local='C'>C</code><br>
+        <br>
+            Po białym winie, mój Boże,  <code  data-chord='C' data-suffix='' data-local='C'>C</code><br>
+            Czerwone miałam oczy, <code  data-chord='G' data-suffix='' data-local='G'>G</code><br>
+            On mnie prowadził nad morze <code  data-chord='G' data-suffix='' data-local='G'>G</code><br>
+            I mierzwił mi warkoczyk. <code  data-chord='C' data-suffix='' data-local='C'>C</code><br>
+            Splot był słoneczny, słoneczny był Split, <code  data-chord='F' data-suffix='' data-local='F'>F</code> <code  data-chord='C' data-suffix='' data-local='C'>C</code><br>
+            Nie był niegrzeczny i grzeczny nie był zbyt, <code  data-chord='F' data-suffix='' data-local='F'>F</code> <code  data-chord='C' data-suffix='' data-local='C'>C</code><br>
+            Mierzwił, czarował, całował <code  data-chord='G' data-suffix='' data-local='G'>G</code><br>
+            I śpiewał aż po świt: <code  data-chord='C' data-suffix='' data-local='C'>C</code><br>
+            <br>
+                Diri diri din, di diri din donda, <code  data-chord='C' data-suffix='' data-local='C'>C</code><br></div>`
+        expect(ic2l(html).trim()).toBe(`<lyric xmlns="http://21wdh.staszic.waw.pl">
+  <block type="verse">
+      <row important_over="false">La, la, la, la... <ch a="G"/> <ch a="C"/> <ch a="G"/> <ch a="C"/></row></block>
+  <block type="verse">
+      <row important_over="false"> Po białym winie, mój Boże, <ch a="C"/></row>
+      <row important_over="false"> Czerwone miałam oczy, <ch a="G"/></row>
+      <row important_over="false"> On mnie prowadził nad morze <ch a="G"/></row>
+      <row important_over="false"> I mierzwił mi warkoczyk. <ch a="C"/></row>
+      <row important_over="false"> Splot był słoneczny, słoneczny był Split, <ch a="F"/> <ch a="C"/></row>
+      <row important_over="false"> Nie był niegrzeczny i grzeczny nie był zbyt, <ch a="F"/> <ch a="C"/></row>
+      <row important_over="false"> Mierzwił, czarował, całował <ch a="G"/></row>
+      <row important_over="false"> I śpiewał aż po świt: <ch a="C"/></row></block>
+  <block type="verse">
+      <row important_over="false"> Diri diri din, di diri din donda, <ch a="C"/></row></block></lyric>`);
+    })
+})
