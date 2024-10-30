@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Pocałuj noc">
-  <comment/>
-  <artist type="solo">Varius Manx</artist>
+  <alias>Do Ciebie</alias>
+  <text_author type="solo">Anita Lipnicka</text_author>
+  <composer type="solo">Robert Janson</composer>
+  <artist type="band">Varius Manx</artist>
   <lyric>
     <block type="verse">
       <row important_over="true"><ch a="G"/>Przez p<ch a="D"/>alce zwykłych dn<ch a="e7"/>i </row>
