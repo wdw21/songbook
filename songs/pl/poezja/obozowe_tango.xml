@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Obozowe Tango">
-  <comment/>
   <lyric>
     <block type="verse">
       <row important_over="true"><ch a="E7"/>Obozowe <ch a="a"/>tango, <ch a="A7"/>śpiewam dla <ch a="d"/>Ciebie,</row>
@@ -18,7 +17,7 @@
       <row important_over="true">Obozowe <ch a="a"/>tango, które <ch a="E7"/>znów połączy <ch a="a"/>nas.</row>
     </block>
     <block type="verse">
-      <row important_over="false"> <ch a="E7"/>Czy pamiętasz <ch a="a"/>miła/y <ch a="A7"/>jak przy og<ch a="d"/>nisku,</row>
+      <row important_over="false"><ch a="E7"/>Czy pamiętasz <ch a="a"/>miła/y <ch a="A7"/>jak przy og<ch a="d"/>nisku,</row>
       <row important_over="false">W ciemnym lesie, <ch a="a"/>na polanie</row>
       <row important_over="false"><ch a="E7"/>Poznaliśmy <ch a="a"/>się.</row>
       <row important_over="false"><ch a="E7"/>Las nam szumiał <ch a="a"/>rzewnie, <ch a="A7"/>byłaś/eś tak <ch a="d"/>blisko.</row>
@@ -28,7 +27,7 @@
     <blocklink blocknb="2"/>
   </lyric>
   <keywords/>
-  <genre>Pieśń ludowa</genre>
+  <genre>Piosenka harcerska</genre>
   <status>
     <done/>
     <verificators/>
