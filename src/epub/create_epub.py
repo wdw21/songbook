@@ -10,6 +10,7 @@ from datetime import datetime
 
 import src.html.create_songs_html as cash
 import src.lib.songbook as sb
+import src.lib.any_index_generator as aig
 
 def actual_date():
     return str(datetime.now().strftime("%Y-%m-%d"))
@@ -144,6 +145,13 @@ def create_group_toc_xhtml(group, toc_songs_list, target_dir, page_suffix = None
     return file_name
 
 def create_index_toc_xhtml(target_dir, page_suffix = None):
+    """
+    Creates a new .index.xhtml file in the given file that contains given body (page_suffix).
+
+    :param target_dir:
+    :param page_suffix:
+    :return:
+    """
     tmp_path =  os.path.join(sb.repo_dir(), "src", "epub", "templates", "index.xhtml")
     file_name = "index.xhtml"
     out_path = os.path.join(target_dir, "epub", "OEBPS", file_name)
@@ -178,7 +186,7 @@ def create_toc_xhtml(list_of_songs_meta, target_dir, page_suffix):
     li = etree.SubElement(toc_ol, "li")
     a = etree.SubElement(li, "a")
     a.attrib['href'] = 'index.xhtml'
-    a.text ="Indeks"
+    a.text ="Spis piosenek"
 
     for group in toc_songs:
         if group:
@@ -195,6 +203,15 @@ def create_toc_xhtml(list_of_songs_meta, target_dir, page_suffix):
         else:
             toc_songs_to_xhtml(toc_ol, toc_songs[group])
 
+    li = etree.SubElement(toc_ol, "li")
+    a = etree.SubElement(li, "a")
+    a.attrib['href'] = '_artists.xhtml'
+    a.text ="Wykonawcy"
+
+    li = etree.SubElement(toc_ol, "li")
+    a = etree.SubElement(li, "a")
+    a.attrib['href'] = '_genres.xhtml'
+    a.text ="Gatunki"
 
     et = etree.ElementTree(root)
     et.write(out_path, pretty_print=True, method='xml', encoding='utf-8', xml_declaration=True)
@@ -262,6 +279,15 @@ def create_full_epub(songbook,  target_dir):
     cash.create_all_songs_html(los, path_out,  suffix)
     files = []
     files.extend(create_toc_xhtml(los, target_dir, page_suffix = suffix))
+
+    artists = os.path.join(path_out, "_artists.xhtml")
+    aig.makeIndex("Wykonawcy", songbook.list_of_songs(), artists, lambda x:x.artist() )
+    files.append("_artists.xhtml")
+
+    genres = os.path.join(path_out, "_genres.xhtml")
+    aig.makeIndex("Gatunki", songbook.list_of_songs(), genres, lambda x:x.genre() )
+    files.append("_genres.xhtml")
+
     create_content_opf(songbook, los, target_dir, post_files=files)
 
 

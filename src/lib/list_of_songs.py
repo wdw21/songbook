@@ -3,13 +3,15 @@ import os
 import icu #do sortowania po polskich znakach
 
 class SongMeta:
-    def __init__(self, title='', alias='', path=''):
+    def __init__(self, title='', alias='', path='', genre='', artist=''):
         self._title = title if title else ''
         self._alias = alias if alias else ''
         self._plik = path
+        self._genre = genre if genre else None
+        self._artist = artist if artist else None
 
     def __repr__(self) -> str:
-      return "{" + "File:{} Title:{} Alias:{}".format(self.plik(), self._title, self._alias) + "}"
+      return "{" + "File:{} Title:{} Alias:{} Artist:{} Genre:{}".format(self.plik(), self._title, self._alias, self._artist, self._genre) + "}"
 
     def base_file_name(self):
         return os.path.splitext(os.path.basename(self.plik()))[0]
@@ -22,7 +24,9 @@ class SongMeta:
         return SongMeta(
             title=root.get('title'),
             alias=elementTextOrNone(root.find('{*}alias')),
-            path=path
+            path=path,
+            genre=elementTextOrNone(root.find('{*}genre')),
+            artist=elementTextOrNone(root.find('{*}artist')),
         )
 
     def effectiveTitle(self):
@@ -37,6 +41,11 @@ class SongMeta:
     def is_alias(self):
         return False
 
+    def artist(self):
+        return self._artist
+
+    def genre(self):
+        return self._genre
 
 class AliasMeta:
     def __init__(self, alias, song_meta):
@@ -57,6 +66,12 @@ class AliasMeta:
 
     def aliases(self):
         return self._song_meta.aliases()
+
+    def artist(self):
+        return self._song_meta.artist()
+
+    def genre(self):
+        return self._song_meta.genre()
 
     def is_alias(self):
         return True
