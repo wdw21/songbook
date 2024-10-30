@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Ukraina">
-	<artist type="solo"/>
 	<lyric>
 		<block type="verse">
 			<row important_over="false">Hej, tam gdzieś znad czarnej wody<ch a="a"/></row>
@@ -43,22 +42,10 @@
 			<row important_over="false">Przy kochanej mej dziewczynie.</row>
 		</block>
 		<blocklink blocknb="2"/>
-	</lyric>	<music>
-		<guitar/>
-	</music>
-	<status>
-		<verificators/>
-		<done/>
-		<to_do/>
-	</status>
+	</lyric>
 	<keywords/>
-	<alias/>
-	<text_author type="solo"/>
-	<composer type="solo"/>
-	<music_source/>
-	<original_title/>
-	<translator/>
-	<album/>
-	<genre/>
-	<comment/>
+	<status>
+		<done/>
+		<verificators/>
+	</status>
 </song>
