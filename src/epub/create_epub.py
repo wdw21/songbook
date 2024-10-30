@@ -281,11 +281,11 @@ def create_full_epub(songbook,  target_dir):
     files.extend(create_toc_xhtml(los, target_dir, page_suffix = suffix))
 
     artists = os.path.join(path_out, "_artists.xhtml")
-    aig.makeIndex("Wykonawcy", songbook.list_of_songs(), artists, lambda x:x.artist() )
+    aig.makeIndex("Wykonawcy", songbook.list_of_songs(), artists, lambda x:x.artist() if not x.is_alias() else None )
     files.append("_artists.xhtml")
 
     genres = os.path.join(path_out, "_genres.xhtml")
-    aig.makeIndex("Gatunki", songbook.list_of_songs(), genres, lambda x:x.genre() )
+    aig.makeIndex("Gatunki", songbook.list_of_songs(), genres, lambda x:x.genre() if not x.is_alias() else None)
     files.append("_genres.xhtml")
 
     create_content_opf(songbook, los, target_dir, post_files=files)

@@ -55,8 +55,8 @@ def main():
     songbook = sb.load_songbook_spec_from_yaml(songbook_file)
     target_dir = os.path.join(sb.repo_dir(), "build")
 
-    makeIndex("Gatunki", songbook.list_of_songs(), os.path.join(target_dir, "genres.html"), lambda x:x.genre() )
-    makeIndex("Wykonawcy", songbook.list_of_songs(), os.path.join(target_dir, "artists.html"), lambda x:x.artist() )
+    makeIndex("Gatunki", songbook.list_of_songs(), os.path.join(target_dir, "genres.html"), lambda x:(x.genre() if not x.is_alias() else None))
+    makeIndex("Wykonawcy", songbook.list_of_songs(), os.path.join(target_dir, "artists.html"), lambda x:(x.artist() if not x.is_alias() else None))
     # create_index_xhtml(songbook.list_of_songs(), target_dir)
 
 if __name__ == '__main__':
