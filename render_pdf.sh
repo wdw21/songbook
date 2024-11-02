@@ -26,6 +26,7 @@ tex_dir=${__dir}/build/songs_tex
 mkdir -p ${tex_dir}
 tex_file=$(realpath "${tex_dir}")/output.tex
 
+MAKE_INDEX=true
 if [[ "${@: -1}" =~ \.yaml$ || $# -lt 4 ]]; then
   papersize=$1
   PYTHONPATH="${__dir}" python3 ${__dir}/src/latex/songbook2tex.py "${papersize}" "${@:2}" >${tex_file}
@@ -35,6 +36,9 @@ else
   format=$1
   papersize=$2
   title=$3
+  if [[ ${format} == "single" ]]; then
+    MAKE_INDEX=false
+  fi
   PYTHONPATH="${__dir}" python3 ${__dir}/src/latex/songs2tex.py "${format}" "${papersize}" "${title}" "${@:4}" >${tex_file}
   JOB="output"
 fi
@@ -42,20 +46,18 @@ fi
 (cd ${tex_dir}; rm -rf "${JOB}.aind" "${JOB}.gind" "${JOB}.wind" "${JOB}.aadx" "${JOB}.gadx" "${JOB}.wadx")
 
 (
-cd ${tex_dir}
+  cd ${tex_dir}
 
-# Run pdflatex three times to recalculate longtables and toc
-TEXINPUTS=.:${__dir}/src/latex: pdflatex -shell-escape -jobname=${JOB} -output-directory "${tex_dir}" "${tex_file}"
-INDEX_STY=()
-#(cd ${tex_dir}; makeindex "${INDEX_STY[@]}" -L -o "${JOB}.aind" "${JOB}.aadx")
-#(cd ${tex_dir}; makeindex "${INDEX_STY[@]}" -L -o "${JOB}.gind" "${JOB}.gadx")
-#(cd ${tex_dir}; makeindex "${INDEX_STY[@]}" -L -o "${JOB}.wind" "${JOB}.wadx")
-#(cd ${tex_dir}; texindy ${JOB}.idx)
+  # Run pdflatex three times to recalculate longtables and toc
+  TEXINPUTS=.:${__dir}/src/latex: pdflatex -shell-escape -jobname=${JOB} -output-directory "${tex_dir}" "${tex_file}"
+  INDEX_STY=()
 
-(cd ${tex_dir}; texindy -M lang/polish/utf8-lang aliases.idx)
-(cd ${tex_dir}; texindy -M lang/polish/utf8-lang -M ${__dir}/src/formats/no-lg genre.idx)
-(cd ${tex_dir}; texindy -M lang/polish/utf8-lang -M ${__dir}/src/formats/no-lg wyk.idx)
+  if ${MAKE_INDEX}; then
+    (cd ${tex_dir}; texindy -M lang/polish/utf8-lang aliases.idx)
+    (cd ${tex_dir}; texindy -M lang/polish/utf8-lang -M ${__dir}/src/formats/no-lg genre.idx)
+    (cd ${tex_dir}; texindy -M lang/polish/utf8-lang -M ${__dir}/src/formats/no-lg wyk.idx)
+  fi
 
-TEXINPUTS=.:${__dir}/src/latex: pdflatex -shell-escape -jobname=${JOB} -output-directory "${tex_dir}" "${tex_file}"
-TEXINPUTS=.:${__dir}/src/latex: pdflatex -shell-escape -jobname=${JOB} -output-directory "${tex_dir}" "${tex_file}"
+  TEXINPUTS=.:${__dir}/src/latex: pdflatex -shell-escape -jobname=${JOB} -output-directory "${tex_dir}" "${tex_file}"
+  TEXINPUTS=.:${__dir}/src/latex: pdflatex -shell-escape -jobname=${JOB} -output-directory "${tex_dir}" "${tex_file}"
 )
