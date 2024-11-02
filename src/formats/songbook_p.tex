@@ -13,14 +13,27 @@
 \usepackage{graphicx}
 \usepackage{dcolumn}
 \usepackage{qrcode}
-\usepackage{index}
+%\usepackage{index}
+
+\usepackage[xindy,noautomatic]{imakeidx}
+%\usepackage[xindy, splitindex]{imakeidx}
+
 \usepackage{mfirstuc}
 \usepackage[fit]{truncate}
 
-\newindex{wyk}{wadx}{wind}{Wykonawcy}
-\newindex{aliases}{aadx}{aind}{Piosenki}
-\newindex{genre}{gadx}{gind}{Gatunki}
+%\newindex{wyk}{wadx}{wind}{Wykonawcy}
+%\newindex{aliases}{aadx}{aind}{Piosenki}
+%\newindex{genre}{gadx}{gind}{Gatunki}
 
+\newcommand{\xindylangopt}{-M lang/polish/utf8-lang}
+%\makeindex[options=\xindylangopt]
+\makeindex[name=wyk,title = Wykonawcy,  options=\xindylangopt]
+\makeindex[name=aliases, title = Piosenki,  options=\xindylangopt]
+\makeindex[name=genre,title = Gatunki,  options=\xindylangopt]
+
+%\makeindex[name=wyk,title = Wykonawcy]
+%\makeindex[name=aliases,title = Piosenki]
+%\makeindex[name=genre,title = Gatunki]
 
 \usepackage{hyperref}
 \hypersetup{
@@ -52,7 +65,8 @@
 
 \pagestyle{fancy}
 \fancyfoot[RE,LO]{:url:}
-\fancyfoot[LE,RO]{\thepage{} \theLetter}
+\fancyfoot[RO]{\thepage{} \textbf{\theLetter}}
+\fancyfoot[LE]{\textbf{\theLetter} \thepage{}}
 \fancyfoot[CE,CO]{}
 \fancyhead[RE,LO]{\today}
 
