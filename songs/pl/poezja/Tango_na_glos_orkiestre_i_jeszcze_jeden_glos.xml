@@ -1,13 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Tango na głos, orkiestrę i jeszcze jeden głos">
-	<alias></alias>
 	<text_author type="solo">Grzegorz Tomczak</text_author>
 	<comment>Metrum się zmienia - zwrotki są na 4 w rytmie tanga (chyba), refreny na 3.</comment>
 	<composer type="solo">Grzegorz Tomczak</composer>
 	<artist type="solo">Grzegorz Tomczak</artist>
-	<translator></translator>
-	<original_title></original_title>
-	<lyric xmlns="http://21wdh.staszic.waw.pl">
+	<lyric>
 		<block type="verse">
 			<row important_over="true">Było ci<ch a="A"/>emno, więc niewiele sam widzi<ch a="d"/>ałem</row>
 			<row important_over="true">i pamiętam też niewiele</row>
@@ -36,12 +33,12 @@
 			<row important_over="false">Ten głos, ten głos, ten głos</row>
 		</block>
 		<block type="chorus">
-			<row important_over="false">T<ch a="d"/>y to masz sz<ch a="A7"/>części<ch a="d"/>e<ch a="A7"/>, ż<ch a="d"/>e w tym mom<ch a="A7"/>enci<ch a="d"/>e</row>
-			<row important_over="false">Ż<ch a="g"/>yć ci prz<ch a="C"/>yszło w kr<ch a="F"/>aju nad W<ch a="g"/>isłą</row>
-			<row important_over="false">T<ch a="A7"/>y to masz szczęści<ch a="d"/>e</row>
-			<row important_over="false">Tw<ch a="d"/>ój kraj szczęśl<ch a="A7"/>iw<ch a="d"/>y,<ch a="A7"/> pi<ch a="d"/>ękny, prawdz<ch a="A7"/>iw<ch a="d"/>y</row>
-			<row important_over="false">L<ch a="g"/>udzie ucz<ch a="C"/>ynni, w s<ch a="F"/>ercach niew<ch a="g"/>inni</row>
-			<row important_over="false">Tw<ch a="A7"/>ój kraj szczęśliw<ch a="d"/>y</row>
+			<row important_over="true">T<ch a="d"/>y to masz sz<ch a="A7"/>części<ch a="d"/>e<ch a="A7"/>, ż<ch a="d"/>e w tym mom<ch a="A7"/>enci<ch a="d"/>e</row>
+			<row important_over="true">Ż<ch a="g"/>yć ci prz<ch a="C"/>yszło w kr<ch a="F"/>aju nad W<ch a="g"/>isłą</row>
+			<row important_over="true">T<ch a="A7"/>y to masz szczęści<ch a="d"/>e</row>
+			<row important_over="true">Tw<ch a="d"/>ój kraj szczęśl<ch a="A7"/>iw<ch a="d"/>y,<ch a="A7"/> pi<ch a="d"/>ękny, prawdz<ch a="A7"/>iw<ch a="d"/>y</row>
+			<row important_over="true">L<ch a="g"/>udzie ucz<ch a="C"/>ynni, w s<ch a="F"/>ercach niew<ch a="g"/>inni</row>
+			<row important_over="true">Tw<ch a="A7"/>ój kraj szczęśliw<ch a="d"/>y</row>
 		</block>
 		<block type="verse">
 			<row important_over="false">Było ci<ch a="A"/>emno, więc nie mogłem stwierdzić k<ch a="d"/>omu</row>
@@ -78,28 +75,20 @@
 			<row important_over="false">M<ch a="A7"/>ój kraj szczęśliw<ch a="d"/>y</row>
 		</block>
 	</lyric>
-	<music metre="">
+	<music>
 		<guitar barre="0"/>
 	</music>
+	<keywords/>
 	<status>
-		<done>	
-			
-			
-			
-			
-			
+		<done>
 			<text/>
 			<authors/>
 			<chords>chord positioning</chords>
 		</done>
 		<verificators>
-			<verificator>Onufry</verificator><verificator>Krzysiek Cz.</verificator>
-			
-			
+			<verificator>Onufry</verificator>
+			<verificator>Krzysiek Cz.</verificator>
 		</verificators>
 		<to_do>Nie wiem, jak w takiej sytuacji zapisać bicie. I nie w pełni odpowiadam za rozmieszczenie akordów.</to_do>
-	</status>	<keywords/>
-	<music_source></music_source>
-	<album></album>
-	<genre></genre>
+	</status>
 </song>
