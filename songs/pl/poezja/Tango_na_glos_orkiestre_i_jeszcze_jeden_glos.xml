@@ -15,13 +15,13 @@
 			<row important_over="true">Ten głos, ten głos, ten głos</row>
 		</block>
 		<block type="verse">
-			<row important_over="true">Podejdź bl<ch a="A"/>iżej, więc podszedłem jak skrusz<ch a="d"/>ony obywatel</row>
-			<row important_over="true">do przedstawiciela władzy</row>
-			<row important_over="true">Podejdź bl<ch a="A7"/>iżej, już wiedziałem że uci<ch a="d"/>eczka błyskawiczna</row>
-			<row important_over="true">tu niczemu nie zaradzi</row>
-			<row important_over="true">Więc posz<ch a="B"/>edłem, posłuchałem, było ci<ch a="E"/>emno,</row>
-			<row important_over="true">wciąż myślałem cz<ch a="A"/>yj</row>
-			<row important_over="true">Ten głos, ten głos, ten głos</row>
+			<row important_over="false">Podejdź bl<ch a="A"/>iżej, więc podszedłem jak skrusz<ch a="d"/>ony obywatel</row>
+			<row important_over="false">do przedstawiciela władzy</row>
+			<row important_over="false">Podejdź bl<ch a="A7"/>iżej, już wiedziałem że uci<ch a="d"/>eczka błyskawiczna</row>
+			<row important_over="false">tu niczemu nie zaradzi</row>
+			<row important_over="false">Więc posz<ch a="B"/>edłem, posłuchałem, było ci<ch a="E"/>emno,</row>
+			<row important_over="false">wciąż myślałem cz<ch a="A"/>yj</row>
+			<row important_over="false">Ten głos, ten głos, ten głos</row>
 		</block>
 		<block type="verse">
 			<row important_over="false">To nie wr<ch a="A"/>óg był, bo głos cichy i subt<ch a="d"/>elny</row>
