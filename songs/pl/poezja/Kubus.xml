@@ -1,13 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Kubuś">
-	<alias></alias>
-	<text_author type="solo"></text_author>
-	<comment></comment>
-	<composer type="solo"></composer>
-	<artist type="solo"></artist>
-	<translator></translator>
-	<original_title></original_title>
-	<lyric xmlns="http://21wdh.staszic.waw.pl">
+	<lyric>
 		<block type="verse">
 			<row important_over="true">Na st<ch a="e"/>ole st<ch a="A"/>oi waz<ch a="D"/>onik,</row>
 			<row important_over="true">Pierd<ch a="e"/>ut w waz<ch a="A"/>onik kami<ch a="D"/>eniem,</row>
@@ -27,7 +20,7 @@
 		<block type="verse">
 			<row important_over="false">Dziadk<ch a="e"/>owi, co od l<ch a="A"/>at trzydzi<ch a="D"/>estu</row>
 			<row important_over="false">Faj<ch a="e"/>eczkę ćm<ch a="A"/>i nałog<ch a="D"/>owo,</row>
-			<row important_over="false">Zami<ch a="G"/>eniam tytoń ,,Amf<ch a="D"/>ora''</row>
+			<row important_over="false">Zami<ch a="G"/>eniam tytoń „Amf<ch a="D"/>ora”</row>
 			<row important_over="false">Z miesz<ch a="e"/>anką ciut ciut wybuch<ch a="A"/>ową.</row>
 			<row important_over="false">Gdy dzi<ch a="e"/>adek się w n<ch a="A"/>ocy ob<ch a="D"/>udził,</row>
 			<row important_over="false">Faj<ch a="e"/>eczkę zap<ch a="A"/>alił po ci<ch a="D"/>chu,</row>
@@ -64,20 +57,19 @@
 			<row important_over="false">Przepr<ch a="e"/>aszam dziś naród za m<ch a="A"/>ały.</row>
 		</block>
 	</lyric>
-	
 	<music metre="3/4">
 		<guitar barre="0"/>
 	</music>
+	<keywords/>
+	<genre>piosenka kabaretowa</genre>
 	<status>
-		<verificators><verificator>Michał</verificator>
-			
-		</verificators>
-		<to_do>Nie znalazłem autora</to_do>	<done>
+		<done>
 			<text/>
 			<chords>chord positioning</chords>
 		</done>
-	</status>	<keywords/>
-	<music_source></music_source>
-	<album></album>
-	<genre>piosenka kabaretowa</genre>
+		<verificators>
+			<verificator>Michał</verificator>
+		</verificators>
+		<to_do>Nie znalazłem autora</to_do>
+	</status>
 </song>
