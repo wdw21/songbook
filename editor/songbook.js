@@ -77,15 +77,15 @@ export class SongEditor extends HTMLElement {
     <datalist id="genres">
       <option>Kolęda</option>
       <option>Piosenka harcerska</option>
+      <option>Piosenka harcerska - parodia</option>
       <option>Piosenka kabaretowa</option>
       <option>Piosenka turystyczna</option>
       <option>Piosenka turystyczna górska</option>
       <option>Pieśń ludowa</option>
       <option>Poezja śpiewana</option>
+      <option>Pop</option>
       <option>Rock</option>
       <option>Szanta</option>
-      <option>Parodia</option>
-      <option>Przeróbka</option>
       <option>Inna</option>
     </datalist> 
     
