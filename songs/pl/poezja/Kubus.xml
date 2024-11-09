@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Kubuś">
+	<alias>Walczyk grzecznego Kubusia</alias>
+	<text_author type="solo">Waldemar Chyliński lub Jacek Zwoźniak</text_author>
+	<comment>Tu znalazłem nagranie: 
+
+https://youtu.be/PPqOC3jT334?si=5hVan1O3PxRJ36jN&amp;t=4326</comment>
+	<artist type="band">OCIPIEC</artist>
 	<lyric>
 		<block type="verse">
 			<row important_over="true">Na st<ch a="e"/>ole st<ch a="A"/>oi waz<ch a="D"/>onik,</row>
@@ -61,7 +67,7 @@
 		<guitar barre="0"/>
 	</music>
 	<keywords/>
-	<genre>piosenka kabaretowa</genre>
+	<genre>Piosenka kabaretowa</genre>
 	<status>
 		<done>
 			<text/>
@@ -70,6 +76,5 @@
 		<verificators>
 			<verificator>Michał</verificator>
 		</verificators>
-		<to_do>Nie znalazłem autora</to_do>
 	</status>
 </song>
