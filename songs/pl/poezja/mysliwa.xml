@@ -1,13 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<song title="Myśliwa" xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd">
-	<alias></alias>
-	<text_author type="solo"></text_author>
-	<comment></comment>
-	<composer type="solo"></composer>
-	<artist type="solo"></artist>
-	<translator></translator>
-	<original_title></original_title>
-	<lyric xmlns="http://21wdh.staszic.waw.pl">
+<?xml version="1.0" encoding="utf-8"?>
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Myśliwa">
+	<lyric>
 		<block type="verse">
 			<row important_over="false"><ch a="a"/> Jak fantastycznie b<ch a="G"/>yć myśliwą</row>
 			<row important_over="false"><ch a="a"/> Potrząsać złotą pł<ch a="G"/>ową grzywą</row>
@@ -26,8 +19,7 @@
 			<row important_over="false">Na ł<ch a="a"/>owy, na ł<ch a="G"/>owy</row>
 			<row important_over="false">C<ch a="a"/>o tam okres g<ch a="G"/>odowy</row>
 			<row important_over="false">N<ch a="a"/>a tygrysa, na b<ch a="G"/>yka</row>
-			<row important_over="false">
-				<ch a="a"/>I niech gr<ch a="G"/>a muz<ch a="a"/>yka</row>
+			<row important_over="false"><ch a="a"/>I niech gr<ch a="G"/>a muz<ch a="a"/>yka</row>
 		</block>
 		<block type="verse">
 			<row important_over="false"><ch a="a"/> Gdy polowanie r<ch a="G"/>ozpoczynam</row>
@@ -44,21 +36,17 @@
 	<music metre="2/2">
 		<guitar barre="0"/>
 	</music>
-	<keywords></keywords>
-	<album></album>
+	<keywords/>
 	<genre>Inna</genre>
 	<status>
-		<done>	
-			
+		<done>
 			<text/>
 			<chords>chord positioning</chords>
 		</done>
 		<verificators>
-			<verificator>Onufry</verificator><verificator>Krzysiek Cz.</verificator>
-			
-			
+			<verificator>Onufry</verificator>
+			<verificator>Krzysiek Cz.</verificator>
 		</verificators>
 		<to_do>Puściłem po płomieniu pytanie, czyje to jest, zobaczymy, czy będzie jakiś efekt.</to_do>
 	</status>
-	<music_source></music_source>
 </song>
