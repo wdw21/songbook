@@ -5,45 +5,7 @@
     <title>Śpiewnik</title>
     <link href="songs_html/CSS/template.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <script>
-        function edit(file) {
-            let d = document.createElement('form');
-            d.setAttribute("action", "https://ghe.songbook.21wdw.org/users/me/changes:new")
-            d.setAttribute("method", "post")
-            let i = document.createElement("input")
-            i.setAttribute("type", "hidden")
-            i.setAttribute("name", "file")
-            i.setAttribute("value", file)
-            d.appendChild(i);
-
-            document.body.appendChild(d);
-            d.submit();
-        }
-        function filterSongs() {
-            // 1. Get references to the input and the list
-            const input = document.getElementById('songSearch');
-            const filter = input.value.toUpperCase();
-            const ul = document.getElementById('songs');
-            const li = ul.getElementsByTagName('li');
-
-            // 2. Loop through all list items
-            for (let i = 0; i < li.length; i++) {
-                // 3. Find the link (a) inside the list item
-                const a = li[i].getElementsByTagName("a")[0];
-                if (a) {
-                    // 4. Get the text content of the link
-                    const txtValue = a.textContent || a.innerText;
-
-                    // 5. Check if the song title includes the filter text
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        li[i].style.display = ""; // Show the list item
-                    } else {
-                        li[i].style.display = "none"; // Hide the list item
-                    }
-                }
-            }
-        }
-    </script>
+    <script type="text/javascript" src="index.js"> </script>
 </head>
 <body>
 <div>
@@ -60,7 +22,7 @@
     <h2>Piosenki</h2>
     <div class="search-container">
         <label for="songSearch" class="search-label">Szukaj piosenki:</label>
-        <input type="text" id="songSearch" onkeyup="filterSongs()" placeholder="szukam... szukania mi trzeba" />
+        <input tabindex="1" autofocus="autofocus" type="text" id="songSearch" onkeyup="filterSongs()" placeholder="szukam... szukania mi trzeba" />
     </div>
     <ul id="songs">
     </ul>
