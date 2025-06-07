@@ -129,7 +129,7 @@ span.chords span.ch {
 span.chords {
   padding-left: 1em;
   padding-right: 1em;
-  max-width: 7em;
+  max-width: 10em;
   overflow-wrap: break-word;
 
   /* not sure if needed... commenting for now*/
