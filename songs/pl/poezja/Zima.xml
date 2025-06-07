@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<song title="Zima" xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd">
-	<alias></alias>
+<song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Zima">
 	<text_author type="solo">Robert Leonhard</text_author>
-	<comment></comment>
 	<composer type="solo">Robert Leonhard</composer>
 	<artist type="band">Małżeństwo z Rozsądku</artist>
-	<translator></translator>
-	<original_title></original_title>
-	<lyric xmlns="http://21wdh.staszic.waw.pl">
+	<lyric>
 		<block type="verse">
 			<row important_over="false">Zima znów się zaczyna<ch a="D7+"/><ch a="G*"/><ch a="D7+"/><ch a="G*"/></row>
 			<row important_over="false">Tak samo wtedy padał śnieg<ch a="D7+"/><ch a="G*"/><ch a="D7+"/></row>
@@ -47,20 +43,11 @@
 			<row important_over="false">Szukając wciąż siebie</row>
 		</block>
 	</lyric>
-	<music metre="">
-		<guitar/>
-	</music>
-	<keywords></keywords>
-	<album></album>
-	<genre></genre>
+	<keywords/>
 	<status>
-		<done>
-		</done>
+		<done/>
 		<verificators>
 			<verificator>Onufry</verificator>
-			
 		</verificators>
-		<to_do></to_do>
 	</status>
-	<music_source></music_source>
 </song>
