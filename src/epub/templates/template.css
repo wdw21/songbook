@@ -1,3 +1,95 @@
+/* style.css */
+
+/* --- General Body and Typography --- */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+    line-height: 1.6;
+    margin: 0;
+    padding: 2em;
+}
+
+h2 {
+    color: #343a40;
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 0.5em;
+    margin-top: 2em;
+    font-weight: 500;
+}
+
+a {
+    color: #0056b3;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+/* --- Top Navigation --- */
+body > div:first-of-type {
+    background-color: #ffffff;
+    padding: 1em 2em;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2em;
+    display: flex;
+    gap: 1.5em;
+    align-items: center;
+}
+
+body > div:first-of-type a {
+    font-weight: 500;
+}
+
+
+/* --- Songbooks Section --- */
+#songbooks {
+    list-style: none;
+    padding: 0;
+}
+
+#songbooks li {
+    font-weight: bold;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+#songbooks a {
+    display: inline-block;
+    background-color: #6c757d;
+    color: #ffffff;
+    padding: 0.3em 0.8em;
+    border-radius: 4px;
+    font-size: 0.8em;
+    margin-right: 0.5em;
+    text-transform: uppercase;
+}
+
+#songbooks a:hover {
+    background-color: #5a6268;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+#songbooks a.epub {
+    background-color: #28a745;
+}
+#songbooks a.epub:hover {
+    background-color: #218838;
+}
+
+#songbooks a.pdf {
+    background-color: #dc3545;
+}
+#songbooks a.pdf:hover {
+    background-color: #c82333;
+}
+
+
 /* --- Main Song List --- */
 #songs {
     list-style-type: none;
@@ -42,8 +134,7 @@
     border: none;
     cursor: pointer;
     padding: 0;
-    margin-left: auto; /* Pushes the icon to the right */
-    padding-left: 1em;  /* Ensures space between title and icon */
+    margin-right: 1em; /* Spacing between icon and song title */
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -63,4 +154,11 @@
 
 .editicon:hover .material-symbols-outlined {
     color: #007bff;
+}
+
+/* --- Kindle Link Paragraph --- */
+p {
+    margin-top: 1.5em;
+    font-style: italic;
+    color: #6c757d;
 }
