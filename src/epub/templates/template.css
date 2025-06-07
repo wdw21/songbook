@@ -30,7 +30,7 @@ a:hover {
 }
 
 /* --- Top Navigation --- */
-body > div:first-of-type {
+div.top-navigation {
     background-color: #ffffff;
     padding: 1em 2em;
     border-radius: 8px;
@@ -41,7 +41,7 @@ body > div:first-of-type {
     align-items: center;
 }
 
-body > div:first-of-type a {
+div.top-navigation a {
     font-weight: 500;
 }
 
