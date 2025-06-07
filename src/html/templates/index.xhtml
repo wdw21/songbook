@@ -1,34 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
 <head>
     <title>Śpiewnik</title>
-    <link href="songs_html/CSS/template.css" rel="stylesheet" type="text/css"/>
+    <link href="songs_html/CSS/template.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <script>
-        function edit(file) {
-            let d = document.createElement('form');
-            d.setAttribute("action", "https://ghe.songbook.21wdw.org/users/me/changes:new")
-            d.setAttribute("method", "post")
-            let i = document.createElement("input")
-            i.setAttribute("type", "hidden")
-            i.setAttribute("name", "file")
-            i.setAttribute("value", file)
-            d.appendChild(i);
-
-            document.body.appendChild(d);
-            d.submit();
-        }
-    </script>
-    <style>
-        button {
-            background-color: #bc484800;
-            border: none;
-            height: 5px;
-            margin-right: 2em;
-            font-size: small;
-            cursor: pointer;
-        }
-    </style>
+    <script type="text/javascript" src="index.js"> </script>
 </head>
 <body>
 <div>
@@ -43,6 +20,10 @@
     <p>Wersję na Kindla możesz wgrać używając: <a href="https://www.amazon.com/sendtokindle">https://www.amazon.com/sendtokindle</a></p>
     <!--INJECT HERE-->
     <h2>Piosenki</h2>
+    <div class="search-container">
+        <label for="songSearch" class="search-label">Szukaj piosenki:</label>
+        <input tabindex="1" autofocus="autofocus" type="text" id="songSearch" onkeyup="filterSongs()" placeholder="szukam... szukania mi trzeba" />
+    </div>
     <ul id="songs">
     </ul>
 </body>

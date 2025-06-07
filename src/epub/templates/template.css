@@ -162,3 +162,26 @@ p {
     font-style: italic;
     color: #6c757d;
 }
+
+/* Optional: Simple styling for the search box */
+.search-container {
+    background-color: #ffffff;
+    padding: 1em 1.5em;
+    margin-top: 2em;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.search-label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: 500;
+    color: #343a40;
+}
+#songSearch {
+    width: 100%;
+    padding: 0.75em;
+    font-size: 1em;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
