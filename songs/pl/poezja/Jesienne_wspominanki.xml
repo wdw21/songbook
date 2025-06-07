@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <song xmlns="http://21wdh.staszic.waw.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://21wdh.staszic.waw.pl https://songbook.21wdw.org/song.xsd" title="Jesienne wspominanki">
-  <alias/>
-  <text_author>Maciej Służała</text_author>
-  <comment/>
-  <composer type="solo"/>
-  <artist type="solo"/>
-  <translator/>
-  <original_title/>
+  <text_author type="solo">Maciej Służała</text_author>
   <lyric>
     <block type="verse">
       <row important_over="false"><ch a="C"/>Letnich wieczorów wspomnienie<ch a="E"/><ch a="a7"/></row>
@@ -47,11 +41,12 @@
     </block>
     <blocklink blocknb="2"/>
   </lyric>
-  <music metre="">
+  <music>
     <guitar barre="0"/>
   </music>
+  <keywords/>
   <status>
+    <done/>
     <verificators/>
-    <to_do/>
   </status>
 </song>
