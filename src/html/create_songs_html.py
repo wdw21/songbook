@@ -114,9 +114,11 @@ def _add_creator(creator, describe, parent):
     span_content = etree.SubElement(div, "span", attrib={"class": "content_creator"})
     span_content.text = creator
 
-def _add_blocks(song, parent):
+def _add_blocks(song, parent, top_navigation = None):
     """class song -> html div body # blok z metadanymi o piosence i piosenką"""
     body_song = etree.SubElement(parent, "body", attrib={"class": "song", etree.QName("http://www.idpf.org/2007/ops", "type"):"bodymatter"})
+    if top_navigation is not None:
+        body_song.append(top_navigation)
     h1_title = etree.SubElement(body_song, "h1", attrib={"class": "title", "id": "title"})
     h1_title.text = song.title
     if song.original_title:
@@ -182,10 +184,14 @@ def xml2html(src_xml_path, path_out, song_suffix):  # tworzy piosenkę w wersji 
     head = etree.SubElement(root_html, "head")
     etree.SubElement(head, "link",
                      attrib={"rel": "stylesheet", "type": "text/css", "href": "CSS/song.css", "media": "all"})
-    etree.SubElement(head, "link",
-                     attrib={"rel": "stylesheet", "type": "text/css", "href": "CSS/template.css", "media": "all"})
-   # etree.SubElement(head, "script", attrib={"src": "./song.js"})
-    _add_blocks(song, root_html)
+    etree.SubElement(head, "link", attrib={"rel": "stylesheet", "type": "text/css", "href": "CSS/template.css", "media": "all"})
+    etree.SubElement(head, "script", attrib={"type": "text/javascript", "src": "index.js", "media": "all"})
+
+    top_navigation = etree.parse(os.path.join(".","./src/html/templates/_top_navigation_song.xhtml"))
+    top_navigation_button = top_navigation.find(".//{http://www.w3.org/1999/xhtml}a[@class='edit']")
+    top_navigation_button.attrib["onclick"] = "edit('" + src_xml_path.partition("/songs/")[2]+ "'); return false;"
+
+    _add_blocks(song, root_html, top_navigation.getroot())
     title = etree.SubElement(head, "title")
     title.text = song.title
     et = etree.ElementTree(root_html)
