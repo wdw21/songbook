@@ -8,9 +8,15 @@ from lxml import etree
 
 
 def create_index_xhtml(list_of_songs_meta, target_dir):
+
     tmp_path = 'index.xhtml'
     out_path = os.path.join(target_dir, tmp_path)
     tree = etree.parse(os.path.join(sb.repo_dir(), "./src/html/templates/index.xhtml"))
+
+    top_nav = tree.getroot().find(".//{http://www.w3.org/1999/xhtml}div[@class='top-navigation']")
+    top_navigation = etree.parse(os.path.join(sb.repo_dir(), "./src/html/templates/_top_navigation_index.xhtml"))
+    parent = top_nav.getparent()
+    parent.replace(top_nav, top_navigation.getroot())
 
     # List of songs
     ul = tree.getroot().find(".//{http://www.w3.org/1999/xhtml}ul[@id='songs']")
