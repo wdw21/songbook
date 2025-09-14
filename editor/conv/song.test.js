@@ -6,7 +6,7 @@ describe('html2xmlstr tests', () => {
     test('simple', () => {
         let html = `
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl-PL">
 <head>
     <title>Ballada o smutnym skinie - Big Cyc, Chwyty na gitarę</title>
     <link rel="canonical" href="ballada-o-smutnym-skinie.html">

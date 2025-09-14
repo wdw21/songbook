@@ -23,3 +23,5 @@ PYTHONPATH="${__dir}" python3 "${__dir}/src/html/htmls_generator.py"
 PYTHONPATH="${__dir}" python3 "${__dir}/src/html/index_generator.py"
 cd "${__dir}/build/"
 zip -r songs_html.zip songs_html
+
+ln -s ../../_site/index.js songs_html/index.js
