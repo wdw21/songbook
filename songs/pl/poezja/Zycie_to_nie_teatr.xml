@@ -20,6 +20,7 @@
       <row important_over="never"><ch a="a"/>Ty - ty prawdziwej nie uronisz łzy.<ch a="E"/><ch a="E7"/><ch a="a"/></row>
       <row important_over="never"><ch a="F"/>Ty najwyżej w górę wznosisz brwi.</row>
       <row important_over="never"><ch a="G"/>Nawet kiedy źle Ci jest, to nie jest źle.<ch a="C"/></row>
+      <row important_over="never">Bo ty grasz!</row>
       <row important_over="never">Ja - duszę na ramieniu ciągle mam.</row>
       <row important_over="never">Cały zbudowany jestem z ran.</row>
       <row important_over="never">Lecz kaleka nie ja jestem, tylko ty!</row>
@@ -47,7 +48,6 @@
       <row important_over="false">Cały jestem zbudowany z ran.</row>
       <row important_over="false">Lecz gdy śmieje się, to wkrąg się śmieje świat!</row>
     </block>
-    <block type="chorus"/>
   </lyric>
   <music>
     <guitar barre="0"/>
